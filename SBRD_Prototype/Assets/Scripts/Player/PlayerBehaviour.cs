@@ -12,8 +12,18 @@ public class PlayerBehaviour : MonoBehaviour
     public float waitToShoot;
     public GameObject playerObject;
     public GameObject bullet;
+    private Transform bulletSpawn;
+    public float points;
+    public float fireRate;
+    private float nextFire = 0f;
 
     //Methods
+
+    public void Start()
+    {
+        points = 0f;
+    }
+
     private void Update()
     {
         Plane playerPlane = new Plane(Vector3.up, transform.position);
@@ -30,8 +40,9 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         //Shooting
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && Time.time > nextFire)
         {
+            nextFire = Time.time + fireRate;
             Shoot();
         }
     }
@@ -59,7 +70,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
+        bulletSpawn = Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
+        bulletSpawn.rotation = bulletSpawnPoint.transform.rotation;
     }
 
 }
