@@ -10,8 +10,14 @@ public class BulletBehaviour : MonoBehaviour
     public float damage;
 
     private GameObject triggeringEnemy;
+    private GameObject player;
 
     //Methods
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -32,5 +38,12 @@ public class BulletBehaviour : MonoBehaviour
             triggeringEnemy.GetComponent<EnemyBehaviour>().enemyHealth -= damage;
             Destroy(this.gameObject);
         }
+
+        if (other.tag == "Player")
+        {
+            player.GetComponent<PlayerBehaviour>().health -= 20;
+            Destroy(this.gameObject);
+        }
     }
+
 }
