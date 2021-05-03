@@ -44,6 +44,12 @@ public class BulletBehaviour : MonoBehaviour
             player.GetComponent<PlayerBehaviour>().health -= 20;
             Destroy(this.gameObject);
         }
+
+        if (other.tag == "Player2")
+        {
+            player.GetComponent<PlayerBehaviour>().health -= 20;
+            Destroy(this.gameObject);
+        }
     }
 
 }
