@@ -11,11 +11,13 @@ public class BulletBehaviour : MonoBehaviour
 
     private GameObject triggeringEnemy;
     private GameObject player;
+    private GameObject player2;
 
     //Methods
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
+        player2 = GameObject.FindWithTag("Player2");
     }
 
     // Update is called once per frame
@@ -47,7 +49,7 @@ public class BulletBehaviour : MonoBehaviour
 
         if (other.tag == "Player2")
         {
-            player.GetComponent<PlayerBehaviour>().health -= 20;
+            player2.GetComponent<Player2Behaviour>().health -= 20;
             Destroy(this.gameObject);
         }
     }
