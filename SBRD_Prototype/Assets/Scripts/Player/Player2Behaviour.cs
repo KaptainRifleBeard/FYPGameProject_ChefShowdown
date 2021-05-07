@@ -22,6 +22,8 @@ public class Player2Behaviour : MonoBehaviour
     public Vector3 moveVelocity;
     private Rigidbody myRigidbody;
 
+    public bool player1Wins;
+
     //Methods
 
     public void Start()
@@ -29,6 +31,7 @@ public class Player2Behaviour : MonoBehaviour
         points = 0f;
         health = maxHealth;
         myRigidbody = GetComponent<Rigidbody>();
+        player1Wins = false;
     }
 
     private void Update()
@@ -72,5 +75,6 @@ public class Player2Behaviour : MonoBehaviour
     {
         Debug.Log("You died");
         Destroy(this.gameObject);
+        player1Wins = true;
     }
 }

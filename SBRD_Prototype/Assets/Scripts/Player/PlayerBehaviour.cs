@@ -18,6 +18,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float nextFire = 0f;
     public float maxHealth = 100f;
     public float health;
+    public bool player2Wins;
 
     //Methods
 
@@ -25,6 +26,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         points = 0f;
         health = maxHealth;
+        player2Wins = false;
     }
 
     private void Update()
@@ -87,6 +89,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Debug.Log("You died");
         Destroy(this.gameObject);
+        player2Wins = true;
     }
 
 }
