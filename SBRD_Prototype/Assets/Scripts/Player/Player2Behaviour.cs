@@ -23,6 +23,7 @@ public class Player2Behaviour : MonoBehaviour
     private Rigidbody myRigidbody;
 
     public bool player1Wins;
+    public Healthbar healthBar;
 
     //Methods
 
@@ -32,6 +33,7 @@ public class Player2Behaviour : MonoBehaviour
         health = maxHealth;
         myRigidbody = GetComponent<Rigidbody>();
         player1Wins = false;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void Update()
@@ -51,6 +53,9 @@ public class Player2Behaviour : MonoBehaviour
             nextFire = Time.time + fireRate;
             Shoot();
         }
+
+        //Player Taking Damage
+        healthBar.SetHeatlh(health);
 
         //Player Death
         if (health <= 0)

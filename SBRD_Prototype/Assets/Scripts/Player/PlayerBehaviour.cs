@@ -19,6 +19,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float maxHealth = 100f;
     public float health;
     public bool player2Wins;
+    public Healthbar healthBar;
 
     //Methods
 
@@ -27,6 +28,7 @@ public class PlayerBehaviour : MonoBehaviour
         points = 0f;
         health = maxHealth;
         player2Wins = false;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void Update()
@@ -50,6 +52,9 @@ public class PlayerBehaviour : MonoBehaviour
             nextFire = Time.time + fireRate;
             Shoot();
         }
+
+        //Player Taking Damage
+        healthBar.SetHeatlh(health);
 
         //Player Death
         if (health <= 0)
