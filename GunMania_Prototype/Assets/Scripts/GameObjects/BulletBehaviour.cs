@@ -52,6 +52,10 @@ public class BulletBehaviour : MonoBehaviour
             player2.GetComponent<Player2Behaviour>().health -= 20;
             Destroy(this.gameObject);
         }
+        if (other.tag == "Cover")
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 }
