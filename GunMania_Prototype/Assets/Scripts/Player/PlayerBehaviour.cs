@@ -15,11 +15,12 @@ public class PlayerBehaviour : MonoBehaviour
     private Transform bulletSpawn;
     public float points;
     public float fireRate;
-    private float nextFire = 0f;
+    //private float nextFire = 0f;
     public float maxHealth = 100f;
     public float health;
     public bool player2Wins;
     public Healthbar healthBar;
+    public int FoodCarried;
 
     //Methods
 
@@ -29,6 +30,7 @@ public class PlayerBehaviour : MonoBehaviour
         health = maxHealth;
         player2Wins = false;
         healthBar.SetMaxHealth(maxHealth);
+        FoodCarried = 0;
     }
 
     private void Update()
@@ -47,10 +49,10 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         //Shooting
-        if (Input.GetMouseButton(0) && Time.time > nextFire)
+        if (Input.GetMouseButton(0) && FoodCarried >= 1)
         {
-            nextFire = Time.time + fireRate;
             Shoot();
+            FoodCarried -= 1;
         }
 
         //Player Taking Damage
@@ -95,6 +97,15 @@ public class PlayerBehaviour : MonoBehaviour
         Debug.Log("You died");
         Destroy(this.gameObject);
         player2Wins = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "FoodPickup" && FoodCarried < 2)
+        {
+            FoodCarried += 1;
+            Debug.Log(FoodCarried);
+        }
     }
 
 }

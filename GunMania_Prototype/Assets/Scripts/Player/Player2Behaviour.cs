@@ -14,9 +14,10 @@ public class Player2Behaviour : MonoBehaviour
     private Transform bulletSpawn;
     public float points;
     public float fireRate;
-    private float nextFire = 0f;
+    //private float nextFire = 0f;
     public float maxHealth = 100f;
     public float health;
+    public int FoodCarried;
 
     public Vector3 moveInput;
     public Vector3 moveVelocity;
@@ -34,6 +35,7 @@ public class Player2Behaviour : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody>();
         player1Wins = false;
         healthBar.SetMaxHealth(maxHealth);
+        FoodCarried = 0;
     }
 
     private void Update()
@@ -48,10 +50,10 @@ public class Player2Behaviour : MonoBehaviour
         }
 
         //Shooting
-        if (Input.GetKeyDown(KeyCode.Joystick1Button2) && Time.time > nextFire)
+        if (Input.GetKeyDown(KeyCode.Joystick1Button2) && FoodCarried >= 1)
         {
-            nextFire = Time.time + fireRate;
             Shoot();
+            FoodCarried -= 1;
         }
 
         //Player Taking Damage
@@ -81,5 +83,14 @@ public class Player2Behaviour : MonoBehaviour
         Debug.Log("You died");
         Destroy(this.gameObject);
         player1Wins = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "FoodPickup" && FoodCarried < 2)
+        {
+            FoodCarried += 1;
+            Debug.Log(FoodCarried);
+        }
     }
 }
