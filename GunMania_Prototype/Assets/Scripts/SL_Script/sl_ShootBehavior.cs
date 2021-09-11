@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test_BulletScript : MonoBehaviour
+public class sl_ShootBehavior : MonoBehaviour
 {
     public Rigidbody bulletPrefab;
     public GameObject cursor;
