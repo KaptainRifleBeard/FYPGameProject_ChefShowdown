@@ -2361,7 +2361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729504443}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0784461, y: -12.100403, z: 2.1741972}
+  m_LocalPosition: {x: 1.0784461, y: -6.1, z: 2.1741972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1519036043}
@@ -5215,7 +5215,6 @@ GameObject:
   - component: {fileID: 1622619981}
   - component: {fileID: 1622619980}
   - component: {fileID: 1622619978}
-  - component: {fileID: 1622619979}
   - component: {fileID: 1622619982}
   m_Layer: 0
   m_Name: PlayerHolder
@@ -5237,31 +5236,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1622619979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622619977}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed9da4ebc64e0942b29ace58486c953, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 20
-  cam: {fileID: 2113532728}
-  bulletSpawnPoint: {fileID: 242276424}
-  waitToShoot: 2
-  playerObject: {fileID: 487013591}
-  bullet: {fileID: 738087397887106752, guid: 2a3658c6a53d56e4499c297b862d28a1, type: 3}
-  points: 0
-  fireRate: 0.5
-  maxHealth: 100
-  health: 0
-  player2Wins: 0
-  healthBar: {fileID: 1672436982}
-  FoodCarried: 0
 --- !u!54 &1622619980
 Rigidbody:
   m_ObjectHideFlags: 0
