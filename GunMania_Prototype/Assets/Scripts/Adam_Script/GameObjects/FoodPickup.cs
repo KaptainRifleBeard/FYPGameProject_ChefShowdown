@@ -20,6 +20,8 @@ public class FoodPickup : MonoBehaviour
                 if(inventory.isFull[i] == false)
                 {
                     inventory.isFull[i] = true;
+                    Debug.Log("FoodStored");
+                    Destroy(gameObject);
                     break;
                 }
             }
