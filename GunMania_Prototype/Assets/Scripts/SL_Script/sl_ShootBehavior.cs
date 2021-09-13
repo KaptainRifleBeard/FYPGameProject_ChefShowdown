@@ -20,8 +20,8 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
-        //LaunchProjectile();
-        ShootStraight();
+        LaunchProjectile();
+        //ShootStraight();
     }
 
 
