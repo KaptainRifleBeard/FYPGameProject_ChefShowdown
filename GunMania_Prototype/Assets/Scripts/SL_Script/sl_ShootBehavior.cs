@@ -6,11 +6,14 @@ public class sl_ShootBehavior : MonoBehaviour
 {
     public Rigidbody bulletPrefab;
     public GameObject cursor;
+
     public Transform shootPosition;
     public Transform attackPosition;
     public LayerMask layer;
 
     private Camera cam;
+
+
 
     void Start()
     {
@@ -20,6 +23,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
+        //Physics.IgnoreLayerCollision(0, 8);
         LaunchProjectile();  //gravity shoot
         //ShootStraight();
     }
@@ -30,7 +34,7 @@ public class sl_ShootBehavior : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit, 100f, layer))
+        if(Physics.Raycast(ray, out hit))
         {
             cursor.SetActive(true);
             cursor.transform.position = hit.point + Vector3.up * 0.1f;
@@ -105,4 +109,5 @@ public class sl_ShootBehavior : MonoBehaviour
         }
 
     }
+
 }

@@ -25,6 +25,10 @@ public class sl_PlayerControl : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        Physics.IgnoreLayerCollision(3, 6);
+    }
 
     void FixedUpdate()
     {
