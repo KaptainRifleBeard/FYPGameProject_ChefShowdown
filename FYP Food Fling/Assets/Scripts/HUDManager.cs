@@ -10,8 +10,8 @@ public class HUDManager : MonoBehaviour
     public Text Timer;
     public GameObject PlayerPortrait,EnemyPotrait;
 
-    public HealthBar PlayerHealth, EnemyHealth;
-    public UltimateBar PlayerUltBar, EnemyUltBar;
+    public HealthBar Healthmanager;    // Wtf have i done?
+    public UltimateBar UltBarManager;
 
     [SerializeField] float timeStart;
     [SerializeField] float MatchDuration;
@@ -33,8 +33,8 @@ public class HUDManager : MonoBehaviour
         timeStart = Time.time;
         Timer.text = MatchDuration.ToString();
 
-        PlayerUltBar.SetMaxBar(MaxUltValue);
-        EnemyUltBar.SetMaxBar(MaxUltValue);
+        UltBarManager.SetMaxBar(MaxUltValue,false);
+        UltBarManager.SetMaxBar(MaxUltValue,true);
     }
 
     // Update is called once per frame
@@ -42,7 +42,7 @@ public class HUDManager : MonoBehaviour
     {
 
 
-        while (PlayerHealth.currenthealth>0 || EnemyHealth.currenthealth>0)
+        while (Healthmanager.currenthealth>0 || Healthmanager.enemyCurrentHealth>0)
         {
             updateTimer();
         }
@@ -60,13 +60,30 @@ public class HUDManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // need to insert damage to healthbar.
+        //refer to gamedesign document for further references.
+
         if (collision.gameObject.tag == "food")
         {
-            PlayerHealth.UpdateHealth(12.5f);
+            if (collision.gameObject.tag == "enemy")
+            {
+                UltBarManager.SetBar(12.5f,true);
+            }
+            else if (collision.gameObject.tag == "player")
+            {
+                UltBarManager.SetBar(12.5f,false);
+            }
         }
         else if (collision.gameObject.tag == "superFood")
         {
-            PlayerHealth.UpdateHealth(25f);
+            if (collision.gameObject.tag == "enemy")
+            {
+                UltBarManager.SetBar(25f,true);
+            }
+            else if (collision.gameObject.tag == "player")
+            {
+                UltBarManager.SetBar(25f,false);
+            }
         }
 
     }
