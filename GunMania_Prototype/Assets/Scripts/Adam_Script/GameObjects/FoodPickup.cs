@@ -4,12 +4,25 @@ using UnityEngine;
 
 public class FoodPickup : MonoBehaviour
 {
+    private Inventory inventory;
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.tag == "Player" || other.tag == "Player2")
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("Player2"))
         {
-            this.gameObject.SetActive(false);
+            for (int i = 0; i < inventory.slots.Length; i++)
+            {
+                if(inventory.isFull[i] == false)
+                {
+                    inventory.isFull[i] = true;
+                    break;
+                }
+            }
         }
     }
 }
