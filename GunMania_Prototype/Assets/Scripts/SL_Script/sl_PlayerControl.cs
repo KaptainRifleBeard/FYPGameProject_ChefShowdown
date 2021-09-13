@@ -7,6 +7,7 @@ public class sl_PlayerControl : MonoBehaviour
     public float speed;
     public float jumpForce;
     public float gravity;
+    public float rotateSpeed;
 
     CharacterController characterController;
     Vector3 direction;
@@ -51,6 +52,13 @@ public class sl_PlayerControl : MonoBehaviour
 
         characterController.Move(direction);
 
+
+        //rotate player
+        if(direction != Vector3.zero)
+        {
+            Quaternion toRotate = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, rotateSpeed * Time.deltaTime);
+        }
     }
 
 

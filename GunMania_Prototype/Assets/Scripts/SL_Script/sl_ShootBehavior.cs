@@ -20,7 +20,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
-        LaunchProjectile();
+        LaunchProjectile();  //gravity shoot
         //ShootStraight();
     }
 
