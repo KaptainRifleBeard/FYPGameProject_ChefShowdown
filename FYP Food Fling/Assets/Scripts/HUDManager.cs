@@ -6,17 +6,89 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
+    const string plus = "+", equals = "=",space =" ";
+    Sprite empty;
+    // constant declaration to avoid having to redo constantly;
+
 
     public Text Timer;
-    public GameObject PlayerPortrait,EnemyPotrait;
+    public GameObject PlayerPortrait,EnemyPotrait,PlayerTagPortrait,EnemyTagPortrait;
 
     public HealthBar Healthmanager;    // Wtf have i done?
-    public UltimateBar UltBarManager;   
+    public UltimateBar UltBarManager;
+
+    [Header ("PlayerFoodItems")]
+    public Image playerfood1, playerfood2, foodCombo;
+    public Text playerPlus, PlayerEquals;
+
+    [Header("Player2FoodItems")]
+    public Image opponentfood1, opponentfood2, opponentfoodCombo;
+    public Text opponentPlus, OpponentEquals;
 
     [SerializeField] float timeStart;
     [SerializeField] float MatchDuration;
     [SerializeField] float MaxUltValue = 100f;
     
+    public void TagPartner(Image current,Image partner)
+    {
+        var temp = current.sprite;
+
+        current.sprite = partner.sprite;
+
+        partner.sprite = temp;
+    }
+
+    public void SuperFoodAvailable(Sprite superfoodItem,bool isPlayer1)
+    {
+        if (isPlayer1 == true)
+        {
+            playerPlus.text = plus;
+            PlayerEquals.text = equals;
+            foodCombo.sprite = superfoodItem;
+        }
+        else
+        {
+            opponentPlus.text = plus;
+            OpponentEquals.text = equals;
+            opponentfoodCombo.sprite = superfoodItem;
+        }
+    }
+
+    public void ClearSuperFood(bool isPlayer)
+    {
+        if (isPlayer == true)
+        {
+            playerPlus.text = space;
+            PlayerEquals.text = space;
+            foodCombo.sprite = empty;
+        }
+        else
+        {
+            opponentPlus.text = space;
+            OpponentEquals.text = space;
+            opponentfoodCombo.sprite = empty;
+        }
+
+
+    }
+
+    public void GenerateSuperFood(bool isPlayer)
+    {
+        if (isPlayer == true)
+        {
+            playerfood1 = foodCombo;
+            playerfood2.sprite = empty;
+            ClearSuperFood(true);
+        }
+        else
+        {
+            opponentfood1 = opponentfoodCombo;
+            opponentfood2.sprite = empty;
+            ClearSuperFood(false);
+        }
+    }
+
+
 
     private void updateTimer()
     {
@@ -42,9 +114,13 @@ public class HUDManager : MonoBehaviour
     {
 
 
-        while (Healthmanager.currenthealth>0 || Healthmanager.enemyCurrentHealth>0)
+        if (Healthmanager.currenthealth>0 || Healthmanager.enemyCurrentHealth>0)
         {
             updateTimer();
+        }
+        else
+        {
+            
         }
 
         // countdown timer
