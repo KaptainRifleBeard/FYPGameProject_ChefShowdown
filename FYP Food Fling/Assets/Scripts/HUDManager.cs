@@ -136,7 +136,7 @@ public class HUDManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // need to insert damage to healthbar.
+        // need to insert damage to healthbar, retrieve food damage value from object value.
         //refer to gamedesign document for further references.
 
         if (collision.gameObject.tag == "food")
