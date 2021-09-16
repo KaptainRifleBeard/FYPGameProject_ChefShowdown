@@ -11,7 +11,7 @@ public class HUDManager : MonoBehaviour
     public GameObject PlayerPortrait,EnemyPotrait;
 
     public HealthBar Healthmanager;    // Wtf have i done?
-    public UltimateBar UltBarManager;
+    public UltimateBar UltBarManager;   
 
     [SerializeField] float timeStart;
     [SerializeField] float MatchDuration;
