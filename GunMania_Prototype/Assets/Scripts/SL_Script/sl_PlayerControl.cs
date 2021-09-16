@@ -13,6 +13,7 @@ public class sl_PlayerControl : MonoBehaviour
     CharacterController characterController;
     Vector3 direction;
     Vector3 targetPosition;
+    Vector3 mousePos;
 
     public GameObject cursor;
 
@@ -46,6 +47,14 @@ public class sl_PlayerControl : MonoBehaviour
         }
 
 
+        //Always look at mouse
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+        }
     }
 
     private bool PlayerJumped => characterController.isGrounded && Input.GetKey(KeyCode.Space);
@@ -99,7 +108,7 @@ public class sl_PlayerControl : MonoBehaviour
             myAgent.SetDestination(hit.point);
 
             //targetPosition = hit.point;
-            //this.transform.LookAt(targetPosition);
+            this.transform.LookAt(targetPosition);
 
         }
     }
