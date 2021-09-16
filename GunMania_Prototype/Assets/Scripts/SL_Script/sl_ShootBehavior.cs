@@ -23,11 +23,17 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
-        //Physics.IgnoreLayerCollision(0, 8);
         LaunchProjectile();  //gravity shoot
         //ShootStraight();
+
+        //Test();
     }
 
+    void Test()
+    {
+        Vector3 dir = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 50.0f));
+        cursor.transform.position = dir;
+    }
 
     void LaunchProjectile()
     {
@@ -36,14 +42,15 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit))
         {
-            cursor.SetActive(true);
-            cursor.transform.position = hit.point + Vector3.up * 0.1f;
+            //cursor.SetActive(true);
+            //cursor.transform.position = hit.point + Vector3.up * 0.1f;
+            //cursor.transform.position = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.transform.position.z + 60.0f));
 
             Vector3 vel = CalculateVelocity(hit.point, shootPosition.position, 1f);
-            transform.rotation = Quaternion.LookRotation(vel);
+            //transform.rotation = Quaternion.LookRotation(vel);
 
 
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
                 bullet.velocity = vel;
@@ -52,7 +59,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         else
         {
-            cursor.SetActive(false);
+            //cursor.SetActive(false);
         }
 
     }

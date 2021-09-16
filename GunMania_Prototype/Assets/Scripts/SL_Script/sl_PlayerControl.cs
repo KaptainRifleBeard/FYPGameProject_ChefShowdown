@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class sl_PlayerControl : MonoBehaviour
 {
@@ -11,12 +12,22 @@ public class sl_PlayerControl : MonoBehaviour
 
     CharacterController characterController;
     Vector3 direction;
+    Vector3 targetPosition;
+
+    public GameObject cursor;
 
     public bool isGrounded;
+
+
+    //NavMesh AI movement for click to move
+    public LayerMask whatCanBeClickOn;
+    private NavMeshAgent myAgent;
+
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        myAgent = GetComponent<NavMeshAgent>();
     }
 
 
@@ -27,10 +38,20 @@ public class sl_PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        Physics.IgnoreLayerCollision(3, 6);
+        //Movement();
+
+        if(Input.GetMouseButton(1))
+        {
+            MoveToClickLocation();
+        }
+
+
     }
 
-    void FixedUpdate()
+    private bool PlayerJumped => characterController.isGrounded && Input.GetKey(KeyCode.Space);
+
+
+    public void Movement()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -45,7 +66,7 @@ public class sl_PlayerControl : MonoBehaviour
         {
             direction.y = jumpForce;
         }
-        else if(characterController.isGrounded)
+        else if (characterController.isGrounded)
         {
             direction.y = 0f;
         }
@@ -58,14 +79,28 @@ public class sl_PlayerControl : MonoBehaviour
 
 
         //rotate player
-        if(direction != Vector3.zero)
+        if (Vector3.Distance(transform.position, cursor.transform.position) >= 5f) //vector3.distance
         {
-            Quaternion toRotate = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, rotateSpeed * Time.deltaTime);
+            //Quaternion toRotate = Quaternion.LookRotation(direction, Vector3.up);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, rotateSpeed * Time.deltaTime);
+
+            transform.LookAt(cursor.transform.position);
+
         }
     }
 
+    public void MoveToClickLocation()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
+        if (Physics.Raycast(ray, out hit))
+        {
+            myAgent.SetDestination(hit.point);
 
-    private bool PlayerJumped => characterController.isGrounded && Input.GetKey(KeyCode.Space);
+            //targetPosition = hit.point;
+            //this.transform.LookAt(targetPosition);
+
+        }
+    }
 }
