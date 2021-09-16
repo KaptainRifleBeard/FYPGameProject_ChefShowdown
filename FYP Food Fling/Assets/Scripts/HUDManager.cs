@@ -29,6 +29,7 @@ public class HUDManager : MonoBehaviour
     [SerializeField] float MatchDuration;
     [SerializeField] float MaxUltValue = 100f;
     
+    //swap partner and current player image
     public void TagPartner(Image current,Image partner)
     {
         var temp = current.sprite;
@@ -37,7 +38,8 @@ public class HUDManager : MonoBehaviour
 
         partner.sprite = temp;
     }
-
+    
+    // show superfood is available
     public void SuperFoodAvailable(Sprite superfoodItem,bool isPlayer1)
     {
         if (isPlayer1 == true)
@@ -54,6 +56,7 @@ public class HUDManager : MonoBehaviour
         }
     }
 
+    //clear food 2 and superfood stuff
     public void ClearSuperFood(bool isPlayer)
     {
         if (isPlayer == true)
@@ -72,6 +75,8 @@ public class HUDManager : MonoBehaviour
 
     }
 
+
+    // generate superfood in food1
     public void GenerateSuperFood(bool isPlayer)
     {
         if (isPlayer == true)
