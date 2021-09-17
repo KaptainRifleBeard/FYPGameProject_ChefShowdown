@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class HUDManager : MonoBehaviour
 {
     const string plus = "+", equals = "=",space =" ";
-    Sprite empty;
+    public Sprite empty,Transparent;
     // constant declaration to avoid having to redo constantly;
 
 
@@ -15,12 +15,12 @@ public class HUDManager : MonoBehaviour
     public GameObject PlayerPortrait,EnemyPotrait,PlayerTagPortrait,EnemyTagPortrait;
 
     public HealthBar Healthmanager;    // Wtf have i done?
-    public UltimateBar UltBarManager;
+    public UltimateBar UltBarManager; // moreso wtf?
 
     [Header ("PlayerFoodItems")]
     public Image playerfood1, playerfood2, foodCombo;
     public Text playerPlus, PlayerEquals;
-
+                    
     [Header("Player2FoodItems")]
     public Image opponentfood1, opponentfood2, opponentfoodCombo;
     public Text opponentPlus, OpponentEquals;
