@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1346425673536100770}
   - component: {fileID: 6332863220972160908}
   - component: {fileID: 22758765909859227}
+  - component: {fileID: -4253153214453585559}
   m_Layer: 0
   m_Name: FoodSample8
   m_TagString: Untagged
@@ -91,9 +92,21 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5979402970031298372}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4253153214453585559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979402970031298372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1218dd7d51dc9f4eaa3d5f9c5ad0c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

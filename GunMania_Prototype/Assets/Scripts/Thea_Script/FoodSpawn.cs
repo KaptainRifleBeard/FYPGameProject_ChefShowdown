@@ -10,8 +10,11 @@ public class FoodSpawn : MonoBehaviour
     [Header("Food Prefabs")]
     public List<GameObject> prefabs;
 
-    private int spawnInd;
+    [Header("Respawn Time")]
+    public int sec = 6;
+
     private int prefabInd;
+    private IEnumerator coroutine;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +30,20 @@ public class FoodSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (PickupTest.isPicked == true)
+        {
+            coroutine = Spawn(sec);
+            StartCoroutine(coroutine);
+            PickupTest.isPicked = false;
+        }
     }
+
+    private IEnumerator Spawn(int secs)
+    {
+        yield return new WaitForSeconds(secs);
+        prefabInd = Random.Range(0, prefabs.Count);
+        Instantiate(prefabs[prefabInd], SpawnPoint[Respawn.index].transform.position, Quaternion.identity);
+    }
+
+
 }
