@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PickupTest : MonoBehaviour
 {
-    public static bool isPicked;
+    public static bool isPicked = false;
 
     public void OnTriggerEnter(Collider other)
     {
-        Destroy(this.gameObject);
-        isPicked = true;
+        if (other.tag == "Player")
+        {
+            Destroy(this.gameObject);
+            isPicked = true;
+        }
     }
 
 }
