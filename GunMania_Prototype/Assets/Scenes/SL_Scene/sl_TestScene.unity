@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 88b2b5172a8a1e546980aa3be811bfda, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3e372429aec2c9b40ad8b488dacb7c31, type: 2}
 --- !u!1 &21968101
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,6 +2225,49 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064813706}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1168483509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1168483511}
+  - component: {fileID: 1168483510}
+  m_Layer: 0
+  m_Name: NetworkController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1168483510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168483509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ab749b80c349d4b9fc31ee977a18e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1168483511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168483509}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.6882265, y: 8.245163, z: -21.527922}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1206482410
 GameObject:
   m_ObjectHideFlags: 0
@@ -5070,7 +5113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325502aef3b1c944ea3ccb42ceb43651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 9156881785126928079, guid: b4725de2c2ce04c45b1ce12aef3847da, type: 3}
+  bulletPrefab: {fileID: 3770610139388351523, guid: 2a3658c6a53d56e4499c297b862d28a1, type: 3}
   cursor: {fileID: 8870983940366582027}
   shootPosition: {fileID: 242276425}
   attackPosition: {fileID: 242276425}

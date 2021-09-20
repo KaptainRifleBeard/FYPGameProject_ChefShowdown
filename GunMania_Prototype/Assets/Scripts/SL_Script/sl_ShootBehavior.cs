@@ -29,6 +29,7 @@ public class sl_ShootBehavior : MonoBehaviour
         //Test();
     }
 
+
     void Test()
     {
         Vector3 dir = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 50.0f));

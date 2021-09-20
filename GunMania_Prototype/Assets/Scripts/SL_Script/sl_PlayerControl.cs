@@ -41,7 +41,7 @@ public class sl_PlayerControl : MonoBehaviour
     {
         //Movement();
 
-        if(Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1))
         {
             MoveToClickLocation();
         }
