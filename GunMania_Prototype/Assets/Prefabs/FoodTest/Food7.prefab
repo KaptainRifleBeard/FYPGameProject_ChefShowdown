@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 8201624657251667709}
   - component: {fileID: 3129690304907958313}
   - component: {fileID: 4613763531228478055}
-  - component: {fileID: 661053273404892409}
-  - component: {fileID: -923619073988738281}
+  - component: {fileID: 4728643704845101440}
   m_Layer: 0
   m_Name: Food7
   m_TagString: FoodPickup
@@ -99,7 +98,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &661053273404892409
+--- !u!114 &4728643704845101440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,18 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4066692775127333679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 870f6f236f23c33459c749c3707ee86f, type: 3}
+  m_Script: {fileID: 11500000, guid: 719c8ed679b2c4d469422ba670486fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-923619073988738281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4066692775127333679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1218dd7d51dc9f4eaa3d5f9c5ad0c6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  foodImage: {fileID: 3494449884572661272, guid: c7884684b3eb642458e9dde8939ab7d9, type: 3}
