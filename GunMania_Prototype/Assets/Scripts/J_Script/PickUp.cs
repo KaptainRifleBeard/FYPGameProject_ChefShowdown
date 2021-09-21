@@ -6,6 +6,7 @@ public class PickUp : MonoBehaviour
 {
     private Inventory inventory;
     public GameObject foodImage;
+    public static bool isPicked = false;
 
     private void Start()
     {
@@ -28,5 +29,10 @@ public class PickUp : MonoBehaviour
                 }
             }
         }
-    }
+        if (other.tag == "Player" || other.tag == "Player2")
+        {
+            isPicked = true;
+            Debug.Log("Picked");
+        }
+        }
 }
