@@ -9,6 +9,8 @@ public class LevelSelect : MonoBehaviour
 
     public Image levelView;
 
+
+    // will need to link all relevant images to these vars.
     public Image level1, level2, level3, levelq;
 
     public Text levelName;
@@ -32,14 +34,39 @@ public class LevelSelect : MonoBehaviour
 
         RaycastHit hit;
         Ray ray = Camera.current.ScreenPointToRay(Input.mousePosition);
-
+        int a = 0 ;
+        //LevelButtonValue temp;
 
         if (Physics.Raycast(ray,out hit))
         {
             if (hit.collider != null && hit.collider.tag == "LevelSceneButton")
             {
-                hit.collider.gameObject.GetComponent(LevelButtonValue.FindObjectOfType(int LevelVal));
+                var selection = hit.transform;
+                var selectionObject = selection.GetComponent<LevelButtonValue>();
+                a = selectionObject.getVal();
             }
         }
+
+        if (a == 1)
+        {
+            levelView = level1;
+            levelName.text = "Level 1";
+        }
+        else if (a == 2)
+        {
+            levelView = level2;
+            levelName.text = "Level 2";
+        }
+        else if (a == 3)
+        {
+            levelView = level3;
+            levelName.text = "Level 3";
+        }
+        else if (a == 4)
+        {
+            levelView = levelq;
+            levelName.text = "Level ?";
+        }
+
     }
 }

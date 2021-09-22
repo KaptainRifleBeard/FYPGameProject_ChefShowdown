@@ -5,5 +5,10 @@ using UnityEngine;
 public class LevelButtonValue : MonoBehaviour
 {
     [Header("LevelValue")]
-    public int levelVal = 0;
+    public int levelVal;
+
+    public int getVal()
+    {
+        return levelVal;
+    }
 }
