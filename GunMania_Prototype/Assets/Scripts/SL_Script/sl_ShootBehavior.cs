@@ -95,7 +95,7 @@ public class sl_ShootBehavior : MonoBehaviour
     //for direct shoot
     void ShootStraight()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         Vector3 targetPosition;
