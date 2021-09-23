@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
+using Photon.Pun;
 
 public class sl_RoomListing : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class sl_RoomListing : MonoBehaviour
     {
         RoomInfo = roomInfo;
         text.text = "Max player: " + roomInfo.MaxPlayers + " , " + roomInfo.Name;
+    }
+
+
+    public void ToWaitingLobby()
+    {
+        PhotonNetwork.JoinRoom(RoomInfo.Name);
     }
 
 }
