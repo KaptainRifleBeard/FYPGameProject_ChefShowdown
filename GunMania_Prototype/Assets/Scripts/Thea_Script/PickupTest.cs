@@ -8,11 +8,12 @@ public class PickupTest : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" || other.tag == "Player2")
-        {
-            Destroy(this.gameObject);
-            isPicked = true;
-        }
-    }
+        //if (other.tag == "Player" || other.tag == "Player2")
+        //{
+        //    isPicked = true;
+        //    Debug.Log("Picked");
+        //}
 
+        //SCRAPPED
+    }
 }
