@@ -99,13 +99,13 @@ public class PlayerBehaviour : MonoBehaviour
         player2Wins = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "FoodPickup" && FoodCarried < 2)
         {
             FoodCarried += 1;
             Debug.Log(FoodCarried);
         }
-    }
+    }*/
 
 }

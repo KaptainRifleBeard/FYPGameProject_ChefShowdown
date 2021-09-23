@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodPickup : MonoBehaviour
+public class PickUp : MonoBehaviour
 {
     private Inventory inventory;
+    public GameObject foodImage;
 
     private void Start()
     {
@@ -17,10 +18,11 @@ public class FoodPickup : MonoBehaviour
         {
             for (int i = 0; i < inventory.slots.Length; i++)
             {
-                if(inventory.isFull[i] == false)
+                if (inventory.isFull[i] == false)
                 {
                     inventory.isFull[i] = true;
-                    Debug.Log("FoodStored");
+                    Instantiate(foodImage, inventory.slots[i].transform, false);
+                    //Debug.Log("FoodStored");
                     Destroy(gameObject);
                     break;
                 }
