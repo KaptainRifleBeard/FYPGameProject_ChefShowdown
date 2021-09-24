@@ -18,7 +18,7 @@ public class FoodCombi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("q"))
+        if (Input.GetKey("c"))
         {
             timer += Time.deltaTime;
             Debug.Log(timer);
