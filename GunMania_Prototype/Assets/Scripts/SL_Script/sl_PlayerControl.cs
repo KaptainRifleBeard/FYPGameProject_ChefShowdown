@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
 public class sl_PlayerControl : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class sl_PlayerControl : MonoBehaviour
     Vector3 direction;
     Vector3 targetPosition;
     Vector3 mousePos;
+
+    PhotonView view;
 
     public GameObject cursor;
 
@@ -34,26 +37,27 @@ public class sl_PlayerControl : MonoBehaviour
 
     void Start()
     {
-        
+        view = GetComponent<PhotonView>();
     }
 
-    private void Update()
+    public void Update()
     {
-        //Movement();
-
-        if(Input.GetMouseButton(1))
+        if(view.IsMine)  //Photon - check is my character
         {
-            MoveToClickLocation();
-        }
+            //Movement();
+            if (Input.GetMouseButton(1))
+            {
+                MoveToClickLocation();
+            }
 
+            //Always look at mouse
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        //Always look at mouse
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit, 100))
-        {
-            transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+            }
         }
     }
 

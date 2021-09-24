@@ -23,11 +23,12 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
-        LaunchProjectile();  //gravity shoot
-        //ShootStraight();
+        //LaunchProjectile();  //gravity shoot
+        ShootStraight();
 
         //Test();
     }
+
 
     void Test()
     {
@@ -49,11 +50,13 @@ public class sl_ShootBehavior : MonoBehaviour
             Vector3 vel = CalculateVelocity(hit.point, shootPosition.position, 1f);
             //transform.rotation = Quaternion.LookRotation(vel);
 
-
             if (Input.GetMouseButtonDown(0))
             {
                 Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
                 bullet.velocity = vel;
+
+                //Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+                //bullet.velocity = vel;
             }
 
         }
@@ -92,11 +95,11 @@ public class sl_ShootBehavior : MonoBehaviour
     //for direct shoot
     void ShootStraight()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         Vector3 targetPosition;
-        float shootForce = 100.0f;
+        float shootForce = 50.0f;
 
         if (Input.GetMouseButtonDown(0))
         {
