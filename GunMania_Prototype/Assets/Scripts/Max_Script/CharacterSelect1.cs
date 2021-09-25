@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelect1 : MonoBehaviour
 {
-    public GameObject pdl1, pdl2, description;
 
     [Header("Internal Assets place all art assets and required stuff in this order: BrockChoi , Oficer Wen, Mr Katsuki, Aunt Ji Ho")]
-    public GameObject[] characters;
+    public GameObject[] tag1Characters;
+    public GameObject[] tag2Characters;
     public GameObject[] characterSheetStuff;    
     
     
@@ -22,22 +22,26 @@ public class CharacterSelect1 : MonoBehaviour
     int character1, character2;
 
 
-
+    // insert 4 place holders into each target object.
 
     public void NextCharacter()
     {
 
         if (tagPartner)
         {
-            selectedCharacter = (selectedCharacter + 1) % characters.Length;
-            pdl1 = characters[selectedCharacter];
-            description = characterSheetStuff[selectedCharacter];
+            tag1Characters[selectedCharacter].SetActive(false);
+            characterSheetStuff[selectedCharacter].SetActive(false);
+            selectedCharacter = (selectedCharacter + 1) % tag1Characters.Length;
+            tag1Characters[selectedCharacter].SetActive(true);
+            characterSheetStuff[selectedCharacter].SetActive(true);
         }
         else
         {
-            selectedCharacter = (selectedCharacter + 1) % characters.Length;
-            pdl2 = characters[selectedCharacter];
-            description = characterSheetStuff[selectedCharacter];
+            tag2Characters[selectedCharacter].SetActive(false);
+            characterSheetStuff[selectedCharacter].SetActive(false);
+            selectedCharacter = (selectedCharacter + 1) % tag2Characters.Length;
+            tag2Characters[selectedCharacter].SetActive(true);
+            characterSheetStuff[selectedCharacter].SetActive(true);
         }
 
     }
@@ -47,21 +51,25 @@ public class CharacterSelect1 : MonoBehaviour
         selectedCharacter--;
         if (selectedCharacter<0)
         {
-            selectedCharacter += characters.Length;
+            selectedCharacter += tag2Characters.Length;
         }
 
         if (tagPartner)
         {
-            selectedCharacter = (selectedCharacter + 1) % characters.Length;
-            pdl1 = characters[selectedCharacter];
-            description = characterSheetStuff[selectedCharacter];
+            tag1Characters[selectedCharacter].SetActive(false);
+            characterSheetStuff[selectedCharacter].SetActive(false);
+            selectedCharacter = (selectedCharacter + 1) % tag1Characters.Length;
+            tag1Characters[selectedCharacter].SetActive(true);
+            characterSheetStuff[selectedCharacter].SetActive(true);
 
         }
         else
         {
-            selectedCharacter = (selectedCharacter + 1) % characters.Length;
-            pdl2 = characters[selectedCharacter];
-            description = characterSheetStuff[selectedCharacter];
+            tag2Characters[selectedCharacter].SetActive(false);
+            characterSheetStuff[selectedCharacter].SetActive(false);
+            selectedCharacter = (selectedCharacter + 1) % tag2Characters.Length;
+            tag2Characters[selectedCharacter].SetActive(true);
+            characterSheetStuff[selectedCharacter].SetActive(true);
         }
     }
 
@@ -70,6 +78,7 @@ public class CharacterSelect1 : MonoBehaviour
         if (tagPartner == false)
         {
             tagPartner = true;
+            selectedCharacter = 1;
         }
         else if (tagPartner == true)
         {
@@ -86,6 +95,15 @@ public class CharacterSelect1 : MonoBehaviour
 
     }
 
+
+
+
+    public void MultiplayerLoaded(bool isLoaded,GameObject tag1,GameObject tag2)
+    {
+
+
+
+    }
 
 
 
