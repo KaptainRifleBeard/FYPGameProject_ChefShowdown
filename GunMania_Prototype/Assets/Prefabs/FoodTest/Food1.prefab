@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4086679096951121691}
   - component: {fileID: 4018910110472907540}
   - component: {fileID: -367074412529772910}
+  - component: {fileID: -6714538541860013810}
   m_Layer: 0
   m_Name: Food1
   m_TagString: FoodPickup
@@ -110,4 +111,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719c8ed679b2c4d469422ba670486fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: {fileID: -6714538541860013810}
   foodImage: {fileID: 3494449884572661272, guid: c7884684b3eb642458e9dde8939ab7d9, type: 3}
+  foodID: 
+--- !u!114 &-6714538541860013810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7648938104702898269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40be1b06ac22e4a4c995bbad930d0fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodID: 123

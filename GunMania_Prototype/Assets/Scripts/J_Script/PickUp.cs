@@ -5,8 +5,10 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     private Inventory inventory;
+    public FoodIDAssign id;
     public GameObject foodImage;
     public static bool isPicked = false;
+
 
     private void Start()
     {
@@ -19,20 +21,29 @@ public class PickUp : MonoBehaviour
         {
             for (int i = 0; i < inventory.slots.Length; i++)
             {
-                if (inventory.isFull[i] == false)
+                //if (inventory.isFull[i] == false)
+                if(inventory.IDlist.Count < 2)
                 {
-                    inventory.isFull[i] = true;
+                    //inventory.isFull[i] = true;
+
+                    inventory.IDlist.Add(id.FoodIDCheck());
+                    Debug.Log(inventory.IDlist[i]);
+
                     Instantiate(foodImage, inventory.slots[i].transform, false);
                     //Debug.Log("FoodStored");
                     Destroy(gameObject);
+
+                    if ((other.tag == "Player" || other.tag == "Player2"))
+                    {
+                        isPicked = true;
+                        Debug.Log("Picked");
+                    }
+
                     break;
+
                 }
             }
         }
-        if (other.tag == "Player" || other.tag == "Player2")
-        {
-            isPicked = true;
-            Debug.Log("Picked");
-        }
+        
         }
 }
