@@ -11,16 +11,20 @@ public class sl_ConnectToServer : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
 
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinLobby();
+        if(!PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinLobby();
+        }
     }
 
     public override void OnJoinedLobby()
     {
-        SceneManager.LoadScene("sl_ServerLobby");
+        Debug.Log("Joined Lobby");
     }
 }
