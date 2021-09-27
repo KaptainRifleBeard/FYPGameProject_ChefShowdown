@@ -14,7 +14,7 @@ public class PickUp : MonoBehaviour
 
     private void Start()
     {
-        //inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
 
     public void OnTriggerEnter(Collider other)
@@ -32,7 +32,6 @@ public class PickUp : MonoBehaviour
                     Debug.Log(inventory.IDlist[i]);
 
                     Instantiate(foodImage, inventory.slots[i].transform, false);
-                    //Debug.Log("FoodStored");
                     Destroy(gameObject);
 
                     if ((other.tag == "Player"))
