@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class sl_ShootBehavior : MonoBehaviour
 {
@@ -12,21 +14,26 @@ public class sl_ShootBehavior : MonoBehaviour
     public LayerMask layer;
 
     private Camera cam;
-
+    PhotonView view;
 
 
     void Start()
     {
+        view = GetComponent<PhotonView>();
         cam = Camera.main;
     }
 
 
     void Update()
     {
-        //LaunchProjectile();  //gravity shoot
-        ShootStraight();
+        if (view.IsMine)  //Photon - check is my character
+        {
+            //LaunchProjectile();  //gravity shoot
+            ShootStraight();
 
-        //Test();
+            //Test();
+        }
+
     }
 
 

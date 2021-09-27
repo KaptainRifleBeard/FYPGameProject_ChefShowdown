@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2784047750339751704}
   - component: {fileID: 38238731443728680}
   - component: {fileID: 6829483939388315608}
+  - component: {fileID: 4562612684986472513}
   m_Layer: 0
   m_Name: PlayerCharacter2
   m_TagString: Player2
@@ -225,6 +226,23 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &4562612684986472513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784047750339751703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb561f923948ae846b99ca69b8e28729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFull: 0000
+  slots:
+  - {fileID: 5120463958632533560, guid: 431c4458dffe2054da6471c9f008c864, type: 3}
+  - {fileID: 5657389821677476573, guid: 3f3f3662ec431f34c8f62d541ee72c6f, type: 3}
+  IDlist: 
 --- !u!1 &2784047750410528549
 GameObject:
   m_ObjectHideFlags: 0
