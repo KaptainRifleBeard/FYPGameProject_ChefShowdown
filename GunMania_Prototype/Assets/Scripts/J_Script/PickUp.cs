@@ -23,10 +23,10 @@ public class PickUp : MonoBehaviour
         {
             for (int i = 0; i < inventory.slots.Length; i++)
             {
-                //if (inventory.isFull[i] == false)
-                if(inventory.IDlist.Count < 2)
+                if (inventory.isFull[i] == false)
+                    //if (inventory.IDlist.Count < 2)
                 {
-                    //inventory.isFull[i] = true;
+                    inventory.isFull[i] = true;
 
                     inventory.IDlist.Add(id.FoodIDCheck());
                     Debug.Log(inventory.IDlist[i]);

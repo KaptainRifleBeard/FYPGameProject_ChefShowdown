@@ -9,4 +9,8 @@ public class Inventory : MonoBehaviour
     public GameObject[] slots;
     public List<int> IDlist = new List<int>();
 
+    private void Start()
+    {
+        IDlist.Clear();
+    }
 }
