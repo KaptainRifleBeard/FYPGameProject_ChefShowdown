@@ -5,7 +5,8 @@ using Photon.Pun;
 
 public class sl_SpawnPlayers : MonoBehaviour
 {
-    public GameObject playerPrefab;
+    public GameObject playerPrefabA;
+    public GameObject playerPrefabB;
 
     public GameObject spawnPostionA;
     public GameObject spawnPostionB;
@@ -14,11 +15,11 @@ public class sl_SpawnPlayers : MonoBehaviour
     {
         if(PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, spawnPostionA.transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(playerPrefabA.name, spawnPostionA.transform.position, Quaternion.identity);
         }
         else
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, spawnPostionB.transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(playerPrefabB.name, spawnPostionB.transform.position, Quaternion.identity);
         }
     }
 
