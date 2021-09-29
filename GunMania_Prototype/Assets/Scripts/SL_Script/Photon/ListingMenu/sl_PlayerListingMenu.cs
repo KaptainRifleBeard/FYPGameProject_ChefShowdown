@@ -90,7 +90,8 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        if(PhotonNetwork.IsMasterClient)  //like room owner
+
+        if (PhotonNetwork.IsMasterClient)  //like room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
         }

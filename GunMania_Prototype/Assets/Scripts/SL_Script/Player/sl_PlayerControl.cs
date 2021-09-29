@@ -50,6 +50,23 @@ public class sl_PlayerControl : MonoBehaviour
                 MoveToClickLocation();
             }
 
+            if(PhotonNetwork.IsMasterClient)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    sl_InventoryManager.ClearAllInList();
+                }
+
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    sl_p2InventoryManager.ClearAllInList();
+                }
+
+            }
+
             //Always look at mouse
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

@@ -37,7 +37,7 @@ public class sl_P1PickUp : MonoBehaviour
         else
         {
             //add num (if already in list) -----> but we nonid this, so leave this code here as reference
-            thisItem.itemHeldNum += 1;
+            //thisItem.itemHeldNum += 1;
         }
         sl_InventoryManager.RefreshItem();
     }

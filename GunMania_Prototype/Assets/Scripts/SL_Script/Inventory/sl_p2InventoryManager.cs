@@ -72,4 +72,16 @@ public class sl_p2InventoryManager : MonoBehaviour
         }
 
     }
+
+
+
+    public static void ClearAllInList()
+    {
+        for (int i = 0; i < instance.myInventory.itemList.Count; i++)
+        {
+            instance.myInventory.itemList[i] = null;
+            RefreshItem();
+
+        }
+    }
 }
