@@ -16,6 +16,7 @@ public class sl_SpawnPlayers : MonoBehaviour
         if(PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Instantiate(playerPrefabA.name, spawnPostionA.transform.position, Quaternion.identity);
+
         }
         else
         {

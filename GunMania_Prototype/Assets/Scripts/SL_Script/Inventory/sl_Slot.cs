@@ -19,9 +19,6 @@ public class sl_Slot : MonoBehaviour
             itemInSlot.SetActive(false);
             return;
         }
-        else
-        {
-            slotImage.sprite = item.itemImage;
-        }
+        slotImage.sprite = item.itemImage;
     }
 }
