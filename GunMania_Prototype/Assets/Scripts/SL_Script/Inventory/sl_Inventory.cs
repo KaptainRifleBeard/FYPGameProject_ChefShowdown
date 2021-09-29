@@ -8,13 +8,4 @@ public class sl_Inventory : ScriptableObject
 {
     public List<sl_Item> itemList = new List<sl_Item>();
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }

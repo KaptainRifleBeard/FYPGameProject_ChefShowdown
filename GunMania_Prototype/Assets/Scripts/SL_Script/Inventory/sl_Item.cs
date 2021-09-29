@@ -10,8 +10,8 @@ public class sl_Item : ScriptableObject
     public Sprite itemImage;
     public int itemHeldNum;
 
-    [TextArea] //to write more than 1 line text
-    public string itemDescription;
+    //[TextArea] //to write more than 1 line text
+    //public string itemDescription;
 
-    public bool equip;  //is it equippable?
+    //public bool equip;  //is it equippable?
 }
