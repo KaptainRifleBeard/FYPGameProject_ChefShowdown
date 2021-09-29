@@ -7,10 +7,14 @@ public class sl_P1PickUp : MonoBehaviour
     public sl_Item thisItem;
     public sl_Inventory playerInventory;  //set which inventory should be place in
 
+    public static bool isPicked = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            isPicked = true;
+
             AddNewItem();
             Destroy(gameObject);
         }

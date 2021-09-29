@@ -30,7 +30,7 @@ public class FoodSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PickUp.isPicked == true)
+        if (sl_P1PickUp.isPicked == true || sl_P2PickUp.isPicked == true)
         {
             coroutine = Spawn(sec);
             StartCoroutine(coroutine);

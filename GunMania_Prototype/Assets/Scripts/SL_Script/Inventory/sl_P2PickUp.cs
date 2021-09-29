@@ -6,11 +6,14 @@ public class sl_P2PickUp : MonoBehaviour
 {
     public sl_Item thisItem;
     public sl_Inventory playerInventory;  //set which inventory should be place in
+    public static bool isPicked = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player2"))
         {
+            isPicked = true;
+
             AddNewItem();
             Destroy(gameObject);
         }
