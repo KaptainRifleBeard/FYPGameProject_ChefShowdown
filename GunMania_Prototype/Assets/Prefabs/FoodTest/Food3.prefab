@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 8959563882717277113}
   - component: {fileID: 7992939910903153264}
   - component: {fileID: 7957654759044972288}
-  - component: {fileID: 649269670870135093}
-  - component: {fileID: -3629865021446867986}
-  - component: {fileID: -6996278662005652976}
+  - component: {fileID: -1398767667917220158}
   m_Layer: 0
   m_Name: Food3
   m_TagString: FoodPickup
@@ -100,7 +98,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &649269670870135093
+--- !u!114 &-1398767667917220158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,37 +107,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4230974403782647468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 719c8ed679b2c4d469422ba670486fbb, type: 3}
+  m_Script: {fileID: 11500000, guid: 88675fcfa285f684c9732b7b11a0358f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: -7446321208870613810, guid: e311f5345ccda44459e920fe3550ea9e, type: 3}
-  id: {fileID: -3629865021446867986}
-  foodImage: {fileID: 3494449884572661272, guid: c7884684b3eb642458e9dde8939ab7d9, type: 3}
---- !u!114 &-3629865021446867986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4230974403782647468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40be1b06ac22e4a4c995bbad930d0fe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodID: 122
---- !u!114 &-6996278662005652976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4230974403782647468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf2d244c8dacab244aab15bb22d8952b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 4562612684986472513, guid: bcb1b6c427e495a42b027ca48859e6a9, type: 3}
-  id: {fileID: -3629865021446867986}
-  foodImage: {fileID: 3494449884572661272, guid: c7884684b3eb642458e9dde8939ab7d9, type: 3}
+  thisItem: {fileID: 11400000, guid: 8744c768ffc69244198c32d2cc9818fa, type: 2}
+  playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
