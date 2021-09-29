@@ -22,11 +22,12 @@ public class sl_itemOnWorld : MonoBehaviour
         if(!playerInventory.itemList.Contains(thisItem))
         {
             playerInventory.itemList.Add(thisItem);
+            sl_InventoryManager.CreateNewItem(thisItem);
         }
         else
         {
             //add num (if already in list) -----> but we nonid this, so leave this code here as reference
-            thisItem.itemHeldNum += 1;
+            //thisItem.itemHeldNum += 1;
         }
     }
 }
