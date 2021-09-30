@@ -27,7 +27,6 @@ public class sl_PlayerControl : MonoBehaviour
     public LayerMask whatCanBeClickOn;
     private NavMeshAgent myAgent;
 
-
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -42,7 +41,7 @@ public class sl_PlayerControl : MonoBehaviour
 
     public void Update()
     {
-        if(view.IsMine)  //Photon - check is my character
+        if (view.IsMine)  //Photon - check is my character
         {
             //Movement();
             if (Input.GetMouseButton(1))
@@ -50,7 +49,8 @@ public class sl_PlayerControl : MonoBehaviour
                 MoveToClickLocation();
             }
 
-            if(PhotonNetwork.IsMasterClient)
+            //to clear the food list in ui
+            if (PhotonNetwork.IsMasterClient)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -62,10 +62,13 @@ public class sl_PlayerControl : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    
                     sl_p2InventoryManager.ClearAllInList();
                 }
 
             }
+
+
 
             //Always look at mouse
             RaycastHit hit;
@@ -75,6 +78,18 @@ public class sl_PlayerControl : MonoBehaviour
             {
                 transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
             }
+
+            ////rotation
+            //Vector3 mousePos = Input.mousePosition;
+            //mousePos.z = 5.23f;
+
+            //Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
+            //mousePos.x = mousePos.x - objectPos.x;
+            //mousePos.y = mousePos.y - objectPos.y;
+
+            //float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+            //transform.rotation = Quaternion.Euler(new Vector3(0, -angle, 0));
+
         }
     }
 
@@ -129,8 +144,10 @@ public class sl_PlayerControl : MonoBehaviour
             myAgent.SetDestination(hit.point);
 
             //targetPosition = hit.point;
-            this.transform.LookAt(targetPosition);
+            //this.transform.LookAt(targetPosition);
 
         }
     }
+
+    
 }

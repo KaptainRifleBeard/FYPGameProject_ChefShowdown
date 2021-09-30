@@ -335,9 +335,11 @@ GameObject:
   - component: {fileID: 2854061190199120711}
   - component: {fileID: 2854061190199120709}
   - component: {fileID: -4391961927098730216}
+  - component: {fileID: -7155488713185415314}
   - component: {fileID: 2854061190199120705}
   - component: {fileID: -9097661822321259151}
   - component: {fileID: -2306275807904126079}
+  - component: {fileID: 235962341989757195}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -468,6 +470,18 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 1
+--- !u!114 &-7155488713185415314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854061190199120718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118e467c06bdb8f419bcd04ec1b8c97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &2854061190199120705
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -507,9 +521,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: -2306275807904126079}
+  - {fileID: 235962341989757195}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -546,3 +560,19 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &235962341989757195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854061190199120718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
