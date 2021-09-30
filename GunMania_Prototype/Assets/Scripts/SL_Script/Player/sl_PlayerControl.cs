@@ -69,27 +69,16 @@ public class sl_PlayerControl : MonoBehaviour
             }
 
 
+            //Look at mouse            
+            Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1.0f));
 
-            //Always look at mouse
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit, 100))
-            {
-                transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
-            }
-
-            ////rotation
-            //Vector3 mousePos = Input.mousePosition;
-            //mousePos.z = 5.23f;
-
-            //Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
-            //mousePos.x = mousePos.x - objectPos.x;
-            //mousePos.y = mousePos.y - objectPos.y;
-
-            //float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-            //transform.rotation = Quaternion.Euler(new Vector3(0, -angle, 0));
-
+            //calculate the line between mouse and cam with xz
+            float t = Camera.main.transform.position.y / (Camera.main.transform.position.y - point.y);
+            Vector3 finalPoint = new Vector3(t * (point.x - Camera.main.transform.position.x) +  Camera.main.transform.position.x, 1.0f, 
+                                             t * (point.z - Camera.main.transform.position.z) + Camera.main.transform.position.z);
+            
+            //Rotating the object to that point
+            transform.LookAt(finalPoint, Vector3.up);
         }
     }
 
