@@ -96,5 +96,43 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("sl_TestScene");
         }
     }
-   
+
+
+    //for test
+    public void Map1()
+    {
+
+        if (PhotonNetwork.IsMasterClient)  //like room owner
+        {
+            PhotonNetwork.LoadLevel("Scene1");
+        }
+    }
+
+    public void Map2()
+    {
+
+        if (PhotonNetwork.IsMasterClient)  //like room owner
+        {
+            PhotonNetwork.LoadLevel("Scene2");
+        }
+    }
+
+    public void Map3()
+    {
+
+        if (PhotonNetwork.IsMasterClient)  //like room owner
+        {
+            PhotonNetwork.LoadLevel("Scene3");
+        }
+    }
+
+    public void Map4()
+    {
+
+        if (PhotonNetwork.IsMasterClient)  //like room owner
+        {
+            PhotonNetwork.LoadLevel("Scene4");
+        }
+    }
+
 }
