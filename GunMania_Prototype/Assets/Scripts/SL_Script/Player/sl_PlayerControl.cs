@@ -55,6 +55,10 @@ public class sl_PlayerControl : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     sl_InventoryManager.ClearAllInList();
+
+                    sl_InventoryManager.RefreshItem();
+                    sl_p2InventoryManager.RefreshItem();
+
                 }
 
             }
@@ -62,8 +66,11 @@ public class sl_PlayerControl : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    
                     sl_p2InventoryManager.ClearAllInList();
+
+                    sl_InventoryManager.RefreshItem();
+                    sl_p2InventoryManager.RefreshItem();
+
                 }
 
             }
