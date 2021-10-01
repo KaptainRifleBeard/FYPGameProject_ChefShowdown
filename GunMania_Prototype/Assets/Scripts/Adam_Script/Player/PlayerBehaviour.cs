@@ -49,11 +49,11 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         //Shooting
-        if (Input.GetMouseButton(0) && FoodCarried >= 1)
+        /*if (Input.GetMouseButton(0) && FoodCarried >= 1)
         {
             Shoot();
             FoodCarried -= 1;
-        }
+        }*/
 
         //Player Taking Damage
         healthBar.SetHeatlh(health);
@@ -86,11 +86,11 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    void Shoot()
+    /*void Shoot()
     {
         bulletSpawn = Instantiate(bullet.transform, bulletSpawnPoint.transform.position, Quaternion.identity);
         bulletSpawn.rotation = bulletSpawnPoint.transform.rotation;
-    }
+    }*/
 
     public void Die()
     {

@@ -27,7 +27,6 @@ public class sl_PlayerControl : MonoBehaviour
     public LayerMask whatCanBeClickOn;
     private NavMeshAgent myAgent;
 
-
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -42,7 +41,7 @@ public class sl_PlayerControl : MonoBehaviour
 
     public void Update()
     {
-        if(view.IsMine)  //Photon - check is my character
+        if (view.IsMine)  //Photon - check is my character
         {
             //Movement();
             if (Input.GetMouseButton(1))
@@ -50,11 +49,16 @@ public class sl_PlayerControl : MonoBehaviour
                 MoveToClickLocation();
             }
 
-            if(PhotonNetwork.IsMasterClient)
+            //to clear the food list in ui
+            if (PhotonNetwork.IsMasterClient)
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     sl_InventoryManager.ClearAllInList();
+
+                    sl_InventoryManager.RefreshItem();
+                    sl_p2InventoryManager.RefreshItem();
+
                 }
 
             }
@@ -63,17 +67,22 @@ public class sl_PlayerControl : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     sl_p2InventoryManager.ClearAllInList();
+
+                    sl_InventoryManager.RefreshItem();
+                    sl_p2InventoryManager.RefreshItem();
+
                 }
 
             }
 
-            //Always look at mouse
-            RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayLength;
 
-            if (Physics.Raycast(ray, out hit, 100))
+            if (groundPlane.Raycast(ray, out rayLength))
             {
-                transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+                Vector3 pointToLook = ray.GetPoint(rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
             }
         }
     }
@@ -129,8 +138,10 @@ public class sl_PlayerControl : MonoBehaviour
             myAgent.SetDestination(hit.point);
 
             //targetPosition = hit.point;
-            this.transform.LookAt(targetPosition);
+            //this.transform.LookAt(targetPosition);
 
         }
     }
+
+    
 }

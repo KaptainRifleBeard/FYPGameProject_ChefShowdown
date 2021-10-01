@@ -90,48 +90,11 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
+        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        if (PhotonNetwork.IsMasterClient)  // room owner
+        if (PhotonNetwork.IsMasterClient/* && playerCount == 2*/)  // room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
-        }
-    }
-
-
-    //for test
-    public void Map1()
-    {
-
-        if (PhotonNetwork.IsMasterClient)  
-        {
-            PhotonNetwork.LoadLevel("Scene1");
-        }
-    }
-
-    public void Map2()
-    {
-
-        if (PhotonNetwork.IsMasterClient)  
-        {
-            PhotonNetwork.LoadLevel("Scene2");
-        }
-    }
-
-    public void Map3()
-    {
-
-        if (PhotonNetwork.IsMasterClient)  
-        {
-            PhotonNetwork.LoadLevel("Scene3");
-        }
-    }
-
-    public void Map4()
-    {
-
-        if (PhotonNetwork.IsMasterClient) 
-        {
-            PhotonNetwork.LoadLevel("Scene4");
         }
     }
 
