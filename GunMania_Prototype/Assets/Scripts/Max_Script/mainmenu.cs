@@ -10,6 +10,12 @@ public class mainmenu : MonoBehaviour
         SceneManager.LoadScene(levelName);
     }
 
+    public void Awake()
+    {
+        PlayerPrefs.SetInt("Character3", -1);
+        PlayerPrefs.SetInt("Character4", -1);
+    }
+
     public static void quitGame()
     {
         Application.Quit();

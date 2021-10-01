@@ -10,16 +10,16 @@ public class Player2 : MonoBehaviour
     public GameObject[] tag2Characters;
 
 
-    private void Awake()
-    {
+    //private void Awake()
+    //{
 
-        for (int i = 0; i <= tag1Characters.Length; i++)
-        {
-            tag1Characters[i].SetActive(false);
-            tag2Characters[i].SetActive(false);
-        }
+    //    for (int i = 0; i <= tag1Characters.Length; i++)
+    //    {
+    //        tag1Characters[i].SetActive(false);
+    //        tag2Characters[i].SetActive(false);
+    //    }
 
-    }
+    //}
 
 
     // Update is called once per frame
