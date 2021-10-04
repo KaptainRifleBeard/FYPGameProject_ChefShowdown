@@ -10,7 +10,7 @@ public class Settings : MonoBehaviour
     public bool isActive;
 
 
-    
+
 
     public void mainVol(float val)
     {

@@ -356,7 +356,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122543}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: mainmenu, Assembly-CSharp
         m_MethodName: changeScene
         m_Mode: 5
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122543}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: mainmenu, Assembly-CSharp
         m_MethodName: quitGame
         m_Mode: 1
@@ -1148,7 +1148,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122544}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: sfxVol
         m_Mode: 0
@@ -1330,8 +1330,8 @@ GameObject:
   - component: {fileID: 694122541}
   - component: {fileID: 694122540}
   - component: {fileID: 694122539}
-  - component: {fileID: 694122543}
-  - component: {fileID: 694122544}
+  - component: {fileID: 694122546}
+  - component: {fileID: 694122545}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1425,7 +1425,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &694122543
+--- !u!114 &694122545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1434,19 +1434,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 694122538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ff31af96fb76ca459662172d8125fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &694122544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694122538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e06140b574df74ea1d9f86957588ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 381137580cd7482478b3d03e0e87dc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   settingsPanel: {fileID: 515975709}
@@ -1454,6 +1442,18 @@ MonoBehaviour:
   sfxvol: {fileID: 608324264}
   musicvol: {fileID: 1916872532}
   isActive: 0
+--- !u!114 &694122546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694122538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c719d89fa478a4b999b8c42cf80c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &696290357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,7 +2034,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122543}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: mainmenu, Assembly-CSharp
         m_MethodName: changeScene
         m_Mode: 5
@@ -2331,7 +2331,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122544}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: mainVol
         m_Mode: 0
@@ -2537,7 +2537,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122543}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: mainmenu, Assembly-CSharp
         m_MethodName: changeScene
         m_Mode: 5
@@ -3079,7 +3079,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122544}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: musicVol
         m_Mode: 0
@@ -3289,7 +3289,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122544}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: startSettingsPanel
         m_Mode: 1
@@ -3422,7 +3422,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 694122543}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: mainmenu, Assembly-CSharp
         m_MethodName: changeScene
         m_Mode: 5
