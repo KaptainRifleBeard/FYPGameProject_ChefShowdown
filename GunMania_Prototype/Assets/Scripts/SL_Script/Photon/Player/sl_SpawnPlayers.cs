@@ -12,11 +12,10 @@ public class sl_SpawnPlayers : MonoBehaviour
     public GameObject spawnPostionB;
 
     void Start()
-    { 
-        
+    {
         //reset list
-        sl_p2InventoryManager.ClearAllInList();
         sl_InventoryManager.ClearAllInList();
+        sl_p2InventoryManager.ClearAllInList();
 
 
         if (PhotonNetwork.IsMasterClient)
@@ -30,9 +29,4 @@ public class sl_SpawnPlayers : MonoBehaviour
         }
     }
 
-
-    void Update()
-    {
-        
-    }
 }

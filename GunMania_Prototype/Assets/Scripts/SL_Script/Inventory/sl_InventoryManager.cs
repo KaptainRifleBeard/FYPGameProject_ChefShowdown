@@ -82,7 +82,20 @@ public class sl_InventoryManager : MonoBehaviour
             instance.myInventory.itemList[i] = null;
             RefreshItem();
 
-
         }
     }
+
+    public static void MoveToFront()
+    {
+        for (int i = 0; i < instance.myInventory.itemList.Count; i++)
+        {
+            if(instance.myInventory.itemList[i] != null)
+            {
+                instance.myInventory.itemList[i] = instance.myInventory.itemList[i - 1];
+                RefreshItem();
+            }
+            
+        }
+    }
+
 }

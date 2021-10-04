@@ -13,10 +13,20 @@ public class sl_P1PickUp : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            isPicked = true;
+            if (sl_ShootBehavior.bulletCount < 2)
+            {
+                sl_ShootBehavior.bulletCount += 1;
 
-            AddNewItem();
-            Destroy(gameObject);
+                isPicked = true;
+                AddNewItem();
+                Destroy(gameObject);
+            }
+            else
+            {
+                isPicked = false;
+
+            }
+
         }
     }
 
@@ -25,13 +35,10 @@ public class sl_P1PickUp : MonoBehaviour
         //check is it contain in list?
         if (!playerInventory.itemList.Contains(thisItem))
         {
-            //playerInventory.itemList.Add(thisItem);
-            //sl_InventoryManager.CreateNewItem(thisItem);
-
             //find is there is empty slot
-            for(int i = 0; i < playerInventory.itemList.Count; i++)
+            for (int i = 0; i < playerInventory.itemList.Count; i++)
             {
-                if(playerInventory.itemList[i] == null)
+                if (playerInventory.itemList[i] == null)
                 {
                     playerInventory.itemList[i] = thisItem;
                     break;
@@ -44,5 +51,29 @@ public class sl_P1PickUp : MonoBehaviour
             //thisItem.itemHeldNum += 1;
         }
         sl_InventoryManager.RefreshItem();
+        
+    }
+
+    public void RemoveItem()
+    {
+        if (playerInventory.itemList.Contains(thisItem))
+        {
+            //find is there is empty slot
+            for (int i = 0; i < playerInventory.itemList.Count; i++)
+            {
+                playerInventory.itemList[i] = null;
+                break;
+            }
+        }
+        sl_InventoryManager.RefreshItem();
+    }
+
+
+    private void Update()
+    {
+        //if (Input.GetMouseButtonDown(0) && sl_ShootBehavior.bulletCount > 0)
+        //{
+        //    RemoveItem();
+        //}
     }
 }

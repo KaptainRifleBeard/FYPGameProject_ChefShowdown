@@ -49,31 +49,6 @@ public class sl_PlayerControl : MonoBehaviour
                 MoveToClickLocation();
             }
 
-            //to clear the food list in ui
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    sl_InventoryManager.ClearAllInList();
-
-                    sl_InventoryManager.RefreshItem();
-                    sl_p2InventoryManager.RefreshItem();
-
-                }
-
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    sl_p2InventoryManager.ClearAllInList();
-
-                    sl_InventoryManager.RefreshItem();
-                    sl_p2InventoryManager.RefreshItem();
-
-                }
-
-            }
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
