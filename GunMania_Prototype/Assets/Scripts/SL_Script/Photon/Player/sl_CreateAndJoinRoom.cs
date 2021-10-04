@@ -28,7 +28,6 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
         //    return;
         //}
         options.MaxPlayers = 2;
-
         PhotonNetwork.JoinOrCreateRoom(createInput.text, options, null);
     }
 
@@ -54,5 +53,5 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     //}
 
-
+    
 }
