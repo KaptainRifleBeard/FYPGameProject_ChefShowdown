@@ -75,7 +75,6 @@ public class sl_P1PickUp : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("bullet count: " + sl_ShootBehavior.bulletCount);
         //completely hard code
         if (Input.GetMouseButtonDown(0)) //if shoot, check list[0] have bullet or not
         {
@@ -86,6 +85,7 @@ public class sl_P1PickUp : MonoBehaviour
                     spawn = true;
 
                     playerInventory.itemList[0] = null;
+
                     sl_InventoryManager.RefreshItem();
                     StartCoroutine(MoveToFront());
 

@@ -17,6 +17,7 @@ public class sl_ShootBehavior : MonoBehaviour
     PhotonView view;
 
     public static int bulletCount;
+    public static bool p1Shoot;
 
     void Start()
     {

@@ -10,13 +10,14 @@ public class sl_P2PickUp : MonoBehaviour
     public static bool isPicked = false;
     int count;
     bool spawn;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player2"))
         {
-            if (sl_ShootBehavior.bulletCount < 2)
+            if (sl_P2ShootBehavior.p2bulletCount < 2)
             {
-                sl_ShootBehavior.bulletCount += 1;
+                sl_P2ShootBehavior.p2bulletCount += 1;
 
                 isPicked = true;
                 AddNewItem();
@@ -60,11 +61,11 @@ public class sl_P2PickUp : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         playerInventory.itemList[0] = playerInventory.itemList[1];
-        sl_InventoryManager.RefreshItem();
+        sl_p2InventoryManager.RefreshItem();
 
         yield return new WaitForSeconds(0.1f);
         playerInventory.itemList[1] = null;
-        sl_InventoryManager.RefreshItem();
+        sl_p2InventoryManager.RefreshItem();
 
         count = 0;
     }
@@ -72,7 +73,6 @@ public class sl_P2PickUp : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("bullet count: " + sl_ShootBehavior.bulletCount);
         //completely hard code
         if (Input.GetMouseButtonDown(0)) //if shoot, check list[0] have bullet or not
         {
@@ -83,7 +83,7 @@ public class sl_P2PickUp : MonoBehaviour
                     spawn = true;
 
                     playerInventory.itemList[0] = null;
-                    sl_InventoryManager.RefreshItem();
+                    sl_p2InventoryManager.RefreshItem();
                     StartCoroutine(MoveToFront());
 
                     count++;
