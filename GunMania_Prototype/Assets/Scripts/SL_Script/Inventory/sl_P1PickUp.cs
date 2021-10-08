@@ -10,6 +10,8 @@ public class sl_P1PickUp : MonoBehaviour
     PhotonView view;
 
     public static bool isPicked = false;
+    int count;
+    bool spawn;
 
 
     void Start()
@@ -32,7 +34,6 @@ public class sl_P1PickUp : MonoBehaviour
             else
             {
                 isPicked = false;
-
             }
 
         }
@@ -53,42 +54,52 @@ public class sl_P1PickUp : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            //add num (if already in list) -----> but we nonid this, so leave this code here as reference
-            //thisItem.itemHeldNum += 1;
-        }
         sl_InventoryManager.RefreshItem();
         
     }
 
 
-    public void RemoveItem()
+    private IEnumerator MoveToFront()
     {
-        if (playerInventory.itemList.Contains(thisItem))
-        {
-            //find is there is empty slot
-            for (int i = 0; i < playerInventory.itemList.Count; i++)
-            {
-                playerInventory.itemList[i] = null;
-                break;
-            }
-        }
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[0] = playerInventory.itemList[1];
         sl_InventoryManager.RefreshItem();
 
-        if(view)
-        {
-            view.RPC("AddNewItem", )
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[1] = null;
+        sl_InventoryManager.RefreshItem();
 
-        }
+        count = 0;
     }
 
 
-    private void Update()
+    void Update()
     {
-        //if (Input.GetMouseButtonDown(0) && sl_ShootBehavior.bulletCount > 0)
-        //{
-        //    RemoveItem();
-        //}
+        Debug.Log("bullet count: " + sl_ShootBehavior.bulletCount);
+        //completely hard code
+        if (Input.GetMouseButtonDown(0)) //if shoot, check list[0] have bullet or not
+        {
+            if (count < 1 && spawn == false)  //to spawn only one per time
+            {
+                if (count < 1)
+                {
+                    spawn = true;
+
+                    playerInventory.itemList[0] = null;
+                    sl_InventoryManager.RefreshItem();
+                    StartCoroutine(MoveToFront());
+
+                    count++;
+
+                }
+                if (count == 1)
+                {
+                    spawn = false;
+                }
+            }
+        }
+
     }
+
+
 }

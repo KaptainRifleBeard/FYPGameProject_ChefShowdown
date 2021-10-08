@@ -104,15 +104,13 @@ public class sl_ShootBehavior : MonoBehaviour
 
                 bullet.transform.forward = directionShoot.normalized;
                 bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
-                //bulletCount--;
-                //BulletCount(bulletCount);
+                bulletCount--;
 
-                if(view)
+                if (view)
                 {
-                    view.RPC("BulletCount", RpcTarget.All, bulletCount);
+                    //view.RPC("BulletCount", RpcTarget.All, bulletCount);
                 }
 
-                sl_InventoryManager.MoveToFront();
             }
 
         }
@@ -120,4 +118,23 @@ public class sl_ShootBehavior : MonoBehaviour
     }
 
 
+
+    [PunRPC]
+    public void BulletCount(int count)
+    {
+        bulletCount -= count;
+
+    }
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(bulletCount);
+        }
+        else if (stream.IsReading)
+        {
+            bulletCount = (int)stream.ReceiveNext();
+        }
+    }
 }

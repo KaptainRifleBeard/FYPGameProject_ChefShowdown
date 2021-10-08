@@ -14,7 +14,6 @@ public class FoodSpawn : MonoBehaviour
     public int sec = 6;
 
     private int prefabInd;
-    private IEnumerator coroutine;
 
     int count;
     bool spawn;
@@ -33,8 +32,7 @@ public class FoodSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (sl_P1PickUp.isPicked == true || sl_P2PickUp.isPicked == true)
+        if (sl_P1PickUp.isPicked == true)
         {
             if (count < 1 && spawn == false)  //to spawn only one per time
             {
@@ -42,11 +40,9 @@ public class FoodSpawn : MonoBehaviour
                 {
                     spawn = true;
 
-                    Debug.Log("pick");
-                    coroutine = Spawn(sec);
-                    StartCoroutine(coroutine);
-                    PickUp.isPicked = false;
-                    
+                    StartCoroutine(P1Spawn(sec));
+                    sl_P1PickUp.isPicked = false;
+
                     count++;
 
                 }
@@ -56,19 +52,54 @@ public class FoodSpawn : MonoBehaviour
                 }
             }
 
+        }
+
+        if (sl_P2PickUp.isPicked == true)
+        {
+            if (count < 1 && spawn == false)  //to spawn only one per time
+            {
+                if (count < 1)
+                {
+                    spawn = true;
+
+                    StartCoroutine(P2Spawn(sec));
+                    sl_P2PickUp.isPicked = false;
+
+                    count++;
+
+                }
+                if (count == 1)
+                {
+                    spawn = false;
+                }
+            }
 
         }
+
     }
 
-    private IEnumerator Spawn(int secs)
+    private IEnumerator P1Spawn(int secs)
     {
-        Debug.Log("run pick");
-
         yield return new WaitForSeconds(secs);
         prefabInd = Random.Range(0, prefabs.Count);
         Instantiate(prefabs[prefabInd], SpawnPoint[Respawn.index].transform.position, Quaternion.identity);
         count = 0;
+
+
+        sl_P1PickUp.isPicked = false;
+
     }
 
+    private IEnumerator P2Spawn(int secs)
+    {
+        yield return new WaitForSeconds(secs);
+        prefabInd = Random.Range(0, prefabs.Count);
+        Instantiate(prefabs[prefabInd], SpawnPoint[Respawn.index].transform.position, Quaternion.identity);
+        count = 0;
+
+
+        sl_P2PickUp.isPicked = false;
+
+    }
 
 }

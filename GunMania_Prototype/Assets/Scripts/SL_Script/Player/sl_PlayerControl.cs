@@ -116,23 +116,4 @@ public class sl_PlayerControl : MonoBehaviour
     }
 
 
-    [PunRPC]
-    public void BulletCount(int count)
-    {
-        sl_ShootBehavior.bulletCount -= count;
-
-    }
-
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(sl_ShootBehavior.bulletCount);
-        }
-        else if (stream.IsReading)
-        {
-            sl_ShootBehavior.bulletCount = (int)stream.ReceiveNext();
-        }
-    }
-
 }
