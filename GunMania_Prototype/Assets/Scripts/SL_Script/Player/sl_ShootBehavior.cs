@@ -104,7 +104,13 @@ public class sl_ShootBehavior : MonoBehaviour
 
                 bullet.transform.forward = directionShoot.normalized;
                 bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
-                bulletCount--;
+                //bulletCount--;
+                //BulletCount(bulletCount);
+
+                if(view)
+                {
+                    view.RPC("BulletCount", RpcTarget.All, bulletCount);
+                }
 
                 sl_InventoryManager.MoveToFront();
             }
@@ -112,5 +118,6 @@ public class sl_ShootBehavior : MonoBehaviour
         }
 
     }
+
 
 }

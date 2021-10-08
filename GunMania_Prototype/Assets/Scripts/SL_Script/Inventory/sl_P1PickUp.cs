@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class sl_P1PickUp : MonoBehaviour
 {
     public sl_Item thisItem;
     public sl_Inventory playerInventory;  //set which inventory should be place in
+    PhotonView view;
 
     public static bool isPicked = false;
+
+
+    void Start()
+    {
+        view = GetComponent<PhotonView>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -54,6 +62,7 @@ public class sl_P1PickUp : MonoBehaviour
         
     }
 
+
     public void RemoveItem()
     {
         if (playerInventory.itemList.Contains(thisItem))
@@ -66,6 +75,12 @@ public class sl_P1PickUp : MonoBehaviour
             }
         }
         sl_InventoryManager.RefreshItem();
+
+        if(view)
+        {
+            view.RPC("AddNewItem", )
+
+        }
     }
 
 

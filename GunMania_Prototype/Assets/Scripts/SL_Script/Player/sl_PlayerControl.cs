@@ -16,16 +16,14 @@ public class sl_PlayerControl : MonoBehaviour
     Vector3 targetPosition;
     Vector3 mousePos;
 
-    PhotonView view;
-
     public GameObject cursor;
-
     public bool isGrounded;
 
 
     //NavMesh AI movement for click to move
-    public LayerMask whatCanBeClickOn;
     private NavMeshAgent myAgent;
+    PhotonView view;
+    public sl_Inventory playerInventory;  //set which inventory should be place in
 
     private void Awake()
     {
@@ -63,7 +61,6 @@ public class sl_PlayerControl : MonoBehaviour
     }
 
     private bool PlayerJumped => characterController.isGrounded && Input.GetKey(KeyCode.Space);
-
 
     public void Movement()
     {
@@ -118,5 +115,24 @@ public class sl_PlayerControl : MonoBehaviour
         }
     }
 
-    
+
+    [PunRPC]
+    public void BulletCount(int count)
+    {
+        sl_ShootBehavior.bulletCount -= count;
+
+    }
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(sl_ShootBehavior.bulletCount);
+        }
+        else if (stream.IsReading)
+        {
+            sl_ShootBehavior.bulletCount = (int)stream.ReceiveNext();
+        }
+    }
+
 }
