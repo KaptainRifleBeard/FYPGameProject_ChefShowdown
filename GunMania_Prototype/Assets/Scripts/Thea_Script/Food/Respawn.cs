@@ -5,11 +5,10 @@ using UnityEngine;
 public class Respawn : MonoBehaviour
 {
     public static int index;
-    public FoodSpawn s;
 
     public void OnTriggerEnter(Collider other)
     {
-        index = FindObjectOfType<FoodSpawn>().SpawnPoint.IndexOf(this.gameObject);
+        index = FindObjectOfType<FoodSpawn>().foodSpawnPoint.IndexOf(this.gameObject);
         Debug.Log(index);
     }
 }
