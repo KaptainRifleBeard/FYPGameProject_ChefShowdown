@@ -67,11 +67,11 @@ public class sl_PlayerControl : MonoBehaviour
 
 
             //NEW MOVEMENT - current using
-            if(Input.GetMouseButtonDown(1))
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
+            if (Input.GetMouseButtonDown(1))
+            {
                 if (Physics.Raycast(ray, out hit))
                 {
                     targetDestionation.transform.position = hit.point;
@@ -80,6 +80,15 @@ public class sl_PlayerControl : MonoBehaviour
 
             }
 
+            //Rotate player
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayLength;
+
+            if (groundPlane.Raycast(ray, out rayLength))
+            {
+                Vector3 pointToLook = ray.GetPoint(rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            }
 
         }
     }
