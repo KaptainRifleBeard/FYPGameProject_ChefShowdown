@@ -13,6 +13,14 @@ public class sl_PlayerControl : MonoBehaviour
     //NEW MOVEMENT VARIABLE
     public GameObject targetDestionation;
 
+    //HEALTH
+    
+    [Space(10)] [Header("Health")]
+    private int maxHealth = 16;
+    public static int currentHealth = 0;
+
+    public GameObject bulletScript;
+
     private void Awake()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -55,7 +63,32 @@ public class sl_PlayerControl : MonoBehaviour
         }
     }
 
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+        {
+            stream.SendNext(currentHealth);
+        }
+        else if (stream.IsReading)
+        {
+            currentHealth = (int)stream.ReceiveNext();
+        }
 
+    }
+
+    [PunRPC]
+    public void BulletDamage()
+    {
+        currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == ("Bullet"))
+        {
+            Debug.Log("yoooooo");
+        }
+    }
 
     //************* OLD CODE *************//
     /*
