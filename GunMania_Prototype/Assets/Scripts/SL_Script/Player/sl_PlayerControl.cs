@@ -6,32 +6,15 @@ using Photon.Pun;
 
 public class sl_PlayerControl : MonoBehaviour
 {
-    public float speed;
-    public float jumpForce;
-    public float gravity;
-    public float rotateSpeed;
-
-    CharacterController characterController;
-    Vector3 direction;
-    Vector3 targetPosition;
-    Vector3 mousePos;
-
-    public GameObject cursor;
-    public bool isGrounded;
-
-
     //NavMesh AI movement for click to move
     private NavMeshAgent myAgent;
     PhotonView view;
-    public sl_Inventory playerInventory;  //set which inventory should be place in
-
 
     //NEW MOVEMENT VARIABLE
     public GameObject targetDestionation;
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
         myAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -45,27 +28,6 @@ public class sl_PlayerControl : MonoBehaviour
     {
         if (view.IsMine)  //Photon - check is my character
         {
-            /*
-            //Movement();
-            if (Input.GetMouseButton(1))
-            {
-                MoveToClickLocation();
-            }
-
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-            float rayLength;
-
-            if (groundPlane.Raycast(ray, out rayLength))
-            {
-                Vector3 pointToLook = ray.GetPoint(rayLength);
-                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }
-            */
-
-
-
             //NEW MOVEMENT - current using
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -93,6 +55,40 @@ public class sl_PlayerControl : MonoBehaviour
         }
     }
 
+
+
+    //************* OLD CODE *************//
+    /*
+     
+    
+    CharacterController characterController;
+    Vector3 direction;
+    Vector3 targetPosition;
+    Vector3 mousePos;
+
+    public float speed;
+    public float jumpForce;
+    public float gravity;
+    public float rotateSpeed;
+
+    public GameObject cursor;
+    public bool isGrounded;
+
+
+    public sl_Inventory playerInventory;  //set which inventory should be place in
+
+    private void Awake()
+    {
+        characterController = GetComponent<CharacterController>();
+        myAgent = GetComponent<NavMeshAgent>();
+    }
+
+
+    void Start()
+    {
+        view = GetComponent<PhotonView>();
+    }
+   
     private bool PlayerJumped => characterController.isGrounded && Input.GetKey(KeyCode.Space);
 
     public void Movement()
@@ -148,4 +144,28 @@ public class sl_PlayerControl : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        if (view.IsMine)  //Photon - check is my character
+        {
+
+            //Movement();
+            if (Input.GetMouseButton(1))
+            {
+                MoveToClickLocation();
+            }
+
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayLength;
+
+            if (groundPlane.Raycast(ray, out rayLength))
+            {
+                Vector3 pointToLook = ray.GetPoint(rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            }
+        }
+    }
+    */
 }
