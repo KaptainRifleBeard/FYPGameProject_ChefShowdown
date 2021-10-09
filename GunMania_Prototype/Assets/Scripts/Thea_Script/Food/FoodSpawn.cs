@@ -8,16 +8,16 @@ public class FoodSpawn : MonoBehaviour
     public List<GameObject> foodSpawnPoint;
 
     [Header("Japan Dish Spawn Points")]
-    public List<GameObject> JPdishSpawnPoint;
+    public GameObject JPdishSpawnPoint;
 
     [Header("Korea Dish Spawn Points")]
-    public List<GameObject> KRdishSpawnPoint;
+    public GameObject KRdishSpawnPoint;
 
     [Header("China Dish Spawn Points")]
-    public List<GameObject> CNdishSpawnPoint;
+    public GameObject CNdishSpawnPoint;
 
     [Header("Taiwan Dish Spawn Points")]
-    public List<GameObject> TWdishSpawnPoint;
+    public GameObject TWdishSpawnPoint;
 
     [Header("Food Prefabs")]
     public List<GameObject> prefabs;
@@ -119,13 +119,13 @@ public class FoodSpawn : MonoBehaviour
     {
         yield return new WaitForSeconds(dishsecs);
         //Japan dish spawn
-        Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], JPdishSpawnPoint[0].transform.position, Quaternion.identity);
+        Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], JPdishSpawnPoint.transform.position, Quaternion.identity);
         //Korea dish
-        Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], KRdishSpawnPoint[0].transform.position, Quaternion.identity);
+        Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], KRdishSpawnPoint.transform.position, Quaternion.identity);
         //China dish
-        Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], CNdishSpawnPoint[0].transform.position, Quaternion.identity);
+        Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], CNdishSpawnPoint.transform.position, Quaternion.identity);
         //Taiwan dish
-        Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], TWdishSpawnPoint[0].transform.position, Quaternion.identity);
+        Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], TWdishSpawnPoint.transform.position, Quaternion.identity);
         count = 0;
     }
 
