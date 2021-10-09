@@ -126,6 +126,7 @@ MonoBehaviour:
   cursor: {fileID: 2259116452129857001, guid: 13813268bdf56df47843916c2e36be67, type: 3}
   isGrounded: 0
   playerInventory: {fileID: 0}
+  targetDestionation: {fileID: 0}
 --- !u!195 &2784047750339751704
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -135,17 +136,17 @@ NavMeshAgent:
   m_GameObject: {fileID: 2784047750339751703}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
-  m_Speed: 50
-  m_Acceleration: 50
+  m_Radius: 3
+  m_Speed: 200
+  m_Acceleration: 500
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 4000
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.49999997
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &38238731443728680

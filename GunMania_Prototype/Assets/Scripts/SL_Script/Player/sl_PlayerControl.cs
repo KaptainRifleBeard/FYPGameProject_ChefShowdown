@@ -25,6 +25,10 @@ public class sl_PlayerControl : MonoBehaviour
     PhotonView view;
     public sl_Inventory playerInventory;  //set which inventory should be place in
 
+
+    //NEW MOVEMENT VARIABLE
+    public GameObject targetDestionation;
+
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
@@ -41,6 +45,7 @@ public class sl_PlayerControl : MonoBehaviour
     {
         if (view.IsMine)  //Photon - check is my character
         {
+            /*
             //Movement();
             if (Input.GetMouseButton(1))
             {
@@ -57,6 +62,25 @@ public class sl_PlayerControl : MonoBehaviour
                 Vector3 pointToLook = ray.GetPoint(rayLength);
                 transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
             }
+            */
+
+
+
+            //NEW MOVEMENT - current using
+            if(Input.GetMouseButtonDown(1))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    targetDestionation.transform.position = hit.point;
+                    myAgent.SetDestination(hit.point);
+                }
+
+            }
+
+
         }
     }
 
@@ -114,6 +138,5 @@ public class sl_PlayerControl : MonoBehaviour
 
         }
     }
-
 
 }
