@@ -6,7 +6,7 @@ using Photon.Pun;
 public class sl_BulletScript : MonoBehaviour
 {
     public int bulletDmg;
-
+   
     void Update()
     {
         waitForSec();
@@ -18,5 +18,13 @@ public class sl_BulletScript : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player2")
+        {
+            Destroy(gameObject);
+
+        }
+    }
 
 }

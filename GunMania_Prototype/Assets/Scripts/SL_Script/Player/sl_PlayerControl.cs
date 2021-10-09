@@ -30,6 +30,7 @@ public class sl_PlayerControl : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
+        currentHealth = maxHealth;
     }
 
     public void Update()
@@ -46,8 +47,8 @@ public class sl_PlayerControl : MonoBehaviour
                 {
                     targetDestionation.transform.position = hit.point;
                     myAgent.SetDestination(hit.point);
-                }
 
+                }
             }
 
             //Rotate player
@@ -60,8 +61,14 @@ public class sl_PlayerControl : MonoBehaviour
                 transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
             }
 
+
+            if(currentHealth == 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
+
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -84,9 +91,14 @@ public class sl_PlayerControl : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.tag == ("Bullet"))
+        if(hit.gameObject.tag == "Bullet")
         {
-            Debug.Log("yoooooo");
+            if(view.IsMine)
+            {
+                view.RPC("BulletDamage", RpcTarget.All);
+
+            }
+
         }
     }
 
