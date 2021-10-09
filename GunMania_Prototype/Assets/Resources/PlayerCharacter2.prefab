@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 2784047750339751705}
   - component: {fileID: 2784047750339751710}
   - component: {fileID: 2784047750339751708}
-  - component: {fileID: 4770957767085688129}
   - component: {fileID: 2784047750339751704}
   - component: {fileID: 38238731443728680}
   - component: {fileID: 6829483939388315608}
+  - component: {fileID: -6448315923961450218}
   m_Layer: 0
   m_Name: PlayerCharacter2
   m_TagString: Player2
@@ -125,28 +125,8 @@ MonoBehaviour:
   rotateSpeed: 1
   cursor: {fileID: 2259116452129857001, guid: 13813268bdf56df47843916c2e36be67, type: 3}
   isGrounded: 0
-  whatCanBeClickOn:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &4770957767085688129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2784047750339751703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325502aef3b1c944ea3ccb42ceb43651, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: -5977661525850500093, guid: d86da9e7c2201be47b2b8922ff31e6ca, type: 3}
-  cursor: {fileID: 0}
-  shootPosition: {fileID: 0}
-  attackPosition: {fileID: 2784047750659836809}
-  layer:
-    serializedVersion: 2
-    m_Bits: 1
+  playerInventory: {fileID: 0}
+  targetDestionation: {fileID: 0}
 --- !u!195 &2784047750339751704
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -156,17 +136,17 @@ NavMeshAgent:
   m_GameObject: {fileID: 2784047750339751703}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
-  m_Speed: 50
-  m_Acceleration: 50
+  m_Radius: 3
+  m_Speed: 200
+  m_Acceleration: 500
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 4000
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.49999997
+  m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &38238731443728680
@@ -225,6 +205,25 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &-6448315923961450218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784047750339751703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb816205ba92f1e428975f2c3836c15e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: -5977661525850500093, guid: d86da9e7c2201be47b2b8922ff31e6ca, type: 3}
+  cursor: {fileID: 0}
+  shootPosition: {fileID: 0}
+  attackPosition: {fileID: 2784047750659836809}
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2784047750410528549
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,6 @@ public class sl_RoomListingMenu : MonoBehaviourPunCallbacks
     {
         foreach(RoomInfo info in roomList)
         {
-
             if (info.RemovedFromList)
             {
                 int i = listings.FindIndex(x => x.RoomInfo.Name == info.Name); //check the list have the same name

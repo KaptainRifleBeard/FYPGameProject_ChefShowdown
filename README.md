@@ -1,2 +1,2 @@
-# SBRD_Prototype
-A prototype project for a game idea called SBRD (name pending)
+# FoodFling_FYPGameProject
+FYP game project called Food Fling

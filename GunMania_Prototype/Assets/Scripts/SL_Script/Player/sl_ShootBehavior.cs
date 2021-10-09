@@ -16,6 +16,8 @@ public class sl_ShootBehavior : MonoBehaviour
     private Camera cam;
     PhotonView view;
 
+    public static int bulletCount;
+    public static bool p1Shoot;
 
     void Start()
     {
@@ -30,10 +32,7 @@ public class sl_ShootBehavior : MonoBehaviour
         {
             //LaunchProjectile();  //gravity shoot
             ShootStraight();
-
-            //Test();
         }
-
     }
 
 
@@ -50,30 +49,17 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit))
         {
-            //cursor.SetActive(true);
-            //cursor.transform.position = hit.point + Vector3.up * 0.1f;
-            //cursor.transform.position = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, hit.transform.position.z + 60.0f));
-
             Vector3 vel = CalculateVelocity(hit.point, shootPosition.position, 1f);
-            //transform.rotation = Quaternion.LookRotation(vel);
 
             if (Input.GetMouseButtonDown(0))
             {
                 Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
                 bullet.velocity = vel;
 
-                //Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-                //bullet.velocity = vel;
             }
 
         }
-        else
-        {
-            //cursor.SetActive(false);
-        }
-
     }
-
 
     Vector3 CalculateVelocity(Vector3 target, Vector3 origin, float time)
     {
@@ -108,7 +94,7 @@ public class sl_ShootBehavior : MonoBehaviour
         Vector3 targetPosition;
         float shootForce = 50.0f;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && bulletCount > 0)
         {
             if (Physics.Raycast(ray, out hit))
             {
@@ -119,12 +105,37 @@ public class sl_ShootBehavior : MonoBehaviour
 
                 bullet.transform.forward = directionShoot.normalized;
                 bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
+                bulletCount--;
+
+                if (view)
+                {
+                    //view.RPC("BulletCount", RpcTarget.All, bulletCount);
+                }
 
             }
-
 
         }
 
     }
 
+
+
+    [PunRPC]
+    public void BulletCount(int count)
+    {
+        bulletCount -= count;
+
+    }
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(bulletCount);
+        }
+        else if (stream.IsReading)
+        {
+            bulletCount = (int)stream.ReceiveNext();
+        }
+    }
 }

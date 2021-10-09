@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class sl_CurrentRoomCanvas : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
     [SerializeField] private sl_LeaveRoomMenu leaveRoomMenu;
 
     private sl_RoomCanvases roomCanvas;
+    public GameObject startButton;
 
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
@@ -24,5 +26,17 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        //if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        //{
+        //    startButton.SetActive(true);
+        //}
+        //else
+        //{
+        //    startButton.SetActive(false);
+        //}
     }
 }

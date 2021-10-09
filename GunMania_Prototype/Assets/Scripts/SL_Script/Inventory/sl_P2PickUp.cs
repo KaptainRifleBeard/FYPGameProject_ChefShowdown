@@ -6,16 +6,27 @@ public class sl_P2PickUp : MonoBehaviour
 {
     public sl_Item thisItem;
     public sl_Inventory playerInventory;  //set which inventory should be place in
+
     public static bool isPicked = false;
+    int count;
+    bool spawn;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player2"))
         {
-            isPicked = true;
+            if (sl_P2ShootBehavior.p2bulletCount < 2)
+            {
+                sl_P2ShootBehavior.p2bulletCount += 1;
 
-            AddNewItem();
-            Destroy(gameObject);
+                isPicked = true;
+                AddNewItem();
+                Destroy(gameObject);
+            }
+            else
+            {
+                isPicked = false;
+            }
         }
     }
 
@@ -43,5 +54,47 @@ public class sl_P2PickUp : MonoBehaviour
             //thisItem.itemHeldNum += 1;
         }
         sl_p2InventoryManager.RefreshItem();
+    }
+
+
+    private IEnumerator MoveToFront()
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[0] = playerInventory.itemList[1];
+        sl_p2InventoryManager.RefreshItem();
+
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[1] = null;
+        sl_p2InventoryManager.RefreshItem();
+
+        count = 0;
+    }
+
+
+    void Update()
+    {
+        //completely hard code
+        if (Input.GetMouseButtonDown(0)) //if shoot, check list[0] have bullet or not
+        {
+            if (count < 1 && spawn == false)  //to spawn only one per time
+            {
+                if (count < 1)
+                {
+                    spawn = true;
+
+                    playerInventory.itemList[0] = null;
+                    sl_p2InventoryManager.RefreshItem();
+                    StartCoroutine(MoveToFront());
+
+                    count++;
+
+                }
+                if (count == 1)
+                {
+                    spawn = false;
+                }
+            }
+        }
+
     }
 }

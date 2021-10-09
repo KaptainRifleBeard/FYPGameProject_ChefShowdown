@@ -16,16 +16,18 @@ public class sl_PlayerControl : MonoBehaviour
     Vector3 targetPosition;
     Vector3 mousePos;
 
-    PhotonView view;
-
     public GameObject cursor;
-
     public bool isGrounded;
 
 
     //NavMesh AI movement for click to move
-    public LayerMask whatCanBeClickOn;
     private NavMeshAgent myAgent;
+    PhotonView view;
+    public sl_Inventory playerInventory;  //set which inventory should be place in
+
+
+    //NEW MOVEMENT VARIABLE
+    public GameObject targetDestionation;
 
     private void Awake()
     {
@@ -43,37 +45,13 @@ public class sl_PlayerControl : MonoBehaviour
     {
         if (view.IsMine)  //Photon - check is my character
         {
+            /*
             //Movement();
             if (Input.GetMouseButton(1))
             {
                 MoveToClickLocation();
             }
 
-            //to clear the food list in ui
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    sl_InventoryManager.ClearAllInList();
-
-                    sl_InventoryManager.RefreshItem();
-                    sl_p2InventoryManager.RefreshItem();
-
-                }
-
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    sl_p2InventoryManager.ClearAllInList();
-
-                    sl_InventoryManager.RefreshItem();
-                    sl_p2InventoryManager.RefreshItem();
-
-                }
-
-            }
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -84,11 +62,29 @@ public class sl_PlayerControl : MonoBehaviour
                 Vector3 pointToLook = ray.GetPoint(rayLength);
                 transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
             }
+            */
+
+
+
+            //NEW MOVEMENT - current using
+            if(Input.GetMouseButtonDown(1))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    targetDestionation.transform.position = hit.point;
+                    myAgent.SetDestination(hit.point);
+                }
+
+            }
+
+
         }
     }
 
     private bool PlayerJumped => characterController.isGrounded && Input.GetKey(KeyCode.Space);
-
 
     public void Movement()
     {
@@ -143,5 +139,4 @@ public class sl_PlayerControl : MonoBehaviour
         }
     }
 
-    
 }
