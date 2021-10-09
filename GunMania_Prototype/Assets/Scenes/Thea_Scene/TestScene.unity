@@ -3711,6 +3711,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636889912}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &648776718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
+  m_PrefabInstance: {fileID: 1283178372}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &649136502
 GameObject:
   m_ObjectHideFlags: 0
@@ -3916,7 +3921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5132,6 +5137,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
   m_PrefabInstance: {fileID: 826602856}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &845641061 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
+  m_PrefabInstance: {fileID: 670593274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &849883620
 GameObject:
   m_ObjectHideFlags: 0
@@ -5257,23 +5267,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b960875a71e50458d4fe3a1fc2e871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoint:
+  foodSpawnPoint:
   - {fileID: 1142593617}
   - {fileID: 1871541997}
   - {fileID: 1729724379}
+  - {fileID: 995160438}
+  JPdishSpawnPoint:
+  - {fileID: 845641061}
+  KRdishSpawnPoint:
+  - {fileID: 2091388996}
+  CNdishSpawnPoint:
   - {fileID: 1861678845}
+  TWdishSpawnPoint:
+  - {fileID: 648776718}
   prefabs:
   - {fileID: 7648938104702898269, guid: 6113d20006c171649bb8c749edb9803b, type: 3}
   - {fileID: 136135795473414659, guid: 610c60e07f2a92d44904b6aa95278380, type: 3}
   - {fileID: 4230974403782647468, guid: a01514be9243bb14594f9238c215c2c1, type: 3}
   - {fileID: 6369928063340451642, guid: 43d76c5d95eb7034fb62510fddb09519, type: 3}
+  JPdishPrefabs:
   - {fileID: 2260437171972032750, guid: 4486e546d81aebf428de8f7672ec86e8, type: 3}
   - {fileID: 1559786453640428713, guid: ee8780f578c8aec4f98cf9b291407538, type: 3}
+  KRdishPrefabs:
   - {fileID: 4066692775127333679, guid: a5a4a005852c518409278b4ffc4a71fc, type: 3}
   - {fileID: 2631592029581501397, guid: 4f0ea277581b1c142bcb33cc660266cc, type: 3}
+  CNdishPrefabs:
   - {fileID: 9153182494686013806, guid: 2ee96a5fce613c74280aee819206ca26, type: 3}
   - {fileID: 8484685506232431037, guid: 096343387db98c4488cc9a0af9bd5458, type: 3}
+  TWdishPrefabs:
+  - {fileID: 1559786453640428713, guid: ee8780f578c8aec4f98cf9b291407538, type: 3}
+  - {fileID: 4066692775127333679, guid: a5a4a005852c518409278b4ffc4a71fc, type: 3}
   sec: 6
+  dishsec: 5
+  countdownTime: 5
 --- !u!4 &856528889
 Transform:
   m_ObjectHideFlags: 0
@@ -6200,6 +6226,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992684298}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &995160438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
+  m_PrefabInstance: {fileID: 663600708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1016540768
 GameObject:
   m_ObjectHideFlags: 0
@@ -6726,7 +6757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8520,7 +8551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13363,6 +13394,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2089887487}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2091388996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
+  m_PrefabInstance: {fileID: 1154625274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2092902029
 GameObject:
   m_ObjectHideFlags: 0

@@ -42,7 +42,6 @@ public class FoodSpawn : MonoBehaviour
     public int countdownTime = 5;
 
     private int prefabInd;
-    private int dishPrefabInd;
 
     private IEnumerator coroutine;
     private IEnumerator countdownCoro;
@@ -60,8 +59,6 @@ public class FoodSpawn : MonoBehaviour
 
             Instantiate(prefabs[prefabInd], foodSpawnPoint[i].transform.position, Quaternion.identity);
 
-            countdownCoro = DishCountdown(countdownTime);
-            StartCoroutine(countdownCoro);
         }
 
         countdownCoro = DishCountdown(countdownTime);
@@ -93,8 +90,11 @@ public class FoodSpawn : MonoBehaviour
                     spawn = false;
                 }
             }
+        }
 
-
+        if(DishDespawn.canSpawn)
+        {
+            StartCoroutine(DishRespawn(10));
         }
     }
 
@@ -129,7 +129,9 @@ public class FoodSpawn : MonoBehaviour
         count = 0;
     }
 
-    
-
+    private IEnumerator DishRespawn(int secs)
+    {
+        yield return new WaitForSeconds(secs);
+    }
 
 }
