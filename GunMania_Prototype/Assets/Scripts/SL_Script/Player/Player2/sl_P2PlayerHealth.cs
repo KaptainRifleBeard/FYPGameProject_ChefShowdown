@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AI;
 using Photon.Pun;
-
+using UnityEngine.SceneManagement;
 
 public class sl_P2PlayerHealth : MonoBehaviour
 {
