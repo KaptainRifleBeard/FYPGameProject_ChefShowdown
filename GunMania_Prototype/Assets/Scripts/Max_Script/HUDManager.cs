@@ -14,8 +14,11 @@ public class HUDManager : MonoBehaviour
     public Text Timer;
     public GameObject PlayerPortrait,EnemyPotrait,PlayerTagPortrait,EnemyTagPortrait;
 
-    public HealthBar Healthmanager;    // Wtf have i done?
-    public UltimateBar UltBarManager; // moreso wtf?
+    public HealthBar Healthmanager;    
+
+
+
+   // public UltimateBar UltBarManager; // moreso wtf?
 
     [Header ("PlayerFoodItems")]
     public Image playerfood1, playerfood2, foodCombo;
@@ -97,21 +100,17 @@ public class HUDManager : MonoBehaviour
 
     private void updateTimer()
     {
-        timeStart += Time.deltaTime;
-        float temp = MatchDuration - timeStart;
 
-        Timer.text = temp.ToString();
+
+        timeStart -= Time.deltaTime;
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        timeStart = Time.time;
-        Timer.text = MatchDuration.ToString();
-
-        UltBarManager.SetMaxBar(MaxUltValue,false);
-        UltBarManager.SetMaxBar(MaxUltValue,true);
+        timeStart = MatchDuration ;
+        //Healthmanager;
     }
 
     // Update is called once per frame
@@ -119,13 +118,13 @@ public class HUDManager : MonoBehaviour
     {
 
 
-        if (Healthmanager.currenthealth>0 || Healthmanager.enemyCurrentHealth>0)
+        if (Healthmanager.currenthealth>0 || Healthmanager.enemyCurrentHealth>0 || timeStart > 0)
         {
             updateTimer();
         }
         else
         {
-            
+            Debug.Log("Match Ended");
         }
 
         // countdown timer
@@ -148,22 +147,22 @@ public class HUDManager : MonoBehaviour
         {
             if (collision.gameObject.tag == "enemy")
             {
-                UltBarManager.SetBar(12.5f,true);
+                Healthmanager.UpdateHealth(1, true);
             }
             else if (collision.gameObject.tag == "player")
             {
-                UltBarManager.SetBar(12.5f,false);
+                Healthmanager.UpdateHealth(2, false);
             }
         }
         else if (collision.gameObject.tag == "superFood")
         {
             if (collision.gameObject.tag == "enemy")
             {
-                UltBarManager.SetBar(25f,true);
+                Healthmanager.UpdateHealth(2, true);
             }
             else if (collision.gameObject.tag == "player")
             {
-                UltBarManager.SetBar(25f,false);
+                Healthmanager.UpdateHealth(2, false);
             }
         }
 
