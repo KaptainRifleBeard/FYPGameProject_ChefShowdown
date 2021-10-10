@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class sl_InventoryManager : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class sl_InventoryManager : MonoBehaviour
 
         instance = this;
     }
-
+   
     private void OnEnable()
     {
         RefreshItem();
@@ -81,21 +82,27 @@ public class sl_InventoryManager : MonoBehaviour
         {
             instance.myInventory.itemList[i] = null;
             RefreshItem();
-
         }
     }
 
-    public static void MoveToFront()
-    {
-        for (int i = 0; i < instance.myInventory.itemList.Count; i++)
-        {
-            if(instance.myInventory.itemList[i] != null)
-            {
-                instance.myInventory.itemList[i] = instance.myInventory.itemList[i - 1];
-                RefreshItem();
-            }
-            
-        }
-    }
+    //public static void MoveToFront()
+    //{
+    //    for (int i = 0; i < instance.myInventory.itemList.Count; i++)
+    //    {
+    //        if(instance.myInventory.itemList[i] != null)
+    //        {
+    //            //instance.myInventory.itemList[i] = instance.myInventory.itemList[i - 1];
+
+    //            //remove first element then add 1 more slot
+    //            //instance.myInventory.itemList.RemoveAt(i);
+    //            instance.myInventory.itemList[i - 1] = null;
+
+
+    //        }
+
+
+    //    }
+
+    //}
 
 }
