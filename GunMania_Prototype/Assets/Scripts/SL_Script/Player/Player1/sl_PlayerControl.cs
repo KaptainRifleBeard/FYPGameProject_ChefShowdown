@@ -7,22 +7,12 @@ using Photon.Pun;
 
 public class sl_PlayerControl : MonoBehaviour
 {
-    public Text healthText;
-
     //NavMesh AI movement for click to move
     private NavMeshAgent myAgent;
     PhotonView view;
 
     //NEW MOVEMENT VARIABLE
     public GameObject targetDestionation;
-
-    //HEALTH
-    
-    [Space(10)] [Header("Health")]
-    private int maxHealth = 16;
-    public static int currentHealth = 0;
-
-    public GameObject bulletScript;
 
     private void Awake()
     {
@@ -33,13 +23,10 @@ public class sl_PlayerControl : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
-        currentHealth = maxHealth;
     }
 
     public void Update()
     {
-        healthText.text = currentHealth.ToString();
-
         if (view.IsMine)  //Photon - check is my character
         {
             //NEW MOVEMENT - current using
@@ -64,44 +51,6 @@ public class sl_PlayerControl : MonoBehaviour
             {
                 Vector3 pointToLook = ray.GetPoint(rayLength);
                 transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }
-
-
-            if(currentHealth == 0)
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
-
-
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if(stream.IsWriting)
-        {
-            stream.SendNext(currentHealth);
-        }
-        else if (stream.IsReading)
-        {
-            currentHealth = (int)stream.ReceiveNext();
-        }
-
-    }
-
-    [PunRPC]
-    public void BulletDamage()
-    {
-        currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
-    }
-
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if(hit.gameObject.tag == "Bullet")
-        {
-            if(view.IsMine)
-            {
-                view.RPC("BulletDamage", RpcTarget.All);
-
             }
 
         }
