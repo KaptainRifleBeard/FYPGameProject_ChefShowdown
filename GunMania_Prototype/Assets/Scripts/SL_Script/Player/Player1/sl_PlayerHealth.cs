@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AI;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class sl_PlayerHealth : MonoBehaviour
 {
@@ -15,10 +15,12 @@ public class sl_PlayerHealth : MonoBehaviour
     [Space(10)]
     [Header("Health")]
     private int maxHealth = 16;
-    public int currentHealth = 0;
+    public int currentHealth;
 
     public GameObject bulletScript;
+    public GameObject playerHealth;
 
+    public GameObject spawnPostionA;
 
     void Start()
     {
@@ -30,12 +32,20 @@ public class sl_PlayerHealth : MonoBehaviour
     {
         healthText.text = currentHealth.ToString();
 
-
         //HEALTH
         if (currentHealth == 0)
         {
             Destroy(gameObject);
+            //gameObject.SetActive(false);
+            //StartCoroutine(WaitToSpawnPlayer());
+
+            if (view.IsMine)
+            {
+                
+                //SceneManager.LoadScene("LoseScreen");
+            }
         }
+
     }
 
 
@@ -44,10 +54,13 @@ public class sl_PlayerHealth : MonoBehaviour
         if (stream.IsWriting)
         {
             stream.SendNext(currentHealth);
+            //stream.SendNext(transform.position);
+
         }
         else if (stream.IsReading)
         {
             currentHealth = (int)stream.ReceiveNext();
+            //transform.position = (Vector3)stream.ReceiveNext();
         }
 
     }
@@ -62,10 +75,25 @@ public class sl_PlayerHealth : MonoBehaviour
     }
 
 
+    //public void SpawnBackPlayer()
+    //{
+    //    sl_InventoryManager.ClearAllInList();
+    //    gameObject.SetActive(true);
+    //    gameObject.transform.position = spawnPostionA.transform.position;
+    //}
+
+    //IEnumerator WaitToSpawnPlayer()
+    //{
+    //    yield return new WaitForSeconds(1.0f);
+    //    SpawnBackPlayer();
+    //    currentHealth = maxHealth;
+    //}
+
     [PunRPC]
     public void BulletDamage()
     {
         currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
     }
+
 
 }
