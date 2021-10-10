@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 using Photon.Pun;
 
 public class sl_PlayerControl : MonoBehaviour
 {
+    public Text healthText;
+
     //NavMesh AI movement for click to move
     private NavMeshAgent myAgent;
     PhotonView view;
@@ -35,6 +38,8 @@ public class sl_PlayerControl : MonoBehaviour
 
     public void Update()
     {
+        healthText.text = currentHealth.ToString();
+
         if (view.IsMine)  //Photon - check is my character
         {
             //NEW MOVEMENT - current using

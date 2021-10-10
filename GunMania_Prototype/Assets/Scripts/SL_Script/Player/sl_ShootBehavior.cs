@@ -107,11 +107,6 @@ public class sl_ShootBehavior : MonoBehaviour
                 bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
                 bulletCount--;
 
-                if (view)
-                {
-                    //view.RPC("BulletCount", RpcTarget.All, bulletCount);
-                }
-
             }
 
         }

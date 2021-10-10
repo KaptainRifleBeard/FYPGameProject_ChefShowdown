@@ -93,7 +93,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
         Vector3 targetPosition;
         float shootForce = 50.0f;
 
-        if (Input.GetMouseButtonDown(0) && p2bulletCount > 0)
+        if (Input.GetMouseButtonDown(0) /*&& p2bulletCount > 0*/)
         {
             if (Physics.Raycast(ray, out hit))
             {
@@ -106,10 +106,6 @@ public class sl_P2ShootBehavior : MonoBehaviour
                 bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
                 p2bulletCount--;
 
-                if (view)
-                {
-                    //view.RPC("BulletCount", RpcTarget.All, bulletCount);
-                }
 
             }
 
