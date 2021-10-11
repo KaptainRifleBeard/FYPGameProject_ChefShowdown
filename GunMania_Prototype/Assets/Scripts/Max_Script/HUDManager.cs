@@ -12,7 +12,7 @@ public class HUDManager : MonoBehaviour
 
 
     public Text Timer;
-    public GameObject PlayerPortrait,EnemyPotrait,PlayerTagPortrait,EnemyTagPortrait;
+    public static Image PlayerPortrait, EnemyPotrait, PlayerTagPortrait, EnemyTagPortrait;
 
     public HealthBar Healthmanager;    
 

@@ -57,13 +57,9 @@ public class HealthBar : MonoBehaviour
 
     }
 
-    private void Update()
+    public void Update()
     {
-        if (currenthealth == 8)
-        {
-
-        }
-        else if (currenthealth == 7.5)
+       if (currenthealth == 7.5)
         {
             healthbar8.gameObject.SetActive(false);
         }
@@ -240,11 +236,7 @@ public class HealthBar : MonoBehaviour
 
 
 
-        if (enemyCurrentHealth == 8)
-        {
-
-        }
-        else if (enemyCurrentHealth == 7.5)
+         if (enemyCurrentHealth == 7.5)
         {
             Enemyhealthbar8.gameObject.SetActive(false);
         }
