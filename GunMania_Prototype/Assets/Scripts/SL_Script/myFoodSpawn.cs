@@ -166,6 +166,29 @@ public class myFoodSpawn : MonoBehaviour
     private IEnumerator DishRespawn(int secs)
     {
         yield return new WaitForSeconds(secs);
+
+        if (DishDespawn.isJP)
+        {
+            Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], JPdishSpawnPoint.transform.position, Quaternion.identity);
+            DishDespawn.isJP = false;
+        }
+        else if (DishDespawn.isKR)
+        {
+            Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], KRdishSpawnPoint.transform.position, Quaternion.identity);
+            DishDespawn.isKR = false;
+        }
+        else if (DishDespawn.isCN)
+        {
+            Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], CNdishSpawnPoint.transform.position, Quaternion.identity);
+            DishDespawn.isCN = false;
+        }
+        else if (DishDespawn.isTW)
+        {
+            Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], TWdishSpawnPoint.transform.position, Quaternion.identity);
+            DishDespawn.isTW = false;
+        }
+
+        DishDespawn.canSpawn = false;
     }
 
 }

@@ -17,6 +17,7 @@ public class sl_P1PickUp : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
+        isPicked = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,10 +32,10 @@ public class sl_P1PickUp : MonoBehaviour
                 AddNewItem();
                 Destroy(gameObject);
             }
-            else
-            {
-                isPicked = false;
-            }
+            //else
+            //{
+            //    isPicked = false;
+            //}
 
         }
     }

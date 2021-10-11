@@ -38,8 +38,8 @@ public class FoodSpawn : MonoBehaviour
     public int sec = 6;
 
     [Header("Dish Spawn Time")]
-    public int dishsec = 5;
-    public int countdownTime = 5;
+    public int dishsec = 10;
+    public int countdownTime = 10;
 
     private int prefabInd;
 
@@ -69,7 +69,7 @@ public class FoodSpawn : MonoBehaviour
     void Update()
     {
 
-        if (sl_P1PickUp.isPicked == true || sl_P2PickUp.isPicked == true)
+        if (sl_P1PickUp.isPicked == true)
         {
             if (count < 1 && spawn == false)  //to spawn only one per time
             {
@@ -77,11 +77,9 @@ public class FoodSpawn : MonoBehaviour
                 {
                     spawn = true;
 
-                    Debug.Log("pick");
-                    coroutine = Spawn(sec);
-                    StartCoroutine(coroutine);
-                    PickUp.isPicked = false;
-                    
+                    StartCoroutine(P1Spawn(sec));
+                    sl_P1PickUp.isPicked = false;
+
                     count++;
 
                 }
@@ -90,22 +88,59 @@ public class FoodSpawn : MonoBehaviour
                     spawn = false;
                 }
             }
+
         }
 
-        if(DishDespawn.canSpawn)
+        if (sl_P2PickUp.isPicked == true)
+        {
+            if (count < 1 && spawn == false)  //to spawn only one per time
+            {
+                if (count < 1)
+                {
+                    spawn = true;
+
+                    StartCoroutine(P2Spawn(sec));
+                    sl_P2PickUp.isPicked = false;
+
+                    count++;
+
+                }
+                if (count == 1)
+                {
+                    spawn = false;
+                }
+            }
+
+        }
+
+        if (DishDespawn.canSpawn)
         {
             StartCoroutine(DishRespawn(10));
         }
     }
 
-    private IEnumerator Spawn(int secs)
+    private IEnumerator P1Spawn(int secs)
     {
-        Debug.Log("run pick");
-
         yield return new WaitForSeconds(secs);
         prefabInd = Random.Range(0, prefabs.Count);
         Instantiate(prefabs[prefabInd], foodSpawnPoint[Respawn.index].transform.position, Quaternion.identity);
         count = 0;
+
+
+        sl_P1PickUp.isPicked = false;
+
+    }
+
+    private IEnumerator P2Spawn(int secs)
+    {
+        yield return new WaitForSeconds(secs);
+        prefabInd = Random.Range(0, prefabs.Count);
+        Instantiate(prefabs[prefabInd], foodSpawnPoint[Respawn.index].transform.position, Quaternion.identity);
+        count = 0;
+
+
+        sl_P2PickUp.isPicked = false;
+
     }
 
     private IEnumerator DishCountdown(int countdownTime)
@@ -132,6 +167,29 @@ public class FoodSpawn : MonoBehaviour
     private IEnumerator DishRespawn(int secs)
     {
         yield return new WaitForSeconds(secs);
+
+        if (DishDespawn.isJP)
+        {
+            Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], JPdishSpawnPoint.transform.position, Quaternion.identity);
+            DishDespawn.isJP = false;
+        }
+        if (DishDespawn.isKR)
+        {
+            Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], KRdishSpawnPoint.transform.position, Quaternion.identity);
+            DishDespawn.isKR = false;
+        }
+        if (DishDespawn.isCN)
+        {
+            Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], CNdishSpawnPoint.transform.position, Quaternion.identity);
+            DishDespawn.isCN = false;
+        }
+        if (DishDespawn.isTW)
+        {
+            Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], TWdishSpawnPoint.transform.position, Quaternion.identity);
+            DishDespawn.isTW = false;
+        }
+
+        DishDespawn.canSpawn = false;
     }
 
 }
