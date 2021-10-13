@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodSpawn : MonoBehaviour
+public class myFoodSpawn : MonoBehaviour
 {
     [Header("Food Spawn Points")]
     public List<GameObject> foodSpawnPoint;
@@ -38,12 +38,11 @@ public class FoodSpawn : MonoBehaviour
     public int sec = 6;
 
     [Header("Dish Spawn Time")]
-    public int dishsec = 10;
-    public int countdownTime = 10;
+    public int dishsec = 5;
+    public int countdownTime = 5;
 
     private int prefabInd;
 
-    private IEnumerator coroutine;
     private IEnumerator countdownCoro;
     private IEnumerator dishCoro;
 
@@ -53,7 +52,7 @@ public class FoodSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < foodSpawnPoint.Count; i++)
+        for (int i = 0; i < foodSpawnPoint.Count; i++)
         {
             prefabInd = Random.Range(0, prefabs.Count);
 
@@ -68,7 +67,6 @@ public class FoodSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (sl_P1PickUp.isPicked == true)
         {
             if (count < 1 && spawn == false)  //to spawn only one per time
@@ -117,6 +115,7 @@ public class FoodSpawn : MonoBehaviour
         {
             StartCoroutine(DishRespawn(10));
         }
+
     }
 
     private IEnumerator P1Spawn(int secs)
@@ -173,17 +172,17 @@ public class FoodSpawn : MonoBehaviour
             Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], JPdishSpawnPoint.transform.position, Quaternion.identity);
             DishDespawn.isJP = false;
         }
-        if (DishDespawn.isKR)
+        else if (DishDespawn.isKR)
         {
             Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], KRdishSpawnPoint.transform.position, Quaternion.identity);
             DishDespawn.isKR = false;
         }
-        if (DishDespawn.isCN)
+        else if (DishDespawn.isCN)
         {
             Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], CNdishSpawnPoint.transform.position, Quaternion.identity);
             DishDespawn.isCN = false;
         }
-        if (DishDespawn.isTW)
+        else if (DishDespawn.isTW)
         {
             Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], TWdishSpawnPoint.transform.position, Quaternion.identity);
             DishDespawn.isTW = false;
