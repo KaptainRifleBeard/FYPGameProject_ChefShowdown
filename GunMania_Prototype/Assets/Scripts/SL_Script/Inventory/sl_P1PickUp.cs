@@ -32,11 +32,6 @@ public class sl_P1PickUp : MonoBehaviour
                 AddNewItem();
                 Destroy(gameObject);
             }
-            //else
-            //{
-            //    isPicked = false;
-            //}
-
         }
     }
 

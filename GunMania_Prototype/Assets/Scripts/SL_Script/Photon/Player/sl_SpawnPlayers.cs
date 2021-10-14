@@ -27,6 +27,8 @@ public class sl_SpawnPlayers : MonoBehaviour
         {
             PhotonNetwork.Instantiate(playerPrefabB.name, spawnPostionB.transform.position, Quaternion.identity);
         }
+
+
     }
 
 }

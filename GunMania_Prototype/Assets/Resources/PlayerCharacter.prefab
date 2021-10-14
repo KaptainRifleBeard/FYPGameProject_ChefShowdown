@@ -435,8 +435,8 @@ GameObject:
   - component: {fileID: 2854061190199120711}
   - component: {fileID: 2854061190199120709}
   - component: {fileID: -1244232067968438254}
-  - component: {fileID: 2854061190199120705}
   - component: {fileID: -4391961927098730216}
+  - component: {fileID: 2854061190199120705}
   - component: {fileID: -9097661822321259151}
   - component: {fileID: -2306275807904126079}
   - component: {fileID: 235962341989757195}
@@ -563,6 +563,25 @@ MonoBehaviour:
   bulletScript: {fileID: 738087397887106752, guid: 2a3658c6a53d56e4499c297b862d28a1, type: 3}
   playerHealth: {fileID: 2784047750339751703, guid: bcb1b6c427e495a42b027ca48859e6a9, type: 3}
   spawnPostionA: {fileID: 6460635007742489500, guid: bd77eb2a90a334e449c4fd26aa95c5f7, type: 3}
+--- !u!114 &-4391961927098730216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854061190199120718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325502aef3b1c944ea3ccb42ceb43651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 3770610139388351523, guid: 2a3658c6a53d56e4499c297b862d28a1, type: 3}
+  cursor: {fileID: 0}
+  shootPosition: {fileID: 0}
+  attackPosition: {fileID: 2854061189954795472}
+  layer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!195 &2854061190199120705
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -585,25 +604,6 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-4391961927098730216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2854061190199120718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325502aef3b1c944ea3ccb42ceb43651, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3770610139388351523, guid: 2a3658c6a53d56e4499c297b862d28a1, type: 3}
-  cursor: {fileID: 0}
-  shootPosition: {fileID: 0}
-  attackPosition: {fileID: 2854061189954795472}
-  layer:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!114 &-9097661822321259151
 MonoBehaviour:
   m_ObjectHideFlags: 0
