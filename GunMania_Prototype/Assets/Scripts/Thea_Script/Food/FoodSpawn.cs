@@ -43,7 +43,6 @@ public class FoodSpawn : MonoBehaviour
 
     private int prefabInd;
 
-    private IEnumerator coroutine;
     private IEnumerator countdownCoro;
     private IEnumerator dishCoro;
 
@@ -77,11 +76,11 @@ public class FoodSpawn : MonoBehaviour
                 {
                     spawn = true;
 
-                    StartCoroutine(P1Spawn(sec));
+                    StartCoroutine(P1Spawn(sec, Respawn.index));
                     sl_P1PickUp.isPicked = false;
 
                     count++;
-
+                    spawn = false;
                 }
                 if (count == 1)
                 {
@@ -99,7 +98,7 @@ public class FoodSpawn : MonoBehaviour
                 {
                     spawn = true;
 
-                    StartCoroutine(P2Spawn(sec));
+                    StartCoroutine(P2Spawn(sec, Respawn.index));
                     sl_P2PickUp.isPicked = false;
 
                     count++;
@@ -115,15 +114,16 @@ public class FoodSpawn : MonoBehaviour
 
         if (DishDespawn.canSpawn)
         {
-            StartCoroutine(DishRespawn(10));
+            StartCoroutine(DishRespawn(20));
         }
     }
 
-    private IEnumerator P1Spawn(int secs)
+    public IEnumerator P1Spawn(int secs, int index)
     {
+        Debug.Log("coroutine");
         yield return new WaitForSeconds(secs);
         prefabInd = Random.Range(0, prefabs.Count);
-        Instantiate(prefabs[prefabInd], foodSpawnPoint[Respawn.index].transform.position, Quaternion.identity);
+        Instantiate(prefabs[prefabInd], foodSpawnPoint[index].transform.position, Quaternion.identity);
         count = 0;
 
 
@@ -131,11 +131,11 @@ public class FoodSpawn : MonoBehaviour
 
     }
 
-    private IEnumerator P2Spawn(int secs)
+    private IEnumerator P2Spawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
         prefabInd = Random.Range(0, prefabs.Count);
-        Instantiate(prefabs[prefabInd], foodSpawnPoint[Respawn.index].transform.position, Quaternion.identity);
+        Instantiate(prefabs[prefabInd], foodSpawnPoint[index].transform.position, Quaternion.identity);
         count = 0;
 
 

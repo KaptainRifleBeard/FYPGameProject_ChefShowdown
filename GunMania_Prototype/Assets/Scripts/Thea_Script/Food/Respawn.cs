@@ -9,6 +9,5 @@ public class Respawn : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         index = FindObjectOfType<FoodSpawn>().foodSpawnPoint.IndexOf(this.gameObject);
-        //Debug.Log(index);
     }
 }
