@@ -13,11 +13,6 @@ public class sl_SpawnPlayers : MonoBehaviour
 
     void Start()
     {
-        //reset list
-        sl_InventoryManager.ClearAllInList();
-        sl_p2InventoryManager.ClearAllInList();
-
-
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Instantiate(playerPrefabA.name, spawnPostionA.transform.position, Quaternion.identity);

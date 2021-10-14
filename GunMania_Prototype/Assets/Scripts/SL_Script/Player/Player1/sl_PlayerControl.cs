@@ -13,6 +13,7 @@ public class sl_PlayerControl : MonoBehaviour
 
     //NEW MOVEMENT VARIABLE
     public GameObject targetDestionation;
+    public GameObject inventoryVisible;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class sl_PlayerControl : MonoBehaviour
 
     void Start()
     {
+        sl_InventoryManager.ClearAllInList();
         view = GetComponent<PhotonView>();
     }
 
@@ -29,6 +31,7 @@ public class sl_PlayerControl : MonoBehaviour
     {
         if (view.IsMine)  //Photon - check is my character
         {
+            inventoryVisible.SetActive(true);
             //NEW MOVEMENT - current using
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -54,6 +57,11 @@ public class sl_PlayerControl : MonoBehaviour
             }
 
         }
+        else
+        {
+            inventoryVisible.SetActive(false);
+        }
+
     }
 
     //************* OLD CODE *************//
