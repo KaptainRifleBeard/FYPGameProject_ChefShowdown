@@ -32,11 +32,6 @@ public class sl_P1PickUp : MonoBehaviour
                 AddNewItem();
                 Destroy(gameObject);
             }
-            //else
-            //{
-            //    isPicked = false;
-            //}
-
         }
     }
 
@@ -77,7 +72,7 @@ public class sl_P1PickUp : MonoBehaviour
     void Update()
     {
         //completely hard code
-        if (Input.GetMouseButtonDown(0)) //if shoot, check list[0] have bullet or not
+        if (Input.GetMouseButtonDown(0) && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
         {
             if (count < 1 && spawn == false)  //to spawn only one per time
             {

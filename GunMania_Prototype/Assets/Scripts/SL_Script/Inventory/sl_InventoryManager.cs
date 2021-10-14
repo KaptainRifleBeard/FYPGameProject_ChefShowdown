@@ -16,11 +16,13 @@ public class sl_InventoryManager : MonoBehaviour
     //public sl_Slot slotPrefab;
     public GameObject emptySlot;
     public List<GameObject> slots = new List<GameObject>();
+    PhotonView view;
 
 
     private void Awake()
     {
-        if(instance != null)
+        view = GetComponent<PhotonView>();
+        if (instance != null)
         {
             Destroy(this);
         }
