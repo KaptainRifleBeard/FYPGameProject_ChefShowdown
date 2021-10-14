@@ -67,66 +67,47 @@ public class FoodSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        spawnUpdate();
 
-        if (sl_P1PickUp.isPicked == true)
-        {
-            if (count < 1 && spawn == false)  //to spawn only one per time
-            {
-                if (count < 1)
-                {
-                    spawn = true;
-
-                    StartCoroutine(P1Spawn(sec, Respawn.index));
-                    sl_P1PickUp.isPicked = false;
-
-                    count++;
-                    spawn = false;
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
-            }
-
-        }
-
-        if (sl_P2PickUp.isPicked == true)
-        {
-            if (count < 1 && spawn == false)  //to spawn only one per time
-            {
-                if (count < 1)
-                {
-                    spawn = true;
-
-                    StartCoroutine(P2Spawn(sec, Respawn.index));
-                    sl_P2PickUp.isPicked = false;
-
-                    count++;
-
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
-            }
-
-        }
 
         if (DishDespawn.canSpawn)
         {
             StartCoroutine(DishRespawn(20));
         }
+
+    }
+
+    public void spawnUpdate()
+    {
+        int layerMask = 1 << 3;
+
+        for (int i = 0; i < foodSpawnPoint.Count; i++)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(foodSpawnPoint[i].transform.position, 2, layerMask);
+            if (hitColliders.Length == 0)
+            {
+                if (sl_P1PickUp.isPicked == true)
+                {
+                    StartCoroutine(P1Spawn(sec, i));
+                    sl_P1PickUp.isPicked = false;
+                }
+                if (sl_P2PickUp.isPicked == true)
+                {
+                    StartCoroutine(P2Spawn(sec, i));
+                    sl_P2PickUp.isPicked = false;
+                }
+            }
+        }
     }
 
     public IEnumerator P1Spawn(int secs, int index)
     {
-        Debug.Log("coroutine");
         yield return new WaitForSeconds(secs);
         prefabInd = Random.Range(0, prefabs.Count);
         Instantiate(prefabs[prefabInd], foodSpawnPoint[index].transform.position, Quaternion.identity);
         count = 0;
 
-
+        Debug.Log("spawn at " + index);
         sl_P1PickUp.isPicked = false;
 
     }
@@ -138,7 +119,7 @@ public class FoodSpawn : MonoBehaviour
         Instantiate(prefabs[prefabInd], foodSpawnPoint[index].transform.position, Quaternion.identity);
         count = 0;
 
-
+        Debug.Log("spawn at " + index);
         sl_P2PickUp.isPicked = false;
 
     }
