@@ -127,7 +127,7 @@ GameObject:
   m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2784047750339751707
 Transform:
@@ -401,7 +401,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2784047750410528550
 Transform:
@@ -437,7 +437,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2784047750659836809
 Transform:
@@ -533,7 +533,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2784047750835212135
 Transform:
@@ -629,7 +629,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2784047751277143137
 Transform:
@@ -796,9 +796,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 218393960254055013}
     m_Modifications:
+    - target: {fileID: 3960230998952501239, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3960230999380794516, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
       propertyPath: m_Name
       value: Player2_Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960230999380794516, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3960230999380794523, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
       propertyPath: m_Pivot.x
@@ -882,6 +890,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960230999380794523, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960230999581202861, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
