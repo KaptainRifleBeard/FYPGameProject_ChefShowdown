@@ -18,4 +18,12 @@ public class sl_BulletScript : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Player2" || other.gameObject.tag == "Environment")
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
