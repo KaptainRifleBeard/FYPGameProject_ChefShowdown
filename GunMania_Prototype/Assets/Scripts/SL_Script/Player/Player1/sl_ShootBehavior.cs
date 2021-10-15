@@ -19,10 +19,16 @@ public class sl_ShootBehavior : MonoBehaviour
     public static int bulletCount;
     public static bool p1Shoot;
 
+    //HELP AIM
+    public LineRenderer lineVisual;
+    public int lineSegment;
+
+
     void Start()
     {
         view = GetComponent<PhotonView>();
         cam = Camera.main;
+        lineVisual.positionCount = lineSegment;
     }
 
 
@@ -82,6 +88,16 @@ public class sl_ShootBehavior : MonoBehaviour
 
         return result;
 
+    }
+
+
+    //for aiming
+    Vector3 CalculatePosInTime(Vector3 velocity, float time)
+    {
+        Vector3 Vxz = velocity;
+        velocity.y = 0f;
+
+        Vector3 result = attackPosition.position
     }
 
 
