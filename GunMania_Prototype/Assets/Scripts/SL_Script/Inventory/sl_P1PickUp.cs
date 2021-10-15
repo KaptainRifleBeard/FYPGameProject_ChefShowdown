@@ -10,6 +10,7 @@ public class sl_P1PickUp : MonoBehaviour
     PhotonView view;
 
     public static bool isPicked = false;
+    public static bool isPickedD = false;
     int count;
     bool spawn;
 
@@ -18,6 +19,7 @@ public class sl_P1PickUp : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
         isPicked = false;
+        isPickedD = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,7 +30,16 @@ public class sl_P1PickUp : MonoBehaviour
             {
                 sl_ShootBehavior.bulletCount += 1;
 
-                isPicked = true;
+                if(gameObject.layer == 1 << 3)
+                {
+                    isPicked = true;
+                }
+                else
+                {
+
+                    isPickedD = true;
+                }
+                
                 AddNewItem();
                 Destroy(gameObject);
             }
