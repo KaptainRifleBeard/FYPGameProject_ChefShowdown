@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class sl_BulletScript : MonoBehaviour
 {
-    public int bulletDmg;
+    public float bulletDmg;
    
     void Update()
     {

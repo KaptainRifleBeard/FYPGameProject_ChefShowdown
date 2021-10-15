@@ -14,13 +14,19 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     [Space(10)]
     [Header("Health")]
-    private int maxHealth = 16;
-    public int p2currentHealth;
+    private float maxHealth = 8;
+    public float p2currentHealth;
 
     public GameObject bulletScript;
     public GameObject playerHealth;
 
     public GameObject spawnPostionB;
+
+    public Sprite emptyHealth;
+    public Sprite halfHealth;
+    public Sprite fulllHealth;
+
+    public Image[] hearts;
 
     void Start()
     {
@@ -44,6 +50,26 @@ public class sl_P2PlayerHealth : MonoBehaviour
                 //SceneManager.LoadScene("LoseScreen");
             }
         }
+
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < p2currentHealth)
+            {
+                if (i + 0.5 == p2currentHealth)
+                {
+                    hearts[i].sprite = halfHealth;
+                }
+                else
+                {
+                    hearts[i].sprite = fulllHealth;
+                }
+            }
+            else
+            {
+                hearts[i].sprite = emptyHealth;
+            }
+        }
     }
 
 
@@ -56,7 +82,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
         }
         else if (stream.IsReading)
         {
-            p2currentHealth = (int)stream.ReceiveNext();
+            p2currentHealth = (float)stream.ReceiveNext();
             //transform.position = (Vector3)stream.ReceiveNext();
         }
 
@@ -88,7 +114,15 @@ public class sl_P2PlayerHealth : MonoBehaviour
     [PunRPC]
     public void BulletDamage2()
     {
-        p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+        if (p2currentHealth > 0)
+        {
+            p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+
+            if (p2currentHealth < 0)
+            {
+                p2currentHealth = 0;
+            }
+        }
     }
 
 }
