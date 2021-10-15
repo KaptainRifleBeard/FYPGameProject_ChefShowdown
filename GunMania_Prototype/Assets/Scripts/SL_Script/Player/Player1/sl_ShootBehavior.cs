@@ -21,7 +21,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
     //HELP AIM
     public LineRenderer lineVisual;
-    public int lineSegment;
+    public int lineSegment = 10;
 
 
     void Start()
@@ -36,8 +36,8 @@ public class sl_ShootBehavior : MonoBehaviour
     {
         if (view.IsMine)  //Photon - check is my character
         {
-            //LaunchProjectile();  //gravity shoot
-            ShootStraight();
+            LaunchProjectile();  //gravity shoot
+            //ShootStraight();
         }
     }
 
@@ -56,11 +56,13 @@ public class sl_ShootBehavior : MonoBehaviour
         if(Physics.Raycast(ray, out hit))
         {
             Vector3 vel = CalculateVelocity(hit.point, shootPosition.position, 1f);
+            Visualize(vel);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) /* && bulletCount > 0 */)
             {
                 Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
                 bullet.velocity = vel;
+                bulletCount--;
 
             }
 
@@ -92,12 +94,26 @@ public class sl_ShootBehavior : MonoBehaviour
 
 
     //for aiming
+    void Visualize(Vector3 vel)
+    {
+        for(int i = 0; i < lineSegment; i++)
+        {
+            Vector3 pos = CalculatePosInTime(vel, i / (float)lineSegment);
+            lineVisual.SetPosition(i, pos);
+
+        }
+    }
+
     Vector3 CalculatePosInTime(Vector3 velocity, float time)
     {
         Vector3 Vxz = velocity;
-        velocity.y = 0f;
+        Vxz.y = 0f;
 
-        Vector3 result = attackPosition.position
+        Vector3 result = attackPosition.position + velocity * time;
+        float startY = (-0.5f * Mathf.Abs(Physics.gravity.y) * (time * time)) + (velocity.y * time) + attackPosition.position.y;
+
+        result.y = startY;
+        return result;
     }
 
 
