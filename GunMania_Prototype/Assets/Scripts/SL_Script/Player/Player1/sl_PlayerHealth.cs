@@ -31,11 +31,6 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
     public Image[] hearts;
 
 
-    [Space(10)]
-    [Header("Win Lose Screen")]
-    public GameObject winScreen;
-    public GameObject loseScreen;
-
 
     void Start()
     {

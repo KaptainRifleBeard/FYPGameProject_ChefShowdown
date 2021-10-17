@@ -19,16 +19,19 @@ public class sl_ShootBehavior : MonoBehaviour
     public static int bulletCount;
     public static bool p1Shoot;
 
+    public Animator anim;
+
     //HELP AIM
-    public LineRenderer lineVisual;
-    public int lineSegment = 10;
+    //public LineRenderer lineVisual;
+    //public int lineSegment = 10;
 
 
     void Start()
     {
         view = GetComponent<PhotonView>();
+        anim = GetComponent<Animator>();
         cam = Camera.main;
-        lineVisual.positionCount = lineSegment;
+        //lineVisual.positionCount = lineSegment;
     }
 
 
@@ -38,7 +41,11 @@ public class sl_ShootBehavior : MonoBehaviour
         {
             //LaunchProjectile();  //gravity shoot and line renderer
             ShootStraight();
+            //view.RPC("ShootStraight", RpcTarget.All);
+
         }
+
+
     }
 
 
@@ -96,12 +103,12 @@ public class sl_ShootBehavior : MonoBehaviour
     //for aiming
     void Visualize(Vector3 vel)
     {
-        for(int i = 0; i < lineSegment; i++)
-        {
-            Vector3 pos = CalculatePosInTime(vel, i / (float)lineSegment);
-            lineVisual.SetPosition(i, pos);
+        //for(int i = 0; i < lineSegment; i++)
+        //{
+        //    Vector3 pos = CalculatePosInTime(vel, i / (float)lineSegment);
+        //    lineVisual.SetPosition(i, pos);
 
-        }
+        //}
     }
 
     Vector3 CalculatePosInTime(Vector3 velocity, float time)
@@ -117,7 +124,6 @@ public class sl_ShootBehavior : MonoBehaviour
     }
 
 
-    //for direct shoot
     void ShootStraight()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -128,6 +134,9 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)  && bulletCount > 0 )
         {
+            anim.SetBool("Throw", true);
+            anim.speed = 1.2f;
+
             if (Physics.Raycast(ray, out hit))
             {
                 targetPosition = hit.point;
@@ -142,7 +151,10 @@ public class sl_ShootBehavior : MonoBehaviour
             }
 
         }
-
+        else
+        {
+           
+        }
     }
 
 

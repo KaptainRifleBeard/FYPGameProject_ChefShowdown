@@ -29,11 +29,6 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public Image[] hearts;
 
 
-    [Space(10)]
-    [Header("Win Lose Screen")]
-    public GameObject winScreen;
-    public GameObject loseScreen;
-
 
     void Start()
     {
