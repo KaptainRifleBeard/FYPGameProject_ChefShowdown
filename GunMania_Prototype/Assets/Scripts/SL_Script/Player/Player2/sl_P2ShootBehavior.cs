@@ -93,7 +93,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
         Vector3 targetPosition;
         float shootForce = 70.0f;
 
-        if (Input.GetMouseButtonDown(0)/* && p2bulletCount > 0*/)
+        if (Input.GetMouseButtonDown(0) && p2bulletCount > 0)
         {
             if (Physics.Raycast(ray, out hit))
             {
