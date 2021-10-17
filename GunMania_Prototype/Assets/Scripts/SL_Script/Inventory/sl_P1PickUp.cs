@@ -71,29 +71,33 @@ public class sl_P1PickUp : MonoBehaviour
 
     void Update()
     {
-        //completely hard code
-        if (Input.GetMouseButtonDown(0) && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
+       if(playerInventory.itemList[0] != null)
         {
-            if (count < 1 && spawn == false)  //to spawn only one per time
+            //completely hard code
+            if (Input.GetMouseButtonDown(0) ) //if shoot, check list[0] have bullet or not
             {
-                if (count < 1)
+                if (count < 1 && spawn == false)  //to spawn only one per time
                 {
-                    spawn = true;
+                    if (count < 1)
+                    {
+                        spawn = true;
 
-                    playerInventory.itemList[0] = null;
+                        playerInventory.itemList[0] = null;
 
-                    sl_InventoryManager.RefreshItem();
-                    StartCoroutine(MoveToFront());
+                        sl_InventoryManager.RefreshItem();
+                        StartCoroutine(MoveToFront());
 
-                    count++;
+                        count++;
 
-                }
-                if (count == 1)
-                {
-                    spawn = false;
+                    }
+                    if (count == 1)
+                    {
+                        spawn = false;
+                    }
                 }
             }
         }
+        
 
     }
 

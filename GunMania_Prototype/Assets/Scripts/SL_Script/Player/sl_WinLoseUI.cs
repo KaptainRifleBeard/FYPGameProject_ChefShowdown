@@ -10,24 +10,29 @@ using TMPro;
 
 public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 {
-    public TMP_Text text;
-
     public static readonly byte RestartEventCode = 1;
 
     public GameObject winScreen;
     public GameObject loseScreen;
+    public GameObject exitScreen;
+
 
     void Start()
     {
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
+        exitScreen.SetActive(false);
+
     }
 
 
-void Update()
+    void Update()
     {
         StartCoroutine(WaitStartGame());
+        //PhotonNetwork.CurrentRoom.IsOpen = false;  //dont let other player join
 
+
+        //health
         //if(sl_PlayerHealth.currentHealth == 0)
         //{
         //    if (PhotonNetwork.IsMasterClient)
@@ -81,12 +86,15 @@ void Update()
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                text.text = "Click to leave room";
                 loseScreen.SetActive(true);
+                StartCoroutine(ToExitScreen());
+
             }
             else
             {
                 winScreen.SetActive(true);
+                StartCoroutine(ToExitScreen());
+
             }
         }
 
@@ -94,21 +102,39 @@ void Update()
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                text.text = "Click to leave room";
+
                 winScreen.SetActive(true);
+                StartCoroutine(ToExitScreen());
+
             }
             else
             {
                 loseScreen.SetActive(true);
+                StartCoroutine(ToExitScreen());
+
+
             }
         }
 
     }
-
-
     public void DisconnectPlayer()
     {
-        StartCoroutine(DisconnectAndLoad());
+        //if (!PhotonNetwork.IsMasterClient)
+        //{
+        //    kick(2);
+        //}
+        //PhotonNetwork.LoadLevel(0);
+
+       
+            StartCoroutine(DisconnectAndLoad());
+
+    }
+
+    IEnumerator ToExitScreen()
+    {
+        yield return new WaitForSeconds(3.0f);
+        exitScreen.SetActive(true);
+
     }
 
     IEnumerator DisconnectAndLoad()
@@ -120,9 +146,9 @@ void Update()
         }
 
         SceneManager.LoadScene(0);
-
-
+        
     }
+
 
     //IEnumerator DisplayMessage(string message)
     //{
@@ -130,4 +156,18 @@ void Update()
     //    yield return new WaitForSeconds(2f);
     //    text.text = " ";
     //}
+
+    //public static void kick(int num) 
+    //{ 
+    //    foreach (Player player in PhotonNetwork.PlayerList) 
+    //    {
+    //        int s = player.ActorNumber;
+    //        if (s == num) 
+    //        { 
+    //            PhotonNetwork.CloseConnection(player); 
+    //            break; 
+    //        }
+    //    } 
+    //}
+
 }

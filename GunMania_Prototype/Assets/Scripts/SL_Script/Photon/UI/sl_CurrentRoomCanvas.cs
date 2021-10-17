@@ -30,6 +30,8 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
 
     private void Update()
     {
+       
+
         //if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         //{
         //    startButton.SetActive(true);

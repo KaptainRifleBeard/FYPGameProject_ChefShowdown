@@ -27,4 +27,5 @@ public class sl_ConnectToServer : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined Lobby");
     }
+
 }

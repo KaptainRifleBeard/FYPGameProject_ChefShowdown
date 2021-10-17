@@ -41,7 +41,7 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
     public void Update()
     {
         healthText.text = currentHealth.ToString();
-
+        
         //HEALTH
         //if (currentHealth == 0)
         //{
