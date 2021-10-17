@@ -9,7 +9,8 @@ public class sl_P1PickUp : MonoBehaviour
     public sl_Inventory playerInventory;  //set which inventory should be place in
     PhotonView view;
 
-    public static bool isPicked = false;
+    public static bool isPicked;
+    public static bool isPickedDish;
     int count;
     bool spawn;
 
@@ -18,6 +19,7 @@ public class sl_P1PickUp : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
         isPicked = false;
+        isPickedDish = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,11 +28,23 @@ public class sl_P1PickUp : MonoBehaviour
         {
             if (sl_ShootBehavior.bulletCount < 2)
             {
+                
+                if(gameObject.layer == LayerMask.NameToLayer("Food"))
+                {
+                    isPicked = true;
+                    AddNewItem();
+                    Destroy(gameObject);
+                }
+                else if(gameObject.layer == LayerMask.NameToLayer("Dish"))
+                {
+                    isPickedDish = true;
+                    AddNewItem();
+                    Destroy(gameObject);
+                }
+
                 sl_ShootBehavior.bulletCount += 1;
 
-                isPicked = true;
-                AddNewItem();
-                Destroy(gameObject);
+                
             }
         }
     }

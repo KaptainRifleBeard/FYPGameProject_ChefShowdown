@@ -4117,7 +4117,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_Name
-      value: FoodPickup (10)
+      value: DishPickup (10)
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
@@ -4183,7 +4183,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_Name
-      value: DishPickup (1)
+      value: FoodPickup (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
@@ -5285,7 +5285,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_Name
-      value: FoodPickup (2)
+      value: DishPickup (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
@@ -5473,18 +5473,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodSpawnPoint:
+  - {fileID: 845641061}
+  - {fileID: 2091388996}
+  - {fileID: 1861678845}
+  - {fileID: 648776718}
+  dishSpawnPoint:
   - {fileID: 1142593617}
   - {fileID: 1871541997}
   - {fileID: 1729724379}
   - {fileID: 995160438}
-  JPdishSpawnPoint: {fileID: 845641061}
-  KRdishSpawnPoint: {fileID: 2091388996}
-  CNdishSpawnPoint: {fileID: 1861678845}
-  TWdishSpawnPoint: {fileID: 648776718}
-  prefabs:
+  JPfoodPrefabs:
   - {fileID: 7648938104702898269, guid: 6113d20006c171649bb8c749edb9803b, type: 3}
+  KRfoodPrefabs:
   - {fileID: 136135795473414659, guid: 610c60e07f2a92d44904b6aa95278380, type: 3}
+  CNfoodPrefabs:
   - {fileID: 4230974403782647468, guid: a01514be9243bb14594f9238c215c2c1, type: 3}
+  TWfoodPrefabs:
   - {fileID: 6369928063340451642, guid: 43d76c5d95eb7034fb62510fddb09519, type: 3}
   JPdishPrefabs:
   - {fileID: 2260437171972032750, guid: 4486e546d81aebf428de8f7672ec86e8, type: 3}
@@ -5501,6 +5505,7 @@ MonoBehaviour:
   sec: 6
   dishsec: 5
   countdownTime: 5
+  dishrespawnSec: 20
 --- !u!4 &856528889
 Transform:
   m_ObjectHideFlags: 0
@@ -7007,7 +7012,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_Name
-      value: DishPickup (8)
+      value: FoodPickup (8)
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
@@ -7658,7 +7663,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_Name
-      value: DishPickup (4)
+      value: FoodPickup (4)
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
@@ -8854,7 +8859,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_Name
-      value: DishPickup (9)
+      value: FoodPickup (9)
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
@@ -12379,7 +12384,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_Name
-      value: FoodPickup
+      value: DishPickup
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_IsActive
@@ -12427,6 +12432,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7026815152959613479, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613479, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
@@ -13553,7 +13562,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7026815152959613474, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_Name
-      value: FoodPickup (5)
+      value: DishPickup (5)
       objectReference: {fileID: 0}
     - target: {fileID: 7026815152959613477, guid: 4bdfe93cf59ff6f4da8fc945ef35d1f9, type: 3}
       propertyPath: m_RootOrder
