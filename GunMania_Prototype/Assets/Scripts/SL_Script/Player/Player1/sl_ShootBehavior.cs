@@ -130,7 +130,7 @@ public class sl_ShootBehavior : MonoBehaviour
         RaycastHit hit;
 
         Vector3 targetPosition;
-        float shootForce = 50.0f;
+        float shootForce = 70.0f;
 
         if (Input.GetMouseButtonDown(0)  && bulletCount > 0 )
         {
@@ -150,10 +150,6 @@ public class sl_ShootBehavior : MonoBehaviour
 
             }
 
-        }
-        else
-        {
-           
         }
     }
 
