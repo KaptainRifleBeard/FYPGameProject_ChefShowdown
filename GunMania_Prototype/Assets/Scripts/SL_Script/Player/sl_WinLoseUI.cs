@@ -16,6 +16,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     public GameObject winScreen;
     public GameObject loseScreen;
+
     void Start()
     {
         winScreen.SetActive(false);
@@ -23,8 +24,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     }
 
 
-
-    void Update()
+void Update()
     {
         StartCoroutine(WaitStartGame());
 
@@ -71,11 +71,12 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(1.0f);
         WinLoseCondition();
+
+
     }
 
     void WinLoseCondition()
     {
-
         if (sl_PlayerHealth.currentHealth == 0)
         {
             if (PhotonNetwork.IsMasterClient)
@@ -101,16 +102,26 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 loseScreen.SetActive(true);
             }
         }
+
     }
 
-    public void QuitRoom()
+
+    public void DisconnectPlayer()
     {
-        PhotonNetwork.LeaveRoom();
+        StartCoroutine(DisconnectAndLoad());
     }
 
-    public void OnLeftRoom()
+    IEnumerator DisconnectAndLoad()
     {
+        PhotonNetwork.Disconnect(); //disconnect local player from master client
+        while (PhotonNetwork.IsConnected)
+        {
+            yield return null;
+        }
+
         SceneManager.LoadScene(0);
+
+
     }
 
     //IEnumerator DisplayMessage(string message)
