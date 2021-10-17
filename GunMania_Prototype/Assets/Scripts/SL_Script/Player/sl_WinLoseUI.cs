@@ -18,7 +18,8 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     public GameObject loseScreen;
     void Start()
     {
-
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
     }
 
 
