@@ -36,8 +36,8 @@ public class sl_ShootBehavior : MonoBehaviour
     {
         if (view.IsMine)  //Photon - check is my character
         {
-            LaunchProjectile();  //gravity shoot
-            //ShootStraight();
+            //LaunchProjectile();  //gravity shoot and line renderer
+            ShootStraight();
         }
     }
 

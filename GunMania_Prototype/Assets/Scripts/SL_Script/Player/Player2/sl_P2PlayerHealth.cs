@@ -15,7 +15,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
     [Space(10)]
     [Header("Health")]
     private float maxHealth = 8;
-    public float p2currentHealth;
+    public static float p2currentHealth;
 
     public GameObject bulletScript;
     public GameObject playerHealth;
@@ -28,6 +28,13 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     public Image[] hearts;
 
+
+    [Space(10)]
+    [Header("Win Lose Screen")]
+    public GameObject winScreen;
+    public GameObject loseScreen;
+
+
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -39,17 +46,25 @@ public class sl_P2PlayerHealth : MonoBehaviour
         healthText.text = p2currentHealth.ToString();
 
         //HEALTH
-        if (p2currentHealth == 0)
-        {
-            Destroy(gameObject);
+        //if (p2currentHealth == 0)
+        //{
+            //Destroy(gameObject);
             //gameObject.SetActive(false);
             //StartCoroutine(WaitToSpawnPlayer());
 
-            if (view.IsMine)
-            {
-                //SceneManager.LoadScene("LoseScreen");
-            }
-        }
+            //if (view.IsMine)
+            //{
+            //    if (view.IsMine)
+            //    {
+            //        loseScreen.SetActive(true);
+            //    }
+            //}
+            //else if (sl_PlayerHealth.currentHealth == 0)
+            //{
+            //    winScreen.SetActive(true);
+            //}
+        //}
+
 
 
         for (int i = 0; i < hearts.Length; i++)
@@ -70,6 +85,9 @@ public class sl_P2PlayerHealth : MonoBehaviour
                 hearts[i].sprite = emptyHealth;
             }
         }
+
+
+
     }
 
 

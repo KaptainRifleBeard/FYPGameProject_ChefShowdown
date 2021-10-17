@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using ExitGames.Client.Photon;
 
-public class sl_PlayerHealth : MonoBehaviour
+public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback 
 {
     public Text healthText;
     PhotonView view;
@@ -15,7 +17,7 @@ public class sl_PlayerHealth : MonoBehaviour
     [Space(10)]
     [Header("Health")]
     private float maxHealth = 8;
-    public float currentHealth;
+    public static float currentHealth;
 
     public GameObject bulletScript;
     public GameObject playerHealth;
@@ -28,6 +30,13 @@ public class sl_PlayerHealth : MonoBehaviour
 
     public Image[] hearts;
 
+
+    [Space(10)]
+    [Header("Win Lose Screen")]
+    public GameObject winScreen;
+    public GameObject loseScreen;
+
+
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -39,18 +48,21 @@ public class sl_PlayerHealth : MonoBehaviour
         healthText.text = currentHealth.ToString();
 
         //HEALTH
-        if (currentHealth == 0)
-        {
-            Destroy(gameObject);
-            //gameObject.SetActive(false);
-            //StartCoroutine(WaitToSpawnPlayer());
+        //if (currentHealth == 0)
+        //{
+        //    Destroy(gameObject);
+        //    //gameObject.SetActive(false);
+        //    //StartCoroutine(WaitToSpawnPlayer());
 
-            if (view.IsMine)
-            {
-                
-                //SceneManager.LoadScene("LoseScreen");
-            }
-        }
+        //    if (view.IsMine)
+        //    {
+        //        loseScreen.SetActive(true);
+        //    }
+        //}
+        //else if(sl_P2PlayerHealth.p2currentHealth == 0)
+        //{
+        //    winScreen.SetActive(true);
+        //}
 
         for (int i = 0; i < hearts.Length; i++)
         {
@@ -101,19 +113,14 @@ public class sl_PlayerHealth : MonoBehaviour
     }
 
 
-    //public void SpawnBackPlayer()
-    //{
-    //    sl_InventoryManager.ClearAllInList();
-    //    gameObject.SetActive(true);
-    //    gameObject.transform.position = spawnPostionA.transform.position;
-    //}
+    IEnumerator Respawn()
+    {
+        sl_InventoryManager.ClearAllInList();
+        yield return new WaitForSeconds(1.0f);
+        gameObject.transform.position = spawnPostionA.transform.position;
 
-    //IEnumerator WaitToSpawnPlayer()
-    //{
-    //    yield return new WaitForSeconds(1.0f);
-    //    SpawnBackPlayer();
-    //    currentHealth = maxHealth;
-    //}
+        currentHealth = 8;
+    }
 
     [PunRPC]
     public void BulletDamage()
@@ -131,4 +138,26 @@ public class sl_PlayerHealth : MonoBehaviour
     }
 
 
+    //will fire when event is activated
+    public void OnEvent(EventData photonEvent)
+    {
+    //    if(photonEvent.Code == sl_WinLoseUI.RestartEventCode)
+    //    {
+    //        currentHealth = 8;
+    //        sl_P2PlayerHealth.p2currentHealth = 8;
+
+    //        StartCoroutine(Respawn());
+
+    //    }
+    }
+
+    //private void OnEnable()
+    //{
+    //    PhotonNetwork.AddCallbackTarget(this);
+    //}
+
+    //private void OnDisable()
+    //{
+    //    PhotonNetwork.RemoveCallbackTarget(this);
+    //}
 }

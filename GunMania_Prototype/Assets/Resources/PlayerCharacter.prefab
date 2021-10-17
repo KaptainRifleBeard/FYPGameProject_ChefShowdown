@@ -695,7 +695,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1232,7 +1232,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthText: {fileID: 5019531619695868110}
-  currentHealth: 0
   bulletScript: {fileID: 738087397887106752, guid: 2a3658c6a53d56e4499c297b862d28a1, type: 3}
   playerHealth: {fileID: 2784047750339751703, guid: bcb1b6c427e495a42b027ca48859e6a9, type: 3}
   spawnPostionA: {fileID: 6460635007742489500, guid: bd77eb2a90a334e449c4fd26aa95c5f7, type: 3}
@@ -1248,6 +1247,8 @@ MonoBehaviour:
   - {fileID: 1291280387316831853}
   - {fileID: 1291280388418799858}
   - {fileID: 1291280387747528280}
+  winScreen: {fileID: 4101356504558939955, guid: 0927a4f4a9536644faf6ced270c06a6c, type: 3}
+  loseScreen: {fileID: 3630876715379022861, guid: d1c81827dabd46a49b074e5e82edf697, type: 3}
 --- !u!114 &-4391961927098730216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1371,7 +1372,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2854061190199120718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
