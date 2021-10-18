@@ -35,14 +35,14 @@ public class FoodSpawn : MonoBehaviour
     public List<GameObject> TWdishPrefabs;
 
     [Header("Food Respawn Time")]
-    public int sec = 6;
+    public int sec;
 
     [Header("Dish Spawn Time //Time = time before countdown + start countdown and spawn")]
-    public int dishsec = 10;
-    public int countdownTime = 10;
+    public int dishsec;
+    public int countdownTime;
 
     [Header("Dish Respawn Time")]
-    public int dishrespawnSec = 20;
+    public int dishrespawnSec;
 
     private int prefabInd;
 
@@ -71,7 +71,7 @@ public class FoodSpawn : MonoBehaviour
         spawnUpdate();
         dishSpawnUpdate();
 
-        if (DishDespawn.canSpawn)
+        if (DishDespawn.isJP || DishDespawn.isKR || DishDespawn.isCN || DishDespawn.isTW)
         {
             StartCoroutine(DishRespawn(20));
         }

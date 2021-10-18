@@ -41,7 +41,6 @@ public class DishDespawn : MonoBehaviour
     {
         yield return new WaitForSeconds(secs);
         Destroy(gameObject);
-        canSpawn = true;
 
         if (JPpoint)
         {
