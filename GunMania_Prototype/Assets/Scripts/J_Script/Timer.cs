@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    public GameObject water;
+    public GameObject spawner;
     //public bool stopSpawning = false;
     public float spawnTime;
     private float currentTimeToSpawn;
@@ -24,6 +24,6 @@ public class Timer : MonoBehaviour
 
     public void SpawnObject()
     {
-        Instantiate(water, transform.position, transform.rotation);
+        Instantiate(spawner, transform.position, transform.rotation);
     }
 }
