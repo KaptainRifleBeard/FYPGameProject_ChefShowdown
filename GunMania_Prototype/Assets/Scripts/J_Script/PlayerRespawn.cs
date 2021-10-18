@@ -10,7 +10,7 @@ public class PlayerRespawn : MonoBehaviour
     void Start()
     {
         //StartCoroutine(OnTriggerEnter());
-        Invoke("OnTriggerEnter", 2);
+        //Invoke("OnTriggerEnter", 2);
     }
 
     public void OnTriggerEnter(Collider other)
