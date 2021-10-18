@@ -43,6 +43,10 @@ public class HealthBar : MonoBehaviour
     public float currenthealth;
     public float enemyCurrentHealth;
 
+    public void Start()
+    {
+        DontDestroyOnLoad(this);
+    }
 
     public void UpdateHealth(float value,bool isEnemy)
     {

@@ -12,13 +12,10 @@ public class HUDManager : MonoBehaviour
 
 
     public Text Timer;
-    public static Image PlayerPortrait, EnemyPotrait, PlayerTagPortrait, EnemyTagPortrait;
-
-    public HealthBar Healthmanager;    
-
-
-
-   // public UltimateBar UltBarManager; // moreso wtf?
+    
+    // consulted with mr zeren - no need to static fielded scripts if it's only for the scene
+    public HealthBar Healthmanager;
+    public UltimateBar UltBarManager; 
 
     [Header ("PlayerFoodItems")]
     public Image playerfood1, playerfood2, foodCombo;
@@ -138,33 +135,5 @@ public class HUDManager : MonoBehaviour
  
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // need to insert damage to healthbar, retrieve food damage value from object value.
-        //refer to gamedesign document for further references.
 
-        if (collision.gameObject.tag == "food")
-        {
-            if (collision.gameObject.tag == "enemy")
-            {
-                Healthmanager.UpdateHealth(1, true);
-            }
-            else if (collision.gameObject.tag == "player")
-            {
-                Healthmanager.UpdateHealth(2, false);
-            }
-        }
-        else if (collision.gameObject.tag == "superFood")
-        {
-            if (collision.gameObject.tag == "enemy")
-            {
-                Healthmanager.UpdateHealth(2, true);
-            }
-            else if (collision.gameObject.tag == "player")
-            {
-                Healthmanager.UpdateHealth(2, false);
-            }
-        }
-
-    }
 }
