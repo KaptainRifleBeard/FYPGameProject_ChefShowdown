@@ -19,10 +19,19 @@ public class sl_ShootBehavior : MonoBehaviour
     public static int bulletCount;
     public static bool p1Shoot;
 
+    public Animator anim;
+
+    //HELP AIM
+    //public LineRenderer lineVisual;
+    //public int lineSegment = 10;
+
+
     void Start()
     {
         view = GetComponent<PhotonView>();
+        anim = GetComponent<Animator>();
         cam = Camera.main;
+        //lineVisual.positionCount = lineSegment;
     }
 
 
@@ -30,9 +39,13 @@ public class sl_ShootBehavior : MonoBehaviour
     {
         if (view.IsMine)  //Photon - check is my character
         {
-            //LaunchProjectile();  //gravity shoot
+            //LaunchProjectile();  //gravity shoot and line renderer
             ShootStraight();
+            //view.RPC("ShootStraight", RpcTarget.All);
+
         }
+
+
     }
 
 
@@ -50,11 +63,13 @@ public class sl_ShootBehavior : MonoBehaviour
         if(Physics.Raycast(ray, out hit))
         {
             Vector3 vel = CalculateVelocity(hit.point, shootPosition.position, 1f);
+            Visualize(vel);
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) /* && bulletCount > 0 */)
             {
                 Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
                 bullet.velocity = vel;
+                bulletCount--;
 
             }
 
@@ -85,17 +100,43 @@ public class sl_ShootBehavior : MonoBehaviour
     }
 
 
-    //for direct shoot
+    //for aiming
+    void Visualize(Vector3 vel)
+    {
+        //for(int i = 0; i < lineSegment; i++)
+        //{
+        //    Vector3 pos = CalculatePosInTime(vel, i / (float)lineSegment);
+        //    lineVisual.SetPosition(i, pos);
+
+        //}
+    }
+
+    Vector3 CalculatePosInTime(Vector3 velocity, float time)
+    {
+        Vector3 Vxz = velocity;
+        Vxz.y = 0f;
+
+        Vector3 result = attackPosition.position + velocity * time;
+        float startY = (-0.5f * Mathf.Abs(Physics.gravity.y) * (time * time)) + (velocity.y * time) + attackPosition.position.y;
+
+        result.y = startY;
+        return result;
+    }
+
+
     void ShootStraight()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         Vector3 targetPosition;
-        float shootForce = 50.0f;
+        float shootForce = 70.0f;
 
-        if (Input.GetMouseButtonDown(0) && bulletCount > 0)
+        if (Input.GetMouseButtonDown(0)  && bulletCount > 0 )
         {
+            anim.SetBool("Throw", true);
+            anim.speed = 1.2f;
+
             if (Physics.Raycast(ray, out hit))
             {
                 targetPosition = hit.point;
@@ -110,7 +151,6 @@ public class sl_ShootBehavior : MonoBehaviour
             }
 
         }
-
     }
 
 

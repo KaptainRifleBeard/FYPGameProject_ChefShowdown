@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class FoodSpawn : MonoBehaviour
 {
-    [Header("Food Spawn Points")]
+    [Header("Food Spawn Points (1 for JP, 2 for KR, 3 for CN, 4 for TW)")]
     public List<GameObject> foodSpawnPoint;
 
-    [Header("Japan Dish Spawn Points")]
-    public GameObject JPdishSpawnPoint;
+    [Header("Japan Dish Spawn Points (1 for JP, 2 for KR, 3 for CN, 4 for TW)")]
+    public List<GameObject> dishSpawnPoint;
 
-    [Header("Korea Dish Spawn Points")]
-    public GameObject KRdishSpawnPoint;
+    [Header("Japan Food Prefabs")]
+    public List<GameObject> JPfoodPrefabs;
 
-    [Header("China Dish Spawn Points")]
-    public GameObject CNdishSpawnPoint;
+    [Header("Korea Food Prefabs")]
+    public List<GameObject> KRfoodPrefabs;
 
-    [Header("Taiwan Dish Spawn Points")]
-    public GameObject TWdishSpawnPoint;
+    [Header("China Food Prefabs")]
+    public List<GameObject> CNfoodPrefabs;
 
-    [Header("Food Prefabs")]
-    public List<GameObject> prefabs;
+    [Header("Taiwan Food Prefabs")]
+    public List<GameObject> TWfoodPrefabs;
 
     [Header("Japan Dish Prefabs")]
     public List<GameObject> JPdishPrefabs;
@@ -34,32 +34,32 @@ public class FoodSpawn : MonoBehaviour
     [Header("Taiwan Dish Prefabs")]
     public List<GameObject> TWdishPrefabs;
 
-    [Header("Respawn Time")]
+    [Header("Food Respawn Time")]
     public int sec = 6;
 
-    [Header("Dish Spawn Time")]
-    public int dishsec = 5;
-    public int countdownTime = 5;
+    [Header("Dish Spawn Time //Time = time before countdown + start countdown and spawn")]
+    public int dishsec = 10;
+    public int countdownTime = 10;
+
+    [Header("Dish Respawn Time")]
+    public int dishrespawnSec = 20;
 
     private int prefabInd;
 
-    private IEnumerator coroutine;
     private IEnumerator countdownCoro;
     private IEnumerator dishCoro;
 
-    int count;
-    bool spawn;
 
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < foodSpawnPoint.Count; i++)
-        {
-            prefabInd = Random.Range(0, prefabs.Count);
+        Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
 
-            Instantiate(prefabs[prefabInd], foodSpawnPoint[i].transform.position, Quaternion.identity);
+        Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)], foodSpawnPoint[1].transform.position, Quaternion.identity);
 
-        }
+        Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)], foodSpawnPoint[2].transform.position, Quaternion.identity);
+
+        Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)], foodSpawnPoint[3].transform.position, Quaternion.identity);
 
         countdownCoro = DishCountdown(countdownTime);
         StartCoroutine(countdownCoro);
@@ -68,45 +68,174 @@ public class FoodSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        spawnUpdate();
+        dishSpawnUpdate();
 
-        if (sl_P1PickUp.isPicked == true || sl_P2PickUp.isPicked == true)
+        if (DishDespawn.canSpawn)
         {
-            if (count < 1 && spawn == false)  //to spawn only one per time
+            StartCoroutine(DishRespawn(20));
+        }
+
+    }
+
+    #region
+
+    public void spawnUpdate()
+    {
+        int layerMask = 1 << 3;
+
+        for (int i = 0; i < foodSpawnPoint.Count; i++)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(foodSpawnPoint[i].transform.position, 10, layerMask);
+            if (hitColliders.Length == 0)
             {
-                if (count < 1)
+                if (sl_P1PickUp.isPicked == true)
                 {
-                    spawn = true;
-
-                    Debug.Log("pick");
-                    coroutine = Spawn(sec);
-                    StartCoroutine(coroutine);
-                    PickUp.isPicked = false;
-                    
-                    count++;
-
+                    StartCoroutine(P1Spawn(sec, i));
+                    sl_P1PickUp.isPicked = false;
                 }
-                if (count == 1)
+                if (sl_P2PickUp.isPicked == true)
                 {
-                    spawn = false;
+                    StartCoroutine(P2Spawn(sec, i));
+                    sl_P2PickUp.isPicked = false;
+                }
+            }
+        }
+    }
+
+    public IEnumerator P1Spawn(int secs, int index)
+    {
+        yield return new WaitForSeconds(secs);
+        
+        switch (index)
+        {
+            case 0: 
+                Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)], foodSpawnPoint[1].transform.position, Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)], foodSpawnPoint[2].transform.position, Quaternion.identity);
+                break;
+            case 3:
+                Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)], foodSpawnPoint[3].transform.position, Quaternion.identity);
+                break;
+            default:
+                Debug.Log("unknown spawn point");
+                break;
+        }
+
+        Debug.Log("spawn at " + index);
+
+    }
+
+    private IEnumerator P2Spawn(int secs, int index)
+    {
+        yield return new WaitForSeconds(secs);
+        switch (index)
+        {
+            case 0:
+                Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)], foodSpawnPoint[1].transform.position, Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)], foodSpawnPoint[2].transform.position, Quaternion.identity);
+                break;
+            case 3:
+                Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)], foodSpawnPoint[3].transform.position, Quaternion.identity);
+                break;
+            default:
+                Debug.Log("unknown spawn point");
+                break;
+        }
+
+        Debug.Log("spawn at " + index);
+
+    }
+
+    #endregion
+
+
+    #region
+
+    public void dishSpawnUpdate()
+    {
+        int layerMask = 1 << 6;
+
+        for (int i = 0; i < dishSpawnPoint.Count; i++)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(dishSpawnPoint[i].transform.position, 10, layerMask);
+            if (hitColliders.Length == 0)
+            {
+                if (sl_P1PickUp.isPickedDish == true)
+                {
+                    StartCoroutine(P1dishSpawn(dishrespawnSec, i));
+                    sl_P1PickUp.isPickedDish = false;
+                }
+                if (sl_P2PickUp.isPickedDish == true)
+                {
+                    StartCoroutine(P2dishSpawn(dishrespawnSec, i));
+                    sl_P2PickUp.isPickedDish = false;
                 }
             }
         }
 
-        if(DishDespawn.canSpawn)
-        {
-            StartCoroutine(DishRespawn(10));
-        }
     }
 
-    private IEnumerator Spawn(int secs)
+    private IEnumerator P1dishSpawn(int secs, int index)
     {
-        Debug.Log("run pick");
-
         yield return new WaitForSeconds(secs);
-        prefabInd = Random.Range(0, prefabs.Count);
-        Instantiate(prefabs[prefabInd], foodSpawnPoint[Respawn.index].transform.position, Quaternion.identity);
-        count = 0;
+        switch (index)
+        {
+            case 0:
+                Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
+                break;
+            case 3:
+                Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
+                break;
+            default:
+                Debug.Log("unknown spawn point");
+                break;
+        }
+
+        Debug.Log("dish spawn at " + index);
     }
+
+    private IEnumerator P2dishSpawn(int secs, int index)
+    {
+        yield return new WaitForSeconds(secs);
+        switch (index)
+        {
+            case 0:
+                Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
+                break;
+            case 3:
+                Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
+                break;
+            default:
+                Debug.Log("unknown spawn point");
+                break;
+        }
+
+        Debug.Log("dish spawn at " + index);
+    }
+
+
 
     private IEnumerator DishCountdown(int countdownTime)
     {
@@ -119,19 +248,43 @@ public class FoodSpawn : MonoBehaviour
     {
         yield return new WaitForSeconds(dishsecs);
         //Japan dish spawn
-        Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], JPdishSpawnPoint.transform.position, Quaternion.identity);
+        Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
         //Korea dish
-        Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], KRdishSpawnPoint.transform.position, Quaternion.identity);
+        Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
         //China dish
-        Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], CNdishSpawnPoint.transform.position, Quaternion.identity);
+        Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
         //Taiwan dish
-        Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], TWdishSpawnPoint.transform.position, Quaternion.identity);
-        count = 0;
+        Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
     }
 
     private IEnumerator DishRespawn(int secs)
     {
         yield return new WaitForSeconds(secs);
+
+        if (DishDespawn.isJP)
+        {
+            Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
+            DishDespawn.isJP = false;
+        }
+        if (DishDespawn.isKR)
+        {
+            Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
+            DishDespawn.isKR = false;
+        }
+        if (DishDespawn.isCN)
+        {
+            Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
+            DishDespawn.isCN = false;
+        }
+        if (DishDespawn.isTW)
+        {
+            Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
+            DishDespawn.isTW = false;
+        }
+
+        DishDespawn.canSpawn = false;
     }
+
+    #endregion
 
 }

@@ -14,13 +14,21 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     [Space(10)]
     [Header("Health")]
-    private int maxHealth = 16;
-    public int p2currentHealth;
+    private float maxHealth = 8;
+    public static float p2currentHealth;
 
     public GameObject bulletScript;
     public GameObject playerHealth;
 
     public GameObject spawnPostionB;
+
+    public Sprite emptyHealth;
+    public Sprite halfHealth;
+    public Sprite fulllHealth;
+
+    public Image[] hearts;
+
+
 
     void Start()
     {
@@ -31,19 +39,51 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public void Update()
     {
         healthText.text = p2currentHealth.ToString();
+        
 
         //HEALTH
-        if (p2currentHealth == 0)
-        {
-            Destroy(gameObject);
-            //gameObject.SetActive(false);
-            //StartCoroutine(WaitToSpawnPlayer());
+        //if (p2currentHealth == 0)
+        //{
+        //Destroy(gameObject);
+        //gameObject.SetActive(false);
+        //StartCoroutine(WaitToSpawnPlayer());
 
-            if (view.IsMine)
+        //if (view.IsMine)
+        //{
+        //    if (view.IsMine)
+        //    {
+        //        loseScreen.SetActive(true);
+        //    }
+        //}
+        //else if (sl_PlayerHealth.currentHealth == 0)
+        //{
+        //    winScreen.SetActive(true);
+        //}
+        //}
+
+
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < p2currentHealth)
             {
-                //SceneManager.LoadScene("LoseScreen");
+                if (i + 0.5 == p2currentHealth)
+                {
+                    hearts[i].sprite = halfHealth;
+                }
+                else
+                {
+                    hearts[i].sprite = fulllHealth;
+                }
+            }
+            else
+            {
+                hearts[i].sprite = emptyHealth;
             }
         }
+
+
+
     }
 
 
@@ -56,7 +96,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
         }
         else if (stream.IsReading)
         {
-            p2currentHealth = (int)stream.ReceiveNext();
+            p2currentHealth = (float)stream.ReceiveNext();
             //transform.position = (Vector3)stream.ReceiveNext();
         }
 
@@ -88,7 +128,15 @@ public class sl_P2PlayerHealth : MonoBehaviour
     [PunRPC]
     public void BulletDamage2()
     {
-        p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+        if (p2currentHealth > 0)
+        {
+            p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+
+            if (p2currentHealth < 0)
+            {
+                p2currentHealth = 0;
+            }
+        }
     }
 
 }

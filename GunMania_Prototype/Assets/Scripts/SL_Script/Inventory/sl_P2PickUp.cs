@@ -8,6 +8,7 @@ public class sl_P2PickUp : MonoBehaviour
     public sl_Inventory playerInventory;  //set which inventory should be place in
 
     public static bool isPicked = false;
+    public static bool isPickedDish = false;
     int count;
     bool spawn;
 
@@ -17,15 +18,22 @@ public class sl_P2PickUp : MonoBehaviour
         {
             if (sl_P2ShootBehavior.p2bulletCount < 2)
             {
-                sl_P2ShootBehavior.p2bulletCount += 1;
 
-                isPicked = true;
-                AddNewItem();
-                Destroy(gameObject);
-            }
-            else
-            {
-                isPicked = false;
+                if (gameObject.layer == LayerMask.NameToLayer("Food"))
+                {
+                    isPicked = true;
+                    AddNewItem();
+                    Destroy(gameObject);
+                }
+                else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
+                {
+                    isPickedDish = true;
+                    AddNewItem();
+                    Destroy(gameObject);
+                }
+
+
+                sl_P2ShootBehavior.p2bulletCount += 1;
             }
         }
     }
@@ -73,28 +81,32 @@ public class sl_P2PickUp : MonoBehaviour
 
     void Update()
     {
-        //completely hard code
-        if (Input.GetMouseButtonDown(0)) //if shoot, check list[0] have bullet or not
+        if(playerInventory.itemList[0] != null)
         {
-            if (count < 1 && spawn == false)  //to spawn only one per time
+            //completely hard code
+            if (Input.GetMouseButtonDown(0)) //if shoot, check list[0] have bullet or not
             {
-                if (count < 1)
+                if (count < 1 && spawn == false)  //to spawn only one per time
                 {
-                    spawn = true;
+                    if (count < 1)
+                    {
+                        spawn = true;
 
-                    playerInventory.itemList[0] = null;
-                    sl_p2InventoryManager.RefreshItem();
-                    StartCoroutine(MoveToFront());
+                        playerInventory.itemList[0] = null;
+                        sl_p2InventoryManager.RefreshItem();
+                        StartCoroutine(MoveToFront());
 
-                    count++;
+                        count++;
 
-                }
-                if (count == 1)
-                {
-                    spawn = false;
+                    }
+                    if (count == 1)
+                    {
+                        spawn = false;
+                    }
                 }
             }
         }
+       
 
     }
 }

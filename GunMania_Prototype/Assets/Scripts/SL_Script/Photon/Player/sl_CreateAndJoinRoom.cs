@@ -42,16 +42,5 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
         Debug.Log("Failed to create room");
     }
 
-    //public void JoinRoom()
-    //{
-    //    PhotonNetwork.JoinRoom(joinInput.text);
-    //}
-
-    //public override void OnJoinedRoom()
-    //{
-    //    PhotonNetwork.LoadLevel("sl_PlayerSelectLobby");
-
-    //}
-
     
 }
