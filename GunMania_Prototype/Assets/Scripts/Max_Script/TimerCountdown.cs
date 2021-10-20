@@ -60,7 +60,23 @@ public class TimerCountdown : MonoBehaviour
             {
                 winLose.loseScreen.SetActive(true);
             }
+        }   
+        if (sl_P2PlayerHealth.p2currentHealth == sl_PlayerHealth.currentHealth)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                winLose.text.text = "Click to leave room";
+                winLose.winScreen.SetActive(true);
+            }
+            else
+            {
+                winLose.winScreen.SetActive(true);
+            }
+            // in the even that there is a tie game, both sides win.
         }
+
+
+
     }
 
     void DisplayTime(float timetoDisplay)
