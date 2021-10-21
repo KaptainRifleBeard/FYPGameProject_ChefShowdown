@@ -15,10 +15,17 @@ public class TimerCountdown : MonoBehaviour
     public sl_WinLoseUI winLose;
     public float timeValue = 90;
 
+
+    [Header("Debugging WINLOSEUISTUFF")]
+    public GameObject winScreen;
+    public GameObject loseScreen;
+    public GameObject exitScreen;
+
+
     // Update is called once per frame
     void Update()
     {
-        if (timeValue >0)
+        if (timeValue > 0)
         {
             timeValue -= Time.deltaTime;
         }
@@ -36,41 +43,47 @@ public class TimerCountdown : MonoBehaviour
 
     void CheckWinOrLose()
     {
-        if (sl_PlayerHealth.currentHealth > sl_P2PlayerHealth.p2currentHealth)
+        if (sl_PlayerHealth.currentHealth < sl_P2PlayerHealth.p2currentHealth)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 //winLose.text.text = "Click to leave room";
-                winLose.loseScreen.SetActive(true);
+                //winLose.loseScreen.SetActive(true);
+                loseScreen.SetActive(true);
             }
             else
             {
-                winLose.winScreen.SetActive(true);
+                //winLose.winScreen.SetActive(true);
+                winScreen.SetActive(true);
             }
         }
 
-        if (sl_P2PlayerHealth.p2currentHealth < sl_PlayerHealth.currentHealth)
+        else if (sl_P2PlayerHealth.p2currentHealth > sl_PlayerHealth.currentHealth)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 //winLose.text.text = "Click to leave room";
-                winLose.winScreen.SetActive(true);
+                //winLose.winScreen.SetActive(true);
+                winScreen.SetActive(true);
             }
             else
             {
-                winLose.loseScreen.SetActive(true);
+                //winLose.loseScreen.SetActive(true);
+                loseScreen.SetActive(true);
             }
         }   
-        if (sl_P2PlayerHealth.p2currentHealth == sl_PlayerHealth.currentHealth)
+        else if (sl_P2PlayerHealth.p2currentHealth == sl_PlayerHealth.currentHealth)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 //winLose.text.text = "Click to leave room";
-                winLose.winScreen.SetActive(true);
+                //winLose.winScreen.SetActive(true);
+                winScreen.SetActive(true);
             }
             else
             {
-                winLose.winScreen.SetActive(true);
+                //winLose.winScreen.SetActive(true);
+                winScreen.SetActive(true);
             }
             // in the even that there is a tie game, both sides win.
         }
