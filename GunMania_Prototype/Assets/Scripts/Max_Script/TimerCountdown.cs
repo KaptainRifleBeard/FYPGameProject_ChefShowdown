@@ -29,12 +29,16 @@ public class TimerCountdown : MonoBehaviour
         {
             timeValue -= Time.deltaTime;
         }
-        else
+        else if (timeValue < 0)
         {
             timeValue = 0;
             CheckWinOrLose();
 
 
+        }
+        else if (sl_PlayerHealth.currentHealth == 0 || sl_P2PlayerHealth.p2currentHealth == 0)
+        {
+            CheckWinOrLose();
         }
 
         DisplayTime(timeValue);
