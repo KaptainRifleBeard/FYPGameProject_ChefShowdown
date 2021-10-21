@@ -40,6 +40,11 @@ public class TimerCountdown : MonoBehaviour
         {
             CheckWinOrLose();
         }
+        // Debugging Code ONLY USED TO SUICIDE P1.
+        else if (Input.GetKeyDown(KeyCode.F6))
+        {
+            sl_PlayerHealth.currentHealth = 0;
+        }
 
         DisplayTime(timeValue);
     }
