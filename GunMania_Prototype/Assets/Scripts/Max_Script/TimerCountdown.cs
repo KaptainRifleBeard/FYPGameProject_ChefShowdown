@@ -40,7 +40,7 @@ public class TimerCountdown : MonoBehaviour
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                winLose.text.text = "Click to leave room";
+                //winLose.text.text = "Click to leave room";
                 winLose.loseScreen.SetActive(true);
             }
             else
@@ -53,7 +53,7 @@ public class TimerCountdown : MonoBehaviour
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                winLose.text.text = "Click to leave room";
+                //winLose.text.text = "Click to leave room";
                 winLose.winScreen.SetActive(true);
             }
             else
@@ -65,7 +65,7 @@ public class TimerCountdown : MonoBehaviour
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                winLose.text.text = "Click to leave room";
+                //winLose.text.text = "Click to leave room";
                 winLose.winScreen.SetActive(true);
             }
             else
