@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UltimateBar : MonoBehaviour
 {
     public Slider slider;
+    public float P1Ult, P2Ult;
+
     public Slider EnemySlider;
 
     public void SetMaxBar(float value,bool isEnemy)
@@ -29,11 +31,11 @@ public class UltimateBar : MonoBehaviour
 
         if (isEnemy == false)
         {
-            slider.value += value;
+            P1Ult += value;
         }
         else
         {
-            EnemySlider.value += value;
+            P2Ult += value;
         }
     }
     public void ResetBar(bool isEnemy)
@@ -49,5 +51,14 @@ public class UltimateBar : MonoBehaviour
             EnemySlider.value = 0.00f;
         }
 
-    }    
+    }
+
+    private void Update()
+    {
+        if (P1Ult >= 100.00)
+        {
+            P1Ult = 100;
+        }
+    }
+
 }

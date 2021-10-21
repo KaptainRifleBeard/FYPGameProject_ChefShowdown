@@ -7,7 +7,7 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using ExitGames.Client.Photon;
 
-public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback 
+public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
 {
     public Text healthText;
     PhotonView view;
@@ -41,7 +41,7 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
     public void Update()
     {
         healthText.text = currentHealth.ToString();
-        
+
         //HEALTH
         //if (currentHealth == 0)
         //{
@@ -102,7 +102,7 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
         if (other.gameObject.tag == "P2Bullet")
         {
             view.RPC("BulletDamage", RpcTarget.All);
-           
+
         }
 
     }
@@ -120,30 +120,30 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
     [PunRPC]
     public void BulletDamage()
     {
-        if(currentHealth > 0)
+        if (currentHealth > 0)
         {
             currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
 
-            if(currentHealth < 0)
+            if (currentHealth < 0)
             {
                 currentHealth = 0;
             }
         }
-        
+
     }
 
 
     //will fire when event is activated
     public void OnEvent(EventData photonEvent)
     {
-    //    if(photonEvent.Code == sl_WinLoseUI.RestartEventCode)
-    //    {
-    //        currentHealth = 8;
-    //        sl_P2PlayerHealth.p2currentHealth = 8;
+        //    if(photonEvent.Code == sl_WinLoseUI.RestartEventCode)
+        //    {
+        //        currentHealth = 8;
+        //        sl_P2PlayerHealth.p2currentHealth = 8;
 
-    //        StartCoroutine(Respawn());
+        //        StartCoroutine(Respawn());
 
-    //    }
+        //    }
     }
 
     //private void OnEnable()

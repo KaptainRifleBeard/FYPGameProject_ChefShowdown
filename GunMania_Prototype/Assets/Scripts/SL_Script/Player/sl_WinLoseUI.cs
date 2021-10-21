@@ -125,8 +125,8 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         //}
         //PhotonNetwork.LoadLevel(0);
 
-       
-            StartCoroutine(DisconnectAndLoad());
+
+        StartCoroutine(DisconnectAndLoad());
 
     }
 
@@ -146,28 +146,29 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         }
 
         SceneManager.LoadScene(0);
-        
+
     }
 
-
-    //IEnumerator DisplayMessage(string message)
-    //{
-    //    text.text = message;
-    //    yield return new WaitForSeconds(2f);
-    //    text.text = " ";
-    //}
-
-    //public static void kick(int num) 
-    //{ 
-    //    foreach (Player player in PhotonNetwork.PlayerList) 
-    //    {
-    //        int s = player.ActorNumber;
-    //        if (s == num) 
-    //        { 
-    //            PhotonNetwork.CloseConnection(player); 
-    //            break; 
-    //        }
-    //    } 
-    //}
-
 }
+
+
+
+//IEnumerator DisplayMessage(string message)
+//{
+//    text.text = message;
+//    yield return new WaitForSeconds(2f);
+//    text.text = " ";
+//}
+
+//public static void kick(int num) 
+//{ 
+//    foreach (Player player in PhotonNetwork.PlayerList) 
+//    {
+//        int s = player.ActorNumber;
+//        if (s == num) 
+//        { 
+//            PhotonNetwork.CloseConnection(player); 
+//            break; 
+//        }
+//    } 
+//}
