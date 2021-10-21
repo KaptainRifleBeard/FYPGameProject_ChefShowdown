@@ -43,7 +43,15 @@ public class TimerCountdown : MonoBehaviour
         // Debugging Code ONLY USED TO SUICIDE P1.
         else if (Input.GetKeyDown(KeyCode.F6))
         {
-            sl_PlayerHealth.currentHealth = 0;
+            if (PhotonNetwork.IsMasterClient)
+            {
+
+                sl_PlayerHealth.currentHealth = 0;
+            }
+            else
+            {
+                sl_P2PlayerHealth.p2currentHealth = 0;
+            }
         }
 
         DisplayTime(timeValue);
