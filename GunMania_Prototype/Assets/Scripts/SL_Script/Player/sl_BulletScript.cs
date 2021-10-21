@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class sl_BulletScript : MonoBehaviour
 {
-    public float bulletDmg;
+    public int bulletDmg;
    
     void Update()
     {
@@ -14,7 +14,7 @@ public class sl_BulletScript : MonoBehaviour
 
     IEnumerator waitForSec()
     {
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(1.0f);
         Destroy(gameObject);
     }
 

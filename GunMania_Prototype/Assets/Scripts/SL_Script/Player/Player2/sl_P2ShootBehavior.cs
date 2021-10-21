@@ -30,8 +30,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
         if (view.IsMine)  //Photon - check is my character
         {
             //LaunchProjectile();  //gravity shoot
-            ShootStraight2();
-            //view.RPC("ShootStraight2", RpcTarget.All);
+            ShootStraight();
         }
     }
 
@@ -85,13 +84,14 @@ public class sl_P2ShootBehavior : MonoBehaviour
     }
 
 
-    void ShootStraight2()
+    //for direct shoot
+    void ShootStraight()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         Vector3 targetPosition;
-        float shootForce = 70.0f;
+        float shootForce = 50.0f;
 
         if (Input.GetMouseButtonDown(0) && p2bulletCount > 0)
         {
