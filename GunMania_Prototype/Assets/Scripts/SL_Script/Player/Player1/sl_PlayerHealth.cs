@@ -20,8 +20,6 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
     public static float currentHealth;
 
     public GameObject bulletScript;
-    public GameObject playerHealth;
-
     public GameObject spawnPostionA;
 
     public Sprite emptyHealth;
