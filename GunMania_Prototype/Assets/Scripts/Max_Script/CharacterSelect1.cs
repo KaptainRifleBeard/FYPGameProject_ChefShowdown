@@ -23,6 +23,8 @@ public class CharacterSelect1 : MonoBehaviour
     int character1, character2;
 
 
+
+
     public void Awake()
     {
         PlayerPrefs.SetInt("Character1", -1);
