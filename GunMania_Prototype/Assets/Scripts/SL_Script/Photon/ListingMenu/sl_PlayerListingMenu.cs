@@ -96,8 +96,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
         }
-
-        PhotonNetwork.CurrentRoom.IsOpen = false;
     }
 
 }
