@@ -125,8 +125,8 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         //}
         //PhotonNetwork.LoadLevel(0);
 
-       
-            StartCoroutine(DisconnectAndLoad());
+
+        StartCoroutine(DisconnectAndLoad());
 
     }
 
@@ -146,7 +146,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         }
 
         SceneManager.LoadScene(0);
-        
+
     }
 
 }
