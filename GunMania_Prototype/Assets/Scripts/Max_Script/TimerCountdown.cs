@@ -14,12 +14,32 @@ public class TimerCountdown : MonoBehaviour
     public Text timeText;
     public sl_WinLoseUI winLose;
     public float timeValue = 90;
-
+    private bool alreadyRunning = false;
 
     [Header("Debugging WINLOSEUISTUFF")]
     public GameObject winScreen;
     public GameObject loseScreen;
     public GameObject exitScreen;
+    public GameObject GameOverText;
+
+
+    IEnumerator timeSpan(float waitTime)
+    {
+
+        yield return new WaitForSeconds(waitTime);
+        StartCoroutine(RunCounterArgument(3));
+        //debugged, coroutine will only run 1 command argument.
+    }
+
+    IEnumerator RunCounterArgument(float waitTime)
+    {
+
+        yield return new WaitForSeconds(waitTime);
+        
+        CheckWinOrLose();
+        GameOverText.SetActive(false);
+    
+    }
 
 
     // Update is called once per frame
@@ -32,13 +52,29 @@ public class TimerCountdown : MonoBehaviour
         else if (timeValue < 0)
         {
             timeValue = 0;
-            CheckWinOrLose();
+            if (alreadyRunning == false)
+            {
+                alreadyRunning = true;
+                GameOverText.gameObject.SetActive(true);
+                new WaitForSecondsRealtime(3);
+                //GameOverText.gameObject.SetActive(false);
+                StartCoroutine(timeSpan(3));
+                //CheckWinOrLose();
+            }
+
+
 
 
         }
         else if (sl_PlayerHealth.currentHealth == 0 || sl_P2PlayerHealth.p2currentHealth == 0)
         {
-            CheckWinOrLose();
+            if (alreadyRunning == false)
+            {
+                alreadyRunning = true;
+                GameOverText.gameObject.SetActive(true);
+
+                GameOverText.gameObject.SetActive(false);
+            }
         }
         // Debugging Code ONLY USED TO SUICIDE P1.
         else if (Input.GetKeyDown(KeyCode.F6))
