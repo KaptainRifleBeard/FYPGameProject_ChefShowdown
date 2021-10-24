@@ -27,7 +27,7 @@ public class TimerCountdown : MonoBehaviour
     {
 
         yield return new WaitForSeconds(waitTime);
-        StartCoroutine(RunCounterArgument(3));
+        StartCoroutine(RunCounterArgument(1));
         //debugged, coroutine will only run 1 command argument.
     }
 
@@ -56,7 +56,7 @@ public class TimerCountdown : MonoBehaviour
             {
                 alreadyRunning = true;
                 GameOverText.gameObject.SetActive(true);
-                new WaitForSecondsRealtime(3);
+                //new WaitForSecondsRealtime(3);
                 //GameOverText.gameObject.SetActive(false);
                 StartCoroutine(timeSpan(3));
                 //CheckWinOrLose();
@@ -72,23 +72,25 @@ public class TimerCountdown : MonoBehaviour
             {
                 alreadyRunning = true;
                 GameOverText.gameObject.SetActive(true);
-
-                GameOverText.gameObject.SetActive(false);
+                //new WaitForSecondsRealtime(3);
+                //GameOverText.gameObject.SetActive(false);
+                StartCoroutine(timeSpan(3));
+                //CheckWinOrLose();
             }
         }
         // Debugging Code ONLY USED TO SUICIDE P1.
-        else if (Input.GetKeyDown(KeyCode.F6))
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
+        //else if (Input.GetKeyDown(KeyCode.F6))
+        //{
+        //    if (PhotonNetwork.IsMasterClient)
+        //    {
 
-                sl_PlayerHealth.currentHealth = 0;
-            }
-            else
-            {
-                sl_P2PlayerHealth.p2currentHealth = 0;
-            }
-        }
+        //        sl_PlayerHealth.currentHealth = 0;
+        //    }
+        //    else
+        //    {
+        //        sl_P2PlayerHealth.p2currentHealth = 0;
+        //    }
+        //}
 
         DisplayTime(timeValue);
     }
