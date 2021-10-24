@@ -2004,7 +2004,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDestionation: {fileID: 1878105698798391210, guid: c31b3b8ba89ea8448902c4fe53a26cf3, type: 3}
   inventoryVisible: {fileID: 8592881413538972966}
-  anim: {fileID: 8081693721695745389}
 --- !u!114 &8081693721695745384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2019,9 +2018,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthText: {fileID: 8081693722756658486}
   bulletScript: {fileID: 738087397887106752, guid: 2a3658c6a53d56e4499c297b862d28a1, type: 3}
-  playerHealth: {fileID: 2784047750339751703, guid: bcb1b6c427e495a42b027ca48859e6a9, type: 3}
   spawnPostionA: {fileID: 6460635007742489500, guid: bd77eb2a90a334e449c4fd26aa95c5f7, type: 3}
-  emptyHealth: {fileID: 21300000, guid: 765cc895d97f41242890753b2395f1ad, type: 3}
+  emptyHealth: {fileID: 21300000, guid: 2a2ac8e90637b6b4da5d3d123b541d72, type: 3}
   halfHealth: {fileID: 21300000, guid: 1f3c9b290f2c00e4caa49837ab101746, type: 3}
   fulllHealth: {fileID: 21300000, guid: b5bc029d7984a2b45be1c1e7f866eaf5, type: 3}
   hearts:
@@ -2052,7 +2050,6 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 1
-  anim: {fileID: 0}
 --- !u!114 &8081693721695745366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2141,22 +2138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 2
-    Name: isRunning
-  - Type: 4
-    SynchronizeType: 2
-    Name: hold1food
-  - Type: 4
-    SynchronizeType: 2
-    Name: hold2food
-  - Type: 4
-    SynchronizeType: 2
-    Name: Throw
-  - Type: 4
-    SynchronizeType: 2
-    Name: stop
+  m_SynchronizeParameters: []
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0

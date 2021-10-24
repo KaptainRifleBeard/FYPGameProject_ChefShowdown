@@ -18,7 +18,6 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public static float p2currentHealth;
 
     public GameObject bulletScript;
-    public GameObject playerHealth;
 
     public GameObject spawnPostionB;
 
