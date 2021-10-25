@@ -17,44 +17,33 @@ public class sl_ShootBehavior : MonoBehaviour
 
     PhotonView view;
     GameObject bullet;
+    Vector3 directionShoot;
+    Vector3 targetPosition;
 
     private bool dragging = false;
     public Animator anim;
+
+    int count;
+    bool spawn;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
 
         //Instantiate click target prefab
-        if (targetIndicatorPrefab)
-        {
-            targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-            targetObject.SetActive(false);
-        }
+        
     }
 
 
     void Update()
     {
-
         //for indicator
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if(view.IsMine)
+        if (view.IsMine)
         {
-            ShootStraight();
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (targetObject)
-                {
-                    targetObject.SetActive(true);
-                    dragging = true;
-
-                }
-            }
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && bulletCount > 0)
             {
                 if (Physics.Raycast(ray, out hit))
                 {
@@ -64,61 +53,40 @@ public class sl_ShootBehavior : MonoBehaviour
 
                     }
                 }
-
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                dragging = false;
-                targetObject.SetActive(false);
             }
         }
 
 
-
-    }
-
-    void ShootStraight()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        Vector3 targetPosition;
-        float shootForce = 50.0f;
-
-        if(Physics.Raycast(ray, out hit))
+        if (Input.GetMouseButtonDown(0) && bulletCount > 0)
         {
-            if (Input.GetMouseButtonDown(0) && bulletCount > 0)
+            if (count < 1 && spawn == false)
             {
-                bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-                bullet.transform.SetParent(shootPosition);
-            }
+                spawn = true;
+                targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
+                count++;
 
-            if (Input.GetMouseButton(0) && bulletCount > 0)
-            {
-                anim.SetBool("Aim", true);
 
             }
-
-            if (Input.GetMouseButtonUp(0) && bulletCount > 0)
+            if (count == 1)
             {
-                anim.SetBool("Aim", false);
-                anim.SetBool("Throw", true);
-
-
-                targetPosition = hit.point;
-                Vector3 directionShoot = targetPosition - shootPosition.position;
-
-                bullet.transform.forward = directionShoot.normalized;
-                bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
-
-                bullet.transform.SetParent(null);
-                bulletCount--;
-
-                StartCoroutine(stopAnim());
+                spawn = false;
             }
+
+            view.RPC("SpawnBullet", RpcTarget.All);
+            dragging = true;
         }
-        
+
+        if (Input.GetMouseButtonUp(0) && bulletCount > 0)
+        {
+            view.RPC("ShootBullet", RpcTarget.All);
+
+            dragging = false;
+            Destroy(targetObject);
+
+
+            count = 0;
+            spawn = false;
+        }
 
     }
 
@@ -129,25 +97,52 @@ public class sl_ShootBehavior : MonoBehaviour
 
     }
 
+    [PunRPC]
+    void SpawnBullet()
+    {
+        bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+        bullet.transform.SetParent(shootPosition);
 
+    }
 
     [PunRPC]
-    public void BulletCount(int count)
+    void ShootBullet()
     {
-        bulletCount -= count;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        float shootForce = 50.0f;
 
+        if (Physics.Raycast(ray, out hit))
+        {
+            anim.SetBool("Aim", false);
+            anim.SetBool("Throw", true);
+
+            targetPosition = hit.point;
+            directionShoot = targetPosition - shootPosition.position;
+
+            bullet.transform.forward = directionShoot.normalized;
+            bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
+
+            bullet.transform.SetParent(null);
+            bulletCount--;
+
+            StartCoroutine(stopAnim());
+        }
+
+            
     }
 
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(bulletCount);
-        }
-        else if (stream.IsReading)
-        {
-            bulletCount = (int)stream.ReceiveNext();
 
-        }
-    }
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(bulletCount);
+
+    //    }
+    //    else if (stream.IsReading)
+    //    {
+    //        bulletCount = (int)stream.ReceiveNext();
+    //    }
+    //}
 }

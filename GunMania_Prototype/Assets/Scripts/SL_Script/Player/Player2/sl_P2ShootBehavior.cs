@@ -19,123 +19,123 @@ public class sl_P2ShootBehavior : MonoBehaviour
     PhotonView view;
     Rigidbody bullet;
 
+    Vector3 directionShoot2;
+    Vector3 targetPosition2;
     private bool dragging = false;
+
+    int count;
+    bool spawn;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
 
         //Instantiate click target prefab
-        if (targetIndicatorPrefab)
-        {
-            targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-            targetObject.SetActive(false);
-        }
+        
     }
-
 
     void Update()
     {
+
         //for indicator
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (view.IsMine)
         {
-            ShootStraight2();
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (targetObject)
-                {
-                    targetObject.SetActive(true);
-                    dragging = true;
-
-                }
-            }
-
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && p2bulletCount > 0)
             {
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (dragging)
                     {
                         targetObject.transform.position = hit.point;
-
                     }
                 }
-
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                dragging = false;
-                targetObject.SetActive(false);
             }
         }
 
+        if (Input.GetMouseButtonDown(0) && p2bulletCount > 0)
+        {
+            if (count < 1 && spawn == false)
+            {
+                spawn = true;
+                targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
+                count++;
+
+
+            }
+            if (count == 1)
+            {
+                spawn = false;
+            }
+
+            view.RPC("SpawnBullet2", RpcTarget.All);
+            dragging = true;
+        }
+        if (Input.GetMouseButtonUp(0) && p2bulletCount > 0)
+        {
+            view.RPC("ShootBullet2", RpcTarget.All);
+            Destroy(targetObject);
+            dragging = false;
+
+
+            count = 0;
+            spawn = false;
+        }
+
+
     }
 
-    void ShootStraight2()
+    IEnumerator stopAnim()
+    {
+        yield return new WaitForSeconds(0.4f);
+
+        count = 0;
+        spawn = false;
+    }
+
+    [PunRPC]
+    void SpawnBullet2()
+    {
+        bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+        bullet.transform.SetParent(shootPosition);
+    }
+
+    [PunRPC]
+    void ShootBullet2()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
-        Vector3 targetPosition;
         float shootForce = 50.0f;
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p2bulletCount > 0)
-            {
-                bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-                bullet.transform.SetParent(shootPosition);
+            targetPosition2 = hit.point;
+            directionShoot2 = targetPosition2 - shootPosition.position;
 
-            }
+            bullet.transform.forward = directionShoot2.normalized;
+            bullet.GetComponent<Rigidbody>().AddForce(directionShoot2.normalized * shootForce, ForceMode.Impulse); //shootforce
 
-            if (Input.GetMouseButton(0) && p2bulletCount > 0)
-            {
+            bullet.transform.SetParent(null);
+            p2bulletCount--;
+            StartCoroutine(stopAnim());
 
-
-            }
-
-            if (Input.GetMouseButtonUp(0) && p2bulletCount > 0)
-            {
-                targetPosition = hit.point;
-                Vector3 directionShoot = targetPosition - shootPosition.position;
-
-                bullet.transform.forward = directionShoot.normalized;
-                bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
-
-                bullet.transform.SetParent(null);
-                p2bulletCount--;
-
-            }
         }
-
-           
 
     }
 
 
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(p2bulletCount);
 
-    [PunRPC]
-    public void BulletCount(int count)
-    {
-        p2bulletCount -= count;
-
-    }
-
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(p2bulletCount);
-
-        }
-        else if (stream.IsReading)
-        {
-            p2bulletCount = (int)stream.ReceiveNext();
-        }
-    }
+    //    }
+    //    else if (stream.IsReading)
+    //    {
+    //        targetPosition2 = (Vector3)stream.ReceiveNext();
+    //    }
+    //}
 }
