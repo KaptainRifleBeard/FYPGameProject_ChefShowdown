@@ -100,7 +100,7 @@ public class sl_PlayerControl : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
 
-            anim.SetBool("Throw", false);
+            //anim.SetBool("Throw", false);
             anim.SetBool("hold1food", true);
             anim.SetBool("hold2food", false);
         }
@@ -109,7 +109,7 @@ public class sl_PlayerControl : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
 
-            anim.SetBool("Throw", false);
+            //anim.SetBool("Throw", false);
             anim.SetBool("hold1food", false);
             anim.SetBool("hold2food", true);
         }
@@ -117,7 +117,7 @@ public class sl_PlayerControl : MonoBehaviour
         {
             anim.SetBool("isRunning", true);
 
-            anim.SetBool("Throw", false);
+            //anim.SetBool("Throw", false);
             anim.SetBool("hold1food", false);
             anim.SetBool("hold2food", false);
         }
@@ -127,7 +127,7 @@ public class sl_PlayerControl : MonoBehaviour
             anim.SetBool("stop", true);
 
             anim.SetBool("isRunning", false);
-            anim.SetBool("Throw", false);
+            //anim.SetBool("Throw", false);
             anim.SetBool("hold1food", false);
             anim.SetBool("hold2food", false);
         }
@@ -138,6 +138,7 @@ public class sl_PlayerControl : MonoBehaviour
         }
 
     }
+
 
     //************* OLD CODE *************//
     /*

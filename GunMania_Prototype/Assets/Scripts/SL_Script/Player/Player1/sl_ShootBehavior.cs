@@ -119,6 +119,8 @@ public class sl_ShootBehavior : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
+                anim.SetBool("Aim", true);
+
                 if (dragging && view.IsMine)
                 {
                     targetObject.transform.position = hit.point;
@@ -128,11 +130,10 @@ public class sl_ShootBehavior : MonoBehaviour
                 
         }
 
-
         if (Input.GetMouseButtonUp(0) /* && bulletCount > 0 */)
         {
+            anim.SetBool("Aim", false);
             anim.SetBool("Throw", true);
-            anim.speed = 1.2f;
 
             targetPosition = targetObject.transform.position;
             Vector3 directionShoot = targetPosition - shootPosition.position;
@@ -145,12 +146,17 @@ public class sl_ShootBehavior : MonoBehaviour
             dragging = false;
             targetObject.SetActive(false);
 
+            StartCoroutine(stopAnim());
         }
-
-
 
     }
 
+    IEnumerator stopAnim()
+    {
+        yield return new WaitForSeconds(0.4f);
+        anim.SetBool("Throw", false);
+
+    }
 
 
     [PunRPC]
