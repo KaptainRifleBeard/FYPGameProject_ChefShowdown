@@ -73,6 +73,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
             view.RPC("SpawnBullet2", RpcTarget.All);
             dragging = true;
         }
+
         if (Input.GetMouseButtonUp(0) && p2bulletCount > 0)
         {
             view.RPC("ShootBullet2", RpcTarget.All);
@@ -91,8 +92,6 @@ public class sl_P2ShootBehavior : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
 
-        count = 0;
-        spawn = false;
     }
 
     [PunRPC]
