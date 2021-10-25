@@ -23,6 +23,9 @@ public class TimerCountdown : MonoBehaviour
     public GameObject GameOverText;
 
 
+    [Header("Spawners")]
+    public GameObject[] Spawner;
+
     IEnumerator timeSpan(float waitTime)
     {
 
@@ -54,6 +57,10 @@ public class TimerCountdown : MonoBehaviour
             timeValue = 0;
             if (alreadyRunning == false)
             {
+                foreach (GameObject item in Spawner)
+                {
+                    item.gameObject.SetActive(false);
+                }
                 alreadyRunning = true;
                 GameOverText.gameObject.SetActive(true);
                 //new WaitForSecondsRealtime(3);
@@ -70,6 +77,10 @@ public class TimerCountdown : MonoBehaviour
         {
             if (alreadyRunning == false)
             {
+                foreach (GameObject item in Spawner)
+                {
+                    item.gameObject.SetActive(false);
+                }
                 alreadyRunning = true;
                 GameOverText.gameObject.SetActive(true);
                 //new WaitForSecondsRealtime(3);

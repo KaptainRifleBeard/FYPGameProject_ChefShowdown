@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class FoodSpawn : MonoBehaviour
 {
@@ -49,10 +50,14 @@ public class FoodSpawn : MonoBehaviour
     private IEnumerator countdownCoro;
     private IEnumerator dishCoro;
 
+    PhotonView view;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        view = GetComponent<PhotonView>();
+
         Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
 
         Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)], foodSpawnPoint[1].transform.position, Quaternion.identity);
@@ -61,25 +66,32 @@ public class FoodSpawn : MonoBehaviour
 
         Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)], foodSpawnPoint[3].transform.position, Quaternion.identity);
 
-        countdownCoro = DishCountdown(countdownTime);
-        StartCoroutine(countdownCoro);
-    }
+        //countdownCoro = DishCountdown(countdownTime);
+        //StartCoroutine(countdownCoro);
 
+        view.RPC("DishCountdown", RpcTarget.All, countdownTime);
+
+    }
     // Update is called once per frame
     void Update()
     {
-        spawnUpdate();
-        dishSpawnUpdate();
+        //spawnUpdate();
+        //dishSpawnUpdate();
+        view.RPC("dishSpawnUpdate", RpcTarget.All);
+        view.RPC("spawnUpdate", RpcTarget.All);
 
         if (DishDespawn.isJP || DishDespawn.isKR || DishDespawn.isCN || DishDespawn.isTW)
         {
-            StartCoroutine(DishRespawn(dishrespawnSec));
+            view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
+
+            //StartCoroutine(DishRespawn(dishrespawnSec));
         }
 
     }
 
     #region
 
+    [PunRPC]
     public void spawnUpdate()
     {
         int layerMask = 1 << 3;
@@ -92,25 +104,30 @@ public class FoodSpawn : MonoBehaviour
                 Debug.Log("gone");
                 if (sl_P1PickUp.isPicked == true)
                 {
-                    StartCoroutine(Spawn(sec, i));
+                    //StartCoroutine(Spawn(sec, i));
+                    view.RPC("Spawn", RpcTarget.All, sec, i);
+
                     sl_P1PickUp.isPicked = false;
                 }
                 if (sl_P2PickUp.isPicked == true)
                 {
-                    StartCoroutine(Spawn(sec, i));
+                    //StartCoroutine(Spawn(sec, i));
+                    view.RPC("Spawn", RpcTarget.All, sec, i);
+
                     sl_P2PickUp.isPicked = false;
                 }
             }
         }
     }
 
+    [PunRPC]
     public IEnumerator Spawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
         
         switch (index)
         {
-            case 0: 
+            case 0:
                 Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
                 break;
             case 1:
@@ -161,7 +178,7 @@ public class FoodSpawn : MonoBehaviour
 
 
     #region
-
+    [PunRPC]
     public void dishSpawnUpdate()
     {
         int layerMask = 1 << 6;
@@ -173,12 +190,16 @@ public class FoodSpawn : MonoBehaviour
             {
                 if (sl_P1PickUp.isPickedDish == true)
                 {
-                    StartCoroutine(dishSpawn(dishrespawnSec, i));
+                    //StartCoroutine(dishSpawn(dishrespawnSec, i));
+
+                    view.RPC("dishSpawn", RpcTarget.All, dishrespawnSec, i);
                     sl_P1PickUp.isPickedDish = false;
                 }
                 if (sl_P2PickUp.isPickedDish == true)
                 {
-                    StartCoroutine(dishSpawn(dishrespawnSec, i));
+                    //StartCoroutine(dishSpawn(dishrespawnSec, i));
+                    view.RPC("dishSpawn", RpcTarget.All, dishrespawnSec, i);
+
                     sl_P2PickUp.isPickedDish = false;
                 }
             }
@@ -186,6 +207,7 @@ public class FoodSpawn : MonoBehaviour
 
     }
 
+    [PunRPC]
     private IEnumerator dishSpawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
@@ -210,6 +232,8 @@ public class FoodSpawn : MonoBehaviour
 
         Debug.Log("dish spawn at " + index);
     }
+
+
 
     //private IEnumerator P2dishSpawn(int secs, int index)
     //{
@@ -237,14 +261,17 @@ public class FoodSpawn : MonoBehaviour
     //}
 
 
-
+    [PunRPC]
     private IEnumerator DishCountdown(int countdownTime)
     {
         yield return new WaitForSeconds(countdownTime);
-        dishCoro = DishSpawn(dishsec);
-        StartCoroutine(dishCoro);
+        //dishCoro = DishSpawn(dishsec);
+        //StartCoroutine(dishCoro);
+
+        view.RPC("DishSpawn", RpcTarget.All, dishsec);
     }
 
+    [PunRPC]
     private IEnumerator DishSpawn(int dishsecs)
     {
         yield return new WaitForSeconds(dishsecs);
@@ -258,6 +285,7 @@ public class FoodSpawn : MonoBehaviour
         Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
     }
 
+    [PunRPC]
     private IEnumerator DishRespawn(int secs)
     {
         yield return new WaitForSeconds(secs);
