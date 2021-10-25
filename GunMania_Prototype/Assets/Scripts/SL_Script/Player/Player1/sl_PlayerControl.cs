@@ -15,6 +15,7 @@ public class sl_PlayerControl : MonoBehaviour
     public GameObject targetDestionation;
     public GameObject inventoryVisible;
 
+
     private void Awake()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -25,6 +26,7 @@ public class sl_PlayerControl : MonoBehaviour
     {
         sl_InventoryManager.ClearAllInList();
         view = GetComponent<PhotonView>();
+
     }
 
     public void Update()
@@ -32,6 +34,7 @@ public class sl_PlayerControl : MonoBehaviour
         if (view.IsMine)  //Photon - check is my character
         {
             inventoryVisible.SetActive(true);
+
             //NEW MOVEMENT - current using
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -44,6 +47,8 @@ public class sl_PlayerControl : MonoBehaviour
                     myAgent.SetDestination(hit.point);
 
                 }
+
+
             }
 
             //Rotate player

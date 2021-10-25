@@ -27,11 +27,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     void Update()
     {
-        if (view.IsMine)  //Photon - check is my character
-        {
-            //LaunchProjectile();  //gravity shoot
-            ShootStraight();
-        }
+        //LaunchProjectile();  //gravity shoot
+        ShootStraight();
     }
 
 

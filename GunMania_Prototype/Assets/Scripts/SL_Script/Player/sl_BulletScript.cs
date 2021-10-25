@@ -6,24 +6,32 @@ using Photon.Pun;
 public class sl_BulletScript : MonoBehaviour
 {
     public int bulletDmg;
-   
+    public GameObject bulletpos;
+
     void Update()
     {
-        waitForSec();
+
     }
 
-    IEnumerator waitForSec()
-    {
-        yield return new WaitForSeconds(1.0f);
-        Destroy(gameObject);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Player2" || other.gameObject.tag == "Environment")
+        if(gameObject.tag == "Bullet")
         {
-            Destroy(gameObject);
+            if (other.gameObject.tag == "Player2" || other.gameObject.tag == "Environment")
+            {
+                Destroy(gameObject);
+            }
         }
+
+        if (gameObject.tag == "P2Bullet")
+        {
+            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Environment")
+            {
+                Destroy(gameObject);
+            }
+        }
+
     }
 
 }
