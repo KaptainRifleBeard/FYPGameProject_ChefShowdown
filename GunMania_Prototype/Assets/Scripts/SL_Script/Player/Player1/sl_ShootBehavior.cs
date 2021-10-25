@@ -16,10 +16,10 @@ public class sl_ShootBehavior : MonoBehaviour
     public GameObject targetIndicatorPrefab;
     GameObject targetObject;
 
-
     PhotonView view;
 
     private bool dragging = false;
+    public Animator anim;
 
     void Start()
     {
@@ -104,7 +104,7 @@ public class sl_ShootBehavior : MonoBehaviour
                 bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
                 bullet.transform.SetParent(shootPosition);
 
-                if (targetObject)
+                if (targetObject && view.IsMine)
                 {
                     //targetObject.transform.position = hit.point;
                     targetObject.SetActive(true);
@@ -119,7 +119,7 @@ public class sl_ShootBehavior : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                if (dragging)
+                if (dragging && view.IsMine)
                 {
                     targetObject.transform.position = hit.point;
 
@@ -131,6 +131,9 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) /* && bulletCount > 0 */)
         {
+            anim.SetBool("Throw", true);
+            anim.speed = 1.2f;
+
             targetPosition = targetObject.transform.position;
             Vector3 directionShoot = targetPosition - shootPosition.position;
 
@@ -140,6 +143,7 @@ public class sl_ShootBehavior : MonoBehaviour
             bullet.transform.SetParent(null);
             bulletCount--;
             dragging = false;
+            targetObject.SetActive(false);
 
         }
 

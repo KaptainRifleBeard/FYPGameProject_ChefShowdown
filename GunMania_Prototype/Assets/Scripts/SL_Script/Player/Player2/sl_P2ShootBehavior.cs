@@ -7,21 +7,29 @@ using Photon.Realtime;
 public class sl_P2ShootBehavior : MonoBehaviour
 {
     public Rigidbody bulletPrefab;
-    public GameObject cursor;
 
     public Transform shootPosition;
-    public Transform attackPosition;
-    public LayerMask layer;
+    public static int p2bulletCount;
 
-    private Camera cam;
+
+    //for target indicator
+    public GameObject targetIndicatorPrefab;
+    GameObject targetObject;
+
     PhotonView view;
 
-    public static int p2bulletCount;
+    private bool dragging = false;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
-        cam = Camera.main;
+
+        //Instantiate click target prefab
+        if (targetIndicatorPrefab)
+        {
+            targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+            targetObject.SetActive(false);
+        }
     }
 
 
@@ -29,59 +37,56 @@ public class sl_P2ShootBehavior : MonoBehaviour
     {
         //LaunchProjectile();  //gravity shoot
         ShootStraight();
-    }
-
-
-    void Test()
-    {
-        Vector3 dir = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 50.0f));
-        cursor.transform.position = dir;
-    }
-
-    void LaunchProjectile()
-    {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            Vector3 vel = CalculateVelocity(hit.point, shootPosition.position, 1f);
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-                bullet.velocity = vel;
-
-            }
-
-        }
-    }
-
-    Vector3 CalculateVelocity(Vector3 target, Vector3 origin, float time)
-    {
-        //define dist x and y first
-        Vector3 distance = target - origin;
-        Vector3 distanceXZ = distance;
-
-        distanceXZ.y = 0f;
-
-        //create float to represent the distance
-        float y = distance.y;
-        float xz = distanceXZ.magnitude;
-
-        float velocityXZ = xz / time;
-        float velocityY = y / time + 0.5f * Mathf.Abs(Physics.gravity.y) * time;
-
-        Vector3 result = distanceXZ.normalized;
-        result *= velocityXZ;
-        result.y = velocityY;
-
-        return result;
 
     }
+
+    //void LaunchProjectile()
+    //{
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    RaycastHit hit;
+
+    //    if(Physics.Raycast(ray, out hit))
+    //    {
+    //        Vector3 vel = CalculateVelocity(hit.point, shootPosition.position, 1f);
+
+    //        if (Input.GetMouseButtonDown(0)/* && bulletCount > 0 */)
+    //        {
+    //            Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+    //            bullet.velocity = vel;
+
+    //        }
+
+    //    }
+    //}
+
+    //Vector3 CalculateVelocity(Vector3 target, Vector3 origin, float time)
+    //{
+    //    //define dist x and y first
+    //    Vector3 distance = target - origin;
+    //    Vector3 distanceXZ = distance;
+
+    //    distanceXZ.y = 0f;
+
+    //    //create float to represent the distance
+    //    float y = distance.y;
+    //    float xz = distanceXZ.magnitude;
+
+    //    float velocityXZ = xz / time;
+    //    float velocityY = y / time + 0.5f * Mathf.Abs(Physics.gravity.y) * time;
+
+    //    Vector3 result = distanceXZ.normalized;
+    //    result *= velocityXZ;
+    //    result.y = velocityY;
+
+    //    return result;
+
+    //}
 
 
     //for direct shoot
+
+
+    Rigidbody bullet;
     void ShootStraight()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -90,23 +95,55 @@ public class sl_P2ShootBehavior : MonoBehaviour
         Vector3 targetPosition;
         float shootForce = 50.0f;
 
-        if (Input.GetMouseButtonDown(0) && p2bulletCount > 0)
+
+        if (Input.GetMouseButtonDown(0) /* && p2bulletCount > 0 */)
         {
             if (Physics.Raycast(ray, out hit))
             {
-                targetPosition = hit.point;
+                bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+                bullet.transform.SetParent(shootPosition);
 
-                Vector3 directionShoot = targetPosition - attackPosition.position;
-                Rigidbody bullet = Instantiate(bulletPrefab, attackPosition.position, Quaternion.identity);
+                if (targetObject && view.IsMine)
+                {
+                    //targetObject.transform.position = hit.point;
+                    targetObject.SetActive(true);
+                    dragging = true;
 
-                bullet.transform.forward = directionShoot.normalized;
-                bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
-                p2bulletCount--;
-
-
+                }
             }
 
         }
+
+        if (Input.GetMouseButton(0))
+        {
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (dragging && view.IsMine)
+                {
+                    targetObject.transform.position = hit.point;
+
+                }
+            }
+
+        }
+
+
+        if (Input.GetMouseButtonUp(0) /* && p2bulletCount > 0 */)
+        {
+            targetPosition = targetObject.transform.position;
+            Vector3 directionShoot = targetPosition - shootPosition.position;
+
+            bullet.transform.forward = directionShoot.normalized;
+            bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
+
+            bullet.transform.SetParent(null);
+            p2bulletCount--;
+            dragging = false;
+            targetObject.SetActive(false);
+
+        }
+
+
 
     }
 

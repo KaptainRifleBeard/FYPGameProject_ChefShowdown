@@ -15,6 +15,9 @@ public class sl_PlayerControl : MonoBehaviour
     public GameObject targetDestionation;
     public GameObject inventoryVisible;
 
+    public Animator anim;
+    bool isrunning;
+    bool stopping;
 
     private void Awake()
     {
@@ -45,7 +48,7 @@ public class sl_PlayerControl : MonoBehaviour
                 {
                     targetDestionation.transform.position = hit.point;
                     myAgent.SetDestination(hit.point);
-
+                    isrunning = true;
                 }
 
 
@@ -65,6 +68,73 @@ public class sl_PlayerControl : MonoBehaviour
         else
         {
             inventoryVisible.SetActive(false);
+        }
+
+
+        //ANIMATION
+        if (!myAgent.pathPending)
+        {
+            if (myAgent.remainingDistance <= myAgent.stoppingDistance)
+            {
+                isrunning = false;
+                stopping = true;
+            }
+            else
+            {
+                stopping = false;
+
+            }
+        }
+
+        if (isrunning && sl_ShootBehavior.bulletCount < 0)
+        {
+            anim.SetBool("isRunning", true);
+        }
+        else
+        {
+            anim.SetBool("isRunning", false);
+        }
+
+
+        if (sl_ShootBehavior.bulletCount == 1 && !stopping)
+        {
+            anim.SetBool("isRunning", false);
+
+            anim.SetBool("Throw", false);
+            anim.SetBool("hold1food", true);
+            anim.SetBool("hold2food", false);
+        }
+
+        if (sl_ShootBehavior.bulletCount == 2 && !stopping)
+        {
+            anim.SetBool("isRunning", false);
+
+            anim.SetBool("Throw", false);
+            anim.SetBool("hold1food", false);
+            anim.SetBool("hold2food", true);
+        }
+        else if (sl_ShootBehavior.bulletCount == 0 && !stopping)
+        {
+            anim.SetBool("isRunning", true);
+
+            anim.SetBool("Throw", false);
+            anim.SetBool("hold1food", false);
+            anim.SetBool("hold2food", false);
+        }
+
+        if (stopping)
+        {
+            anim.SetBool("stop", true);
+
+            anim.SetBool("isRunning", false);
+            anim.SetBool("Throw", false);
+            anim.SetBool("hold1food", false);
+            anim.SetBool("hold2food", false);
+        }
+        else
+        {
+            anim.SetBool("stop", false);
+
         }
 
     }
