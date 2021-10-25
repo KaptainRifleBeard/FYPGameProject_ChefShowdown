@@ -28,10 +28,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     void Start()
     {
-        view = GetComponent<PhotonView>();
-
-        //Instantiate click target prefab
-        
+        view = GetComponent<PhotonView>();        
     }
 
     void Update()

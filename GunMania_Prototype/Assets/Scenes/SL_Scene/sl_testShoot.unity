@@ -548,6 +548,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 64.903, y: 0, z: 0}
+--- !u!120 &1391956326 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 8012553581078723816, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
+  m_PrefabInstance: {fileID: 1566439041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1471584935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -743,6 +748,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319548404189933980, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
       propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319548404189933981, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
+      propertyPath: lineVisual
+      value: 
+      objectReference: {fileID: 1391956326}
+    - target: {fileID: 4319548404189933981, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
+      propertyPath: lineSegment
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319548404189933981, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
+      propertyPath: errorColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319548404189933981, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
+      propertyPath: errorColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319548404189933981, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
+      propertyPath: errorColor.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4319548404236150360, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}

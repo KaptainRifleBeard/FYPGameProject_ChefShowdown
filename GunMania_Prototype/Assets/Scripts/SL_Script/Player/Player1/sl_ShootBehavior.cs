@@ -26,14 +26,19 @@ public class sl_ShootBehavior : MonoBehaviour
     int count;
     bool spawn;
 
+    [Space(10)]
+    [Header("Line renderer veriables")]
+    
+    private LineRenderer lineRenderer;
+    public int lineSegment = 50;
+
+    private List<Vector3> linePoint = new List<Vector3>();
+
     void Start()
     {
         view = GetComponent<PhotonView>();
-
-        //Instantiate click target prefab
-        
+        lineRenderer = GetComponent<LineRenderer>();
     }
-
 
     void Update()
     {
@@ -41,51 +46,52 @@ public class sl_ShootBehavior : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+
+        
+
+
+        if (Input.GetMouseButtonDown(0) && bulletCount > 0)
+        {
+            if (Physics.Raycast(ray, out hit))
+            {
+                if(count < 1 && spawn == false)
+                {
+                    spawn = true;
+                    targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
+                    count++;
+
+
+                }
+                if (count == 1)
+                {
+                    spawn = false;
+                }
+
+                view.RPC("SpawnBullet", RpcTarget.All);
+                dragging = true;
+            }
+                
+        }
+
+
         if (view.IsMine)
         {
-            if (Input.GetMouseButton(0) && bulletCount > 0)
+            if (Input.GetMouseButton(0) && bulletCount > 0)  //DRAG
             {
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (dragging)
                     {
                         targetObject.transform.position = hit.point;
-
                     }
                 }
             }
-        }
-
-
-        if (Input.GetMouseButtonDown(0) && bulletCount > 0)
-        {
-            if (count < 1 && spawn == false)
-            {
-                spawn = true;
-                targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
-                count++;
-
-
-            }
-            if (count == 1)
-            {
-                spawn = false;
-            }
-
-            view.RPC("SpawnBullet", RpcTarget.All);
-            dragging = true;
         }
 
         if (Input.GetMouseButtonUp(0) && bulletCount > 0)
         {
             view.RPC("ShootBullet", RpcTarget.All);
 
-            dragging = false;
-            Destroy(targetObject);
-
-
-            count = 0;
-            spawn = false;
         }
 
     }
@@ -96,6 +102,7 @@ public class sl_ShootBehavior : MonoBehaviour
         anim.SetBool("Throw", false);
 
     }
+
 
     [PunRPC]
     void SpawnBullet()
@@ -127,6 +134,14 @@ public class sl_ShootBehavior : MonoBehaviour
             bulletCount--;
 
             StartCoroutine(stopAnim());
+
+
+            dragging = false;
+            Destroy(targetObject);
+            targetObject = null;
+
+            count = 0;
+            spawn = false;
         }
 
             
