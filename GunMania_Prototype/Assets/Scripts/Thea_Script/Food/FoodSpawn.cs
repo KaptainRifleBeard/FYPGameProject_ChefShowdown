@@ -73,7 +73,7 @@ public class FoodSpawn : MonoBehaviour
 
         if (DishDespawn.isJP || DishDespawn.isKR || DishDespawn.isCN || DishDespawn.isTW)
         {
-            StartCoroutine(DishRespawn(20));
+            StartCoroutine(DishRespawn(dishrespawnSec));
         }
 
     }
@@ -89,21 +89,22 @@ public class FoodSpawn : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(foodSpawnPoint[i].transform.position, 10, layerMask);
             if (hitColliders.Length == 0)
             {
+                Debug.Log("gone");
                 if (sl_P1PickUp.isPicked == true)
                 {
-                    StartCoroutine(P1Spawn(sec, i));
+                    StartCoroutine(Spawn(sec, i));
                     sl_P1PickUp.isPicked = false;
                 }
                 if (sl_P2PickUp.isPicked == true)
                 {
-                    StartCoroutine(P2Spawn(sec, i));
+                    StartCoroutine(Spawn(sec, i));
                     sl_P2PickUp.isPicked = false;
                 }
             }
         }
     }
 
-    public IEnumerator P1Spawn(int secs, int index)
+    public IEnumerator Spawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
         
@@ -130,31 +131,31 @@ public class FoodSpawn : MonoBehaviour
 
     }
 
-    private IEnumerator P2Spawn(int secs, int index)
-    {
-        yield return new WaitForSeconds(secs);
-        switch (index)
-        {
-            case 0:
-                Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
-                break;
-            case 1:
-                Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)], foodSpawnPoint[1].transform.position, Quaternion.identity);
-                break;
-            case 2:
-                Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)], foodSpawnPoint[2].transform.position, Quaternion.identity);
-                break;
-            case 3:
-                Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)], foodSpawnPoint[3].transform.position, Quaternion.identity);
-                break;
-            default:
-                Debug.Log("unknown spawn point");
-                break;
-        }
+    //private IEnumerator P2Spawn(int secs, int index)
+    //{
+    //    yield return new WaitForSeconds(secs);
+    //    switch (index)
+    //    {
+    //        case 0:
+    //            Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
+    //            break;
+    //        case 1:
+    //            Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)], foodSpawnPoint[1].transform.position, Quaternion.identity);
+    //            break;
+    //        case 2:
+    //            Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)], foodSpawnPoint[2].transform.position, Quaternion.identity);
+    //            break;
+    //        case 3:
+    //            Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)], foodSpawnPoint[3].transform.position, Quaternion.identity);
+    //            break;
+    //        default:
+    //            Debug.Log("unknown spawn point");
+    //            break;
+    //    }
 
-        Debug.Log("spawn at " + index);
+    //    Debug.Log("spawn at " + index);
 
-    }
+    //}
 
     #endregion
 
@@ -172,12 +173,12 @@ public class FoodSpawn : MonoBehaviour
             {
                 if (sl_P1PickUp.isPickedDish == true)
                 {
-                    StartCoroutine(P1dishSpawn(dishrespawnSec, i));
+                    StartCoroutine(dishSpawn(dishrespawnSec, i));
                     sl_P1PickUp.isPickedDish = false;
                 }
                 if (sl_P2PickUp.isPickedDish == true)
                 {
-                    StartCoroutine(P2dishSpawn(dishrespawnSec, i));
+                    StartCoroutine(dishSpawn(dishrespawnSec, i));
                     sl_P2PickUp.isPickedDish = false;
                 }
             }
@@ -185,7 +186,7 @@ public class FoodSpawn : MonoBehaviour
 
     }
 
-    private IEnumerator P1dishSpawn(int secs, int index)
+    private IEnumerator dishSpawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
         switch (index)
@@ -210,30 +211,30 @@ public class FoodSpawn : MonoBehaviour
         Debug.Log("dish spawn at " + index);
     }
 
-    private IEnumerator P2dishSpawn(int secs, int index)
-    {
-        yield return new WaitForSeconds(secs);
-        switch (index)
-        {
-            case 0:
-                Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
-                break;
-            case 1:
-                Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
-                break;
-            case 2:
-                Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
-                break;
-            case 3:
-                Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
-                break;
-            default:
-                Debug.Log("unknown spawn point");
-                break;
-        }
+    //private IEnumerator P2dishSpawn(int secs, int index)
+    //{
+    //    yield return new WaitForSeconds(secs);
+    //    switch (index)
+    //    {
+    //        case 0:
+    //            Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
+    //            break;
+    //        case 1:
+    //            Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
+    //            break;
+    //        case 2:
+    //            Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
+    //            break;
+    //        case 3:
+    //            Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
+    //            break;
+    //        default:
+    //            Debug.Log("unknown spawn point");
+    //            break;
+    //    }
 
-        Debug.Log("dish spawn at " + index);
-    }
+    //    Debug.Log("dish spawn at " + index);
+    //}
 
 
 
