@@ -6,9 +6,8 @@ using Photon.Realtime;
 
 public class sl_ShootBehavior : MonoBehaviour
 {
-    public Rigidbody bulletPrefab;
+    public GameObject bulletPrefab;
     public Transform shootPosition;
-
 
     public static int bulletCount;
 
@@ -17,6 +16,7 @@ public class sl_ShootBehavior : MonoBehaviour
     GameObject targetObject;
 
     PhotonView view;
+    GameObject bullet;
 
     private bool dragging = false;
     public Animator anim;
@@ -36,58 +36,48 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
-        //LaunchProjectile();  //gravity shoot
-        ShootStraight();
+
+        //for indicator
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if(view.IsMine)
+        {
+            ShootStraight();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (targetObject)
+                {
+                    targetObject.SetActive(true);
+                    dragging = true;
+
+                }
+            }
+            if (Input.GetMouseButton(0))
+            {
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (dragging)
+                    {
+                        targetObject.transform.position = hit.point;
+
+                    }
+                }
+
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                dragging = false;
+                targetObject.SetActive(false);
+            }
+        }
+
+
 
     }
 
-    //void LaunchProjectile()
-    //{
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    RaycastHit hit;
-
-    //    if(Physics.Raycast(ray, out hit))
-    //    {
-    //        Vector3 vel = CalculateVelocity(hit.point, shootPosition.position, 1f);
-
-    //        if (Input.GetMouseButtonDown(0)/* && bulletCount > 0 */)
-    //        {
-    //            Rigidbody bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-    //            bullet.velocity = vel;
-
-    //        }
-
-    //    }
-    //}
-
-    //Vector3 CalculateVelocity(Vector3 target, Vector3 origin, float time)
-    //{
-    //    //define dist x and y first
-    //    Vector3 distance = target - origin;
-    //    Vector3 distanceXZ = distance;
-
-    //    distanceXZ.y = 0f;
-
-    //    //create float to represent the distance
-    //    float y = distance.y;
-    //    float xz = distanceXZ.magnitude;
-
-    //    float velocityXZ = xz / time;
-    //    float velocityY = y / time + 0.5f * Mathf.Abs(Physics.gravity.y) * time;
-
-    //    Vector3 result = distanceXZ.normalized;
-    //    result *= velocityXZ;
-    //    result.y = velocityY;
-
-    //    return result;
-
-    //}
-
-
-    //for direct shoot
-
-
-    Rigidbody bullet;
     void ShootStraight()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -96,58 +86,39 @@ public class sl_ShootBehavior : MonoBehaviour
         Vector3 targetPosition;
         float shootForce = 50.0f;
 
-
-        if (Input.GetMouseButtonDown(0) /* && bulletCount > 0 */)
+        if(Physics.Raycast(ray, out hit))
         {
-            if (Physics.Raycast(ray, out hit))
+            if (Input.GetMouseButtonDown(0) && bulletCount > 0)
             {
                 bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
                 bullet.transform.SetParent(shootPosition);
-
-                if (targetObject && view.IsMine)
-                {
-                    //targetObject.transform.position = hit.point;
-                    targetObject.SetActive(true);
-                    dragging = true;
-
-                }
             }
 
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            if (Physics.Raycast(ray, out hit))
+            if (Input.GetMouseButton(0) && bulletCount > 0)
             {
                 anim.SetBool("Aim", true);
 
-                if (dragging && view.IsMine)
-                {
-                    targetObject.transform.position = hit.point;
-
-                }
             }
-                
+
+            if (Input.GetMouseButtonUp(0) && bulletCount > 0)
+            {
+                anim.SetBool("Aim", false);
+                anim.SetBool("Throw", true);
+
+
+                targetPosition = hit.point;
+                Vector3 directionShoot = targetPosition - shootPosition.position;
+
+                bullet.transform.forward = directionShoot.normalized;
+                bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
+
+                bullet.transform.SetParent(null);
+                bulletCount--;
+
+                StartCoroutine(stopAnim());
+            }
         }
-
-        if (Input.GetMouseButtonUp(0) /* && bulletCount > 0 */)
-        {
-            anim.SetBool("Aim", false);
-            anim.SetBool("Throw", true);
-
-            targetPosition = targetObject.transform.position;
-            Vector3 directionShoot = targetPosition - shootPosition.position;
-
-            bullet.transform.forward = directionShoot.normalized;
-            bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
-
-            bullet.transform.SetParent(null);
-            bulletCount--;
-            dragging = false;
-            targetObject.SetActive(false);
-
-            StartCoroutine(stopAnim());
-        }
+        
 
     }
 
@@ -157,6 +128,7 @@ public class sl_ShootBehavior : MonoBehaviour
         anim.SetBool("Throw", false);
 
     }
+
 
 
     [PunRPC]
@@ -175,6 +147,7 @@ public class sl_ShootBehavior : MonoBehaviour
         else if (stream.IsReading)
         {
             bulletCount = (int)stream.ReceiveNext();
+
         }
     }
 }
