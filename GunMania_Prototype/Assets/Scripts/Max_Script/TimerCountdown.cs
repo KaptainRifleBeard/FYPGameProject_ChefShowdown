@@ -14,21 +14,83 @@ public class TimerCountdown : MonoBehaviour
     public Text timeText;
     public sl_WinLoseUI winLose;
     public float timeValue = 90;
+    private bool alreadyRunning = false;
+
+    [Header("Debugging WINLOSEUISTUFF")]
+    public GameObject winScreen;
+    public GameObject loseScreen;
+    public GameObject exitScreen;
+    public GameObject GameOverText;
+
+
+    IEnumerator timeSpan(float waitTime)
+    {
+
+        yield return new WaitForSeconds(waitTime);
+        StartCoroutine(RunCounterArgument(1));
+        //debugged, coroutine will only run 1 command argument.
+    }
+
+    IEnumerator RunCounterArgument(float waitTime)
+    {
+
+        yield return new WaitForSeconds(waitTime);
+        
+        CheckWinOrLose();
+        GameOverText.SetActive(false);
+    
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (timeValue >0)
+        if (timeValue > 0)
         {
             timeValue -= Time.deltaTime;
         }
-        else
+        else if (timeValue < 0)
         {
             timeValue = 0;
-            CheckWinOrLose();
+            if (alreadyRunning == false)
+            {
+                alreadyRunning = true;
+                GameOverText.gameObject.SetActive(true);
+                //new WaitForSecondsRealtime(3);
+                //GameOverText.gameObject.SetActive(false);
+                StartCoroutine(timeSpan(3));
+                //CheckWinOrLose();
+            }
+
+
 
 
         }
+        else if (sl_PlayerHealth.currentHealth == 0 || sl_P2PlayerHealth.p2currentHealth == 0)
+        {
+            if (alreadyRunning == false)
+            {
+                alreadyRunning = true;
+                GameOverText.gameObject.SetActive(true);
+                //new WaitForSecondsRealtime(3);
+                //GameOverText.gameObject.SetActive(false);
+                StartCoroutine(timeSpan(3));
+                //CheckWinOrLose();
+            }
+        }
+        // Debugging Code ONLY USED TO SUICIDE P1.
+        //else if (Input.GetKeyDown(KeyCode.F6))
+        //{
+        //    if (PhotonNetwork.IsMasterClient)
+        //    {
+
+        //        sl_PlayerHealth.currentHealth = 0;
+        //    }
+        //    else
+        //    {
+        //        sl_P2PlayerHealth.p2currentHealth = 0;
+        //    }
+        //}
 
         DisplayTime(timeValue);
     }
@@ -36,41 +98,47 @@ public class TimerCountdown : MonoBehaviour
 
     void CheckWinOrLose()
     {
-        if (sl_PlayerHealth.currentHealth > sl_P2PlayerHealth.p2currentHealth)
+        if (sl_PlayerHealth.currentHealth < sl_P2PlayerHealth.p2currentHealth)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 //winLose.text.text = "Click to leave room";
-                winLose.loseScreen.SetActive(true);
+                //winLose.loseScreen.SetActive(true);
+                loseScreen.SetActive(true);
             }
             else
             {
-                winLose.winScreen.SetActive(true);
+                //winLose.winScreen.SetActive(true);
+                winScreen.SetActive(true);
             }
         }
 
-        if (sl_P2PlayerHealth.p2currentHealth < sl_PlayerHealth.currentHealth)
+        else if (sl_P2PlayerHealth.p2currentHealth > sl_PlayerHealth.currentHealth)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 //winLose.text.text = "Click to leave room";
-                winLose.winScreen.SetActive(true);
+                //winLose.winScreen.SetActive(true);
+                winScreen.SetActive(true);
             }
             else
             {
-                winLose.loseScreen.SetActive(true);
+                //winLose.loseScreen.SetActive(true);
+                loseScreen.SetActive(true);
             }
         }   
-        if (sl_P2PlayerHealth.p2currentHealth == sl_PlayerHealth.currentHealth)
+        else if (sl_P2PlayerHealth.p2currentHealth == sl_PlayerHealth.currentHealth)
         {
             if (PhotonNetwork.IsMasterClient)
             {
                 //winLose.text.text = "Click to leave room";
-                winLose.winScreen.SetActive(true);
+                //winLose.winScreen.SetActive(true);
+                winScreen.SetActive(true);
             }
             else
             {
-                winLose.winScreen.SetActive(true);
+                //winLose.winScreen.SetActive(true);
+                winScreen.SetActive(true);
             }
             // in the even that there is a tie game, both sides win.
         }
