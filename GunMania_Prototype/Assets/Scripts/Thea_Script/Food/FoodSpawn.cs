@@ -79,7 +79,7 @@ public class FoodSpawn : MonoBehaviour
         view.RPC("dishSpawnUpdate", RpcTarget.All);
         view.RPC("spawnUpdate", RpcTarget.All);
 
-        if (DishDespawn.isJP || DishDespawn.isKR || DishDespawn.isCN || DishDespawn.isTW)
+        if (DishDespawn.canSpawn)
         {
             view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
 
@@ -172,13 +172,13 @@ public class FoodSpawn : MonoBehaviour
                 {
                     //StartCoroutine(dishSpawn(dishrespawnSec, i));
 
-                    view.RPC("dishSpawn", RpcTarget.All, dishrespawnSec, i);
+                    view.RPC("DishSpawn", RpcTarget.All, dishrespawnSec, i);
                     sl_P1PickUp.isPickedDish = false;
                 }
                 if (sl_P2PickUp.isPickedDish == true)
                 {
                     //StartCoroutine(dishSpawn(dishrespawnSec, i));
-                    view.RPC("dishSpawn", RpcTarget.All, dishrespawnSec, i);
+                    view.RPC("DishSpawn", RpcTarget.All, dishrespawnSec, i);
 
                     sl_P2PickUp.isPickedDish = false;
                 }
@@ -188,43 +188,10 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    public void dishSpawn(int secs, int index)
-    {
-        float timer = 0;
-
-        timer += Time.deltaTime;
-
-        if (timer > secs)
-        {
-            switch (index)
-            {
-                case 0:
-                    Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
-                    break;
-                case 1:
-                    Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
-                    break;
-                case 2:
-                    Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
-                    break;
-                case 3:
-                    Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
-                    break;
-                default:
-                    Debug.Log("unknown spawn point");
-                    break;
-            }
-
-            Debug.Log("dish spawn at " + index);
-            timer = 0;
-        }
-    }
-
-    [PunRPC]
     public void DishCountdown(int countdownTime)
     {
         float timer = 0;
-
+        Debug.Log(timer);
         timer += Time.deltaTime;
 
         if (timer > countdownTime)
@@ -241,19 +208,35 @@ public class FoodSpawn : MonoBehaviour
     public void DishSpawn(int dishsecs)
     {
         float timer = 0;
+        int dishIndex;
+        dishIndex = Random.Range(0, dishSpawnPoint.Count);
 
         timer += Time.deltaTime;
 
         if (timer > dishsecs)
         {
-            //Japan dish spawn
-            Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
-            //Korea dish
-            Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
-            //China dish
-            Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
-            //Taiwan dish
-            Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
+            if(dishIndex == 0)
+            {
+                //Japan dish spawn
+                Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
+            }
+            else if(dishIndex == 1)
+            {
+                //Korea dish
+                Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
+            }
+            else if(dishIndex == 2)
+            {
+                //China dish
+                Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
+            }
+            else if(dishIndex == 3)
+            {
+                //Taiwan dish
+                Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
+            }
+            
+            
             timer = 0;
         }
     }
@@ -262,32 +245,34 @@ public class FoodSpawn : MonoBehaviour
     public void DishRespawn(int secs)
     {
         float timer = 0;
+        int dishIndex;
+        dishIndex = Random.Range(0, dishSpawnPoint.Count);
 
         timer += Time.deltaTime;
 
         if (timer > secs)
         {
-
-            if (DishDespawn.isJP)
+            if (dishIndex == 0)
             {
+                //Japan dish spawn
                 Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
-                DishDespawn.isJP = false;
             }
-            if (DishDespawn.isKR)
+            else if (dishIndex == 1)
             {
+                //Korea dish
                 Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
-                DishDespawn.isKR = false;
             }
-            if (DishDespawn.isCN)
+            else if (dishIndex == 2)
             {
+                //China dish
                 Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
-                DishDespawn.isCN = false;
             }
-            if (DishDespawn.isTW)
+            else if (dishIndex == 3)
             {
+                //Taiwan dish
                 Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
-                DishDespawn.isTW = false;
             }
+
 
             DishDespawn.canSpawn = false;
             timer = 0;
