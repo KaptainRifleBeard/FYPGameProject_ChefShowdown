@@ -9,6 +9,7 @@ public class sl_P2PlayerControl : MonoBehaviour, IPunObservable
 {
     //NavMesh AI movement for click to move
     private NavMeshAgent myAgent;
+
     PhotonView view;
 
     //NEW MOVEMENT VARIABLE
@@ -151,16 +152,21 @@ public class sl_P2PlayerControl : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-
+            stream.SendNext(myAgent.transform.position);
+            stream.SendNext(myAgent.transform.rotation);
+            stream.SendNext(myAgent.velocity);
         }
         else if (stream.IsReading)
         {
-            transform.position = (Vector3)stream.ReceiveNext();
-            transform.rotation = (Quaternion)stream.ReceiveNext();
-        }
+            myAgent.transform.position = (Vector3)stream.ReceiveNext();
+            myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
+            myAgent.velocity = (Vector3)stream.ReceiveNext();
 
+
+            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTimestamp));
+            myAgent.transform.position += myAgent.velocity * lag;
+
+        }
     }
 
 }
