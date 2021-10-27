@@ -959,6 +959,7 @@ GameObject:
   - component: {fileID: 6829483939388315608}
   - component: {fileID: 8205793790207556308}
   - component: {fileID: -8239779275502196118}
+  - component: {fileID: -461523974102215855}
   m_Layer: 0
   m_Name: Officer Wen
   m_TagString: Player2
@@ -1162,10 +1163,11 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 6829483939388315608}
   - {fileID: 8205793790207556308}
+  - {fileID: -461523974102215855}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1238,6 +1240,19 @@ MonoBehaviour:
     height: 100
   WindowId: 101
   Visible: 1
+--- !u!114 &-461523974102215855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784047750339751703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35144820bcc25444bb8f0fd767d9423e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SmoothingDelay: 10
 --- !u!1 &2784047750659836808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,13 +1543,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
---- !u!224 &4436006717032676052 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3960230999380794523, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
-  m_PrefabInstance: {fileID: 827058726869378639}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4436006717032676059 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3960230999380794516, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
+  m_PrefabInstance: {fileID: 827058726869378639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &4436006717032676052 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3960230999380794523, guid: d0088e0a342bda044a96a3121ffc8976, type: 3}
   m_PrefabInstance: {fileID: 827058726869378639}
   m_PrefabAsset: {fileID: 0}
