@@ -45,10 +45,6 @@ public class FoodSpawn : MonoBehaviour
     [Header("Dish Respawn Time")]
     public int dishrespawnSec;
 
-
-    private IEnumerator countdownCoro;
-    private IEnumerator dishCoro;
-
     PhotonView view;
 
 
@@ -120,14 +116,10 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    public void Spawn(int secs, int index)
+    private IEnumerator Spawn(int secs, int index)
     {
-        float timer = 0;
+        yield return new WaitForSeconds(secs);
 
-        timer += Time.deltaTime;
-        
-        if(timer > secs)
-        {
             switch (index)
             {
                 case 0:
@@ -148,10 +140,7 @@ public class FoodSpawn : MonoBehaviour
             }
 
             Debug.Log("spawn at " + index);
-            timer = 0;
-        }
         
-
     }
 
     #endregion
@@ -188,33 +177,24 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    public void DishCountdown(int countdownTime)
+    private IEnumerator DishCountdown(int countdownTime)
     {
-        float timer = 0;
-        Debug.Log(timer);
-        timer += Time.deltaTime;
+        yield return new WaitForSeconds(countdownTime);
 
-        if (timer > countdownTime)
-        {
+        
             //dishCoro = DishSpawn(dishsec);
             //StartCoroutine(dishCoro);
 
             view.RPC("DishSpawn", RpcTarget.All, dishsec);
-            timer = 0;
-        }
     }
 
     [PunRPC]
-    public void DishSpawn(int dishsecs)
+    private IEnumerator DishSpawn(int dishsecs)
     {
-        float timer = 0;
+        yield return new WaitForSeconds(dishsecs);
         int dishIndex;
         dishIndex = Random.Range(0, dishSpawnPoint.Count);
 
-        timer += Time.deltaTime;
-
-        if (timer > dishsecs)
-        {
             if(dishIndex == 0)
             {
                 //Japan dish spawn
@@ -235,23 +215,15 @@ public class FoodSpawn : MonoBehaviour
                 //Taiwan dish
                 Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
             }
-            
-            
-            timer = 0;
-        }
+        
     }
 
     [PunRPC]
-    public void DishRespawn(int secs)
+    private IEnumerator DishRespawn(int secs)
     {
-        float timer = 0;
+        yield return new WaitForSeconds(secs);
         int dishIndex;
         dishIndex = Random.Range(0, dishSpawnPoint.Count);
-
-        timer += Time.deltaTime;
-
-        if (timer > secs)
-        {
             if (dishIndex == 0)
             {
                 //Japan dish spawn
@@ -275,8 +247,6 @@ public class FoodSpawn : MonoBehaviour
 
 
             DishDespawn.canSpawn = false;
-            timer = 0;
-        }
     }
 
     #endregion
