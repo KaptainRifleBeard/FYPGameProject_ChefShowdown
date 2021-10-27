@@ -80,8 +80,7 @@ public class FoodSpawn : MonoBehaviour
         if (DishDespawn.canSpawn)
         {
             view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
-
-            //StartCoroutine(DishRespawn(dishrespawnSec));
+            DishDespawn.canSpawn = false;
         }
     }
 
@@ -97,7 +96,6 @@ public class FoodSpawn : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(foodSpawnPoint[i].transform.position, 10, layerMask);
             if (hitColliders.Length == 0)
             {
-                Debug.Log("gone");
                 if (sl_P1PickUp.isPicked == true)
                 {
                     //StartCoroutine(Spawn(sec, i));
@@ -117,7 +115,7 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    public IEnumerator Spawn(int secs, int index)
+    private IEnumerator Spawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
 
@@ -141,7 +139,7 @@ public class FoodSpawn : MonoBehaviour
             }
 
             Debug.Log("spawn at " + index);
-        
+        Debug.Log("dish spawn");
     }
 
     #endregion
@@ -178,10 +176,11 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    public IEnumerator DishCountdown(int countdownTime)
+    private IEnumerator DishCountdown(int countdownTime)
     {
         yield return new WaitForSeconds(countdownTime);
 
+        
             //dishCoro = DishSpawn(dishsec);
             //StartCoroutine(dishCoro);
 
@@ -189,7 +188,7 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    public IEnumerator DishSpawn(int dishsecs)
+    private IEnumerator DishSpawn(int dishsecs)
     {
         yield return new WaitForSeconds(dishsecs);
         int dishIndex;
@@ -215,38 +214,44 @@ public class FoodSpawn : MonoBehaviour
                 //Taiwan dish
                 Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
             }
+
+        Debug.Log("dish spawn");
         
     }
 
     [PunRPC]
-    public IEnumerator DishRespawn(int secs)
+    private IEnumerator DishRespawn(int secs)
     {
         yield return new WaitForSeconds(secs);
         int dishIndex;
         dishIndex = Random.Range(0, dishSpawnPoint.Count);
+
             if (dishIndex == 0)
             {
                 //Japan dish spawn
                 Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)], dishSpawnPoint[0].transform.position, Quaternion.identity);
-            }
+            DishDespawn.canSpawn = false;
+        }
             else if (dishIndex == 1)
             {
                 //Korea dish
                 Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)], dishSpawnPoint[1].transform.position, Quaternion.identity);
-            }
+            DishDespawn.canSpawn = false;
+        }
             else if (dishIndex == 2)
             {
                 //China dish
                 Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)], dishSpawnPoint[2].transform.position, Quaternion.identity);
-            }
+            DishDespawn.canSpawn = false;
+        }
             else if (dishIndex == 3)
             {
                 //Taiwan dish
                 Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)], dishSpawnPoint[3].transform.position, Quaternion.identity);
-            }
-
-
             DishDespawn.canSpawn = false;
+        }
+            
+        Debug.Log("dish respawn");
     }
 
     #endregion
