@@ -958,6 +958,7 @@ GameObject:
   - component: {fileID: 38238731443728680}
   - component: {fileID: 6829483939388315608}
   - component: {fileID: 8205793790207556308}
+  - component: {fileID: -8239779275502196118}
   m_Layer: 0
   m_Name: Officer Wen
   m_TagString: Player2
@@ -1217,6 +1218,26 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-8239779275502196118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784047750339751703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5867a53c8db0e6745818285bb6b6e1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WindowRect:
+    serializedVersion: 2
+    x: 0
+    y: 100
+    width: 120
+    height: 100
+  WindowId: 101
+  Visible: 1
 --- !u!1 &2784047750659836808
 GameObject:
   m_ObjectHideFlags: 0

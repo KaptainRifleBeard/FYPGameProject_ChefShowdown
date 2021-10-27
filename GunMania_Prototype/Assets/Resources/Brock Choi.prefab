@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 4319548404189933982}
   - component: {fileID: 4605620926086059697}
   - component: {fileID: 8012553581078723816}
+  - component: {fileID: -1150115131360012364}
   m_Layer: 0
   m_Name: Brock Choi
   m_TagString: Player
@@ -718,7 +719,7 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: Aim
   m_SynchronizeLayers:
-  - SynchronizeType: 2
+  - SynchronizeType: 0
     LayerIndex: 0
 --- !u!120 &8012553581078723816
 LineRenderer:
@@ -819,6 +820,26 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &-1150115131360012364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977654505940815050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5867a53c8db0e6745818285bb6b6e1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WindowRect:
+    serializedVersion: 2
+    x: 0
+    y: 100
+    width: 120
+    height: 100
+  WindowId: 101
+  Visible: 1
 --- !u!1 &4319253181840121379
 GameObject:
   m_ObjectHideFlags: 0
