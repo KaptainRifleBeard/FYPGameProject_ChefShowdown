@@ -40,28 +40,6 @@ public class sl_P2PlayerHealth : MonoBehaviour
         healthText.text = p2currentHealth.ToString();
 
 
-        //HEALTH
-        //if (p2currentHealth == 0)
-        //{
-        //Destroy(gameObject);
-        //gameObject.SetActive(false);
-        //StartCoroutine(WaitToSpawnPlayer());
-
-        //if (view.IsMine)
-        //{
-        //    if (view.IsMine)
-        //    {
-        //        loseScreen.SetActive(true);
-        //    }
-        //}
-        //else if (sl_PlayerHealth.currentHealth == 0)
-        //{
-        //    winScreen.SetActive(true);
-        //}
-        //}
-
-
-
         for (int i = 0; i < hearts.Length; i++)
         {
             if (i < p2currentHealth)

@@ -47,6 +47,8 @@ public class FoodSpawn : MonoBehaviour
 
     PhotonView view;
 
+    private IEnumerator countdownCoro;
+    private IEnumerator dishCoro;
 
     // Start is called before the first frame update
     void Start()
@@ -81,7 +83,6 @@ public class FoodSpawn : MonoBehaviour
 
             //StartCoroutine(DishRespawn(dishrespawnSec));
         }
-
     }
 
     #region

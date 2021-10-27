@@ -5,7 +5,13 @@ using Photon.Pun;
 
 public class sl_BulletScript : MonoBehaviour
 {
-    public int bulletDmg;
+    public float bulletDmg;
+    PhotonView view;
+
+    void Start()
+    {
+        view = GetComponent<PhotonView>();
+    }
 
     private void Update()
     {
@@ -15,24 +21,11 @@ public class sl_BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(gameObject.tag == "Bullet")
+        if (other.gameObject.tag == "Player2" || other.gameObject.tag == "Environment")
         {
-            if (other.gameObject.tag == "Player2" || other.gameObject.tag == "Environment")
-            {
-                gameObject.SetActive(false);  // note: cuz when collide with game object distance too close, it destroy immediately then my shoot behavior will have error
-                Destroy(gameObject, 0.5f);
-            }
+            gameObject.SetActive(false);  // note: cuz when collide with game object distance too close, it destroy immediately then my shoot behavior will have error
+            Destroy(gameObject, 0.5f);
         }
-
-        if (gameObject.tag == "P2Bullet")
-        {
-            if (other.gameObject.tag == "Player" || other.gameObject.tag == "Environment")
-            {
-                gameObject.SetActive(false);
-                Destroy(gameObject, 0.5f);
-            }
-        }
-
     }
 
 }

@@ -15,6 +15,10 @@ public class sl_P2PlayerControl : MonoBehaviour
     public GameObject targetDestionation;
     public GameObject inventoryVisible;
 
+    public Animator anim;
+    bool isrunning;
+    bool stopping;
+
     private void Awake()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -33,6 +37,39 @@ public class sl_P2PlayerControl : MonoBehaviour
         {
             inventoryVisible.SetActive(true);
 
+            //NEW MOVEMENT - current using
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Input.GetMouseButtonDown(1) && sl_P2ShootBehavior.p2Shoot == false)
+            {
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    targetDestionation.transform.position = hit.point;
+                    myAgent.SetDestination(hit.point);
+                    isrunning = true;
+
+                }
+
+            }
+
+            if (sl_P2ShootBehavior.p2Shoot == true)
+            {
+                myAgent.isStopped = true;
+                myAgent.ResetPath();
+            }
+
+            //Rotate player
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayLength;
+
+            if (groundPlane.Raycast(ray, out rayLength))
+            {
+                Vector3 pointToLook = ray.GetPoint(rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            }
+
         }
         else
         {
@@ -40,34 +77,73 @@ public class sl_P2PlayerControl : MonoBehaviour
         }
 
 
-        //NEW MOVEMENT - current using
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        
 
-        if (Input.GetMouseButtonDown(1) && sl_P2ShootBehavior.p2Shoot == false)
+        //ANIMATION
+        if (!myAgent.pathPending)
         {
-
-            if (Physics.Raycast(ray, out hit))
+            if (myAgent.remainingDistance <= myAgent.stoppingDistance)
             {
-                targetDestionation.transform.position = hit.point;
-                myAgent.SetDestination(hit.point);
+                isrunning = false;
+                stopping = true;
             }
+            else
+            {
+                stopping = false;
 
+            }
         }
 
-        myAgent.isStopped = true;
-        myAgent.ResetPath();
-
-        //Rotate player
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-
-        if (groundPlane.Raycast(ray, out rayLength))
+        if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !PhotonNetwork.IsMasterClient)
         {
-            Vector3 pointToLook = ray.GetPoint(rayLength);
-            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            anim.SetBool("isRunning2", true);
+        }
+        else
+        {
+            anim.SetBool("isRunning2", false);
         }
 
+
+        if (sl_P2ShootBehavior.p2bulletCount == 1 && !stopping && !PhotonNetwork.IsMasterClient)
+        {
+            anim.SetBool("isRunning2", false);
+
+            //anim.SetBool("Throw2", false);
+            anim.SetBool("hold1food2", true);
+            anim.SetBool("hold2food2", false);
+        }
+
+        if (sl_P2ShootBehavior.p2bulletCount == 2 && !stopping && !PhotonNetwork.IsMasterClient)
+        {
+            anim.SetBool("isRunning2", false);
+
+            //anim.SetBool("Throw", false);
+            anim.SetBool("hold1food2", false);
+            anim.SetBool("hold2food2", true);
+        }
+        else if (sl_P2ShootBehavior.p2bulletCount == 0 && !stopping && !PhotonNetwork.IsMasterClient)
+        {
+            anim.SetBool("isRunning2", true);
+
+            //anim.SetBool("Throw", false);
+            anim.SetBool("hold1food2", false);
+            anim.SetBool("hold2food2", false);
+        }
+
+        if (stopping && !PhotonNetwork.IsMasterClient)
+        {
+            anim.SetBool("stop2", true);
+
+            anim.SetBool("isRunning2", false);
+            //anim.SetBool("Throw", false);
+            anim.SetBool("hold1food2", false);
+            anim.SetBool("hold2food2", false);
+        }
+        else
+        {
+            anim.SetBool("stop2", false);
+
+        }
 
     }
 

@@ -38,6 +38,40 @@ public class sl_PlayerControl : MonoBehaviour
         {
             inventoryVisible.SetActive(true);
 
+
+            //NEW MOVEMENT - current using
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Input.GetMouseButtonDown(1) && sl_ShootBehavior.p1Shoot == false)
+            {
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    targetDestionation.transform.position = hit.point;
+                    myAgent.SetDestination(hit.point);
+                    isrunning = true;
+                }
+
+            }
+
+            if (sl_ShootBehavior.p1Shoot == true)
+            {
+                myAgent.isStopped = true;
+                myAgent.ResetPath();
+            }
+
+
+            //Rotate player
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayLength;
+
+            if (groundPlane.Raycast(ray, out rayLength))
+            {
+                Vector3 pointToLook = ray.GetPoint(rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            }
+
         }
         else
         {
@@ -45,37 +79,6 @@ public class sl_PlayerControl : MonoBehaviour
         }
 
 
-        //NEW MOVEMENT - current using
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Input.GetMouseButtonDown(1) && sl_ShootBehavior.p1Shoot == false)
-        {
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                targetDestionation.transform.position = hit.point;
-                myAgent.SetDestination(hit.point);
-            }
-
-        }
-
-        if(sl_ShootBehavior.p1Shoot == true)
-        {
-            myAgent.isStopped = true;
-            myAgent.ResetPath();
-        }
-        
-
-        //Rotate player
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-
-        if (groundPlane.Raycast(ray, out rayLength))
-        {
-            Vector3 pointToLook = ray.GetPoint(rayLength);
-            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-        }
 
 
 
@@ -95,8 +98,10 @@ public class sl_PlayerControl : MonoBehaviour
             }
         }
 
-        if (isrunning && sl_ShootBehavior.bulletCount < 0)
+
+        if (isrunning && sl_ShootBehavior.p1Shoot == false && PhotonNetwork.IsMasterClient)
         {
+
             anim.SetBool("isRunning", true);
         }
         else
@@ -105,7 +110,7 @@ public class sl_PlayerControl : MonoBehaviour
         }
 
 
-        if (sl_ShootBehavior.bulletCount == 1 && !stopping)
+        if (sl_ShootBehavior.bulletCount == 1 && !stopping && PhotonNetwork.IsMasterClient)
         {
             anim.SetBool("isRunning", false);
 
@@ -114,7 +119,7 @@ public class sl_PlayerControl : MonoBehaviour
             anim.SetBool("hold2food", false);
         }
 
-        if (sl_ShootBehavior.bulletCount == 2 && !stopping)
+        if (sl_ShootBehavior.bulletCount == 2 && !stopping && PhotonNetwork.IsMasterClient)
         {
             anim.SetBool("isRunning", false);
 
@@ -122,7 +127,7 @@ public class sl_PlayerControl : MonoBehaviour
             anim.SetBool("hold1food", false);
             anim.SetBool("hold2food", true);
         }
-        else if (sl_ShootBehavior.bulletCount == 0 && !stopping)
+        else if (sl_ShootBehavior.bulletCount == 0 && !stopping && PhotonNetwork.IsMasterClient)
         {
             anim.SetBool("isRunning", true);
 
@@ -145,7 +150,6 @@ public class sl_PlayerControl : MonoBehaviour
             anim.SetBool("stop", false);
 
         }
-
     }
 
 }

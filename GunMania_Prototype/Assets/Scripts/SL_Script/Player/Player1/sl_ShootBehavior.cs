@@ -9,7 +9,6 @@ public class sl_ShootBehavior : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform shootPosition;
-    private NavMeshAgent myAgent;
 
     public static int bulletCount;
 
@@ -31,8 +30,8 @@ public class sl_ShootBehavior : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
-        myAgent = GetComponent<NavMeshAgent>();
         targetObject = targetIndicatorPrefab;
+
     }
 
     void Update()
@@ -42,16 +41,16 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0)/* && bulletCount > 0*/ && p1Shoot == false && PhotonNetwork.IsMasterClient)
+            if (Input.GetMouseButtonDown(0) && p1Shoot == false/* && bulletCount > 0*/ && view.IsMine)
             {
                 p1Shoot = true;  //stop movement when shoot
+                anim.SetBool("Aim", true);
 
                 //make sure only spawn 1
                 if (count < 1 && spawn == false)
                 {
                     spawn = true;
-                    bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-                    bullet.transform.SetParent(shootPosition);
+                    view.RPC("SpawnBullet", RpcTarget.All);
 
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
                     count++;
@@ -64,22 +63,20 @@ public class sl_ShootBehavior : MonoBehaviour
 
 
             }
+        }
 
-            if (view.IsMine) //indicator follow mouse
-            {
-                targetObject.transform.position = hit.point;
-            }
+        if (view.IsMine && p1Shoot == true) //indicator follow mouse
+        {
+            targetObject.transform.position = hit.point;
+        }
 
 
-            if (Input.GetMouseButtonDown(1) /*&& bulletCount > 0 */&& p1Shoot == true && PhotonNetwork.IsMasterClient)
-            {
-                view.RPC("ShootBullet", RpcTarget.All);
-
-            }
+        if (Input.GetMouseButtonDown(1) /*&& bulletCount > 0 */&& p1Shoot == true && PhotonNetwork.IsMasterClient)
+        {
+            view.RPC("ShootBullet", RpcTarget.All);
 
         }
-    
-
+        
     }
 
     IEnumerator stopAnim()
@@ -91,14 +88,15 @@ public class sl_ShootBehavior : MonoBehaviour
 
 
     [PunRPC]
-    void SpawnBullet()
+    public void SpawnBullet()
     {
-        
+        bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+        bullet.transform.SetParent(shootPosition);
 
     }
 
     [PunRPC]
-    void ShootBullet()
+    public void ShootBullet()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -106,49 +104,31 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if(p1Shoot)
-            {
-                anim.SetBool("Aim", false);
-                anim.SetBool("Throw", true);
+            anim.SetBool("Aim", false);
+            anim.SetBool("Throw", true);
 
-                targetPosition = targetObject.transform.position;
-                directionShoot = targetPosition - shootPosition.position;
+            targetPosition = hit.point;
+            directionShoot = targetPosition - shootPosition.position;
 
-                bullet.transform.forward = directionShoot.normalized;
-                bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
+            bullet.transform.forward = directionShoot.normalized;
+            bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
 
-                bullet.transform.SetParent(null);
-                bulletCount--;
+            bullet.transform.SetParent(null);
+            bulletCount--;
 
-                StartCoroutine(stopAnim());
-                Destroy(targetObject);
+            StartCoroutine(stopAnim());
+            Destroy(targetObject);
 
-                //reset
-                targetObject = targetIndicatorPrefab;
-                count = 0;
-                spawn = false;
+            //reset
+            targetObject = targetIndicatorPrefab;
+            count = 0;
+            spawn = false;
 
-                p1Shoot = false;
-
-
-            }
+            p1Shoot = false;
 
         }
 
 
     }
 
-
-    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        stream.SendNext(bulletCount);
-
-    //    }
-    //    else if (stream.IsReading)
-    //    {
-    //        bulletCount = (int)stream.ReceiveNext();
-    //    }
-    //}
 }

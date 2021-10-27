@@ -26,6 +26,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     public static bool p2Shoot;
 
+    public Animator anim;
 
     void Start()
     {
@@ -40,17 +41,17 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-
-            if (Input.GetMouseButtonDown(0)/* && p2bulletCount > 0*/ && p2Shoot == false && !PhotonNetwork.IsMasterClient)
+            if (Input.GetMouseButtonDown(0) && p2Shoot == false/* && p2bulletCount > 0*/  && !PhotonNetwork.IsMasterClient)
             {
                 p2Shoot = true;  //stop movement when shoot
+                anim.SetBool("Aim2", true);
 
                 //make sure only spawn 1
                 if (count < 1 && spawn == false)
                 {
                     spawn = true;
-                    bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-                    bullet.transform.SetParent(shootPosition);
+                    view.RPC("SpawnBullet2", RpcTarget.All);
+
 
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
                     count++;
@@ -64,37 +65,37 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
 
             }
-
-            if (view.IsMine) //indicator follow mouse
-            {
-                targetObject.transform.position = hit.point;
-            }
+        }
 
 
-            if (Input.GetMouseButtonDown(1) /*&& p2bulletCount > 0 */&& p2Shoot == true && !PhotonNetwork.IsMasterClient)
-            {
-                view.RPC("ShootBullet2", RpcTarget.All);
+        if (view.IsMine && p2Shoot == true) //indicator follow mouse
+        {
+            targetObject.transform.position = hit.point;
+        }
 
-            }
-
+        if (Input.GetMouseButtonDown(1) /*&& p2bulletCount > 0 */&& p2Shoot == true && !PhotonNetwork.IsMasterClient)
+        {
+            view.RPC("ShootBullet2", RpcTarget.All);
 
         }
+
     }
 
     IEnumerator stopAnim()
     {
         yield return new WaitForSeconds(0.4f);
-
+        anim.SetBool("Throw2", false);
     }
 
     [PunRPC]
-    void SpawnBullet2()
+    public void SpawnBullet2()
     {
-        
+        bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+        bullet.transform.SetParent(shootPosition);
     }
 
     [PunRPC]
-    void ShootBullet2()
+    public void ShootBullet2()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -102,44 +103,29 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (p2Shoot)
-            {
-                targetPosition2 = targetObject.transform.position;
-                directionShoot2 = targetPosition2 - shootPosition.position;
+            anim.SetBool("Aim2", false);
+            anim.SetBool("Throw2", true);
 
-                bullet.transform.forward = directionShoot2.normalized;
-                bullet.GetComponent<Rigidbody>().AddForce(directionShoot2.normalized * shootForce, ForceMode.Impulse); //shootforce
+            targetPosition2 = hit.point;
+            directionShoot2 = targetPosition2 - shootPosition.position;
 
-                bullet.transform.SetParent(null);
-                p2bulletCount--;
+            bullet.transform.forward = directionShoot2.normalized;
+            bullet.GetComponent<Rigidbody>().AddForce(directionShoot2.normalized * shootForce, ForceMode.Impulse); //shootforce
 
-                StartCoroutine(stopAnim());
-                Destroy(targetObject);
+            bullet.transform.SetParent(null);
+            p2bulletCount--;
 
-                //reset
-                targetObject = targetIndicatorPrefab;
-                count = 0;
-                spawn = false;
+            StartCoroutine(stopAnim());
+            Destroy(targetObject);
 
-                p2Shoot = false;
+            //reset
+            targetObject = targetIndicatorPrefab;
+            count = 0;
+            spawn = false;
 
-
-            }
+            p2Shoot = false;
 
         }
     }
 
-
-    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        stream.SendNext(p2bulletCount);
-
-    //    }
-    //    else if (stream.IsReading)
-    //    {
-    //        targetPosition2 = (Vector3)stream.ReceiveNext();
-    //    }
-    //}
 }

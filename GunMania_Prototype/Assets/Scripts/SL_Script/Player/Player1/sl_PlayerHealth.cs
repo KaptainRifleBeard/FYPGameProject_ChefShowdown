@@ -7,7 +7,7 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using ExitGames.Client.Photon;
 
-public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
+public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 {
     public Text healthText;
     PhotonView view;
@@ -40,22 +40,6 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
     {
         healthText.text = currentHealth.ToString();
 
-        //HEALTH
-        //if (currentHealth == 0)
-        //{
-        //    Destroy(gameObject);
-        //    //gameObject.SetActive(false);
-        //    //StartCoroutine(WaitToSpawnPlayer());
-
-        //    if (view.IsMine)
-        //    {
-        //        loseScreen.SetActive(true);
-        //    }
-        //}
-        //else if(sl_P2PlayerHealth.p2currentHealth == 0)
-        //{
-        //    winScreen.SetActive(true);
-        //}
 
         for (int i = 0; i < hearts.Length; i++)
         {
@@ -84,13 +68,11 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
         if (stream.IsWriting)
         {
             stream.SendNext(currentHealth);
-            //stream.SendNext(transform.position);
 
         }
         else if (stream.IsReading)
         {
-            currentHealth = (int)stream.ReceiveNext();
-            //transform.position = (Vector3)stream.ReceiveNext();
+            currentHealth = (float)stream.ReceiveNext();
         }
 
     }
@@ -112,7 +94,7 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
         yield return new WaitForSeconds(1.0f);
         gameObject.transform.position = spawnPostionA.transform.position;
 
-        currentHealth = 8;
+        currentHealth = 16;
     }
 
     [PunRPC]
@@ -120,7 +102,7 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
     {
         if (currentHealth > 0)
         {
-            currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+            currentHealth -= bulletScript.GetComponent<sl_p2BulletScript>().bulletDmg;
 
             if (currentHealth < 0)
             {
@@ -132,8 +114,8 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
 
 
     //will fire when event is activated
-    public void OnEvent(EventData photonEvent)
-    {
+    //public void OnEvent(EventData photonEvent)
+    //{
         //    if(photonEvent.Code == sl_WinLoseUI.RestartEventCode)
         //    {
         //        currentHealth = 8;
@@ -142,7 +124,7 @@ public class sl_PlayerHealth : MonoBehaviour, IOnEventCallback
         //        StartCoroutine(Respawn());
 
         //    }
-    }
+    //}
 
     //private void OnEnable()
     //{
