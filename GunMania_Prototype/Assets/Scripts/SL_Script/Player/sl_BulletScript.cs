@@ -19,7 +19,8 @@ public class sl_BulletScript : MonoBehaviour
         {
             if (other.gameObject.tag == "Player2" || other.gameObject.tag == "Environment")
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);  // note: cuz when collide with game object distance too close, it destroy immediately then my shoot behavior will have error
+                Destroy(gameObject, 0.5f);
             }
         }
 
@@ -27,7 +28,8 @@ public class sl_BulletScript : MonoBehaviour
         {
             if (other.gameObject.tag == "Player" || other.gameObject.tag == "Environment")
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
+                Destroy(gameObject, 0.5f);
             }
         }
 

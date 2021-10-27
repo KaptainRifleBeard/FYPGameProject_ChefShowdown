@@ -38,37 +38,46 @@ public class sl_PlayerControl : MonoBehaviour
         {
             inventoryVisible.SetActive(true);
 
-            //NEW MOVEMENT - current using
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Input.GetMouseButtonDown(1) && sl_ShootBehavior.p1Shoot == false)
-            {
-                if (Physics.Raycast(ray, out hit))
-                {
-                    targetDestionation.transform.position = hit.point;
-                    myAgent.SetDestination(hit.point);
-                    isrunning = true;
-                }
-
-            }
-
-
-            //Rotate player
-            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-            float rayLength;
-
-            if (groundPlane.Raycast(ray, out rayLength))
-            {
-                Vector3 pointToLook = ray.GetPoint(rayLength);
-                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }
-
         }
         else
         {
             inventoryVisible.SetActive(false);
         }
+
+
+        //NEW MOVEMENT - current using
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Input.GetMouseButtonDown(1) && sl_ShootBehavior.p1Shoot == false)
+        {
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                targetDestionation.transform.position = hit.point;
+                myAgent.SetDestination(hit.point);
+            }
+
+        }
+
+        if(sl_ShootBehavior.p1Shoot == true)
+        {
+            myAgent.isStopped = true;
+            myAgent.ResetPath();
+        }
+        
+
+        //Rotate player
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        float rayLength;
+
+        if (groundPlane.Raycast(ray, out rayLength))
+        {
+            Vector3 pointToLook = ray.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+        }
+
+
 
 
         //ANIMATION

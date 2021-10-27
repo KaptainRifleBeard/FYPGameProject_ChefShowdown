@@ -29,38 +29,46 @@ public class sl_P2PlayerControl : MonoBehaviour
 
     public void Update()
     {
-        if (view.IsMine)  //Photon - check is my character
+        if (view.IsMine)  //Photon - check is my character's view
         {
             inventoryVisible.SetActive(true);
 
-            //NEW MOVEMENT - current using
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Input.GetMouseButtonDown(1) && sl_P2ShootBehavior.p2Shoot == false)
-            {
-                if (Physics.Raycast(ray, out hit))
-                {
-                    targetDestionation.transform.position = hit.point;
-                    myAgent.SetDestination(hit.point);
-                }
-
-            }
-
-            //Rotate player
-            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-            float rayLength;
-
-            if (groundPlane.Raycast(ray, out rayLength))
-            {
-                Vector3 pointToLook = ray.GetPoint(rayLength);
-                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }
         }
         else
         {
             inventoryVisible.SetActive(false);
         }
+
+
+        //NEW MOVEMENT - current using
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Input.GetMouseButtonDown(1) && sl_P2ShootBehavior.p2Shoot == false)
+        {
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                targetDestionation.transform.position = hit.point;
+                myAgent.SetDestination(hit.point);
+            }
+
+        }
+
+        myAgent.isStopped = true;
+        myAgent.ResetPath();
+
+        //Rotate player
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        float rayLength;
+
+        if (groundPlane.Raycast(ray, out rayLength))
+        {
+            Vector3 pointToLook = ray.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+        }
+
+
     }
 
 
