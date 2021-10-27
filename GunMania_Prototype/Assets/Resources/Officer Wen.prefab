@@ -1196,7 +1196,6 @@ GameObject:
   - component: {fileID: 38238731443728680}
   - component: {fileID: 6829483939388315608}
   - component: {fileID: 8205793790207556308}
-  - component: {fileID: -461523974102215855}
   - component: {fileID: 3482780963516650778}
   m_Layer: 0
   m_Name: Officer Wen
@@ -1373,9 +1372,10 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 7581775947900184558}
   - {fileID: 6829483939388315608}
   - {fileID: 8205793790207556308}
-  - {fileID: -461523974102215855}
+  - {fileID: 0}
   - {fileID: 3482780963516650778}
   sceneViewId: 0
   InstantiationId: 0
@@ -1429,19 +1429,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &-461523974102215855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2784047750339751703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35144820bcc25444bb8f0fd767d9423e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SmoothingDelay: 5
 --- !u!114 &3482780963516650778
 MonoBehaviour:
   m_ObjectHideFlags: 0

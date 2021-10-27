@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using Photon.Pun;
 
-public class sl_P2PlayerControl : MonoBehaviour
+public class sl_P2PlayerControl : MonoBehaviour, IPunObservable
 {
     //NavMesh AI movement for click to move
     private NavMeshAgent myAgent;
@@ -77,7 +77,7 @@ public class sl_P2PlayerControl : MonoBehaviour
         }
 
 
-        
+
 
         //ANIMATION
         if (!myAgent.pathPending)
@@ -147,6 +147,20 @@ public class sl_P2PlayerControl : MonoBehaviour
 
     }
 
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
 
+        }
+        else if (stream.IsReading)
+        {
+            transform.position = (Vector3)stream.ReceiveNext();
+            transform.rotation = (Quaternion)stream.ReceiveNext();
+        }
+
+    }
 
 }

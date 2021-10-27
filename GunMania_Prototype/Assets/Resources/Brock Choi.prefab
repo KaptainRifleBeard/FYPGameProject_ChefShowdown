@@ -1685,7 +1685,6 @@ GameObject:
   - component: {fileID: 4725308509521907122}
   - component: {fileID: 4725308509521907123}
   - component: {fileID: 5011317513158437532}
-  - component: {fileID: 3367897440247464584}
   m_Layer: 0
   m_Name: Brock Choi
   m_TagString: Player
@@ -1819,7 +1818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325502aef3b1c944ea3ccb42ceb43651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   bulletPrefab: {fileID: 738087397887106752, guid: 2a3658c6a53d56e4499c297b862d28a1, type: 3}
   shootPosition: {fileID: 1709098420339730920}
   targetIndicatorPrefab: {fileID: 1979442924746772, guid: ab805d0a6d1e65b4abe1afc247b1bb06, type: 3}
@@ -1862,10 +1860,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
+  - {fileID: 4725308509521907086}
   - {fileID: 4725308509521907122}
   - {fileID: 4725308509521907123}
   - {fileID: 5011317513158437532}
-  - {fileID: 3367897440247464584}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1954,19 +1953,6 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
---- !u!114 &3367897440247464584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5571729940637954279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35144820bcc25444bb8f0fd767d9423e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SmoothingDelay: 5
 --- !u!1 &5593284612507846354
 GameObject:
   m_ObjectHideFlags: 0
