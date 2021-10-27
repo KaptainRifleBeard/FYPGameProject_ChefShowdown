@@ -37,14 +37,14 @@ public class sl_P2PlayerControl : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) && sl_P2ShootBehavior.p2Shoot == false)
             {
                 if (Physics.Raycast(ray, out hit))
                 {
                     targetDestionation.transform.position = hit.point;
                     myAgent.SetDestination(hit.point);
-
                 }
+
             }
 
             //Rotate player

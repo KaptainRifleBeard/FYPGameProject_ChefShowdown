@@ -42,8 +42,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-
-            if (Input.GetMouseButtonDown(0)/* && bulletCount > 0*/ && p1Shoot == false)
+            if (Input.GetMouseButtonDown(0)/* && bulletCount > 0*/ && p1Shoot == false && PhotonNetwork.IsMasterClient)
             {
                 p1Shoot = true;  //stop movement when shoot
 
@@ -57,7 +56,6 @@ public class sl_ShootBehavior : MonoBehaviour
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
                     count++;
 
-
                 }
                 if (count == 1)
                 {
@@ -67,20 +65,20 @@ public class sl_ShootBehavior : MonoBehaviour
 
             }
 
-            if(view.IsMine) //indicator follow mouse
+            if (view.IsMine) //indicator follow mouse
             {
                 targetObject.transform.position = hit.point;
             }
 
 
-            if (Input.GetMouseButtonDown(1) /*&& bulletCount > 0 */&& p1Shoot == true)
+            if (Input.GetMouseButtonDown(1) /*&& bulletCount > 0 */&& p1Shoot == true && PhotonNetwork.IsMasterClient)
             {
                 view.RPC("ShootBullet", RpcTarget.All);
 
             }
 
-
         }
+    
 
     }
 

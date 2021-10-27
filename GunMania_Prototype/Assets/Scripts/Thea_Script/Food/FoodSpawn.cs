@@ -116,7 +116,7 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    private IEnumerator Spawn(int secs, int index)
+    public IEnumerator Spawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
 
@@ -177,11 +177,10 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    private IEnumerator DishCountdown(int countdownTime)
+    public IEnumerator DishCountdown(int countdownTime)
     {
         yield return new WaitForSeconds(countdownTime);
 
-        
             //dishCoro = DishSpawn(dishsec);
             //StartCoroutine(dishCoro);
 
@@ -189,7 +188,7 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    private IEnumerator DishSpawn(int dishsecs)
+    public IEnumerator DishSpawn(int dishsecs)
     {
         yield return new WaitForSeconds(dishsecs);
         int dishIndex;
@@ -219,7 +218,7 @@ public class FoodSpawn : MonoBehaviour
     }
 
     [PunRPC]
-    private IEnumerator DishRespawn(int secs)
+    public IEnumerator DishRespawn(int secs)
     {
         yield return new WaitForSeconds(secs);
         int dishIndex;

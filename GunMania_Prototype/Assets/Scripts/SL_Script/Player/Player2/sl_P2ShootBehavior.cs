@@ -29,7 +29,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     void Start()
     {
-        view = GetComponent<PhotonView>();        
+        view = GetComponent<PhotonView>();
+        targetObject = targetIndicatorPrefab;
     }
 
     void Update()
@@ -40,7 +41,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
 
-            if (Input.GetMouseButtonDown(0)/* && p2bulletCount > 0*/ && p2Shoot == false)
+            if (Input.GetMouseButtonDown(0)/* && p2bulletCount > 0*/ && p2Shoot == false && !PhotonNetwork.IsMasterClient)
             {
                 p2Shoot = true;  //stop movement when shoot
 
@@ -70,7 +71,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
             }
 
 
-            if (Input.GetMouseButtonDown(1) /*&& p2bulletCount > 0 */&& p2Shoot == true)
+            if (Input.GetMouseButtonDown(1) /*&& p2bulletCount > 0 */&& p2Shoot == true && !PhotonNetwork.IsMasterClient)
             {
                 view.RPC("ShootBullet2", RpcTarget.All);
 
@@ -78,7 +79,6 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
 
         }
-
     }
 
     IEnumerator stopAnim()
@@ -104,7 +104,6 @@ public class sl_P2ShootBehavior : MonoBehaviour
         {
             if (p2Shoot)
             {
-
                 targetPosition2 = targetObject.transform.position;
                 directionShoot2 = targetPosition2 - shootPosition.position;
 
