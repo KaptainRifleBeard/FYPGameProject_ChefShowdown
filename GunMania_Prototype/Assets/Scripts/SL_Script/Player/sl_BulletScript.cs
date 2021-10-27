@@ -6,7 +6,13 @@ using Photon.Pun;
 public class sl_BulletScript : MonoBehaviour
 {
     public int bulletDmg;
-    
+
+    private void Update()
+    {
+        Destroy(gameObject, 5f);
+
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(gameObject.tag == "Bullet")

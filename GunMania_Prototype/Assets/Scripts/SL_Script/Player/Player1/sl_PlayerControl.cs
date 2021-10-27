@@ -42,7 +42,7 @@ public class sl_PlayerControl : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1) && sl_ShootBehavior.p1Shoot == false)
             {
                 if (Physics.Raycast(ray, out hit))
                 {
@@ -52,6 +52,7 @@ public class sl_PlayerControl : MonoBehaviour
                 }
 
             }
+
 
             //Rotate player
             Plane groundPlane = new Plane(Vector3.up, Vector3.zero);

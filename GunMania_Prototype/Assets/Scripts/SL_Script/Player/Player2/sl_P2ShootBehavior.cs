@@ -11,7 +11,6 @@ public class sl_P2ShootBehavior : MonoBehaviour
     public Transform shootPosition;
     public static int p2bulletCount;
 
-
     //for target indicator
     public GameObject targetIndicatorPrefab;
     GameObject targetObject;
@@ -21,10 +20,12 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     Vector3 directionShoot2;
     Vector3 targetPosition2;
-    private bool dragging = false;
 
     int count;
     bool spawn;
+
+    public static bool p2Shoot;
+
 
     void Start()
     {
@@ -33,55 +34,50 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     void Update()
     {
-
-        //for indicator
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (view.IsMine)
+        if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButton(0) && p2bulletCount > 0)
+
+            if (Input.GetMouseButtonDown(0)/* && p2bulletCount > 0*/ && p2Shoot == false)
             {
-                if (Physics.Raycast(ray, out hit))
+                p2Shoot = true;  //stop movement when shoot
+
+                //make sure only spawn 1
+                if (count < 1 && spawn == false)
                 {
-                    if (dragging)
-                    {
-                        targetObject.transform.position = hit.point;
-                    }
+                    spawn = true;
+                    bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+                    bullet.transform.SetParent(shootPosition);
+
+                    targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
+                    count++;
+
+
                 }
-            }
-        }
+                if (count == 1)
+                {
+                    spawn = false;
+                }
 
-        if (Input.GetMouseButtonDown(0) && p2bulletCount > 0)
-        {
-            if (count < 1 && spawn == false)
+
+            }
+
+            if (view.IsMine) //indicator follow mouse
             {
-                spawn = true;
-                targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
-                count++;
-
-
+                targetObject.transform.position = hit.point;
             }
-            if (count == 1)
+
+
+            if (Input.GetMouseButtonDown(1) /*&& p2bulletCount > 0 */&& p2Shoot == true)
             {
-                spawn = false;
+                view.RPC("ShootBullet2", RpcTarget.All);
+
             }
 
-            view.RPC("SpawnBullet2", RpcTarget.All);
-            dragging = true;
+
         }
-
-        if (Input.GetMouseButtonUp(0) && p2bulletCount > 0)
-        {
-            view.RPC("ShootBullet2", RpcTarget.All);
-            Destroy(targetObject);
-            dragging = false;
-
-
-            count = 0;
-            spawn = false;
-        }
-
 
     }
 
@@ -94,8 +90,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     [PunRPC]
     void SpawnBullet2()
     {
-        bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-        bullet.transform.SetParent(shootPosition);
+        
     }
 
     [PunRPC]
@@ -107,18 +102,32 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            targetPosition2 = hit.point;
-            directionShoot2 = targetPosition2 - shootPosition.position;
+            if (p2Shoot)
+            {
 
-            bullet.transform.forward = directionShoot2.normalized;
-            bullet.GetComponent<Rigidbody>().AddForce(directionShoot2.normalized * shootForce, ForceMode.Impulse); //shootforce
+                targetPosition2 = targetObject.transform.position;
+                directionShoot2 = targetPosition2 - shootPosition.position;
 
-            bullet.transform.SetParent(null);
-            p2bulletCount--;
-            StartCoroutine(stopAnim());
+                bullet.transform.forward = directionShoot2.normalized;
+                bullet.GetComponent<Rigidbody>().AddForce(directionShoot2.normalized * shootForce, ForceMode.Impulse); //shootforce
+
+                bullet.transform.SetParent(null);
+                p2bulletCount--;
+
+                StartCoroutine(stopAnim());
+                Destroy(targetObject);
+
+                //reset
+                targetObject = targetIndicatorPrefab;
+                count = 0;
+                spawn = false;
+
+                p2Shoot = false;
+
+
+            }
 
         }
-
     }
 
 

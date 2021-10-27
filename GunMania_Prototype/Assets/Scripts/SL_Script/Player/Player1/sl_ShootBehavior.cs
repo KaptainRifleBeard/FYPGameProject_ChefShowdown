@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.AI;
 
 public class sl_ShootBehavior : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform shootPosition;
+    private NavMeshAgent myAgent;
 
     public static int bulletCount;
 
@@ -19,44 +21,39 @@ public class sl_ShootBehavior : MonoBehaviour
     GameObject bullet;
     Vector3 directionShoot;
     Vector3 targetPosition;
-
-    private bool dragging = false;
     public Animator anim;
 
     int count;
     bool spawn;
 
-    [Space(10)]
-    [Header("Line renderer veriables")]
-    
-    private LineRenderer lineRenderer;
-    public int lineSegment = 50;
-
-    private List<Vector3> linePoint = new List<Vector3>();
+    public static bool p1Shoot = false;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
-        lineRenderer = GetComponent<LineRenderer>();
+        myAgent = GetComponent<NavMeshAgent>();
+        targetObject = targetIndicatorPrefab;
     }
 
     void Update()
     {
-        //for indicator
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-
-        
-
-
-        if (Input.GetMouseButtonDown(0) && bulletCount > 0)
+        if (Physics.Raycast(ray, out hit))
         {
-            if (Physics.Raycast(ray, out hit))
+
+            if (Input.GetMouseButtonDown(0)/* && bulletCount > 0*/ && p1Shoot == false)
             {
-                if(count < 1 && spawn == false)
+                p1Shoot = true;  //stop movement when shoot
+
+                //make sure only spawn 1
+                if (count < 1 && spawn == false)
                 {
                     spawn = true;
+                    bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+                    bullet.transform.SetParent(shootPosition);
+
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
                     count++;
 
@@ -67,30 +64,21 @@ public class sl_ShootBehavior : MonoBehaviour
                     spawn = false;
                 }
 
-                view.RPC("SpawnBullet", RpcTarget.All);
-                dragging = true;
+
             }
-                
-        }
 
-
-        if (view.IsMine)
-        {
-            if (Input.GetMouseButton(0) && bulletCount > 0)  //DRAG
+            if(view.IsMine) //indicator follow mouse
             {
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (dragging)
-                    {
-                        targetObject.transform.position = hit.point;
-                    }
-                }
+                targetObject.transform.position = hit.point;
             }
-        }
 
-        if (Input.GetMouseButtonUp(0) && bulletCount > 0)
-        {
-            view.RPC("ShootBullet", RpcTarget.All);
+
+            if (Input.GetMouseButtonDown(1) /*&& bulletCount > 0 */&& p1Shoot == true)
+            {
+                view.RPC("ShootBullet", RpcTarget.All);
+
+            }
+
 
         }
 
@@ -107,8 +95,7 @@ public class sl_ShootBehavior : MonoBehaviour
     [PunRPC]
     void SpawnBullet()
     {
-        bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-        bullet.transform.SetParent(shootPosition);
+        
 
     }
 
@@ -121,30 +108,36 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            anim.SetBool("Aim", false);
-            anim.SetBool("Throw", true);
+            if(p1Shoot)
+            {
+                anim.SetBool("Aim", false);
+                anim.SetBool("Throw", true);
 
-            targetPosition = hit.point;
-            directionShoot = targetPosition - shootPosition.position;
+                targetPosition = targetObject.transform.position;
+                directionShoot = targetPosition - shootPosition.position;
 
-            bullet.transform.forward = directionShoot.normalized;
-            bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
+                bullet.transform.forward = directionShoot.normalized;
+                bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
 
-            bullet.transform.SetParent(null);
-            bulletCount--;
+                bullet.transform.SetParent(null);
+                bulletCount--;
 
-            StartCoroutine(stopAnim());
+                StartCoroutine(stopAnim());
+                Destroy(targetObject);
+
+                //reset
+                targetObject = targetIndicatorPrefab;
+                count = 0;
+                spawn = false;
+
+                p1Shoot = false;
 
 
-            dragging = false;
-            Destroy(targetObject);
-            targetObject = null;
+            }
 
-            count = 0;
-            spawn = false;
         }
 
-            
+
     }
 
 
