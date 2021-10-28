@@ -107,6 +107,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             if (currentHealth < 0)
             {
                 currentHealth = 0;
+                Destroy(gameObject);
             }
         }
 

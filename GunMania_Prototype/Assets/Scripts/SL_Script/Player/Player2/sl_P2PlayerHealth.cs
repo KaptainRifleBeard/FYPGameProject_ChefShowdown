@@ -112,6 +112,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
             if (p2currentHealth < 0)
             {
                 p2currentHealth = 0;
+                Destroy(gameObject);
             }
         }
     }

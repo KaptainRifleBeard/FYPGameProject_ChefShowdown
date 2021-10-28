@@ -45,7 +45,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p1Shoot == false && bulletCount > 0 && view.IsMine && playerInventory.itemList[0] != null)
+            if (Input.GetMouseButtonDown(0) && p1Shoot == false && bulletCount > 0 && view.IsMine /*&& playerInventory.itemList[0] != null*/)
             {
                 p1Shoot = true;  //stop movement when shoot
                 anim.SetBool("Aim", true);

@@ -117,37 +117,16 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         }
 
     }
-    public void DisconnectPlayer()
-    {
-        //if (!PhotonNetwork.IsMasterClient)
-        //{
-        //    kick(2);
-        //}
-        //PhotonNetwork.LoadLevel(0);
-
-
-        StartCoroutine(DisconnectAndLoad());
-
-    }
+   
 
     IEnumerator ToExitScreen()
     {
         yield return new WaitForSeconds(3.0f);
-        exitScreen.SetActive(true);
+        //exitScreen.SetActive(true);
+        SceneManager.LoadScene("sl_BacktoMainMenu");
 
     }
 
-    IEnumerator DisconnectAndLoad()
-    {
-        PhotonNetwork.Disconnect(); //disconnect local player from master client
-        while (PhotonNetwork.IsConnected)
-        {
-            yield return null;
-        }
-
-        SceneManager.LoadScene(0);
-
-    }
 
 }
 
