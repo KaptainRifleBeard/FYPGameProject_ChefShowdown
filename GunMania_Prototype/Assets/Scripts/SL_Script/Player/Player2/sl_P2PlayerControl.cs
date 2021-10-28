@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using Photon.Pun;
 
-public class sl_P2PlayerControl : MonoBehaviour, IPunObservable
+public class sl_P2PlayerControl : MonoBehaviour/*, IPunObservable*/
 {
     //NavMesh AI movement for click to move
     private NavMeshAgent myAgent;
@@ -148,25 +148,25 @@ public class sl_P2PlayerControl : MonoBehaviour, IPunObservable
 
     }
 
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(myAgent.transform.position);
-            stream.SendNext(myAgent.transform.rotation);
-            stream.SendNext(myAgent.velocity);
-        }
-        else if (stream.IsReading)
-        {
-            myAgent.transform.position = (Vector3)stream.ReceiveNext();
-            myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
-            myAgent.velocity = (Vector3)stream.ReceiveNext();
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(myAgent.transform.position);
+    //        stream.SendNext(myAgent.transform.rotation);
+    //        stream.SendNext(myAgent.velocity);
+    //    }
+    //    else if (stream.IsReading)
+    //    {
+    //        myAgent.transform.position = (Vector3)stream.ReceiveNext();
+    //        myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
+    //        myAgent.velocity = (Vector3)stream.ReceiveNext();
 
 
-            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTimestamp));
-            myAgent.transform.position += myAgent.velocity * lag;
+    //        float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTimestamp));
+    //        myAgent.transform.position += myAgent.velocity * lag;
 
-        }
-    }
+    //    }
+    //}
 
 }

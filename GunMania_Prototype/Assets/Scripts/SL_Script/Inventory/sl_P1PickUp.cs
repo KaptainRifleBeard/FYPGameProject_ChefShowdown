@@ -26,21 +26,32 @@ public class sl_P1PickUp : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("collide");
             if (sl_ShootBehavior.bulletCount < 2)
             {
-                
-                if(gameObject.layer == LayerMask.NameToLayer("Food"))
-                {
-                    isPicked = true;
-                    AddNewItem();
-                    Destroy(gameObject);
-                }
-                else if(gameObject.layer == LayerMask.NameToLayer("Dish"))
+                if(gameObject.tag == "Dish")
                 {
                     isPickedDish = true;
                     AddNewItem();
                     Destroy(gameObject);
                 }
+
+                if(gameObject.tag == "Food")
+                {
+                    isPicked = true;
+                    AddNewItem();
+                    Destroy(gameObject);
+                }
+
+
+                //if(gameObject.layer == LayerMask.NameToLayer("Food"))
+                //{
+                    
+                //}
+                //else if(gameObject.layer == LayerMask.NameToLayer("Dish"))
+                //{
+                   
+                //}
 
                 sl_ShootBehavior.bulletCount += 1;
 
@@ -85,29 +96,29 @@ public class sl_P1PickUp : MonoBehaviour
 
     void Update()
     {
-        //completely hard code
-        if (Input.GetMouseButtonDown(0) && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
-        {
-            if (count < 1 && spawn == false)  //to spawn only one per time
-            {
-                if (count < 1)
-                {
-                    spawn = true;
+        ////completely hard code
+        //if (Input.GetMouseButtonDown(1) && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
+        //{
+        //    if (count < 1 && spawn == false)  //to spawn only one per time
+        //    {
+        //        if (count < 1)
+        //        {
+        //            spawn = true;
 
-                    playerInventory.itemList[0] = null;
+        //            playerInventory.itemList[0] = null;
 
-                    sl_InventoryManager.RefreshItem();
-                    StartCoroutine(MoveToFront());
+        //            sl_InventoryManager.RefreshItem();
+        //            StartCoroutine(MoveToFront());
 
-                    count++;
+        //            count++;
 
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
-            }
-        }
+        //        }
+        //        if (count == 1)
+        //        {
+        //            spawn = false;
+        //        }
+        //    }
+        //}
 
     }
 

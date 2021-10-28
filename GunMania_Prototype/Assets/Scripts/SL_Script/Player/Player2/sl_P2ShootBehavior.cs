@@ -11,6 +11,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
     public Transform shootPosition;
     public static int p2bulletCount;
 
+    public sl_Inventory playerInventory;  //set which inventory should be place in
+
     //for target indicator
     public GameObject targetIndicatorPrefab;
     GameObject targetObject;
@@ -118,6 +120,11 @@ public class sl_P2ShootBehavior : MonoBehaviour
             StartCoroutine(stopAnim());
             Destroy(targetObject);
 
+            //for item list ui
+            playerInventory.itemList[0] = null;
+            sl_InventoryManager.RefreshItem();
+            StartCoroutine(MoveToFront());
+
             //reset
             targetObject = targetIndicatorPrefab;
             count = 0;
@@ -128,4 +135,16 @@ public class sl_P2ShootBehavior : MonoBehaviour
         }
     }
 
+    private IEnumerator MoveToFront()
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[0] = playerInventory.itemList[1];
+        sl_p2InventoryManager.RefreshItem();
+
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[1] = null;
+        sl_p2InventoryManager.RefreshItem();
+
+        count = 0;
+    }
 }

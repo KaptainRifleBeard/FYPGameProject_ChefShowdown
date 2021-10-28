@@ -18,16 +18,16 @@ public class sl_P2PickUp : MonoBehaviour
         {
             if (sl_P2ShootBehavior.p2bulletCount < 2)
             {
-
-                if (gameObject.layer == LayerMask.NameToLayer("Food"))
+                if (gameObject.tag == "Dish")
                 {
-                    isPicked = true;
+                    isPickedDish = true;
                     AddNewItem();
                     Destroy(gameObject);
                 }
-                else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
+
+                if (gameObject.tag == "Food")
                 {
-                    isPickedDish = true;
+                    isPicked = true;
                     AddNewItem();
                     Destroy(gameObject);
                 }
@@ -81,28 +81,28 @@ public class sl_P2PickUp : MonoBehaviour
 
     void Update()
     {
-        //completely hard code
-        if (Input.GetMouseButtonDown(0) && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
-        {
-            if (count < 1 && spawn == false)  //to spawn only one per time
-            {
-                if (count < 1)
-                {
-                    spawn = true;
+        ////completely hard code
+        //if (sl_P2ShootBehavior.p2Shoot && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
+        //{
+        //    if (count < 1 && spawn == false)  //to spawn only one per time
+        //    {
+        //        if (count < 1)
+        //        {
+        //            spawn = true;
 
-                    playerInventory.itemList[0] = null;
-                    sl_p2InventoryManager.RefreshItem();
-                    StartCoroutine(MoveToFront());
+        //            playerInventory.itemList[0] = null;
+        //            sl_p2InventoryManager.RefreshItem();
+        //            StartCoroutine(MoveToFront());
 
-                    count++;
+        //            count++;
 
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
-            }
-        }
+        //        }
+        //        if (count == 1)
+        //        {
+        //            spawn = false;
+        //        }
+        //    }
+        //}
 
     }
 }

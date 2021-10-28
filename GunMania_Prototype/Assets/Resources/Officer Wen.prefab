@@ -1195,6 +1195,7 @@ GameObject:
   - component: {fileID: 38238731443728680}
   - component: {fileID: 8205793790207556308}
   - component: {fileID: 3482780963516650778}
+  - component: {fileID: -5551149618865990075}
   m_Layer: 0
   m_Name: Officer Wen
   m_TagString: Player2
@@ -1333,6 +1334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: -5977661525850500093, guid: d86da9e7c2201be47b2b8922ff31e6ca, type: 3}
   shootPosition: {fileID: 6322279731109455942}
+  playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
   targetIndicatorPrefab: {fileID: 7672446411873757097, guid: e35e3a82fe7b7ec46a9d1dcc8b92d0e9, type: 3}
   anim: {fileID: 7222043873364474075}
 --- !u!114 &38238731443728680
@@ -1354,7 +1356,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 7581775947900184558}
   - {fileID: 8205793790207556308}
   - {fileID: 3482780963516650778}
   sceneViewId: 0
@@ -1412,6 +1413,22 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!54 &-5551149618865990075
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784047750339751703}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2977256129520849530
 GameObject:
   m_ObjectHideFlags: 0

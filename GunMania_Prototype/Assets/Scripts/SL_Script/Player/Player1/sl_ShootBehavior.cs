@@ -11,6 +11,7 @@ public class sl_ShootBehavior : MonoBehaviour
     public Transform shootPosition;
 
     public static int bulletCount;
+    public sl_Inventory playerInventory;  //set which inventory should be place in
 
     //for target indicator
     public GameObject targetIndicatorPrefab;
@@ -24,6 +25,9 @@ public class sl_ShootBehavior : MonoBehaviour
 
     int count;
     bool spawn;
+
+    int num;
+    bool spawnbullet;
 
     public static bool p1Shoot = false;
 
@@ -41,7 +45,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p1Shoot == false/* && bulletCount > 0*/ && view.IsMine)
+            if (Input.GetMouseButtonDown(0) && p1Shoot == false && bulletCount > 0 && view.IsMine && playerInventory.itemList[0] != null)
             {
                 p1Shoot = true;  //stop movement when shoot
                 anim.SetBool("Aim", true);
@@ -71,12 +75,11 @@ public class sl_ShootBehavior : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonDown(1) /*&& bulletCount > 0 */&& p1Shoot == true && PhotonNetwork.IsMasterClient)
+        if (Input.GetMouseButtonDown(1) && bulletCount > 0 && p1Shoot == true && PhotonNetwork.IsMasterClient)
         {
             view.RPC("ShootBullet", RpcTarget.All);
-
         }
-        
+
     }
 
     IEnumerator stopAnim()
@@ -119,16 +122,33 @@ public class sl_ShootBehavior : MonoBehaviour
             StartCoroutine(stopAnim());
             Destroy(targetObject);
 
+            //for item list ui
+            playerInventory.itemList[0] = null;
+            sl_InventoryManager.RefreshItem();
+            StartCoroutine(MoveToFront());
+
             //reset
             targetObject = targetIndicatorPrefab;
             count = 0;
             spawn = false;
-
             p1Shoot = false;
 
         }
 
 
+    }
+
+    private IEnumerator MoveToFront()
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[0] = playerInventory.itemList[1];
+        sl_InventoryManager.RefreshItem();
+
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[1] = null;
+        sl_InventoryManager.RefreshItem();
+
+        count = 0;
     }
 
 }
