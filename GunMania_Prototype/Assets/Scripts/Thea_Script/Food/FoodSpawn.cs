@@ -58,13 +58,13 @@ public class FoodSpawn : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
 
-        Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
+        //Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)], foodSpawnPoint[0].transform.position, Quaternion.identity);
 
-        Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)], foodSpawnPoint[1].transform.position, Quaternion.identity);
+        //Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)], foodSpawnPoint[1].transform.position, Quaternion.identity);
 
-        Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)], foodSpawnPoint[2].transform.position, Quaternion.identity);
+        //Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)], foodSpawnPoint[2].transform.position, Quaternion.identity);
 
-        Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)], foodSpawnPoint[3].transform.position, Quaternion.identity);
+        //Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)], foodSpawnPoint[3].transform.position, Quaternion.identity);
 
         //countdownCoro = DishCountdown(countdownTime);
         //StartCoroutine(countdownCoro);
@@ -75,7 +75,7 @@ public class FoodSpawn : MonoBehaviour
     {
         //view.RPC("dishSpawnUpdate", RpcTarget.All);
         //view.RPC("spawnUpdate", RpcTarget.All);
-        spawnUpdate();
+        //spawnUpdate();
 
         if (count < 1 && spawn == false)
         {
@@ -96,61 +96,61 @@ public class FoodSpawn : MonoBehaviour
     }
 
 
-    #region
-    public void spawnUpdate()
-    {
-        int layerMask = 1 << 3;
+    //#region
+    //public void spawnUpdate()
+    //{
+    //    int layerMask = 1 << 3;
 
-        for (int i = 0; i < foodSpawnPoint.Count; i++)
-        {
-            Collider[] hitColliders = Physics.OverlapSphere(foodSpawnPoint[i].transform.position, 10, layerMask);
-            if (hitColliders.Length == 0)
-            {
-                if (sl_P1PickUp.isPicked == true)
-                {
-                    StartCoroutine(Spawn(sec, i));
-                    //view.RPC("Spawn", RpcTarget.All, sec, i);
-                    sl_P1PickUp.isPicked = false;
-                }
-                if (sl_P2PickUp.isPicked == true)
-                {
-                    StartCoroutine(Spawn(sec, i));
-                    //view.RPC("Spawn", RpcTarget.All, sec, i);
-                    sl_P2PickUp.isPicked = false;
-                }
-            }
-        }
+    //    for (int i = 0; i < foodSpawnPoint.Count; i++)
+    //    {
+    //        Collider[] hitColliders = Physics.OverlapSphere(foodSpawnPoint[i].transform.position, 10, layerMask);
+    //        if (hitColliders.Length == 0)
+    //        {
+    //            if (sl_P1PickUp.isPicked == true)
+    //            {
+    //                StartCoroutine(Spawn(sec, i));
+    //                //view.RPC("Spawn", RpcTarget.All, sec, i);
+    //                sl_P1PickUp.isPicked = false;
+    //            }
+    //            if (sl_P2PickUp.isPicked == true)
+    //            {
+    //                StartCoroutine(Spawn(sec, i));
+    //                //view.RPC("Spawn", RpcTarget.All, sec, i);
+    //                sl_P2PickUp.isPicked = false;
+    //            }
+    //        }
+    //    }
 
-    }
+    //}
 
-    public IEnumerator Spawn(int secs, int index)
-    {
-        yield return new WaitForSeconds(secs);
+    //public IEnumerator Spawn(int secs, int index)
+    //{
+    //    yield return new WaitForSeconds(secs);
 
-            switch (index)
-            {
-                case 0:
-                    PhotonNetwork.Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)].name, foodSpawnPoint[0].transform.position, Quaternion.identity);
-                    break;
-                case 1:
-                    PhotonNetwork.Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)].name, foodSpawnPoint[1].transform.position, Quaternion.identity);
-                    break;
-                case 2:
-                    PhotonNetwork.Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)].name, foodSpawnPoint[2].transform.position, Quaternion.identity);
-                    break;
-                case 3:
-                    PhotonNetwork.Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)].name, foodSpawnPoint[3].transform.position, Quaternion.identity);
-                    break;
-                default:
-                    Debug.Log("unknown spawn point");
-                    break;
-            }
+    //        switch (index)
+    //        {
+    //            case 0:
+    //                PhotonNetwork.Instantiate(JPfoodPrefabs[Random.Range(0, JPfoodPrefabs.Count)].name, foodSpawnPoint[0].transform.position, Quaternion.identity);
+    //                break;
+    //            case 1:
+    //                PhotonNetwork.Instantiate(KRfoodPrefabs[Random.Range(0, KRfoodPrefabs.Count)].name, foodSpawnPoint[1].transform.position, Quaternion.identity);
+    //                break;
+    //            case 2:
+    //                PhotonNetwork.Instantiate(CNfoodPrefabs[Random.Range(0, CNfoodPrefabs.Count)].name, foodSpawnPoint[2].transform.position, Quaternion.identity);
+    //                break;
+    //            case 3:
+    //                PhotonNetwork.Instantiate(TWfoodPrefabs[Random.Range(0, TWfoodPrefabs.Count)].name, foodSpawnPoint[3].transform.position, Quaternion.identity);
+    //                break;
+    //            default:
+    //                Debug.Log("unknown spawn point");
+    //                break;
+    //        }
 
-            Debug.Log("spawn at " + index);
-        Debug.Log("dish spawn");
-    }
+    //        Debug.Log("spawn at " + index);
+    //    Debug.Log("dish spawn");
+    //}
 
-    #endregion
+    //#endregion
 
 
 

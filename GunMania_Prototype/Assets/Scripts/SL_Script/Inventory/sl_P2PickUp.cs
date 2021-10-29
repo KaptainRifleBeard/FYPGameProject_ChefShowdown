@@ -11,7 +11,7 @@ public class sl_P2PickUp : MonoBehaviour
     public static bool isPickedDish = false;
     int count;
     bool spawn;
-    private bool hasCoroutineStarted = false;
+    private bool hasCoroutineStarted2 = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,21 +19,22 @@ public class sl_P2PickUp : MonoBehaviour
         {
             if (sl_P2ShootBehavior.p2bulletCount < 2)
             {
+                gameObject.SetActive(false);
+                Invoke("StartCountdown", 6);  //wait for 6 sec
+                sl_P2ShootBehavior.p2bulletCount += 1;
+
                 if (gameObject.layer == LayerMask.NameToLayer("Food"))
                 {
                     isPicked = true;
                     AddNewItem();
-                    Destroy(gameObject);
+
 
                 }
                 else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
                 {
                     isPickedDish = true;
                     AddNewItem();
-                    Destroy(gameObject);
                 }
-
-                sl_P2ShootBehavior.p2bulletCount += 1;
             }
         }
     }
@@ -64,20 +65,14 @@ public class sl_P2PickUp : MonoBehaviour
         sl_p2InventoryManager.RefreshItem();
     }
 
-    IEnumerator waitToSpawn()
+    public void StartCountdown()
     {
-        yield return new WaitForSeconds(6f);
+        //StartCoroutine(waitToSpawn());
+
         gameObject.SetActive(true);
-        hasCoroutineStarted = false;
-    }
 
-
-    public void Update()
-    {
-        //if (isPicked == true || isPickedDish == true)
-        //{
-        //    StartCoroutine(waitToSpawn());
-        //}
+        isPickedDish = false;
+        isPicked = true;
     }
 
     //private IEnumerator MoveToFront()
