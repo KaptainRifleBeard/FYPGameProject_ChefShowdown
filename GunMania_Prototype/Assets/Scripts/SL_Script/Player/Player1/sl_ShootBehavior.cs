@@ -45,7 +45,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p1Shoot == false &&/* bulletCount > 0 &&*/ view.IsMine /*&& playerInventory.itemList[0] != null*/)
+            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine  /*&& bulletCount > 0 && playerInventory.itemList[0] != null*/)
             {
                 Debug.Log("bulletspawn");
 
@@ -56,9 +56,10 @@ public class sl_ShootBehavior : MonoBehaviour
                 if (count < 1 && spawn == false)
                 {
                     spawn = true;
-                    view.RPC("SpawnBullet", RpcTarget.All);
 
+                    view.RPC("SpawnBullet", RpcTarget.All);
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
+
                     count++;
 
                 }
@@ -77,11 +78,13 @@ public class sl_ShootBehavior : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonUp(0) /* &&  bulletCount > 0 */ && p1Shoot == true && PhotonNetwork.IsMasterClient)
+        if (Input.GetMouseButtonUp(0) && /*bulletCount > 0 &&*/ p1Shoot == true && PhotonNetwork.IsMasterClient)
         {
-            //Debug.Log("shoot");
-            //view.RPC("ShootBullet", RpcTarget.All);
-            ShootBullet();
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5)  //make sure bullet wont collide with player
+            {
+                ShootBullet();
+            }
+
         }
 
     }
@@ -116,6 +119,7 @@ public class sl_ShootBehavior : MonoBehaviour
             directionShoot = targetPosition - shootPosition.position;
 
             view.RPC("BulletDirection", RpcTarget.All, directionShoot);
+
 
             bullet.transform.SetParent(null);
             bulletCount--;

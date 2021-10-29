@@ -23,6 +23,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     Vector3 directionShoot2;
     Vector3 targetPosition2;
 
+    //for check shoot once
     int count;
     bool spawn;
 
@@ -43,7 +44,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p2Shoot == false && p2bulletCount > 0  && !PhotonNetwork.IsMasterClient/*&& playerInventory.itemList[0] != null*/)
+            if (Input.GetMouseButtonDown(0) && p2Shoot == false && p2bulletCount > 0  && !PhotonNetwork.IsMasterClient && playerInventory.itemList[0] != null)
             {
                 p2Shoot = true;  //stop movement when shoot
                 anim.SetBool("Aim2", true);
@@ -56,7 +57,6 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
                     count++;
-
 
                 }
                 if (count == 1)
@@ -75,18 +75,14 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) && p2bulletCount > 0 && p2Shoot == true && !PhotonNetwork.IsMasterClient)
         {
-            ShootBullet2();
-            //view.RPC("ShootBullet2", RpcTarget.All);
-
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5)  //make sure bullet wont collide with player
+            {
+                ShootBullet2();
+            }
         }
 
     }
 
-    IEnumerator stopAnim()
-    {
-        yield return new WaitForSeconds(0.4f);
-        anim.SetBool("Throw2", false);
-    }
 
     [PunRPC]
     public void SpawnBullet2()
@@ -153,6 +149,12 @@ public class sl_P2ShootBehavior : MonoBehaviour
         sl_p2InventoryManager.RefreshItem();
 
         count = 0;
+    }
+
+    IEnumerator stopAnim()
+    {
+        yield return new WaitForSeconds(0.4f);
+        anim.SetBool("Throw2", false);
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

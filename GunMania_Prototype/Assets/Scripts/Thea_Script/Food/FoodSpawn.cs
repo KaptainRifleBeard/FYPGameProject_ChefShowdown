@@ -131,7 +131,7 @@ public class FoodSpawn : MonoBehaviour
 
     }
 
-    [PunRPC]
+    //[PunRPC]
     public IEnumerator Spawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
@@ -168,27 +168,27 @@ public class FoodSpawn : MonoBehaviour
     [PunRPC]
     public void dishSpawnUpdate()
     {
-        //int layerMask = 1 << 6;
+        int layerMask = 1 << 6;
 
-        //for (int i = 0; i < dishSpawnPoint.Count; i++)
-        //{
-        //    Collider[] hitColliders = Physics.OverlapSphere(dishSpawnPoint[i].transform.position, 10, layerMask);
-        //    if (hitColliders.Length == 0)
-        //    {
-
-        //    }
-        //}
-
-        if (sl_P1PickUp.isPickedDish == true)
+        for (int i = 0; i < dishSpawnPoint.Count; i++)
         {
-            StartCoroutine(DishSpawn(dishrespawnSec));
-            sl_P1PickUp.isPickedDish = false;
+            Collider[] hitColliders = Physics.OverlapSphere(dishSpawnPoint[i].transform.position, 10, layerMask);
+            if (hitColliders.Length == 0)
+            {
+                if (sl_P1PickUp.isPickedDish == true)
+                {
+                    StartCoroutine(DishSpawn(dishrespawnSec));
+                    sl_P1PickUp.isPickedDish = false;
+                }
+                if (sl_P2PickUp.isPickedDish == true)
+                {
+                    StartCoroutine(DishSpawn(dishrespawnSec));
+                    sl_P2PickUp.isPickedDish = false;
+                }
+            }
         }
-        if (sl_P2PickUp.isPickedDish == true)
-        {
-            StartCoroutine(DishSpawn(dishrespawnSec));
-            sl_P2PickUp.isPickedDish = false;
-        }
+
+        
 
     }
 
@@ -201,7 +201,7 @@ public class FoodSpawn : MonoBehaviour
             StartCoroutine(dishCoro);
     }
 
-    [PunRPC]
+
     public IEnumerator DishSpawn(int dishsecs)
     {
         yield return new WaitForSeconds(dishsecs);
