@@ -92,11 +92,11 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     {
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        if (PhotonNetwork.IsMasterClient /*&& playerCount == 2*/)  // room owner
+        if (PhotonNetwork.IsMasterClient && playerCount == 2)  // room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
         }
-        //PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
 
     }
 

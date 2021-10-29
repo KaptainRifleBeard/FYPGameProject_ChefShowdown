@@ -45,7 +45,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine  /*&& bulletCount > 0 && playerInventory.itemList[0] != null*/)
+            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine  && bulletCount > 0 && playerInventory.itemList[0] != null)
             {
                 Debug.Log("bulletspawn");
 
@@ -78,7 +78,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonUp(0) && /*bulletCount > 0 &&*/ p1Shoot == true && PhotonNetwork.IsMasterClient)
+        if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true && PhotonNetwork.IsMasterClient)
         {
             if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5)  //make sure bullet wont collide with player
             {
