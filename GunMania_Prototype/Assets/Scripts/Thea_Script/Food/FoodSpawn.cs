@@ -75,31 +75,24 @@ public class FoodSpawn : MonoBehaviour
     {
         //view.RPC("dishSpawnUpdate", RpcTarget.All);
         //view.RPC("spawnUpdate", RpcTarget.All);
+        spawnUpdate();
 
-        if (PhotonNetwork.IsMasterClient)
+        if (count < 1 && spawn == false)
         {
-            spawnUpdate();
-
-            if (count < 1 && spawn == false)
+            if (count < 1)
             {
-                if (count < 1)
-                {
-                    dishSpawnUpdate();
+                dishSpawnUpdate();
 
-                    StartCoroutine(DishRespawn(dishrespawnSec));
-                    //view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
-                    DishDespawn.canSpawn = false;
-                    count++;
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
+                StartCoroutine(DishRespawn(dishrespawnSec));
+                //view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
+                DishDespawn.canSpawn = false;
+                count++;
             }
-
-
+            if (count == 1)
+            {
+                spawn = false;
+            }
         }
-
     }
 
 
