@@ -13,6 +13,7 @@ public class sl_P1PickUp : MonoBehaviour
     public static bool isPickedDish;
     int count;
     bool spawn;
+    private bool hasCoroutineStarted = false;
 
 
     void Start()
@@ -26,31 +27,29 @@ public class sl_P1PickUp : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player") && sl_ShootBehavior.bulletCount < 2)
         {
+
             if (gameObject.layer == LayerMask.NameToLayer("Food"))
             {
                 isPicked = true;
+                AddNewItem();
+                //gameObject.SetActive(false);
+                Destroy(gameObject);
+
 
             }
             else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
             {
                 isPickedDish = true;
+
+                AddNewItem();
+                //gameObject.SetActive(false);
+                Destroy(gameObject);
+
+
             }
             sl_ShootBehavior.bulletCount += 1;
 
-            AddNewItem();
-            Destroy(gameObject);
-        }
-        else
-        {
-            if (gameObject.layer == LayerMask.NameToLayer("Food"))
-            {
-                isPicked = false;
-
-            }
-            else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
-            {
-                isPickedDish = false;
-            }
+            //Destroy(gameObject);
         }
     }
 
@@ -73,6 +72,12 @@ public class sl_P1PickUp : MonoBehaviour
         
     }
 
+    IEnumerator waitToSpawn()
+    {
+        yield return new WaitForSeconds(3.0f);
+        gameObject.SetActive(true);
+        hasCoroutineStarted = false;
+    }
 
     //private IEnumerator MoveToFront()
     //{
@@ -116,5 +121,12 @@ public class sl_P1PickUp : MonoBehaviour
 
     //}
 
+    public void Update()
+    {
+        //if (isPicked == true || isPickedDish == true)
+        //{
+        //    StartCoroutine(waitToSpawn());
+        //}
+    }
 
 }

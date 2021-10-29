@@ -60,6 +60,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
         }
 
 
+        if (p2currentHealth == 0)
+        {
+            Destroy(gameObject);
+        }
 
     }
 
@@ -84,16 +88,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
         if (other.gameObject.tag == "Bullet")
         {
             //view.RPC("BulletDamage2", RpcTarget.All);
-            if (p2currentHealth > 0)
-            {
-                p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+            p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
 
-                if (p2currentHealth < 0)
-                {
-                    p2currentHealth = 0;
-                    Destroy(gameObject);
-                }
-            }
         }
     }
 
