@@ -75,35 +75,28 @@ public class FoodSpawn : MonoBehaviour
     {
         //view.RPC("dishSpawnUpdate", RpcTarget.All);
         //view.RPC("spawnUpdate", RpcTarget.All);
+        spawnUpdate();
 
-        if(PhotonNetwork.IsMasterClient)
+        if (count < 1 && spawn == false)
         {
-            spawnUpdate();
-            dishSpawnUpdate();
-
-            if (count < 1 && spawn == false)
+            if (count < 1)
             {
-                if (count < 1)
-                {
-                    StartCoroutine(DishRespawn(dishrespawnSec));
-                    //view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
-                    DishDespawn.canSpawn = false;
-                    count++;
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
+                dishSpawnUpdate();
+
+                StartCoroutine(DishRespawn(dishrespawnSec));
+                //view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
+                DishDespawn.canSpawn = false;
+                count++;
             }
-
-
+            if (count == 1)
+            {
+                spawn = false;
+            }
         }
-
     }
 
 
     #region
-    [PunRPC]
     public void spawnUpdate()
     {
         int layerMask = 1 << 3;
@@ -130,7 +123,6 @@ public class FoodSpawn : MonoBehaviour
 
     }
 
-    [PunRPC]
     public IEnumerator Spawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
@@ -164,7 +156,6 @@ public class FoodSpawn : MonoBehaviour
 
     //Dish
     #region
-    [PunRPC]
     public void dishSpawnUpdate()
     {
         int layerMask = 1 << 6;
@@ -177,22 +168,20 @@ public class FoodSpawn : MonoBehaviour
                 if (sl_P1PickUp.isPickedDish == true)
                 {
                     StartCoroutine(DishSpawn(dishrespawnSec));
-                    //view.RPC("DishSpawn", RpcTarget.All, dishrespawnSec);
                     sl_P1PickUp.isPickedDish = false;
                 }
                 if (sl_P2PickUp.isPickedDish == true)
                 {
                     StartCoroutine(DishSpawn(dishrespawnSec));
-                    //view.RPC("DishSpawn", RpcTarget.All, dishrespawnSec);
                     sl_P2PickUp.isPickedDish = false;
                 }
             }
         }
 
+        
 
     }
 
-    [PunRPC]
     public IEnumerator DishCountdown(int countdownTime)
     {
         yield return new WaitForSeconds(countdownTime);
@@ -201,7 +190,7 @@ public class FoodSpawn : MonoBehaviour
             StartCoroutine(dishCoro);
     }
 
-    [PunRPC]
+
     public IEnumerator DishSpawn(int dishsecs)
     {
         yield return new WaitForSeconds(dishsecs);

@@ -64,27 +64,36 @@ public class sl_P2PlayerHealth : MonoBehaviour
     }
 
 
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(p2currentHealth);
-            //stream.SendNext(transform.position);
-        }
-        else if (stream.IsReading)
-        {
-            p2currentHealth = (float)stream.ReceiveNext();
-            //transform.position = (Vector3)stream.ReceiveNext();
-        }
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        //stream.SendNext(p2currentHealth);
+    //        //stream.SendNext(transform.position);
+    //    }
+    //    else if (stream.IsReading)
+    //    {
+    //        //p2currentHealth = (float)stream.ReceiveNext();
+    //        //transform.position = (Vector3)stream.ReceiveNext();
+    //    }
 
-    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Bullet")
         {
-            view.RPC("BulletDamage2", RpcTarget.All);
+            //view.RPC("BulletDamage2", RpcTarget.All);
+            if (p2currentHealth > 0)
+            {
+                p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
 
+                if (p2currentHealth < 0)
+                {
+                    p2currentHealth = 0;
+                    Destroy(gameObject);
+                }
+            }
         }
     }
 
@@ -102,19 +111,19 @@ public class sl_P2PlayerHealth : MonoBehaviour
     //    p2currentHealth = maxHealth;
     //}
 
-    [PunRPC]
-    public void BulletDamage2()
-    {
-        if (p2currentHealth > 0)
-        {
-            p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+    //[PunRPC]
+    //public void BulletDamage2()
+    //{
+    //    if (p2currentHealth > 0)
+    //    {
+    //        p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
 
-            if (p2currentHealth < 0)
-            {
-                p2currentHealth = 0;
-                Destroy(gameObject);
-            }
-        }
-    }
+    //        if (p2currentHealth < 0)
+    //        {
+    //            p2currentHealth = 0;
+    //            Destroy(gameObject);
+    //        }
+    //    }
+    //}
 
 }

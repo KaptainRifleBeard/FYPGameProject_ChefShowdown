@@ -63,55 +63,64 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     }
 
 
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(currentHealth);
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        //stream.SendNext(currentHealth);
 
-        }
-        else if (stream.IsReading)
-        {
-            currentHealth = (float)stream.ReceiveNext();
-        }
+    //    }
+    //    else if (stream.IsReading)
+    //    {
+    //        //currentHealth = (float)stream.ReceiveNext();
+    //    }
 
-    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "P2Bullet")
         {
-            view.RPC("BulletDamage", RpcTarget.All);
-
-        }
-
-    }
-
-
-    IEnumerator Respawn()
-    {
-        sl_InventoryManager.ClearAllInList();
-        yield return new WaitForSeconds(1.0f);
-        gameObject.transform.position = spawnPostionA.transform.position;
-
-        currentHealth = 16;
-    }
-
-    [PunRPC]
-    public void BulletDamage()
-    {
-        if (currentHealth > 0)
-        {
-            currentHealth -= bulletScript.GetComponent<sl_p2BulletScript>().bulletDmg;
-
-            if (currentHealth < 0)
+            //view.RPC("BulletDamage", RpcTarget.All);
+            if (currentHealth > 0)
             {
-                currentHealth = 0;
-                Destroy(gameObject);
+                currentHealth -= bulletScript.GetComponent<sl_p2BulletScript>().bulletDmg;
+
+                if (currentHealth < 0)
+                {
+                    currentHealth = 0;
+                    Destroy(gameObject);
+                }
             }
         }
 
     }
+
+
+    //IEnumerator Respawn()
+    //{
+    //    sl_InventoryManager.ClearAllInList();
+    //    yield return new WaitForSeconds(1.0f);
+    //    gameObject.transform.position = spawnPostionA.transform.position;
+
+    //    currentHealth = 16;
+    //}
+
+    //[PunRPC]
+    //public void BulletDamage()
+    //{
+    //    if (currentHealth > 0)
+    //    {
+    //        currentHealth -= bulletScript.GetComponent<sl_p2BulletScript>().bulletDmg;
+
+    //        if (currentHealth < 0)
+    //        {
+    //            currentHealth = 0;
+    //            Destroy(gameObject);
+    //        }
+    //    }
+
+    //}
 
 
     //will fire when event is activated

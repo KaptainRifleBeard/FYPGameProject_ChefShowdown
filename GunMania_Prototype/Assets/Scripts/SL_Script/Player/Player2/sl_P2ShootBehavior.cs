@@ -23,6 +23,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     Vector3 directionShoot2;
     Vector3 targetPosition2;
 
+    //for check shoot once
     int count;
     bool spawn;
 
@@ -43,7 +44,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p2Shoot == false && p2bulletCount > 0  && !PhotonNetwork.IsMasterClient)
+            if (Input.GetMouseButtonDown(0) && p2Shoot == false && view.IsMine && p2bulletCount > 0)
             {
                 p2Shoot = true;  //stop movement when shoot
                 anim.SetBool("Aim2", true);
@@ -54,10 +55,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
                     spawn = true;
                     view.RPC("SpawnBullet2", RpcTarget.All);
 
-
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
                     count++;
-
 
                 }
                 if (count == 1)
@@ -69,25 +68,21 @@ public class sl_P2ShootBehavior : MonoBehaviour
             }
         }
 
-
-        if (view.IsMine && p2Shoot == true) //indicator follow mouse
+        if (Input.GetMouseButton(0) && view.IsMine && p2Shoot == true) //indicator follow mouse
         {
             targetObject.transform.position = hit.point;
         }
 
-        if (Input.GetMouseButtonDown(1) && p2bulletCount > 0 && p2Shoot == true && !PhotonNetwork.IsMasterClient)
+        if (Input.GetMouseButtonUp(0) && p2bulletCount > 0 && p2Shoot == true && !PhotonNetwork.IsMasterClient)
         {
-            view.RPC("ShootBullet2", RpcTarget.All);
-
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5)  //make sure bullet wont collide with player
+            {
+                ShootBullet2();
+            }
         }
 
     }
 
-    IEnumerator stopAnim()
-    {
-        yield return new WaitForSeconds(0.4f);
-        anim.SetBool("Throw2", false);
-    }
 
     [PunRPC]
     public void SpawnBullet2()
@@ -96,12 +91,10 @@ public class sl_P2ShootBehavior : MonoBehaviour
         bullet.transform.SetParent(shootPosition);
     }
 
-    [PunRPC]
     public void ShootBullet2()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        float shootForce = 50.0f;
 
         if (Physics.Raycast(ray, out hit))
         {
@@ -109,18 +102,14 @@ public class sl_P2ShootBehavior : MonoBehaviour
             anim.SetBool("Aim2", false);
             anim.SetBool("Throw2", true);
 
-
-            //Bullet
             targetPosition2 = hit.point;
             directionShoot2 = targetPosition2 - shootPosition.position;
 
-            bullet.transform.forward = directionShoot2.normalized;
-            bullet.GetComponent<Rigidbody>().AddForce(directionShoot2.normalized * shootForce, ForceMode.Impulse); //shootforce
+            view.RPC("BulletDirection2", RpcTarget.All, directionShoot2);
 
             bullet.transform.SetParent(null);
             p2bulletCount--;
 
-            //remove indicator 
             StartCoroutine(stopAnim());
             Destroy(targetObject);
 
@@ -133,11 +122,21 @@ public class sl_P2ShootBehavior : MonoBehaviour
             targetObject = targetIndicatorPrefab;
             count = 0;
             spawn = false;
-
             p2Shoot = false;
 
         }
     }
+
+    [PunRPC]
+    public void BulletDirection2(Vector3 dir)
+    {
+        float shootForce = 50.0f;
+
+        bullet.transform.forward = dir.normalized;
+        bullet.GetComponent<Rigidbody>().AddForce(dir.normalized * shootForce, ForceMode.Impulse); //shootforce
+
+    }
+
 
     private IEnumerator MoveToFront()
     {
@@ -150,5 +149,23 @@ public class sl_P2ShootBehavior : MonoBehaviour
         sl_p2InventoryManager.RefreshItem();
 
         count = 0;
+    }
+
+    IEnumerator stopAnim()
+    {
+        yield return new WaitForSeconds(0.4f);
+        anim.SetBool("Throw2", false);
+    }
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(directionShoot2);
+        }
+        else
+        {
+            directionShoot2 = (Vector3)stream.ReceiveNext();
+        }
     }
 }

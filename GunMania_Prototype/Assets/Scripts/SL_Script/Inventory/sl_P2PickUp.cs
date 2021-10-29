@@ -18,20 +18,18 @@ public class sl_P2PickUp : MonoBehaviour
         {
             if (sl_P2ShootBehavior.p2bulletCount < 2)
             {
-                if (gameObject.tag == "Dish")
-                {
-                    isPickedDish = true;
-                    AddNewItem();
-                    Destroy(gameObject);
-                }
-
-                if (gameObject.tag == "Food")
+                if (gameObject.layer == LayerMask.NameToLayer("Food"))
                 {
                     isPicked = true;
                     AddNewItem();
                     Destroy(gameObject);
                 }
-
+                else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
+                {
+                    isPickedDish = true;
+                    AddNewItem();
+                    Destroy(gameObject);
+                }
 
                 sl_P2ShootBehavior.p2bulletCount += 1;
             }
@@ -65,44 +63,44 @@ public class sl_P2PickUp : MonoBehaviour
     }
 
 
-    private IEnumerator MoveToFront()
-    {
-        yield return new WaitForSeconds(0.1f);
-        playerInventory.itemList[0] = playerInventory.itemList[1];
-        sl_p2InventoryManager.RefreshItem();
+    //private IEnumerator MoveToFront()
+    //{
+    //    yield return new WaitForSeconds(0.1f);
+    //    playerInventory.itemList[0] = playerInventory.itemList[1];
+    //    sl_p2InventoryManager.RefreshItem();
 
-        yield return new WaitForSeconds(0.1f);
-        playerInventory.itemList[1] = null;
-        sl_p2InventoryManager.RefreshItem();
+    //    yield return new WaitForSeconds(0.1f);
+    //    playerInventory.itemList[1] = null;
+    //    sl_p2InventoryManager.RefreshItem();
 
-        count = 0;
-    }
+    //    count = 0;
+    //}
 
 
-    void Update()
-    {
-        ////completely hard code
-        //if (sl_P2ShootBehavior.p2Shoot && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
-        //{
-        //    if (count < 1 && spawn == false)  //to spawn only one per time
-        //    {
-        //        if (count < 1)
-        //        {
-        //            spawn = true;
+    //void Update()
+    //{
+    //    ////completely hard code
+    //    //if (sl_P2ShootBehavior.p2Shoot && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
+    //    //{
+    //    //    if (count < 1 && spawn == false)  //to spawn only one per time
+    //    //    {
+    //    //        if (count < 1)
+    //    //        {
+    //    //            spawn = true;
 
-        //            playerInventory.itemList[0] = null;
-        //            sl_p2InventoryManager.RefreshItem();
-        //            StartCoroutine(MoveToFront());
+    //    //            playerInventory.itemList[0] = null;
+    //    //            sl_p2InventoryManager.RefreshItem();
+    //    //            StartCoroutine(MoveToFront());
 
-        //            count++;
+    //    //            count++;
 
-        //        }
-        //        if (count == 1)
-        //        {
-        //            spawn = false;
-        //        }
-        //    }
-        //}
+    //    //        }
+    //    //        if (count == 1)
+    //    //        {
+    //    //            spawn = false;
+    //    //        }
+    //    //    }
+    //    //}
 
-    }
+    //}
 }

@@ -14,7 +14,7 @@ public class sl_p2BulletScript : MonoBehaviour
 
     private void Update()
     {
-        Destroy(gameObject, 5f);
+        //Destroy(gameObject, 5f);
 
     }
 

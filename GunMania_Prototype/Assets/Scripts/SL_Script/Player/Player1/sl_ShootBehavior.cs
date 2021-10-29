@@ -45,8 +45,10 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p1Shoot == false && bulletCount > 0 && view.IsMine /*&& playerInventory.itemList[0] != null*/)
+            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine  && bulletCount > 0)
             {
+                Debug.Log("bulletspawn");
+
                 p1Shoot = true;  //stop movement when shoot
                 anim.SetBool("Aim", true);
 
@@ -54,9 +56,10 @@ public class sl_ShootBehavior : MonoBehaviour
                 if (count < 1 && spawn == false)
                 {
                     spawn = true;
-                    view.RPC("SpawnBullet", RpcTarget.All);
 
+                    view.RPC("SpawnBullet", RpcTarget.All);
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
+
                     count++;
 
                 }
@@ -69,15 +72,19 @@ public class sl_ShootBehavior : MonoBehaviour
             }
         }
 
-        if (view.IsMine && p1Shoot == true) //indicator follow mouse
+        if (Input.GetMouseButton(0) && view.IsMine && p1Shoot == true) //indicator follow mouse
         {
             targetObject.transform.position = hit.point;
         }
 
 
-        if (Input.GetMouseButtonDown(1) && bulletCount > 0 && p1Shoot == true && PhotonNetwork.IsMasterClient)
+        if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true && PhotonNetwork.IsMasterClient)
         {
-            view.RPC("ShootBullet", RpcTarget.All);
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5)  //make sure bullet wont collide with player
+            {
+                ShootBullet();
+            }
+
         }
 
     }
@@ -98,12 +105,10 @@ public class sl_ShootBehavior : MonoBehaviour
 
     }
 
-    [PunRPC]
     public void ShootBullet()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        float shootForce = 50.0f;
 
         if (Physics.Raycast(ray, out hit))
         {
@@ -113,8 +118,8 @@ public class sl_ShootBehavior : MonoBehaviour
             targetPosition = hit.point;
             directionShoot = targetPosition - shootPosition.position;
 
-            bullet.transform.forward = directionShoot.normalized;
-            bullet.GetComponent<Rigidbody>().AddForce(directionShoot.normalized * shootForce, ForceMode.Impulse); //shootforce
+            view.RPC("BulletDirection", RpcTarget.All, directionShoot);
+
 
             bullet.transform.SetParent(null);
             bulletCount--;
@@ -138,6 +143,16 @@ public class sl_ShootBehavior : MonoBehaviour
 
     }
 
+    [PunRPC]
+    public void BulletDirection(Vector3 dir)
+    {
+        float shootForce = 50.0f;
+
+        bullet.transform.forward = dir.normalized;
+        bullet.GetComponent<Rigidbody>().AddForce(dir.normalized * shootForce, ForceMode.Impulse); //shootforce
+
+    }
+
     private IEnumerator MoveToFront()
     {
         yield return new WaitForSeconds(0.1f);
@@ -149,6 +164,18 @@ public class sl_ShootBehavior : MonoBehaviour
         sl_InventoryManager.RefreshItem();
 
         count = 0;
+    }
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+        {
+            stream.SendNext(directionShoot);
+        }
+        else
+        {
+            directionShoot = (Vector3)stream.ReceiveNext();
+        }
     }
 
 }

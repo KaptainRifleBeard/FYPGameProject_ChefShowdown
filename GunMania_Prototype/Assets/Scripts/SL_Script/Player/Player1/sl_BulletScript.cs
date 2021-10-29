@@ -15,7 +15,7 @@ public class sl_BulletScript : MonoBehaviour
 
     private void Update()
     {
-        Destroy(gameObject, 5f);
+        //Destroy(gameObject, 5f);
 
     }
 
@@ -26,6 +26,7 @@ public class sl_BulletScript : MonoBehaviour
             gameObject.SetActive(false);  // note: cuz when collide with game object distance too close, it destroy immediately then my shoot behavior will have error
             Destroy(gameObject, 0.5f);
         }
+
     }
 
 }
