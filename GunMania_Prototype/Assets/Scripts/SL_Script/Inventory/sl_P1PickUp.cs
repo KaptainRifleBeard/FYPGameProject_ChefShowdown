@@ -38,7 +38,7 @@ public class sl_P1PickUp : MonoBehaviour
             sl_ShootBehavior.bulletCount += 1;
 
             AddNewItem();
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         else
         {
