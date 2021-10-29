@@ -104,7 +104,6 @@ public class FoodSpawn : MonoBehaviour
 
 
     #region
-    [PunRPC]
     public void spawnUpdate()
     {
         int layerMask = 1 << 3;
@@ -131,7 +130,6 @@ public class FoodSpawn : MonoBehaviour
 
     }
 
-    //[PunRPC]
     public IEnumerator Spawn(int secs, int index)
     {
         yield return new WaitForSeconds(secs);
@@ -165,7 +163,6 @@ public class FoodSpawn : MonoBehaviour
 
     //Dish
     #region
-    [PunRPC]
     public void dishSpawnUpdate()
     {
         int layerMask = 1 << 6;
@@ -192,7 +189,6 @@ public class FoodSpawn : MonoBehaviour
 
     }
 
-    [PunRPC]
     public IEnumerator DishCountdown(int countdownTime)
     {
         yield return new WaitForSeconds(countdownTime);

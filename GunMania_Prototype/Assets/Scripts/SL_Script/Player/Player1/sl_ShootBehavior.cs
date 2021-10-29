@@ -45,7 +45,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine  && bulletCount > 0 && playerInventory.itemList[0] != null)
+            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine  && bulletCount > 0)
             {
                 Debug.Log("bulletspawn");
 

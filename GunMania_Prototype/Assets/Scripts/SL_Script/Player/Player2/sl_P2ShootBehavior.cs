@@ -44,7 +44,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p2Shoot == false && p2bulletCount > 0  && !PhotonNetwork.IsMasterClient && playerInventory.itemList[0] != null)
+            if (Input.GetMouseButtonDown(0) && p2Shoot == false && view.IsMine && p2bulletCount > 0)
             {
                 p2Shoot = true;  //stop movement when shoot
                 anim.SetBool("Aim2", true);
