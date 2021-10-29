@@ -76,15 +76,16 @@ public class FoodSpawn : MonoBehaviour
         //view.RPC("dishSpawnUpdate", RpcTarget.All);
         //view.RPC("spawnUpdate", RpcTarget.All);
 
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             spawnUpdate();
-            dishSpawnUpdate();
 
             if (count < 1 && spawn == false)
             {
                 if (count < 1)
                 {
+                    dishSpawnUpdate();
+
                     StartCoroutine(DishRespawn(dishrespawnSec));
                     //view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
                     DishDespawn.canSpawn = false;
@@ -167,28 +168,27 @@ public class FoodSpawn : MonoBehaviour
     [PunRPC]
     public void dishSpawnUpdate()
     {
-        int layerMask = 1 << 6;
+        //int layerMask = 1 << 6;
 
-        for (int i = 0; i < dishSpawnPoint.Count; i++)
+        //for (int i = 0; i < dishSpawnPoint.Count; i++)
+        //{
+        //    Collider[] hitColliders = Physics.OverlapSphere(dishSpawnPoint[i].transform.position, 10, layerMask);
+        //    if (hitColliders.Length == 0)
+        //    {
+
+        //    }
+        //}
+
+        if (sl_P1PickUp.isPickedDish == true)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(dishSpawnPoint[i].transform.position, 10, layerMask);
-            if (hitColliders.Length == 0)
-            {
-                if (sl_P1PickUp.isPickedDish == true)
-                {
-                    StartCoroutine(DishSpawn(dishrespawnSec));
-                    //view.RPC("DishSpawn", RpcTarget.All, dishrespawnSec);
-                    sl_P1PickUp.isPickedDish = false;
-                }
-                if (sl_P2PickUp.isPickedDish == true)
-                {
-                    StartCoroutine(DishSpawn(dishrespawnSec));
-                    //view.RPC("DishSpawn", RpcTarget.All, dishrespawnSec);
-                    sl_P2PickUp.isPickedDish = false;
-                }
-            }
+            StartCoroutine(DishSpawn(dishrespawnSec));
+            sl_P1PickUp.isPickedDish = false;
         }
-
+        if (sl_P2PickUp.isPickedDish == true)
+        {
+            StartCoroutine(DishSpawn(dishrespawnSec));
+            sl_P2PickUp.isPickedDish = false;
+        }
 
     }
 

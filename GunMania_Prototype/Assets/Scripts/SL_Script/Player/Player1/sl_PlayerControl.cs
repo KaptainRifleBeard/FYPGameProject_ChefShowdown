@@ -48,7 +48,7 @@ public class sl_PlayerControl : MonoBehaviour /*, IPunObservable*/
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    targetDestionation.transform.position = hit.point;
+                    //targetDestionation.transform.position = hit.point;
                     myAgent.SetDestination(hit.point);
                     isrunning = true;
                 }
@@ -159,7 +159,7 @@ public class sl_PlayerControl : MonoBehaviour /*, IPunObservable*/
     //{
     //    if (stream.IsWriting)
     //    {
-    //        stream.SendNext(myAgent.transform.position);
+    //        stream.SendNext(myAgent.transform.position);s
     //        stream.SendNext(myAgent.transform.rotation);
     //        stream.SendNext(myAgent.velocity);
     //    }

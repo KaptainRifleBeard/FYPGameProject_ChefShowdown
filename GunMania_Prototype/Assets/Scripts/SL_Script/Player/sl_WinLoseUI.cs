@@ -31,34 +31,6 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         StartCoroutine(WaitStartGame());
         //PhotonNetwork.CurrentRoom.IsOpen = false;  //dont let other player join
 
-
-        //health
-        //if(sl_PlayerHealth.currentHealth == 0)
-        //{
-        //    if (PhotonNetwork.IsMasterClient)
-        //    {
-        //        StartCoroutine(DisplayMessage("Red Win"));
-        //        StartCoroutine(RestartGame());
-        //    }
-        //    else
-        //    {
-        //        StartCoroutine(DisplayMessage("Blue Lose"));
-        //    }
-        //}
-
-        //if (sl_P2PlayerHealth.p2currentHealth == 0)
-        //{
-        //    if (PhotonNetwork.IsMasterClient)
-        //    {
-        //        StartCoroutine(DisplayMessage("Red Win"));
-        //        StartCoroutine(RestartGame());
-        //    }
-        //    else
-        //    {
-        //        StartCoroutine(DisplayMessage("Blue Lose"));
-        //    }
-        //}
-
     }
 
     //IEnumerator RestartGame()

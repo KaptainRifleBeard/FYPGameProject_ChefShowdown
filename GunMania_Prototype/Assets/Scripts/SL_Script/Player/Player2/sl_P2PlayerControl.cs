@@ -109,7 +109,6 @@ public class sl_P2PlayerControl : MonoBehaviour/*, IPunObservable*/
         {
             anim.SetBool("isRunning2", false);
 
-            //anim.SetBool("Throw2", false);
             anim.SetBool("hold1food2", true);
             anim.SetBool("hold2food2", false);
         }
@@ -118,7 +117,6 @@ public class sl_P2PlayerControl : MonoBehaviour/*, IPunObservable*/
         {
             anim.SetBool("isRunning2", false);
 
-            //anim.SetBool("Throw", false);
             anim.SetBool("hold1food2", false);
             anim.SetBool("hold2food2", true);
         }
@@ -126,7 +124,6 @@ public class sl_P2PlayerControl : MonoBehaviour/*, IPunObservable*/
         {
             anim.SetBool("isRunning2", true);
 
-            //anim.SetBool("Throw", false);
             anim.SetBool("hold1food2", false);
             anim.SetBool("hold2food2", false);
         }
@@ -136,7 +133,6 @@ public class sl_P2PlayerControl : MonoBehaviour/*, IPunObservable*/
             anim.SetBool("stop2", true);
 
             anim.SetBool("isRunning2", false);
-            //anim.SetBool("Throw", false);
             anim.SetBool("hold1food2", false);
             anim.SetBool("hold2food2", false);
         }
