@@ -35,10 +35,9 @@ public class sl_newP2Movement : MonoBehaviour
 
             if (Input.GetMouseButton(1))
             {
-
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (Vector3.Distance(transform.position, hit.point) > 10.0)
+                    if (Vector3.Distance(transform.position, hit.point) > 1.0)
                     {
                         myAgent.SetDestination(hit.point);
                     }
@@ -46,7 +45,12 @@ public class sl_newP2Movement : MonoBehaviour
                 }
 
             }
-            
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                myAgent.isStopped = true;
+                myAgent.ResetPath();
+            }
         }
         else
         {
