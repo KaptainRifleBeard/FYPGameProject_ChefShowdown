@@ -1196,6 +1196,7 @@ GameObject:
   - component: {fileID: 8205793790207556308}
   - component: {fileID: 3482780963516650778}
   - component: {fileID: -5551149618865990075}
+  - component: {fileID: 2108462136}
   m_Layer: 8
   m_Name: 2. Officer Wen
   m_TagString: Player2
@@ -1253,7 +1254,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2.23
-  m_Speed: 50
+  m_Speed: 30
   m_Acceleration: 400
   avoidancePriority: 50
   m_AngularSpeed: 2000
@@ -1285,7 +1286,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2784047750339751703}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b681810b3b8ae3c4d9fdebbc41c5f62b, type: 3}
   m_Name: 
@@ -1429,6 +1430,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2108462136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784047750339751703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baac57305fa72dc4fb4f89167f2221d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryVisible: {fileID: 4436006717032676059}
+  anim: {fileID: 7222043873364474075}
 --- !u!1 &2977256129520849530
 GameObject:
   m_ObjectHideFlags: 0

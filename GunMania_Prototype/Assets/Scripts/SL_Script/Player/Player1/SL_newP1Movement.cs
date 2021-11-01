@@ -1,79 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AI;
 using Photon.Pun;
 
-public class sl_PlayerControl : MonoBehaviour /*, IPunObservable*/
+
+public class SL_newP1Movement : MonoBehaviour
 {
-    //NavMesh AI movement for click to move
     private NavMeshAgent myAgent;
     PhotonView view;
 
-    //NEW MOVEMENT VARIABLE
-    public GameObject targetDestionation;
     public GameObject inventoryVisible;
 
     public Animator anim;
     bool isrunning;
     bool stopping;
-    Vector3 wantedPosition;
-
-    private void Awake()
-    {
-        myAgent = GetComponent<NavMeshAgent>();
-    }
-
 
     void Start()
     {
-        sl_InventoryManager.ClearAllInList();
+        myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
 
     }
 
-    public void Update()
+
+    void Update()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+
         if (view.IsMine)  //Photon - check is my character
         {
             inventoryVisible.SetActive(true);
 
-            if (Input.GetMouseButton(1) && sl_ShootBehavior.p1Shoot == false)
+            if (Input.GetMouseButton(1))
             {
-                //NEW MOVEMENT - current using
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (Vector3.Distance(transform.position, hit.point) > 10.0)
                     {
-                        transform.LookAt(wantedPosition);
                         myAgent.SetDestination(hit.point);
-                        isrunning = true;
                     }
 
                 }
 
-                //Rotate player
-                Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-                float rayLength;
-
-                if (groundPlane.Raycast(ray, out rayLength))
-                {
-                    Vector3 pointToLook = ray.GetPoint(rayLength);
-                    transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-                }
-
             }
-
-            if (sl_ShootBehavior.p1Shoot == true)
-            {
-                myAgent.isStopped = true;
-                myAgent.ResetPath();
-            }
-
 
         }
         else
@@ -81,7 +54,22 @@ public class sl_PlayerControl : MonoBehaviour /*, IPunObservable*/
             inventoryVisible.SetActive(false);
         }
 
+        //Rotate player
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        float rayLength;
 
+        if (groundPlane.Raycast(ray, out rayLength))
+        {
+            Vector3 pointToLook = ray.GetPoint(rayLength);
+            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+        }
+
+
+        if (sl_ShootBehavior.p1Shoot == true)
+        {
+            myAgent.isStopped = true;
+            myAgent.ResetPath();
+        }
 
 
 
@@ -115,7 +103,7 @@ public class sl_PlayerControl : MonoBehaviour /*, IPunObservable*/
 
         if (sl_ShootBehavior.bulletCount == 1 && !stopping && PhotonNetwork.IsMasterClient)
         {
-            anim.SetBool("isRunning", false);
+            anim.SetBool("isRunning2", false);
 
             //anim.SetBool("Throw", false);
             anim.SetBool("hold1food", true);
@@ -155,29 +143,7 @@ public class sl_PlayerControl : MonoBehaviour /*, IPunObservable*/
         }
 
 
+
+
     }
-
-
-    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        stream.SendNext(myAgent.transform.position);s
-    //        stream.SendNext(myAgent.transform.rotation);
-    //        stream.SendNext(myAgent.velocity);
-    //    }
-    //    else if (stream.IsReading)
-    //    {
-    //        myAgent.transform.position = (Vector3)stream.ReceiveNext();
-    //        myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
-    //        myAgent.velocity = (Vector3)stream.ReceiveNext();
-
-
-    //        float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTimestamp));
-    //        myAgent.transform.position += myAgent.velocity * lag;
-
-    //    }
-
-    //}
-
 }

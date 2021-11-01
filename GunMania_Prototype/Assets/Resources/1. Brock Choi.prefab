@@ -531,6 +531,7 @@ GameObject:
   - component: {fileID: 5624650586405937922}
   - component: {fileID: 5338639537570874413}
   - component: {fileID: 1587382200492569168}
+  - component: {fileID: 1391944513407612128}
   m_Layer: 7
   m_Name: 1. Brock Choi
   m_TagString: Player
@@ -582,7 +583,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2.23
-  m_Speed: 50
+  m_Speed: 30
   m_Acceleration: 400
   avoidancePriority: 50
   m_AngularSpeed: 2000
@@ -601,7 +602,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4814255890589163094}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ed14cc9affd89e49a0a4fcaab8ed6c0, type: 3}
   m_Name: 
@@ -764,6 +765,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1391944513407612128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4814255890589163094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e49c6d6ca42ba4c8a885f2678b2d9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryVisible: {fileID: 5289821261185864560}
+  anim: {fileID: 5624650586405937979}
 --- !u!1 &5009133265818578840
 GameObject:
   m_ObjectHideFlags: 0
