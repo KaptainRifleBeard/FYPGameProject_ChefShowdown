@@ -15,6 +15,12 @@ public class sl_newP2Movement : MonoBehaviour
     bool isrunning;
     bool stopping;
 
+    //Control model
+    public GameObject[] BrockChoi;
+    public GameObject[] OfficerWen;
+
+    public static int changep2Icon = 0;
+
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -40,6 +46,8 @@ public class sl_newP2Movement : MonoBehaviour
                     if (Vector3.Distance(transform.position, hit.point) > 1.0)
                     {
                         myAgent.SetDestination(hit.point);
+                        isrunning = true;
+
                     }
 
                 }
@@ -57,15 +65,20 @@ public class sl_newP2Movement : MonoBehaviour
             inventoryVisible.SetActive(false);
         }
 
-        //Rotate player
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-
-        if (groundPlane.Raycast(ray, out rayLength))
+        if (gameObject.tag == "Player2")
         {
-            Vector3 pointToLook = ray.GetPoint(rayLength);
-            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            //Rotate player
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayLength;
+
+            if (groundPlane.Raycast(ray, out rayLength))
+            {
+                Vector3 pointToLook = ray.GetPoint(rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            }
+
         }
+
 
 
         if (sl_P2ShootBehavior.p2Shoot == true)
@@ -73,8 +86,6 @@ public class sl_newP2Movement : MonoBehaviour
             myAgent.isStopped = true;
             myAgent.ResetPath();
         }
-
-
 
 
         //ANIMATION
@@ -93,60 +104,133 @@ public class sl_newP2Movement : MonoBehaviour
         }
 
 
-        if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !PhotonNetwork.IsMasterClient)
+        //Animation
+        #region
+        //if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !PhotonNetwork.IsMasterClient)
+        //{
+
+        //    anim.SetBool("isRunning", true);
+        //}
+        //else
+        //{
+        //    anim.SetBool("isRunning", false);
+        //}
+
+        //if (sl_P2ShootBehavior.p2bulletCount == 1 && !stopping && !PhotonNetwork.IsMasterClient)
+        //{
+        //    anim.SetBool("isRunning", false);
+
+        //    //anim.SetBool("Throw", false);
+        //    anim.SetBool("hold1food", true);
+        //    anim.SetBool("hold2food", false);
+        //}
+
+        //if (sl_P2ShootBehavior.p2bulletCount == 2 && !stopping && !PhotonNetwork.IsMasterClient)
+        //{
+        //    anim.SetBool("isRunning", false);
+
+        //    //anim.SetBool("Throw", false);
+        //    anim.SetBool("hold1food", false);
+        //    anim.SetBool("hold2food", true);
+        //}
+        //else if (sl_P2ShootBehavior.p2bulletCount == 0 && !stopping && !PhotonNetwork.IsMasterClient)
+        //{
+        //    anim.SetBool("isRunning", true);
+
+        //    //anim.SetBool("Throw", false);
+        //    anim.SetBool("hold1food", false);
+        //    anim.SetBool("hold2food", false);
+        //}
+
+        //if (stopping)
+        //{
+        //    anim.SetBool("stop", true);
+
+        //    anim.SetBool("isRunning", false);
+        //    //anim.SetBool("Throw", false);
+        //    anim.SetBool("hold1food", false);
+        //    anim.SetBool("hold2food", false);
+        //}
+        //else
+        //{
+        //    anim.SetBool("stop", false);
+
+        //}
+        #endregion
+
+        
+        if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player2")
         {
+            foreach (GameObject go in BrockChoi)
+            {
+                if (go.activeSelf)
+                {
+                    view.RPC("Wen2", RpcTarget.All);
+                    anim.runtimeAnimatorController = Resources.Load("Animations/OfficerWen") as RuntimeAnimatorController;
+                }
+                else
+                {
+                    view.RPC("Brock2", RpcTarget.All);
+                    anim.runtimeAnimatorController = Resources.Load("Animations/BrockChoi") as RuntimeAnimatorController;
 
-            anim.SetBool("isRunning2", true);
+                }
+            }
+
         }
-        else
+
+
+    }
+
+    [PunRPC]
+    public void Wen2()
+    {
+        changep2Icon = 0;
+        for (int i = 0; i < OfficerWen.Length; i++)
         {
-            anim.SetBool("isRunning2", false);
+            OfficerWen[i].SetActive(true);
+
         }
 
 
-        if (sl_P2ShootBehavior.p2bulletCount == 1 && !stopping && !PhotonNetwork.IsMasterClient)
+        for (int j = 0; j < BrockChoi.Length; j++)
         {
-            anim.SetBool("isRunning2", false);
+            BrockChoi[j].SetActive(false);
 
-            //anim.SetBool("Throw", false);
-            anim.SetBool("hold1food2", true);
-            anim.SetBool("hold2food2", false);
         }
+    }
 
-        if (sl_P2ShootBehavior.p2bulletCount == 2 && !stopping && !PhotonNetwork.IsMasterClient)
+    [PunRPC]
+    public void Brock2()
+    {
+        changep2Icon = 1;
+
+        for (int i = 0; i < OfficerWen.Length; i++)
         {
-            anim.SetBool("isRunning2", false);
+            OfficerWen[i].SetActive(false);
 
-            //anim.SetBool("Throw", false);
-            anim.SetBool("hold1food2", false);
-            anim.SetBool("hold2food2", true);
         }
-        else if (sl_P2ShootBehavior.p2bulletCount == 0 && !stopping && !PhotonNetwork.IsMasterClient)
+
+
+        for (int j = 0; j < BrockChoi.Length; j++)
         {
-            anim.SetBool("isRunning2", true);
+            BrockChoi[j].SetActive(true);
 
-            //anim.SetBool("Throw", false);
-            anim.SetBool("hold1food2", false);
-            anim.SetBool("hold2food2", false);
         }
 
-        if (stopping)
+    }
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
         {
-            anim.SetBool("stop2", true);
-
-            anim.SetBool("isRunning2", false);
-            //anim.SetBool("Throw", false);
-            anim.SetBool("hold1food2", false);
-            anim.SetBool("hold2food2", false);
+            stream.SendNext(myAgent.transform.position);
+            stream.SendNext(myAgent.transform.rotation);
         }
-        else
+        else if (stream.IsReading)
         {
-            anim.SetBool("stop2", false);
+            myAgent.transform.position = (Vector3)stream.ReceiveNext();
+            myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
 
         }
-
-
-
-
     }
 }

@@ -47,8 +47,6 @@ public class sl_ShootBehavior : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine  && bulletCount > 0)
             {
-                Debug.Log("bulletspawn");
-
                 p1Shoot = true;  //stop movement when shoot
                 anim.SetBool("Aim", true);
 
@@ -78,15 +76,16 @@ public class sl_ShootBehavior : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true && PhotonNetwork.IsMasterClient)
+        if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true)
         {
-            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5)  //make sure bullet wont collide with player
+            //bullet.transform.SetParent(null);
+
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && gameObject.tag == "Player")  //make sure bullet wont collide with player
             {
                 ShootBullet();
             }
 
         }
-
     }
 
     IEnumerator stopAnim()
@@ -101,7 +100,7 @@ public class sl_ShootBehavior : MonoBehaviour
     public void SpawnBullet()
     {
         bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-        bullet.transform.SetParent(shootPosition);
+        //bullet.transform.SetParent(shootPosition);
 
     }
 
@@ -120,8 +119,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
             view.RPC("BulletDirection", RpcTarget.All, directionShoot);
 
-
-            bullet.transform.SetParent(null);
+            //bullet.transform.SetParent(null);
             bulletCount--;
 
             StartCoroutine(stopAnim());

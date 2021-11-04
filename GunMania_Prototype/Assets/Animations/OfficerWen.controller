@@ -9,13 +9,13 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isRunning2
+    m_ConditionEvent: isRunning
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: hold1food2
+    m_ConditionEvent: hold1food
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: hold2food2
+    m_ConditionEvent: hold2food
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3383898197548092356}
@@ -96,7 +96,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: stop2
+    m_ConditionEvent: stop
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3383898197548092356}
@@ -121,7 +121,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: hold2food2
+    m_ConditionEvent: hold2food
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2534677153674938768}
@@ -199,10 +199,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Aim2
+    m_ConditionEvent: Aim
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: stop2
+    m_ConditionEvent: stop
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8285470732624816403}
@@ -227,13 +227,13 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: hold1food2
+    m_ConditionEvent: hold1food
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: hold2food2
+    m_ConditionEvent: hold2food
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: isRunning2
+    m_ConditionEvent: isRunning
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4969486122654460150}
@@ -368,7 +368,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Throw2
+    m_ConditionEvent: Throw
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4782205856105192086}
@@ -393,7 +393,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Aim2
+    m_ConditionEvent: Aim
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8285470732624816403}
@@ -449,42 +449,42 @@ AnimatorController:
   m_Name: OfficerWen
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: stop2
+  - m_Name: stop
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isRunning2
+    m_Controller: {fileID: 0}
+  - m_Name: isRunning
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: hold1food2
+    m_Controller: {fileID: 0}
+  - m_Name: hold1food
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: hold2food2
+    m_Controller: {fileID: 0}
+  - m_Name: hold2food
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Aim2
+    m_Controller: {fileID: 0}
+  - m_Name: Aim
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Throw2
+    m_Controller: {fileID: 0}
+  - m_Name: Throw
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -507,10 +507,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: hold1food2
+    m_ConditionEvent: hold1food
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: isRunning2
+    m_ConditionEvent: isRunning
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3744987943448570536}
@@ -535,7 +535,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isRunning2
+    m_ConditionEvent: isRunning
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4969486122654460150}
@@ -615,7 +615,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Aim2
+    m_ConditionEvent: Aim
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8285470732624816403}
@@ -668,10 +668,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: stop2
+    m_ConditionEvent: stop
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Throw2
+    m_ConditionEvent: Throw
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3383898197548092356}
@@ -929,7 +929,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: stop2
+    m_ConditionEvent: stop
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3383898197548092356}
@@ -1039,10 +1039,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: hold1food2
+    m_ConditionEvent: hold1food
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: stop2
+    m_ConditionEvent: stop
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3744987943448570536}
@@ -1067,13 +1067,13 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Throw2
+    m_ConditionEvent: Throw
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: hold1food2
+    m_ConditionEvent: hold1food
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: hold2food2
+    m_ConditionEvent: hold2food
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4969486122654460150}
@@ -1154,10 +1154,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Throw2
+    m_ConditionEvent: Throw
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: hold2food2
+    m_ConditionEvent: hold2food
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3744987943448570536}
@@ -1241,10 +1241,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: stop2
+    m_ConditionEvent: stop
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: hold2food2
+    m_ConditionEvent: hold2food
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2534677153674938768}
@@ -1269,10 +1269,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: hold1food2
+    m_ConditionEvent: hold1food
     m_EventTreshold: 1
   - m_ConditionMode: 2
-    m_ConditionEvent: hold2food2
+    m_ConditionEvent: hold2food
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3744987943448570536}
