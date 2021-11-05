@@ -47,7 +47,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && p2Shoot == false && view.IsMine && p2bulletCount > 0)
             {
                 p2Shoot = true;  //stop movement when shoot
-                anim.SetBool("Aim2", true);
+                anim.SetBool("Aim", true);
 
                 //make sure only spawn 1
                 if (count < 1 && spawn == false)
@@ -73,14 +73,15 @@ public class sl_P2ShootBehavior : MonoBehaviour
             targetObject.transform.position = hit.point;
         }
 
-        if (Input.GetMouseButtonUp(0) && p2bulletCount > 0 && p2Shoot == true && !PhotonNetwork.IsMasterClient)
+        if (Input.GetMouseButtonUp(0) && p2bulletCount > 0 && p2Shoot == true)
         {
-            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5)  //make sure bullet wont collide with player
+            //bullet.transform.SetParent(null);
+
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && gameObject.tag == "Player2")  //make sure bullet wont collide with player
             {
                 ShootBullet2();
             }
         }
-
     }
 
 
@@ -88,7 +89,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     public void SpawnBullet2()
     {
         bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-        bullet.transform.SetParent(shootPosition);
+        //bullet.transform.SetParent(shootPosition);
     }
 
     public void ShootBullet2()
@@ -99,15 +100,14 @@ public class sl_P2ShootBehavior : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             //Animation
-            anim.SetBool("Aim2", false);
-            anim.SetBool("Throw2", true);
+            anim.SetBool("Aim", false);
+            anim.SetBool("Throw", true);
 
             targetPosition2 = hit.point;
             directionShoot2 = targetPosition2 - shootPosition.position;
 
             view.RPC("BulletDirection2", RpcTarget.All, directionShoot2);
 
-            bullet.transform.SetParent(null);
             p2bulletCount--;
 
             StartCoroutine(stopAnim());
@@ -154,7 +154,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     IEnumerator stopAnim()
     {
         yield return new WaitForSeconds(0.4f);
-        anim.SetBool("Throw2", false);
+        anim.SetBool("Throw", false);
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

@@ -26,6 +26,8 @@ public class sl_P1PickUp : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player") && sl_ShootBehavior.bulletCount < 2)
         {
+            gameObject.SetActive(false);
+
             if (gameObject.layer == LayerMask.NameToLayer("Food"))
             {
                 isPicked = true;
@@ -42,6 +44,8 @@ public class sl_P1PickUp : MonoBehaviour
         }
         else
         {
+            gameObject.SetActive(false);
+
             if (gameObject.layer == LayerMask.NameToLayer("Food"))
             {
                 isPicked = false;

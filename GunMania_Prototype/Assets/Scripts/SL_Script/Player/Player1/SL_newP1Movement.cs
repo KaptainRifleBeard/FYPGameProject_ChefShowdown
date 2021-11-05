@@ -16,11 +16,17 @@ public class SL_newP1Movement : MonoBehaviour
     bool isrunning;
     bool stopping;
 
+    //Control model
+    public GameObject[] BrockChoi;
+    public GameObject[] OfficerWen;
+
+    public static int changep1Icon = 0;
+
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
-
+        anim = gameObject.GetComponent<Animator>();
     }
 
 
@@ -34,13 +40,14 @@ public class SL_newP1Movement : MonoBehaviour
         {
             inventoryVisible.SetActive(true);
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1) && sl_ShootBehavior.p1Shoot == false)
             {
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (Vector3.Distance(transform.position, hit.point) > 1.0)
                     {
                         myAgent.SetDestination(hit.point);
+                        isrunning = true;
                     }
 
                 }
@@ -58,14 +65,18 @@ public class SL_newP1Movement : MonoBehaviour
             inventoryVisible.SetActive(false);
         }
 
-        //Rotate player
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-
-        if (groundPlane.Raycast(ray, out rayLength))
+        if(gameObject.tag == "Player")
         {
-            Vector3 pointToLook = ray.GetPoint(rayLength);
-            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            //Rotate player
+            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+            float rayLength;
+
+            if (groundPlane.Raycast(ray, out rayLength))
+            {
+                Vector3 pointToLook = ray.GetPoint(rayLength);
+                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+            }
+
         }
 
 
@@ -74,7 +85,6 @@ public class SL_newP1Movement : MonoBehaviour
             myAgent.isStopped = true;
             myAgent.ResetPath();
         }
-
 
 
 
@@ -93,7 +103,8 @@ public class SL_newP1Movement : MonoBehaviour
             }
         }
 
-
+        //Animation
+        #region
         if (isrunning && sl_ShootBehavior.p1Shoot == false && PhotonNetwork.IsMasterClient)
         {
 
@@ -107,7 +118,7 @@ public class SL_newP1Movement : MonoBehaviour
 
         if (sl_ShootBehavior.bulletCount == 1 && !stopping && PhotonNetwork.IsMasterClient)
         {
-            anim.SetBool("isRunning2", false);
+            anim.SetBool("isRunning", false);
 
             //anim.SetBool("Throw", false);
             anim.SetBool("hold1food", true);
@@ -145,9 +156,80 @@ public class SL_newP1Movement : MonoBehaviour
             anim.SetBool("stop", false);
 
         }
+        #endregion
+
+        if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player")
+        {
+            foreach (GameObject go in BrockChoi)
+            {
+                if (go.activeSelf)
+                {
+                    view.RPC("Wen", RpcTarget.All);
+                    anim.runtimeAnimatorController = Resources.Load("Assets/Animations/OfficerWen") as RuntimeAnimatorController;
+                }
+                else
+                {
+                    view.RPC("Brock", RpcTarget.All);
+                    anim.runtimeAnimatorController = Resources.Load("Assets/Animations/BrockChoi") as RuntimeAnimatorController;
+                }
+            }
+
+        }
+
+    }
+
+    [PunRPC]
+    public void Wen()
+    {
+        changep1Icon = 1;
+
+        for (int i = 0; i < OfficerWen.Length; i++)
+        {
+            OfficerWen[i].SetActive(true);
+
+        }
 
 
+        for (int j = 0; j < BrockChoi.Length; j++)
+        {
+            BrockChoi[j].SetActive(false);
+
+        }
+    }
+
+    [PunRPC]
+    public void Brock()
+    {
+        changep1Icon = 0;
+
+        for (int i = 0; i < OfficerWen.Length; i++)
+        {
+            OfficerWen[i].SetActive(false);
+
+        }
 
 
+        for (int j = 0; j < BrockChoi.Length; j++)
+        {
+            BrockChoi[j].SetActive(true);
+
+        }
+
+    }
+
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(myAgent.transform.position);
+            stream.SendNext(myAgent.transform.rotation);
+        }
+        else if (stream.IsReading)
+        {
+            myAgent.transform.position = (Vector3)stream.ReceiveNext();
+            myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
+
+        }
     }
 }
