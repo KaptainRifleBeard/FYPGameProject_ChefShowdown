@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class sl_P2PickUp : MonoBehaviour
 {
@@ -9,9 +10,16 @@ public class sl_P2PickUp : MonoBehaviour
 
     public static bool isPicked = false;
     public static bool isPickedDish = false;
-    int count;
-    bool spawn;
-    private bool hasCoroutineStarted2 = false;
+
+    PhotonView view;
+
+    void Start()
+    {
+        view = GetComponent<PhotonView>();
+        isPicked = false;
+        isPickedDish = false;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,8 +27,7 @@ public class sl_P2PickUp : MonoBehaviour
         {
             if (sl_P2ShootBehavior.p2bulletCount < 2)
             {
-                gameObject.SetActive(false);
-                Invoke("StartCountdown", 6);  //wait for 6 sec
+                view.RPC("AddFood2", RpcTarget.All);
                 sl_P2ShootBehavior.p2bulletCount += 1;
 
                 if (gameObject.layer == LayerMask.NameToLayer("Food"))
@@ -34,6 +41,9 @@ public class sl_P2PickUp : MonoBehaviour
                 {
                     isPickedDish = true;
                     AddNewItem();
+
+                    view.RPC("DestroyDish2", RpcTarget.All);
+
                 }
             }
         }
@@ -65,14 +75,29 @@ public class sl_P2PickUp : MonoBehaviour
         sl_p2InventoryManager.RefreshItem();
     }
 
+    [PunRPC]
     public void StartCountdown()
     {
-        //StartCoroutine(waitToSpawn());
-
         gameObject.SetActive(true);
-
         isPickedDish = false;
         isPicked = true;
+    }
+
+
+    [PunRPC]
+    public void AddFood2()
+    {
+        gameObject.SetActive(false);
+
+        Invoke("StartCountdown", 6);  //wait for 6 sec
+
+    }
+
+
+    [PunRPC]
+    public void DestroyDish2()
+    {
+        Destroy(gameObject);
     }
 
     //private IEnumerator MoveToFront()

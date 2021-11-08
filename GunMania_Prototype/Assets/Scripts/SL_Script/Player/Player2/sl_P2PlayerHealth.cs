@@ -87,8 +87,9 @@ public class sl_P2PlayerHealth : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet")
         {
-            //view.RPC("BulletDamage2", RpcTarget.All);
-            p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+            Debug.Log("collide");
+            view.RPC("BulletDamage2", RpcTarget.All);
+            //p2currentHealth -= 1;
 
         }
     }
@@ -107,19 +108,20 @@ public class sl_P2PlayerHealth : MonoBehaviour
     //    p2currentHealth = maxHealth;
     //}
 
-    //[PunRPC]
-    //public void BulletDamage2()
-    //{
-    //    if (p2currentHealth > 0)
-    //    {
-    //        p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+    [PunRPC]
+    public void BulletDamage2()
+    {
+        p2currentHealth -= 0.5f;
 
-    //        if (p2currentHealth < 0)
-    //        {
-    //            p2currentHealth = 0;
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //}
+        //if (p2currentHealth > 0)
+        //{
+
+        //    if (p2currentHealth < 0)
+        //    {
+        //        p2currentHealth = 0;
+        //        Destroy(gameObject);
+        //    }
+        //}
+    }
 
 }

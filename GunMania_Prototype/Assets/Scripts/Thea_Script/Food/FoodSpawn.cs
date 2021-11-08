@@ -59,121 +59,132 @@ public class FoodSpawn : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
 
-        index[0] = Random.Range(0, JPfoodPrefabs.Count);
+        //index[0] = Random.Range(0, JPfoodPrefabs.Count);
 
-        JPfoodPrefabs[index[0]].SetActive(true);
+        //JPfoodPrefabs[index[0]].SetActive(true);
 
-        index[1] = Random.Range(0, KRfoodPrefabs.Count);
+        //index[1] = Random.Range(0, KRfoodPrefabs.Count);
 
-        KRfoodPrefabs[index[1]].SetActive(true);
+        //KRfoodPrefabs[index[1]].SetActive(true);
 
-        index[2] = Random.Range(0, CNfoodPrefabs.Count);
+        //index[2] = Random.Range(0, CNfoodPrefabs.Count);
 
-        CNfoodPrefabs[index[2]].SetActive(true);
+        //CNfoodPrefabs[index[2]].SetActive(true);
 
-        index[3] = Random.Range(0, TWfoodPrefabs.Count);
+        //index[3] = Random.Range(0, TWfoodPrefabs.Count);
 
-        TWfoodPrefabs[index[3]].SetActive(true);
+        //TWfoodPrefabs[index[3]].SetActive(true);
 
     }
-    // Update is called once per frame
+
     void Update()
     {
         //view.RPC("dishSpawnUpdate", RpcTarget.All);
         //view.RPC("spawnUpdate", RpcTarget.All);
+        //spawnUpdate();
 
-        if (PhotonNetwork.IsMasterClient)
+        if (count < 1 && spawn == false)
         {
-            spawnUpdate();
-
-            if (count < 1 && spawn == false)
+            if (count < 1)
             {
-                if (count < 1)
-                {
-                    dishSpawnUpdate();
+                dishSpawnUpdate();
 
-                    StartCoroutine(DishRespawn(dishrespawnSec));
-                    //view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
-                    DishDespawn.canSpawn = false;
-                    count++;
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
+                StartCoroutine(DishRespawn(dishrespawnSec));
+                //view.RPC("DishRespawn", RpcTarget.All, dishrespawnSec);
+                DishDespawn.canSpawn = false;
+                count++;
             }
-
-
+            if (count == 1)
+            {
+                spawn = false;
+            }
         }
 
     }
 
 
     #region
-    public void spawnUpdate()
-    {
-        if (sl_P1PickUp.isPicked == true)
-        {
-            if(Respawn.index == 0)
-            {
-                JPfoodPrefabs[index[0]].SetActive(false);
-            }
-            else if(Respawn.index == 1)
-            {
-                KRfoodPrefabs[index[1]].SetActive(false);
-            }
-            else if(Respawn.index == 2)
-            {
-                CNfoodPrefabs[index[2]].SetActive(false);
-            }
-            else if(Respawn.index == 3)
-            {
-                TWfoodPrefabs[index[3]].SetActive(false);
-            }
-            StartCoroutine(Spawn(sec, Respawn.index));
-            //view.RPC("Spawn", RpcTarget.All, sec, i);
-            sl_P1PickUp.isPicked = false;
-        }
-        if (sl_P2PickUp.isPicked == true)
-        {
-            StartCoroutine(Spawn(sec, Respawn.index));
-            //view.RPC("Spawn", RpcTarget.All, sec, i);
-            sl_P2PickUp.isPicked = false;
-        }
+    //public void spawnUpdate()
+    //{
+    //    if (sl_P1PickUp.isPicked == true)
+    //    {
+    //        if(Respawn.index == 0)
+    //        {
+    //            JPfoodPrefabs[index[0]].SetActive(false);
+    //        }
+    //        else if(Respawn.index == 1)
+    //        {
+    //            KRfoodPrefabs[index[1]].SetActive(false);
+    //        }
+    //        else if(Respawn.index == 2)
+    //        {
+    //            CNfoodPrefabs[index[2]].SetActive(false);
+    //        }
+    //        else if(Respawn.index == 3)
+    //        {
+    //            TWfoodPrefabs[index[3]].SetActive(false);
+    //        }
+    //        StartCoroutine(Spawn(sec, Respawn.index));
+    //        //view.RPC("Spawn", RpcTarget.All, sec, i);
+    //        sl_P1PickUp.isPicked = false;
+    //    }
+    //    if (sl_P2PickUp.isPicked == true)
+    //    {
+    //        if (Respawn.index == 0)
+    //        {
+    //            JPfoodPrefabs[index[0]].SetActive(false);
+    //        }
+    //        else if (Respawn.index == 1)
+    //        {
+    //            KRfoodPrefabs[index[1]].SetActive(false);
+    //        }
+    //        else if (Respawn.index == 2)
+    //        {
+    //            CNfoodPrefabs[index[2]].SetActive(false);
+    //        }
+    //        else if (Respawn.index == 3)
+    //        {
+    //            TWfoodPrefabs[index[3]].SetActive(false);
+    //        }
+
+    //        StartCoroutine(Spawn(sec, Respawn.index));
+    //        //view.RPC("Spawn", RpcTarget.All, sec, i);
+    //        sl_P2PickUp.isPicked = false;
+    //    }
             
 
-    }
+    //}
 
-    public IEnumerator Spawn(int secs, int i)
-    {
-        yield return new WaitForSeconds(secs);
+    //public IEnumerator Spawn(int secs, int i)
+    //{
+    //    yield return new WaitForSeconds(secs);
 
-            switch (i)
-            {
-                case 0:
-                    index[i] = Random.Range(0, JPfoodPrefabs.Count);
-                    JPfoodPrefabs[index[0]].SetActive(true);
-                    break;
-                case 1:
-                    index[i] = Random.Range(0, KRfoodPrefabs.Count);
-                    KRfoodPrefabs[index[1]].SetActive(true);
-                    break;
-                case 2:
-                    index[i] = Random.Range(0, CNfoodPrefabs.Count);
-                    CNfoodPrefabs[index[2]].SetActive(true);
-                    break;
-                case 3:
-                    index[i] = Random.Range(0, TWfoodPrefabs.Count);
-                    TWfoodPrefabs[index[3]].SetActive(true);
-                    break;
-                default:
-                    Debug.Log("unknown spawn point");
-                    break;
-            }
+    //        switch (i)
+    //        {
+    //            case 0:
+    //                index[i] = Random.Range(0, JPfoodPrefabs.Count);
+    //                JPfoodPrefabs[index[0]].SetActive(true);
+    //                break;
+    //            case 1:
+    //                index[i] = Random.Range(0, KRfoodPrefabs.Count);
+    //                KRfoodPrefabs[index[1]].SetActive(true);
+    //                break;
+    //            case 2:
+    //                index[i] = Random.Range(0, CNfoodPrefabs.Count);
+    //                CNfoodPrefabs[index[2]].SetActive(true);
+    //                break;
+    //            case 3:
+    //                index[i] = Random.Range(0, TWfoodPrefabs.Count);
+    //                TWfoodPrefabs[index[3]].SetActive(true);
+    //                break;
+    //            default:
+    //                Debug.Log("unknown spawn point");
+    //                break;
+    //        }
 
-            Debug.Log("spawn at " + index);
-        Debug.Log("dish spawn");
-    }
+    //        Debug.Log("spawn at " + index);
+    //    Debug.Log("dish spawn");
+    //}
 
     #endregion
 

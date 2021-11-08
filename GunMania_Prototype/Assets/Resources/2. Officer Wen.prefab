@@ -103,7 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 961634239149122614}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRArm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1208,7 +1208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1388021871476997607}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRLegAnkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1239,7 +1239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112835359223880509}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLLegPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1361,7 +1361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2389454918081519101}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRArmCollarbone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1680,7 +1680,7 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
@@ -1719,7 +1719,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: stop
+  - Type: 4
+    SynchronizeType: 2
+    Name: isRunning
+  - Type: 4
+    SynchronizeType: 2
+    Name: hold1food
+  - Type: 4
+    SynchronizeType: 2
+    Name: hold2food
+  - Type: 4
+    SynchronizeType: 2
+    Name: Aim
+  - Type: 4
+    SynchronizeType: 2
+    Name: Throw
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -1734,7 +1752,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -1774,7 +1792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5212032964786614407}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRLeg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1805,7 +1823,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7255909160513251002}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLArm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1867,7 +1885,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5864779308244403211}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLLegAnkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1898,7 +1916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5083619840939083030}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLArm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1929,7 +1947,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8568881445305594339}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeSpine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1960,7 +1978,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4561665579867339354}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: BrockLee_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2280,7 +2298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 83785594357431563}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRArmPalm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2310,7 +2328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1560629161983573719}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: BrockLee_pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2344,7 +2362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6532802464503941185}
   - component: {fileID: 6481381682038687388}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: BrockLee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2456,7 +2474,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7827237103742597765}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeSpine2 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2487,7 +2505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 813967716384434187}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLLeg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2518,7 +2536,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7873261299075118305}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_Leepelvis002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2610,7 +2628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 297652857747628159}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_Leepelvis001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2643,7 +2661,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8593313273246685048}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeSpine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2674,7 +2692,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 490470751154600754}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLArmCollarbone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2738,7 +2756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3636464005736064297}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLLegDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2798,7 +2816,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 465818392820333357}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLArmPalm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2828,7 +2846,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1341076644942389721}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRLegPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2888,7 +2906,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 994858542017634366}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeLLeg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3031,7 +3049,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9142878720166198724}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRLegR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3247,7 +3265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7271149079995519170}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRArm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3278,7 +3296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4717465879710373177}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Brock_LeeRLegDigit11
   m_TagString: Untagged
   m_Icon: {fileID: 0}

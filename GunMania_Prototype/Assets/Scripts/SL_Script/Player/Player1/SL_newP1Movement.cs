@@ -218,18 +218,18 @@ public class SL_newP1Movement : MonoBehaviour
     }
 
 
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(myAgent.transform.position);
-            stream.SendNext(myAgent.transform.rotation);
-        }
-        else if (stream.IsReading)
-        {
-            myAgent.transform.position = (Vector3)stream.ReceiveNext();
-            myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(myAgent.transform.position);
+    //        stream.SendNext(myAgent.transform.rotation);
+    //    }
+    //    else if (stream.IsReading)
+    //    {
+    //        myAgent.transform.position = (Vector3)stream.ReceiveNext();
+    //        myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
 
-        }
-    }
+    //    }
+    //}
 }

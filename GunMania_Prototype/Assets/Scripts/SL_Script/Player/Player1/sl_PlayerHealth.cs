@@ -85,8 +85,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     {
         if (other.gameObject.tag == "P2Bullet")
         {
-            //view.RPC("BulletDamage", RpcTarget.All);
-            currentHealth -= bulletScript.GetComponent<sl_p2BulletScript>().bulletDmg;
+            view.RPC("BulletDamage", RpcTarget.All);
+            //currentHealth -= 1;
 
         }
 
@@ -102,34 +102,35 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     //    currentHealth = 16;
     //}
 
-    //[PunRPC]
-    //public void BulletDamage()
-    //{
-    //    if (currentHealth > 0)
-    //    {
-    //        currentHealth -= bulletScript.GetComponent<sl_p2BulletScript>().bulletDmg;
+    [PunRPC]
+    public void BulletDamage()
+    {
+        currentHealth -= 0.5f; //because it run 2 times, so i cut it half
 
-    //        if (currentHealth < 0)
-    //        {
-    //            currentHealth = 0;
-    //            Destroy(gameObject);
-    //        }
-    //    }
+        //if (currentHealth > 0)
+        //{
 
-    //}
+        //    if (currentHealth < 0)
+        //    {
+        //        currentHealth = 0;
+        //        Destroy(gameObject);
+        //    }
+        //}
+
+    }
 
 
     //will fire when event is activated
     //public void OnEvent(EventData photonEvent)
     //{
-        //    if(photonEvent.Code == sl_WinLoseUI.RestartEventCode)
-        //    {
-        //        currentHealth = 8;
-        //        sl_P2PlayerHealth.p2currentHealth = 8;
+    //    if(photonEvent.Code == sl_WinLoseUI.RestartEventCode)
+    //    {
+    //        currentHealth = 8;
+    //        sl_P2PlayerHealth.p2currentHealth = 8;
 
-        //        StartCoroutine(Respawn());
+    //        StartCoroutine(Respawn());
 
-        //    }
+    //    }
     //}
 
     //private void OnEnable()
