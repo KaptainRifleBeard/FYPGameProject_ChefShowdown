@@ -11,9 +11,7 @@ public class sl_P1PickUp : MonoBehaviour
 
     public static bool isPicked;
     public static bool isPickedDish;
-    int count;
-    bool spawn;
-
+   
 
     void Start()
     {
@@ -24,37 +22,29 @@ public class sl_P1PickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player") && sl_ShootBehavior.bulletCount < 2)
+        if(other.gameObject.CompareTag("Player"))
         {
-            gameObject.SetActive(false);
-
-            if (gameObject.layer == LayerMask.NameToLayer("Food"))
+            if (sl_ShootBehavior.bulletCount < 2)
             {
-                isPicked = true;
+                view.RPC("AddFood", RpcTarget.All);
+                sl_ShootBehavior.bulletCount += 1;
 
-            }
-            else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
-            {
-                isPickedDish = true;
-            }
-            sl_ShootBehavior.bulletCount += 1;
+                if (gameObject.layer == LayerMask.NameToLayer("Food"))
+                {
+                    isPicked = true;
+                    AddNewItem();
 
-            AddNewItem();
-            //Destroy(gameObject);
-        }
-        else
-        {
-            gameObject.SetActive(false);
+                }
+                else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
+                {
+                    isPickedDish = true;
+                    AddNewItem();
 
-            if (gameObject.layer == LayerMask.NameToLayer("Food"))
-            {
-                isPicked = false;
+                    view.RPC("DestroyDish", RpcTarget.All);
 
+                }
             }
-            else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
-            {
-                isPickedDish = false;
-            }
+
         }
     }
 
@@ -77,48 +67,27 @@ public class sl_P1PickUp : MonoBehaviour
         
     }
 
-
-    //private IEnumerator MoveToFront()
-    //{
-    //    yield return new WaitForSeconds(0.1f);
-    //    playerInventory.itemList[0] = playerInventory.itemList[1];
-    //    sl_InventoryManager.RefreshItem();
-
-    //    yield return new WaitForSeconds(0.1f);
-    //    playerInventory.itemList[1] = null;
-    //    sl_InventoryManager.RefreshItem();
-
-    //    count = 0;
-    //}
+    [PunRPC]
+    public void StartCountdown()
+    {
+        gameObject.SetActive(true);
+        isPickedDish = false;
+        isPicked = true;
+    }
 
 
-    //void Update()
-    //{
-    //    ////completely hard code
-    //    //if (Input.GetMouseButtonDown(1) && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
-    //    //{
-    //    //    if (count < 1 && spawn == false)  //to spawn only one per time
-    //    //    {
-    //    //        if (count < 1)
-    //    //        {
-    //    //            spawn = true;
+    [PunRPC]
+    public void AddFood()
+    {
+        gameObject.SetActive(false);
 
-    //    //            playerInventory.itemList[0] = null;
+        Invoke("StartCountdown", 6);  //wait for 6 sec
 
-    //    //            sl_InventoryManager.RefreshItem();
-    //    //            StartCoroutine(MoveToFront());
+    }
 
-    //    //            count++;
-
-    //    //        }
-    //    //        if (count == 1)
-    //    //        {
-    //    //            spawn = false;
-    //    //        }
-    //    //    }
-    //    //}
-
-    //}
-
-
+    [PunRPC]
+    public void DestroyDish()
+    {
+        Destroy(gameObject);
+    }
 }
