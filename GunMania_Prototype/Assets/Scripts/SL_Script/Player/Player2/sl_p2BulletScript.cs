@@ -20,11 +20,10 @@ public class sl_p2BulletScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Environment")
+        if (other.gameObject.layer == 7 || other.gameObject.tag == "Environment")
         {
             gameObject.SetActive(false);
             Destroy(gameObject, 0.5f);
         }
     }
-
 }
