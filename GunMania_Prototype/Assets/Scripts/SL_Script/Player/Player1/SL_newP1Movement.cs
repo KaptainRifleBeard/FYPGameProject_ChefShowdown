@@ -22,11 +22,16 @@ public class SL_newP1Movement : MonoBehaviour
 
     public static int changep1Icon = 0;
 
+    public bool p2IsWen;
+
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
         anim = gameObject.GetComponent<Animator>();
+        StartCoroutine(waitFoeSec());
+
+       
     }
 
 
@@ -34,7 +39,6 @@ public class SL_newP1Movement : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
 
         if (view.IsMine)  //Photon - check is my character
         {
@@ -165,16 +169,17 @@ public class SL_newP1Movement : MonoBehaviour
                 if (go.activeSelf)
                 {
                     view.RPC("Wen", RpcTarget.All);
-                    anim.runtimeAnimatorController = Resources.Load("Assets/Animations/OfficerWen") as RuntimeAnimatorController;
+                    //anim.runtimeAnimatorController = Resources.Load("Assets/Animations/OfficerWen") as RuntimeAnimatorController;
                 }
                 else
                 {
                     view.RPC("Brock", RpcTarget.All);
-                    anim.runtimeAnimatorController = Resources.Load("Assets/Animations/BrockChoi") as RuntimeAnimatorController;
+                    //anim.runtimeAnimatorController = Resources.Load("Assets/Animations/BrockChoi") as RuntimeAnimatorController;
                 }
             }
 
         }
+
 
     }
 
@@ -215,6 +220,22 @@ public class SL_newP1Movement : MonoBehaviour
 
         }
 
+    }
+
+    IEnumerator waitFoeSec()
+    {
+        yield return new WaitForSeconds(0.1f);
+        //Show model when in game
+        if (sl_SpawnPlayers.p1_StartModel == 1)
+        {
+            view.RPC("Brock", RpcTarget.All);
+
+        }
+        if (sl_SpawnPlayers.p1_StartModel == 2)
+        {
+            view.RPC("Wen", RpcTarget.All);
+
+        }
     }
 
 

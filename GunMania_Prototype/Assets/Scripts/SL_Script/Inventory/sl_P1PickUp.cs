@@ -50,8 +50,9 @@ public class sl_P1PickUp : MonoBehaviour
 
     public void AddNewItem()
     {
+        
         //check is it contain in list?
-        if (!playerInventory.itemList.Contains(thisItem))
+        /*if (!playerInventory.itemList.Contains(thisItem))
         {
             //find is there is empty slot
             for (int i = 0; i < playerInventory.itemList.Count; i++)
@@ -62,6 +63,16 @@ public class sl_P1PickUp : MonoBehaviour
                     break;
                 }
             }
+        }*/
+
+
+        for (int i = 0; i < playerInventory.itemList.Count; i++)
+        {
+            if (playerInventory.itemList[i] == null)
+            {
+                playerInventory.itemList[i] = thisItem;
+                break;
+            }
         }
         sl_InventoryManager.RefreshItem();
         
@@ -71,8 +82,7 @@ public class sl_P1PickUp : MonoBehaviour
     public void StartCountdown()
     {
         gameObject.SetActive(true);
-        isPickedDish = false;
-        isPicked = true;
+        isPicked = false;
     }
 
 

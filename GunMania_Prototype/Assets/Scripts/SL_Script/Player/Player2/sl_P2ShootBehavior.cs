@@ -6,7 +6,7 @@ using Photon.Realtime;
 
 public class sl_P2ShootBehavior : MonoBehaviour
 {
-    public Rigidbody bulletPrefab;
+    public GameObject bulletPrefab;
 
     public Transform shootPosition;
     public static int p2bulletCount;
@@ -18,7 +18,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     GameObject targetObject;
 
     PhotonView view;
-    Rigidbody bullet;
+    GameObject bullet;
 
     Vector3 directionShoot2;
     Vector3 targetPosition2;
@@ -30,11 +30,13 @@ public class sl_P2ShootBehavior : MonoBehaviour
     public static bool p2Shoot;
 
     public Animator anim;
+    public GameObject theFood;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
         targetObject = targetIndicatorPrefab;
+        theFood.SetActive(false);
     }
 
     void Update()
@@ -75,10 +77,10 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) && p2bulletCount > 0 && p2Shoot == true)
         {
-            //bullet.transform.SetParent(null);
 
             if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && gameObject.tag == "Player2")  //make sure bullet wont collide with player
-            {
+            {                    
+
                 ShootBullet2();
             }
         }
@@ -88,17 +90,23 @@ public class sl_P2ShootBehavior : MonoBehaviour
     [PunRPC]
     public void SpawnBullet2()
     {
+        theFood.SetActive(true);
         bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+        bullet.SetActive(false);
+
         //bullet.transform.SetParent(shootPosition);
     }
 
     public void ShootBullet2()
     {
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
-        {
+        {            
+            bullet.transform.SetParent(null);
+
             //Animation
             anim.SetBool("Aim", false);
             anim.SetBool("Throw", true);
@@ -130,7 +138,12 @@ public class sl_P2ShootBehavior : MonoBehaviour
     [PunRPC]
     public void BulletDirection2(Vector3 dir)
     {
+        bullet.GetComponent<Rigidbody>().isKinematic = false;
+        theFood.SetActive(false);
+        bullet.SetActive(true);
+
         float shootForce = 50.0f;
+        //bullet.GetComponent<GameObject>().SetActive(true);
 
         bullet.transform.forward = dir.normalized;
         bullet.GetComponent<Rigidbody>().AddForce(dir.normalized * shootForce, ForceMode.Impulse); //shootforce
