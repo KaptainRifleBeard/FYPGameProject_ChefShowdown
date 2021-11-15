@@ -52,7 +52,7 @@ public class sl_P2PickUp : MonoBehaviour
     public void AddNewItem()
     {
         //check is it contain in list?
-        if (!playerInventory.itemList.Contains(thisItem))
+        /*if (!playerInventory.itemList.Contains(thisItem))
         {
             //playerInventory.itemList.Add(thisItem);
             //sl_InventoryManager.CreateNewItem(thisItem);
@@ -72,6 +72,17 @@ public class sl_P2PickUp : MonoBehaviour
             //add num (if already in list) -----> but we nonid this, so leave this code here as reference
             //thisItem.itemHeldNum += 1;
         }
+        */
+
+
+        for (int i = 0; i < playerInventory.itemList.Count; i++)
+        {
+            if (playerInventory.itemList[i] == null)
+            {
+                playerInventory.itemList[i] = thisItem;
+                break;
+            }
+        }
         sl_p2InventoryManager.RefreshItem();
     }
 
@@ -79,8 +90,7 @@ public class sl_P2PickUp : MonoBehaviour
     public void StartCountdown()
     {
         gameObject.SetActive(true);
-        isPickedDish = false;
-        isPicked = true;
+        isPicked = false;
     }
 
 
@@ -88,7 +98,6 @@ public class sl_P2PickUp : MonoBehaviour
     public void AddFood2()
     {
         gameObject.SetActive(false);
-
         Invoke("StartCountdown", 6);  //wait for 6 sec
 
     }

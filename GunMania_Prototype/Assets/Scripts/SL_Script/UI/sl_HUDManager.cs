@@ -21,13 +21,13 @@ public class sl_HUDManager : MonoBehaviour
 
     void Update()
     {
-        if(SL_newP1Movement.changep1Icon == 0)
+        if(SL_newP1Movement.changep1Icon == 0 || sl_SpawnPlayerManager.playerNum_p1 == 1)
         {
             //main brock side wen
             brock.GetComponent<Image>().sprite = brockIcon;
             tagBrock.GetComponent<Image>().sprite = wenIcon;
         }
-        if (SL_newP1Movement.changep1Icon == 1)
+        if (SL_newP1Movement.changep1Icon == 1 || sl_SpawnPlayerManager.playerNum_p1 == 2)
         {
             //main wen side brock
             brock.GetComponent<Image>().sprite = wenIcon;
@@ -35,13 +35,13 @@ public class sl_HUDManager : MonoBehaviour
 
         }
 
-        if (sl_newP2Movement.changep2Icon == 0)
+        if (sl_newP2Movement.changep2Icon == 0 || sl_SpawnPlayerManager.playerNum_p2 == 1)
         {
             //main wen side brpck
             wen.GetComponent<Image>().sprite = wenIcon;
             tagWen.GetComponent<Image>().sprite = brockIcon;
         }
-        if (sl_newP2Movement.changep2Icon == 1)
+        if (sl_newP2Movement.changep2Icon == 1 || sl_SpawnPlayerManager.playerNum_p2 == 2)
         {
             //main brock side wen
             wen.GetComponent<Image>().sprite = brockIcon;

@@ -31,11 +31,13 @@ public class sl_ShootBehavior : MonoBehaviour
 
     public static bool p1Shoot = false;
 
+    public GameObject theFood;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
         targetObject = targetIndicatorPrefab;
-
+        theFood.SetActive(false);
     }
 
     void Update()
@@ -66,7 +68,6 @@ public class sl_ShootBehavior : MonoBehaviour
                     spawn = false;
                 }
 
-
             }
         }
 
@@ -78,8 +79,6 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true)
         {
-            //bullet.transform.SetParent(null);
-
             if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && gameObject.tag == "Player")  //make sure bullet wont collide with player
             {
                 ShootBullet();
@@ -99,10 +98,12 @@ public class sl_ShootBehavior : MonoBehaviour
     [PunRPC]
     public void SpawnBullet()
     {
+        theFood.SetActive(true);
         bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+        bullet.SetActive(false);
         //bullet.transform.SetParent(shootPosition);
-
     }
+
 
     public void ShootBullet()
     {
@@ -111,15 +112,16 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
+            bullet.transform.SetParent(null);
+
             anim.SetBool("Aim", false);
             anim.SetBool("Throw", true);
+
 
             targetPosition = hit.point;
             directionShoot = targetPosition - shootPosition.position;
 
             view.RPC("BulletDirection", RpcTarget.All, directionShoot);
-
-            //bullet.transform.SetParent(null);
             bulletCount--;
 
             StartCoroutine(stopAnim());
@@ -144,8 +146,11 @@ public class sl_ShootBehavior : MonoBehaviour
     [PunRPC]
     public void BulletDirection(Vector3 dir)
     {
-        float shootForce = 50.0f;
+        bullet.GetComponent<Rigidbody>().isKinematic = false;
+        theFood.SetActive(false);
+        bullet.SetActive(true);
 
+        float shootForce = 50.0f;
         bullet.transform.forward = dir.normalized;
         bullet.GetComponent<Rigidbody>().AddForce(dir.normalized * shootForce, ForceMode.Impulse); //shootforce
 

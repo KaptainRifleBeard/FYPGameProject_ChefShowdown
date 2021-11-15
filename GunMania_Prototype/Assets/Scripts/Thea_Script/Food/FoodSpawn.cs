@@ -83,7 +83,7 @@ public class FoodSpawn : MonoBehaviour
         //view.RPC("spawnUpdate", RpcTarget.All);
         //spawnUpdate();
 
-        if (count < 1 && spawn == false)
+        if (count < 1 && spawn == false && PhotonNetwork.IsMasterClient) //make sure it wont run in both build, only for masterclient
         {
             if (count < 1)
             {
