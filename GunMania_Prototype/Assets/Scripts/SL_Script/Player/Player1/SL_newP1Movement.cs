@@ -34,7 +34,6 @@ public class SL_newP1Movement : MonoBehaviour
        
     }
 
-
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -181,7 +180,25 @@ public class SL_newP1Movement : MonoBehaviour
         }
 
 
+        //edit spped when pass through off mesh link on roof
+        if (myAgent.isOnOffMeshLink)
+        {
+            OffMeshLinkData data = myAgent.currentOffMeshLinkData;
+
+            //calculate the final point of the link
+            Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
+
+            //Move the agent to the end point
+            myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+
+            //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+            if (myAgent.transform.position == endPos)
+            {
+                myAgent.CompleteOffMeshLink();
+            }
+        }
     }
+
 
     [PunRPC]
     public void Wen()
