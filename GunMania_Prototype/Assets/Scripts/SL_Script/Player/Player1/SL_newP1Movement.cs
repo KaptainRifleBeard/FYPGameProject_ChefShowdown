@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+using System.Linq;
 
 
 public class SL_newP1Movement : MonoBehaviour
 {
-    private NavMeshAgent myAgent;
+    //private NavMeshAgent myAgent;
     PhotonView view;
 
     public GameObject inventoryVisible;
@@ -24,14 +25,25 @@ public class SL_newP1Movement : MonoBehaviour
 
     public bool p2IsWen;
 
+
+    //new movement
+    bool detectAndStop;
+    public float speed;
+    Vector3 destination;
+
+    private LineRenderer lineRenderer;
+    private List<Vector3> point;
+
     void Start()
     {
-        myAgent = GetComponent<NavMeshAgent>();
+        destination = transform.position;
+
+        //myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
         anim = gameObject.GetComponent<Animator>();
         StartCoroutine(waitFoeSec());
 
-       
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     void Update()
@@ -47,20 +59,25 @@ public class SL_newP1Movement : MonoBehaviour
             {
                 if (Physics.Raycast(ray, out hit))
                 {
+                    //if (Vector3.Distance(transform.position, hit.point) > 1.0)
+                    //{
+                    //    myAgent.SetDestination(hit.point);
+                    //    isrunning = true;
+                    //}
                     if (Vector3.Distance(transform.position, hit.point) > 1.0)
                     {
-                        myAgent.SetDestination(hit.point);
-                        isrunning = true;
+                        destination = hit.point;
+                        Movement();
                     }
-
                 }
 
             }
 
             if (Input.GetMouseButtonUp(1))
             {
-                myAgent.isStopped = true;
-                myAgent.ResetPath();
+                //detectAndStop = false;
+                //myAgent.isStopped = true;
+                //myAgent.ResetPath();
             }
         }
         else
@@ -68,7 +85,10 @@ public class SL_newP1Movement : MonoBehaviour
             inventoryVisible.SetActive(false);
         }
 
-        if(gameObject.tag == "Player")
+        //DrawLine();
+
+        //ROTATE player
+        if (gameObject.tag == "Player")
         {
             //Rotate player
             Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -83,30 +103,29 @@ public class SL_newP1Movement : MonoBehaviour
         }
 
 
-        if (sl_ShootBehavior.p1Shoot == true)
+        if (sl_ShootBehavior.p1Shoot == true || detectAndStop)
         {
-            myAgent.isStopped = true;
-            myAgent.ResetPath();
+            //myAgent.isStopped = true;
+            //myAgent.ResetPath();
         }
 
 
 
         //ANIMATION
-        if (!myAgent.pathPending)
-        {
-            if (myAgent.remainingDistance <= myAgent.stoppingDistance)
-            {
-                isrunning = false;
-                stopping = true;
-            }
-            else
-            {
-                stopping = false;
+        //if (!myAgent.pathPending)
+        //{
+        //    if (myAgent.remainingDistance <= myAgent.stoppingDistance)
+        //    {
+        //        isrunning = false;
+        //        stopping = true;
+        //    }
+        //    else
+        //    {
+        //        stopping = false;
 
-            }
-        }
+        //    }
+        //}
 
-        //Animation
         #region
         if (isrunning && sl_ShootBehavior.p1Shoot == false && PhotonNetwork.IsMasterClient)
         {
@@ -181,23 +200,78 @@ public class SL_newP1Movement : MonoBehaviour
 
 
         //edit spped when pass through off mesh link on roof
-        if (myAgent.isOnOffMeshLink)
+        //if (myAgent.isOnOffMeshLink)
+        //{
+        //    OffMeshLinkData data = myAgent.currentOffMeshLinkData;
+
+        //    //calculate the final point of the link
+        //    Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
+
+        //    //Move the agent to the end point
+        //    myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+
+        //    //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+        //    if (myAgent.transform.position == endPos)
+        //    {
+        //        myAgent.CompleteOffMeshLink();
+        //    }
+        //}
+    }
+
+    public void Movement()
+    {
+        //get the distance between the player and the destination pos
+        float dis = Vector3.Distance(transform.position, destination);
+        if (dis > 0)
         {
-            OffMeshLinkData data = myAgent.currentOffMeshLinkData;
+            // decide the moveDis for this frame. 
+            //(Mathf.Clamp limits the first value, to make sure if the distance between the player and the destination pos is short than you set,
+            // it only need to move to the destination. So at that moment, the moveDis should set to the "dis".)
+            float moveDis = Mathf.Clamp(speed * Time.fixedDeltaTime, 0, dis);
 
-            //calculate the final point of the link
-            Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
+            //get the unit vector which means the move direction, and multiply by the move distance.
+            Vector3 move = (destination - transform.position).normalized * moveDis;
+            transform.Translate(move.x, 0, move.z);
 
-            //Move the agent to the end point
-            myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+        }
 
-            //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
-            if (myAgent.transform.position == endPos)
-            {
-                myAgent.CompleteOffMeshLink();
-            }
+
+    }
+
+    //detect obstacles the stop moving
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Environment")
+        {
+            //detectAndStop = true;
+            Debug.Log("detect");
+
         }
     }
+
+    //IEnumerator disableStop()
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    detectAndStop = false;
+    //}
+
+    //public void DrawLine()
+    //{
+    //    if (myAgent.path.corners.Length < 2) return;
+
+    //    int i = 1;
+    //    while(i < myAgent.path.corners.Length)
+    //    {
+    //        lineRenderer.positionCount = myAgent.path.corners.Length;
+    //        point = myAgent.path.corners.ToList();
+
+    //        for(int j = 0; j < point.Count; j++)
+    //        {
+    //            lineRenderer.SetPosition(j, point[j]);
+    //        }
+    //        i++;
+    //    }
+    //}
 
 
     [PunRPC]
