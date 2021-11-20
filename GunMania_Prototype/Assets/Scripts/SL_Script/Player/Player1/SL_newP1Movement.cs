@@ -8,7 +8,7 @@ using System.Linq;
 
 public class SL_newP1Movement : MonoBehaviour
 {
-    //private NavMeshAgent myAgent;
+    private NavMeshAgent myAgent;
     PhotonView view;
 
     public GameObject inventoryVisible;
@@ -38,7 +38,7 @@ public class SL_newP1Movement : MonoBehaviour
     {
         destination = transform.position;
 
-        //myAgent = GetComponent<NavMeshAgent>();
+        myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
         anim = gameObject.GetComponent<Animator>();
         StartCoroutine(waitFoeSec());
@@ -59,16 +59,16 @@ public class SL_newP1Movement : MonoBehaviour
             {
                 if (Physics.Raycast(ray, out hit))
                 {
-                    //if (Vector3.Distance(transform.position, hit.point) > 1.0)
-                    //{
-                    //    myAgent.SetDestination(hit.point);
-                    //    isrunning = true;
-                    //}
                     if (Vector3.Distance(transform.position, hit.point) > 1.0)
                     {
-                        destination = hit.point;
-                        Movement();
+                        myAgent.SetDestination(hit.point);
+                        isrunning = true;
                     }
+                    //if (Vector3.Distance(transform.position, hit.point) > 1.0)
+                    //{
+                    //    destination = hit.point;
+                    //    Movement();
+                    //}
                 }
 
             }
@@ -76,8 +76,8 @@ public class SL_newP1Movement : MonoBehaviour
             if (Input.GetMouseButtonUp(1))
             {
                 //detectAndStop = false;
-                //myAgent.isStopped = true;
-                //myAgent.ResetPath();
+                myAgent.isStopped = true;
+                myAgent.ResetPath();
             }
         }
         else
@@ -103,10 +103,10 @@ public class SL_newP1Movement : MonoBehaviour
         }
 
 
-        if (sl_ShootBehavior.p1Shoot == true || detectAndStop)
+        if (sl_ShootBehavior.p1Shoot == true)
         {
-            //myAgent.isStopped = true;
-            //myAgent.ResetPath();
+            myAgent.isStopped = true;
+            myAgent.ResetPath();
         }
 
 
@@ -200,22 +200,22 @@ public class SL_newP1Movement : MonoBehaviour
 
 
         //edit spped when pass through off mesh link on roof
-        //if (myAgent.isOnOffMeshLink)
-        //{
-        //    OffMeshLinkData data = myAgent.currentOffMeshLinkData;
+        if (myAgent.isOnOffMeshLink)
+        {
+            OffMeshLinkData data = myAgent.currentOffMeshLinkData;
 
-        //    //calculate the final point of the link
-        //    Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
+            //calculate the final point of the link
+            Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
 
-        //    //Move the agent to the end point
-        //    myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+            //Move the agent to the end point
+            myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
 
-        //    //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
-        //    if (myAgent.transform.position == endPos)
-        //    {
-        //        myAgent.CompleteOffMeshLink();
-        //    }
-        //}
+            //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+            if (myAgent.transform.position == endPos)
+            {
+                myAgent.CompleteOffMeshLink();
+            }
+        }
     }
 
     public void Movement()

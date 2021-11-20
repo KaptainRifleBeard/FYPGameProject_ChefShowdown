@@ -94,8 +94,8 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient/* && playerCount == 2*/)  // room owner
         {
-            //PhotonNetwork.LoadLevel("sl_TestScene");
-            PhotonNetwork.LoadLevel("sl_ForTesting");
+            PhotonNetwork.LoadLevel("sl_TestScene");
+            //PhotonNetwork.LoadLevel("sl_ForTesting");
 
         }
         PhotonNetwork.CurrentRoom.IsOpen = false;
