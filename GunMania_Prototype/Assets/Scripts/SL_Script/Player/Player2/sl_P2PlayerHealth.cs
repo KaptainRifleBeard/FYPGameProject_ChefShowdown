@@ -35,7 +35,18 @@ public class sl_P2PlayerHealth : MonoBehaviour
         p2currentHealth = maxHealth;
     }
 
+
     public void Update()
+    {
+        if (p2currentHealth == 0)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+
+    public void FixedUpdate()
     {
         healthText.text = p2currentHealth.ToString();
 
@@ -59,14 +70,52 @@ public class sl_P2PlayerHealth : MonoBehaviour
             }
         }
 
-
-        if (p2currentHealth == 0)
-        {
-            Destroy(gameObject);
-        }
-
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            if (other.gameObject.tag == "Bullet")
+            {
+                view.RPC("BulletDamage2", RpcTarget.All);
+                //p2currentHealth -= 1;
+            }
+        }
+        
+    }
+
+    [PunRPC]
+    public void BulletDamage2()
+    {
+        if (p2currentHealth > 0)
+        {
+            //p2currentHealth -= 0.5f;
+            p2currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+
+            if (p2currentHealth < 0)
+            {
+                p2currentHealth = 0;
+                Destroy(gameObject);
+            }
+        }
+    }
+
+
+
+    //public void SpawnBackPlayer()
+    //{
+    //    sl_p2InventoryManager.ClearAllInList();
+    //    gameObject.SetActive(true);
+    //    gameObject.transform.position = spawnPostionB.transform.position;
+    //}
+
+    //IEnumerator WaitToSpawnPlayer()
+    //{
+    //    yield return new WaitForSeconds(1.0f);
+    //    SpawnBackPlayer();
+    //    p2currentHealth = maxHealth;
+    //}
 
     //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     //{
@@ -83,45 +132,5 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     //}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Bullet")
-        {
-            Debug.Log("collide");
-            view.RPC("BulletDamage2", RpcTarget.All);
-            //p2currentHealth -= 1;
-
-        }
-    }
-
-    //public void SpawnBackPlayer()
-    //{
-    //    sl_p2InventoryManager.ClearAllInList();
-    //    gameObject.SetActive(true);
-    //    gameObject.transform.position = spawnPostionB.transform.position;
-    //}
-
-    //IEnumerator WaitToSpawnPlayer()
-    //{
-    //    yield return new WaitForSeconds(1.0f);
-    //    SpawnBackPlayer();
-    //    p2currentHealth = maxHealth;
-    //}
-
-    [PunRPC]
-    public void BulletDamage2()
-    {
-        p2currentHealth -= 0.5f;
-
-        //if (p2currentHealth > 0)
-        //{
-
-        //    if (p2currentHealth < 0)
-        //    {
-        //        p2currentHealth = 0;
-        //        Destroy(gameObject);
-        //    }
-        //}
-    }
 
 }

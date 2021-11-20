@@ -15,16 +15,16 @@ public class sl_BulletScript : MonoBehaviour
 
     private void Update()
     {
-        //Destroy(gameObject, 5f);
+
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8 || other.gameObject.tag == "Environment")
+        if (other.gameObject.tag == "Player2" || other.gameObject.tag == "Environment")
         {
-            gameObject.SetActive(false);  // note: cuz when collide with game object distance too close, it destroy immediately then my shoot behavior will have error
-            Destroy(gameObject, 0.5f);
+            //gameObject.SetActive(false);  // note: cuz when collide with game object distance too close, it destroy immediately then my shoot behavior will have error
+            Destroy(gameObject);
         }
 
     }
