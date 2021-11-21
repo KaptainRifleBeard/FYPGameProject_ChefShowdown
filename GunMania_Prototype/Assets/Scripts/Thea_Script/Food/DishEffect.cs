@@ -5,86 +5,68 @@ using UnityEngine;
 public class DishEffect : MonoBehaviour
 {
     public sl_PlayerHealth player1Health;
+    public GameObject bullet;
+    
+    
+    public float knockbackSpeed;
+    public float pullingSpeed;
 
+    private void Start()
+    {
 
-    private void OnTriggerEnter(Collider other)
+    }
+
+    private void OnCollisionEnter(Collision other)
     {
 
         if (other.gameObject.tag == "Sinseollo")
         {
-            SinseolloEffect();
+            sl_PlayerHealth.currentHealth -= 3;
         }
         else if (other.gameObject.tag == "Tojangjochi")
         {
-            Tojangjochi();
+            //stun
         }
         else if (other.gameObject.tag == "Hassun")
         {
-            Hassun();
+            sl_PlayerHealth.currentHealth += 3;
         }
         else if (other.gameObject.tag == "Mukozuke")
         {
-            Mukozuke();
+            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
+            sl_PlayerHealth.currentHealth -= 2;
+
+            Vector3 direction = (other.transform.position - transform.position).normalized;
+            direction.y = 0;
+
+            playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
+            Destroy(other.gameObject); 
         }
         else if (other.gameObject.tag == "BirdNestSoup")
         {
-            BirdNestSoup();
+            //aoe
         }
         else if (other.gameObject.tag == "BuddhaJumpsOvertheWall")
         {
-            BuddhaJumpsOvertheWall();
+            //silence
         }
         else if (other.gameObject.tag == "FoxtailMillet")
         {
-            FoxtailMillet();
+            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
+            sl_PlayerHealth.currentHealth -= 2;
+            
+            Vector3 direction = (transform.position - other.transform.position).normalized;
+            direction.y = 0;
+
+            playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
+               
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "RawStinkyTofu")
         {
-            RawStinkyTofu();
+            //drop food :')
         }
     }
 
-        public void SinseolloEffect()
-    {
-        sl_PlayerHealth.currentHealth -= 3;
-    }
-
-    public void Tojangjochi()
-    {
-        //stun player code
-    }
-
-    public void Hassun()
-    {
-        sl_PlayerHealth.currentHealth += 3;
-    }
-
-    public void Mukozuke()
-    {
-        sl_PlayerHealth.currentHealth -= 2;
-        //movement
-        //stun
-    }
-
-    public void BirdNestSoup()
-    {
-        //aoe damage???
-    }
-
-    public void BuddhaJumpsOvertheWall()
-    {
-        sl_PlayerHealth.currentHealth -= 2;
-        //silence
-    }
-
-    public void FoxtailMillet()
-    {
-        sl_PlayerHealth.currentHealth -= 2;
-        //knockback
-    }
-
-    public void RawStinkyTofu()
-    {
-        //drop food :')
-    }
+   
 }
