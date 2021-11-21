@@ -28,7 +28,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     public Image[] hearts;
 
-
+    float bulletDamage;
 
     void Start()
     {
@@ -73,11 +73,19 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     private void OnTriggerEnter(Collider other)
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (other.gameObject.tag == "P2Bullet")//dont put this in masterclient, or else ur view wont destroy bullet
+        {
+            Destroy(other.gameObject);
+
+        }
+
+        if (PhotonNetwork.IsMasterClient) //make sure it run only once
         {
             if (other.gameObject.tag == "P2Bullet")
             {
-                view.RPC("BulletDamage", RpcTarget.All);
+                bulletDamage = 1;
+
+                view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
                 //currentHealth -= 1;
 
             }
@@ -97,12 +105,12 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     //}
 
     [PunRPC]
-    public void BulletDamage()
+    public void BulletDamage(float damage)
     {
         if (currentHealth > 0)
         {
             //currentHealth -= 0.5f; //because it run 2 times, so i cut it half
-            currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
+            currentHealth -= damage;
 
             if (currentHealth < 0)
             {
