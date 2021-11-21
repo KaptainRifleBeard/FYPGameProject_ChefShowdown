@@ -38,6 +38,15 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     public void Update()
     {
+
+        if (currentHealth == 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void FixedUpdate()
+    {
         healthText.text = currentHealth.ToString();
 
 
@@ -60,33 +69,18 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             }
         }
 
-        if (currentHealth == 0)
-        {
-            Destroy(gameObject);
-        }
     }
-
-
-    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        //stream.SendNext(currentHealth);
-
-    //    }
-    //    else if (stream.IsReading)
-    //    {
-    //        //currentHealth = (float)stream.ReceiveNext();
-    //    }
-
-    //}
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "P2Bullet")
+        if(PhotonNetwork.IsMasterClient)
         {
-            view.RPC("BulletDamage", RpcTarget.All);
-            //currentHealth -= 1;
+            if (other.gameObject.tag == "P2Bullet")
+            {
+                view.RPC("BulletDamage", RpcTarget.All);
+                //currentHealth -= 1;
+
+            }
 
         }
 
@@ -105,17 +99,17 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     [PunRPC]
     public void BulletDamage()
     {
-        currentHealth -= 0.5f; //because it run 2 times, so i cut it half
+        if (currentHealth > 0)
+        {
+            //currentHealth -= 0.5f; //because it run 2 times, so i cut it half
+            currentHealth -= bulletScript.GetComponent<sl_BulletScript>().bulletDmg;
 
-        //if (currentHealth > 0)
-        //{
-
-        //    if (currentHealth < 0)
-        //    {
-        //        currentHealth = 0;
-        //        Destroy(gameObject);
-        //    }
-        //}
+            if (currentHealth < 0)
+            {
+                currentHealth = 0;
+                Destroy(gameObject);
+            }
+        }
 
     }
 
@@ -142,4 +136,21 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     //{
     //    PhotonNetwork.RemoveCallbackTarget(this);
     //}
+
+
+
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        //stream.SendNext(currentHealth);
+
+    //    }
+    //    else if (stream.IsReading)
+    //    {
+    //        //currentHealth = (float)stream.ReceiveNext();
+    //    }
+
+    //}
+
 }

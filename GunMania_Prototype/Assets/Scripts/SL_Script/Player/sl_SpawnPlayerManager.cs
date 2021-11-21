@@ -55,7 +55,7 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     {
         //p1Brock.SetActive(false);
         //p1Wen.SetActive(true);
-        view.RPC("P1ShowWen", RpcTarget.All);
+        view.RPC("P1ShowWen", RpcTarget.AllBufferedViaServer);
 
         playerNum_p1 = 2;
 
@@ -65,7 +65,7 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     {
         //p1Brock.SetActive(true);
         //p1Wen.SetActive(false);
-        view.RPC("P1ShowBrock", RpcTarget.All);
+        view.RPC("P1ShowBrock", RpcTarget.AllBufferedViaServer);
 
         playerNum_p1 = 1;
     }

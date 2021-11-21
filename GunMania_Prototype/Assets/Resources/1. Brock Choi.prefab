@@ -954,7 +954,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5297496041670984940}
   - component: {fileID: 5624650586405937981}
-  - component: {fileID: -8864587919647368221}
   - component: {fileID: -1784498299392083003}
   - component: {fileID: 5624650586405937980}
   - component: {fileID: 5624650586405937982}
@@ -1012,19 +1011,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.714, y: 9.62, z: 3.7145653}
   m_Center: {x: -0.29337323, y: 4.8, z: -0.041543692}
---- !u!65 &-8864587919647368221
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4814255890589163094}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 9, z: 5}
-  m_Center: {x: -0.29337323, y: 4.8, z: -0.041543692}
 --- !u!54 &-1784498299392083003
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1037,7 +1023,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -1048,7 +1034,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4814255890589163094}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2.23
   m_Speed: 40
@@ -1116,7 +1102,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4814255890589163094}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 488e5eec47cf3754781797f4409a4552, type: 2}
   m_CullingMode: 0
@@ -1158,7 +1144,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4814255890589163094}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
@@ -1174,7 +1160,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4814255890589163094}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
   m_Name: 
@@ -1845,9 +1831,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '0
-
-'
+  m_Text: 8
 --- !u!1 &5624650585411843271
 GameObject:
   m_ObjectHideFlags: 0
