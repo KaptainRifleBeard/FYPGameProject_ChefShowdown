@@ -16,12 +16,13 @@ public class DishEffect : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
 
         if (other.gameObject.tag == "Sinseollo")
         {
             sl_PlayerHealth.currentHealth -= 3;
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Tojangjochi")
         {
@@ -29,7 +30,7 @@ public class DishEffect : MonoBehaviour
         }
         else if (other.gameObject.tag == "Hassun")
         {
-            sl_PlayerHealth.currentHealth += 3;
+            //sl_PlayerHealth.currentHealth += 3;
         }
         else if (other.gameObject.tag == "Mukozuke")
         {
