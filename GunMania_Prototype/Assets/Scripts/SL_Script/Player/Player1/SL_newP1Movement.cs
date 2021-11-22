@@ -12,6 +12,7 @@ public class SL_newP1Movement : MonoBehaviour
     PhotonView view;
 
     public GameObject inventoryVisible;
+    public GameObject indicatorVisible;
 
     public Animator anim;
     bool isrunning;
@@ -54,6 +55,7 @@ public class SL_newP1Movement : MonoBehaviour
         if (view.IsMine)  //Photon - check is my character
         {
             inventoryVisible.SetActive(true);
+            indicatorVisible.SetActive(true);
 
             if (Input.GetMouseButton(1) && sl_ShootBehavior.p1Shoot == false)
             {
@@ -83,6 +85,8 @@ public class SL_newP1Movement : MonoBehaviour
         else
         {
             inventoryVisible.SetActive(false);
+            indicatorVisible.SetActive(false);
+
         }
 
         //DrawLine();

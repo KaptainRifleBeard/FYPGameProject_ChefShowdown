@@ -138,13 +138,10 @@ public class sl_P2ShootBehavior : MonoBehaviour
     [PunRPC]
     public void BulletDirection2(Vector3 dir)
     {
-        bullet.GetComponent<Rigidbody>().isKinematic = false;
         theFood.SetActive(false);
         bullet.SetActive(true);
 
-        float shootForce = 50.0f;
-        //bullet.GetComponent<GameObject>().SetActive(true);
-
+        float shootForce = 30.0f;
         bullet.transform.forward = dir.normalized;
         bullet.GetComponent<Rigidbody>().AddForce(dir.normalized * shootForce, ForceMode.Impulse); //shootforce
 
@@ -170,15 +167,15 @@ public class sl_P2ShootBehavior : MonoBehaviour
         anim.SetBool("Throw", false);
     }
 
-    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(directionShoot2);
-        }
-        else
-        {
-            directionShoot2 = (Vector3)stream.ReceiveNext();
-        }
-    }
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(directionShoot2);
+    //    }
+    //    else
+    //    {
+    //        directionShoot2 = (Vector3)stream.ReceiveNext();
+    //    }
+    //}
 }
