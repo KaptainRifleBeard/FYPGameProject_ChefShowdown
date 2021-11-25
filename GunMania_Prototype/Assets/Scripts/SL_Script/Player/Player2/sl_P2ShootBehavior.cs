@@ -32,11 +32,18 @@ public class sl_P2ShootBehavior : MonoBehaviour
     public Animator anim;
     public GameObject theFood;
 
+    [Header("Range Indicator")]
+    public GameObject maxRange;
+    public GameObject minRange;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
         targetObject = targetIndicatorPrefab;
         theFood.SetActive(false);
+
+        maxRange.SetActive(false);
+        minRange.SetActive(false);
     }
 
     void Update()
@@ -73,15 +80,35 @@ public class sl_P2ShootBehavior : MonoBehaviour
         if (Input.GetMouseButton(0) && view.IsMine && p2Shoot == true) //indicator follow mouse
         {
             targetObject.transform.position = hit.point;
+
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 40)
+            {
+                Debug.Log("out of range");
+                maxRange.SetActive(true);
+                minRange.SetActive(false);
+            }
+            else
+            {
+                maxRange.SetActive(false);
+                minRange.SetActive(true);
+            }
         }
 
         if (Input.GetMouseButtonUp(0) && p2bulletCount > 0 && p2Shoot == true)
         {
-
-            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && gameObject.tag == "Player2")  //make sure bullet wont collide with player
-            {                    
+            //set in range then shoot
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 &&
+                Vector3.Distance(targetObject.transform.position, shootPosition.position) < 40
+                && gameObject.tag == "Player2")  //make sure bullet wont collide with player
+            {
+                minRange.SetActive(false);
+                maxRange.SetActive(false);
 
                 ShootBullet2();
+            }
+            else
+            {
+                view.RPC("CancelShoot2", RpcTarget.All);
             }
         }
     }
@@ -95,6 +122,20 @@ public class sl_P2ShootBehavior : MonoBehaviour
         bullet.SetActive(false);
 
         //bullet.transform.SetParent(shootPosition);
+    }
+
+    [PunRPC]
+    public void CancelShoot2()
+    {
+        theFood.SetActive(false);
+        Destroy(targetObject);
+        targetObject = targetIndicatorPrefab;
+
+        p2Shoot = false;
+        count = 0;
+        spawn = false;
+        minRange.SetActive(false);
+        maxRange.SetActive(false);
     }
 
     public void ShootBullet2()
