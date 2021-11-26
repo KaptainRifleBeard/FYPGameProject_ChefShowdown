@@ -19,10 +19,15 @@ public class sl_newP2Movement : MonoBehaviour
     //Control model
     public GameObject[] BrockChoi;
     public GameObject[] OfficerWen;
+    public GameObject[] AuntJiho;
+    public GameObject[] MrKatsuki;
 
     public static int changep2Icon = 0;
 
-    public SL_newP1Movement checkPlayerModel;  //when start game
+    //to define which is main and tag character
+    int mainCharacter;
+    int tagCharacter;
+    int i = 0;
 
     void Start()
     {
@@ -97,6 +102,58 @@ public class sl_newP2Movement : MonoBehaviour
         }
 
 
+        #region
+        //if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !PhotonNetwork.IsMasterClient)
+        //{
+
+        //    anim.SetBool("isRunning", true);
+        //}
+        //else
+        //{
+        //    anim.SetBool("isRunning", false);
+        //}
+
+        //if (sl_P2ShootBehavior.p2bulletCount == 1 && !stopping && !PhotonNetwork.IsMasterClient)
+        //{
+        //    anim.SetBool("isRunning", false);
+
+        //    //anim.SetBool("Throw", false);
+        //    anim.SetBool("hold1food", true);
+        //    anim.SetBool("hold2food", false);
+        //}
+
+        //if (sl_P2ShootBehavior.p2bulletCount == 2 && !stopping && !PhotonNetwork.IsMasterClient)
+        //{
+        //    anim.SetBool("isRunning", false);
+
+        //    //anim.SetBool("Throw", false);
+        //    anim.SetBool("hold1food", false);
+        //    anim.SetBool("hold2food", true);
+        //}
+        //else if (sl_P2ShootBehavior.p2bulletCount == 0 && !stopping && !PhotonNetwork.IsMasterClient)
+        //{
+        //    anim.SetBool("isRunning", true);
+
+        //    //anim.SetBool("Throw", false);
+        //    anim.SetBool("hold1food", false);
+        //    anim.SetBool("hold2food", false);
+        //}
+
+        //if (stopping)
+        //{
+        //    anim.SetBool("stop", true);
+
+        //    anim.SetBool("isRunning", false);
+        //    //anim.SetBool("Throw", false);
+        //    anim.SetBool("hold1food", false);
+        //    anim.SetBool("hold2food", false);
+        //}
+        //else
+        //{
+        //    anim.SetBool("stop", false);
+
+        //}
+
         //ANIMATION
         if (!myAgent.pathPending)
         {
@@ -111,79 +168,80 @@ public class sl_newP2Movement : MonoBehaviour
 
             }
         }
-
-
-        //Animation
-        #region
-        if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !PhotonNetwork.IsMasterClient)
-        {
-
-            anim.SetBool("isRunning", true);
-        }
-        else
-        {
-            anim.SetBool("isRunning", false);
-        }
-
-        if (sl_P2ShootBehavior.p2bulletCount == 1 && !stopping && !PhotonNetwork.IsMasterClient)
-        {
-            anim.SetBool("isRunning", false);
-
-            //anim.SetBool("Throw", false);
-            anim.SetBool("hold1food", true);
-            anim.SetBool("hold2food", false);
-        }
-
-        if (sl_P2ShootBehavior.p2bulletCount == 2 && !stopping && !PhotonNetwork.IsMasterClient)
-        {
-            anim.SetBool("isRunning", false);
-
-            //anim.SetBool("Throw", false);
-            anim.SetBool("hold1food", false);
-            anim.SetBool("hold2food", true);
-        }
-        else if (sl_P2ShootBehavior.p2bulletCount == 0 && !stopping && !PhotonNetwork.IsMasterClient)
-        {
-            anim.SetBool("isRunning", true);
-
-            //anim.SetBool("Throw", false);
-            anim.SetBool("hold1food", false);
-            anim.SetBool("hold2food", false);
-        }
-
-        if (stopping)
-        {
-            anim.SetBool("stop", true);
-
-            anim.SetBool("isRunning", false);
-            //anim.SetBool("Throw", false);
-            anim.SetBool("hold1food", false);
-            anim.SetBool("hold2food", false);
-        }
-        else
-        {
-            anim.SetBool("stop", false);
-
-        }
         #endregion
+
+
+
+        //define int for tag character
+        if (sl_SpawnPlayerManager.playerTagNum_p2 == 1)
+        {
+            tagCharacter = 1;
+        }
+        if (sl_SpawnPlayerManager.playerTagNum_p2 == 2)
+        {
+            tagCharacter = 2;
+        }
+        if (sl_SpawnPlayerManager.playerTagNum_p2 == 3)
+        {
+            tagCharacter = 3;
+        }
+        if (sl_SpawnPlayerManager.playerTagNum_p2 == 4)
+        {
+            tagCharacter = 4;
+        }
 
 
         if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player2")
         {
-            foreach (GameObject go in BrockChoi)
+            Debug.Log("current main " + mainCharacter);
+
+            if (i < 1)
             {
-                if (go.activeSelf)
-                {
-                    view.RPC("Wen2", RpcTarget.All);
-                    //anim.runtimeAnimatorController = Resources.Load("Animations/OfficerWen") as RuntimeAnimatorController;
-                }
-                else
+                if (tagCharacter == 1)
                 {
                     view.RPC("Brock2", RpcTarget.All);
-                    //anim.runtimeAnimatorController = Resources.Load("Animations/BrockChoi") as RuntimeAnimatorController;
-
+                    i = 1;
+                }
+                if (tagCharacter == 2)
+                {
+                    view.RPC("Wen2", RpcTarget.All);
+                    i = 1;
+                }
+                if (tagCharacter == 3)
+                {
+                    view.RPC("Jiho2", RpcTarget.All);
+                    i = 1;
+                }
+                if (tagCharacter == 4)
+                {
+                    view.RPC("Katsuki2", RpcTarget.All);
+                    i = 1;
                 }
             }
+            else
+            {
+                if (mainCharacter == 1)
+                {
+                    view.RPC("Brock2", RpcTarget.All);
+                    i--;
+                }
+                if (mainCharacter == 2)
+                {
+                    view.RPC("Wen2", RpcTarget.All);
+                    i--;
+                }
+                if (mainCharacter == 3)
+                {
+                    view.RPC("Jiho2", RpcTarget.All);
+                    i--;
+                }
+                if (mainCharacter == 4)
+                {
+                    view.RPC("Katsuki2", RpcTarget.All);
+                    i--;
+                }
+            }
+            Debug.Log("i " + i);
 
         }
 
@@ -206,15 +264,41 @@ public class sl_newP2Movement : MonoBehaviour
         }
     }
 
+    //For Character model
+    //0.brock, 1.wen, 2.jiho, 3.katsuki
+    [PunRPC]
+    public void Brock2()
+    {
+        changep2Icon = 0;
+
+        for (int j = 0; j < BrockChoi.Length; j++)
+        {
+            BrockChoi[j].SetActive(true);
+
+        }
+        for (int i = 0; i < OfficerWen.Length; i++)
+        {
+            OfficerWen[i].SetActive(false);
+
+        }
+
+        for (int j = 0; j < AuntJiho.Length; j++)
+        {
+            AuntJiho[j].SetActive(false);
+
+        }
+
+        for (int j = 0; j < MrKatsuki.Length; j++)
+        {
+            MrKatsuki[j].SetActive(false);
+
+        }
+    }
+
     [PunRPC]
     public void Wen2()
     {
-        changep2Icon = 0;
-        for (int i = 0; i < OfficerWen.Length; i++)
-        {
-            OfficerWen[i].SetActive(true);
-
-        }
+        changep2Icon = 1;
 
 
         for (int j = 0; j < BrockChoi.Length; j++)
@@ -222,40 +306,111 @@ public class sl_newP2Movement : MonoBehaviour
             BrockChoi[j].SetActive(false);
 
         }
+
+        for (int i = 0; i < OfficerWen.Length; i++)
+        {
+            OfficerWen[i].SetActive(true);
+
+        }
+
+        for (int j = 0; j < AuntJiho.Length; j++)
+        {
+            AuntJiho[j].SetActive(false);
+
+        }
+
+        for (int j = 0; j < MrKatsuki.Length; j++)
+        {
+            MrKatsuki[j].SetActive(false);
+
+        }
     }
 
     [PunRPC]
-    public void Brock2()
+    public void Jiho2()
     {
-        changep2Icon = 1;
+        changep2Icon = 2;
 
+        for (int i = 0; i < BrockChoi.Length; i++)
+        {
+            BrockChoi[i].SetActive(false);
+
+        }
         for (int i = 0; i < OfficerWen.Length; i++)
         {
             OfficerWen[i].SetActive(false);
 
         }
 
-
-        for (int j = 0; j < BrockChoi.Length; j++)
+        for (int j = 0; j < AuntJiho.Length; j++)
         {
-            BrockChoi[j].SetActive(true);
+            AuntJiho[j].SetActive(true);
 
         }
 
+        for (int j = 0; j < MrKatsuki.Length; j++)
+        {
+            MrKatsuki[j].SetActive(false);
+
+        }
+    }
+
+    [PunRPC]
+    public void Katsuki2()
+    {
+        changep2Icon = 3;
+
+        for (int i = 0; i < BrockChoi.Length; i++)
+        {
+            BrockChoi[i].SetActive(false);
+
+        }
+        for (int i = 0; i < OfficerWen.Length; i++)
+        {
+            OfficerWen[i].SetActive(false);
+
+        }
+
+        for (int j = 0; j < AuntJiho.Length; j++)
+        {
+            AuntJiho[j].SetActive(false);
+
+        }
+
+        for (int j = 0; j < MrKatsuki.Length; j++)
+        {
+            MrKatsuki[j].SetActive(true);
+
+        }
     }
 
     IEnumerator waitFoeSec()
     {
+        Debug.LogWarning("p2 spawn + "+ sl_SpawnPlayerManager.playerNum_p2);
+
         yield return new WaitForSeconds(0.1f);
         //Show model when in game
-        if (sl_SpawnPlayers.p2_StartModel == 1) //brock
+        if (sl_SpawnPlayerManager.playerNum_p2 == 1)
         {
             view.RPC("Brock2", RpcTarget.All);
-
+            mainCharacter = 1;
         }
-        if (sl_SpawnPlayers.p2_StartModel == 2)
+        if (sl_SpawnPlayerManager.playerNum_p2 == 2)
         {
             view.RPC("Wen2", RpcTarget.All);
+            mainCharacter = 2;
+
+        }
+        if (sl_SpawnPlayerManager.playerNum_p2 == 3)
+        {
+            view.RPC("Jiho2", RpcTarget.All);
+            mainCharacter = 3;
+
+        }
+        if (sl_SpawnPlayerManager.playerNum_p2 == 4)
+        {
+            view.RPC("Katsuki2", RpcTarget.All);
+            mainCharacter = 4;
 
         }
     }

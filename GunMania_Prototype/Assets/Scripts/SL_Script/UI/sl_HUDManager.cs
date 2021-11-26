@@ -34,6 +34,20 @@ public class sl_HUDManager : MonoBehaviour
             tagBrock.GetComponent<Image>().sprite = brockIcon;
 
         }
+        if (SL_newP1Movement.changep1Icon == 2 || sl_SpawnPlayerManager.playerNum_p1 == 3) //3 and 4 use like brock and wen first
+        {
+            //main wen side brock
+            brock.GetComponent<Image>().sprite = brockIcon;
+            tagBrock.GetComponent<Image>().sprite = wenIcon;
+
+        }
+        if (SL_newP1Movement.changep1Icon == 3 || sl_SpawnPlayerManager.playerNum_p1 == 4)
+        {
+            //main wen side brock
+            brock.GetComponent<Image>().sprite = wenIcon;
+            tagBrock.GetComponent<Image>().sprite = brockIcon;
+
+        }
 
         if (sl_newP2Movement.changep2Icon == 0 || sl_SpawnPlayerManager.playerNum_p2 == 1)
         {
@@ -47,6 +61,20 @@ public class sl_HUDManager : MonoBehaviour
             wen.GetComponent<Image>().sprite = brockIcon;
             tagWen.GetComponent<Image>().sprite = wenIcon;
 
+
+        }
+        if (sl_newP2Movement.changep2Icon == 2 || sl_SpawnPlayerManager.playerNum_p2 == 3) //3 and 4 use like brock and wen first
+        {
+            //main wen side brock
+            brock.GetComponent<Image>().sprite = brockIcon;
+            tagBrock.GetComponent<Image>().sprite = wenIcon;
+
+        }
+        if (sl_newP2Movement.changep2Icon == 3 || sl_SpawnPlayerManager.playerNum_p2 == 4)
+        {
+            //main wen side brock
+            brock.GetComponent<Image>().sprite = wenIcon;
+            tagBrock.GetComponent<Image>().sprite = brockIcon;
 
         }
     }
