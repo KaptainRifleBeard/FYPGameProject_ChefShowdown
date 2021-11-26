@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WaterSpawn : MonoBehaviour
 {
+    public Transform spawnPos;
     public GameObject spawnee;
     public float spawnTime;
     public float spawnDelay;
@@ -15,6 +16,6 @@ public class WaterSpawn : MonoBehaviour
 
     public void SpawnWater()
     {
-        Instantiate(spawnee, transform.position, transform.rotation);
+        Instantiate(spawnee, spawnPos.position, spawnPos.rotation);
     }
 }
