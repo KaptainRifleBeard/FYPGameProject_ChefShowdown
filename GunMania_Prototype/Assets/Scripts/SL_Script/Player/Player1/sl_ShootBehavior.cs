@@ -26,18 +26,22 @@ public class sl_ShootBehavior : MonoBehaviour
     int count;
     bool spawn;
 
-    int num;
-    bool spawnbullet;
-
     public static bool p1Shoot = false;
-
     public GameObject theFood;
+
+    [Header("Range Indicator")]
+    public GameObject maxRange;
+    public GameObject minRange;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
         targetObject = targetIndicatorPrefab;
         theFood.SetActive(false);
+
+        maxRange.SetActive(false);
+        minRange.SetActive(false);
+
     }
 
     void Update()
@@ -47,7 +51,7 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine  && bulletCount > 0)
+            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine && bulletCount > 0)
             {
                 p1Shoot = true;  //stop movement when shoot
                 anim.SetBool("Aim", true);
@@ -73,17 +77,40 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (Input.GetMouseButton(0) && view.IsMine && p1Shoot == true) //indicator follow mouse
         {
+            minRange.SetActive(true);
             targetObject.transform.position = hit.point;
+
+
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 40)
+            {
+                Debug.Log("out of range");
+                maxRange.SetActive(true);
+                minRange.SetActive(false);
+            }
+            else
+            {
+                maxRange.SetActive(false);
+                minRange.SetActive(true);
+            }
         }
 
 
         if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true)
         {
-            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && gameObject.tag == "Player")  //make sure bullet wont collide with player
+            //set in range then shoot
+            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && 
+                Vector3.Distance(targetObject.transform.position, shootPosition.position) < 40  
+                && gameObject.tag == "Player")  //make sure bullet wont collide with player
             {
+                minRange.SetActive(false);
+                maxRange.SetActive(false);
+
                 ShootBullet();
             }
-
+            else
+            {
+                view.RPC("CancelShoot", RpcTarget.All);
+            }
         }
     }
 
@@ -104,6 +131,19 @@ public class sl_ShootBehavior : MonoBehaviour
         //bullet.transform.SetParent(shootPosition);
     }
 
+    [PunRPC]
+    public void CancelShoot()
+    {
+        theFood.SetActive(false);
+        Destroy(targetObject);
+        targetObject = targetIndicatorPrefab;
+
+        p1Shoot = false;
+        count = 0;
+        spawn = false;
+        minRange.SetActive(false);
+        maxRange.SetActive(false);
+    }
 
     public void ShootBullet()
     {

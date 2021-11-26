@@ -10,6 +10,7 @@ public class sl_newP2Movement : MonoBehaviour
     PhotonView view;
 
     public GameObject inventoryVisible;
+    public GameObject indicatorVisible;
 
     public Animator anim;
     bool isrunning;
@@ -43,6 +44,7 @@ public class sl_newP2Movement : MonoBehaviour
         if (view.IsMine)  //Photon - check is my character
         {
             inventoryVisible.SetActive(true);
+            indicatorVisible.SetActive(true);
 
             if (Input.GetMouseButton(1))
             {
@@ -68,6 +70,8 @@ public class sl_newP2Movement : MonoBehaviour
         else
         {
             inventoryVisible.SetActive(false);
+            indicatorVisible.SetActive(false);
+
         }
 
         if (gameObject.tag == "Player2")
