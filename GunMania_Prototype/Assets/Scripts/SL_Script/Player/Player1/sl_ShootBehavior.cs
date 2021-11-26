@@ -127,11 +127,11 @@ public class sl_ShootBehavior : MonoBehaviour
     public void SpawnBullet()
     {
         theFood.SetActive(true);
-        if(playerInventory.itemList[0].itemHeldNum == 1)
+        if (playerInventory.itemList[0].itemHeldNum == 1)
         {
             bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
         }
-        else if(playerInventory.itemList[0].itemHeldNum == 2)
+        else if (playerInventory.itemList[0].itemHeldNum == 2)
         {
             bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
         }
@@ -147,8 +147,8 @@ public class sl_ShootBehavior : MonoBehaviour
         {
             bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
         }
-        
-        bullet.SetActive(false);
+
+    bullet.SetActive(false);
         //bullet.transform.SetParent(shootPosition);
     }
 
