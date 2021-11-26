@@ -42,11 +42,11 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     public GameObject[] p2MainModel;
     public GameObject[] p2TagModel;
 
-    int count1;
-    int count2;
+    public static int count1;
+    public static int count2;
 
-    int p2count1;
-    int p2count2;
+    public static int p2count1;
+    public static int p2count2;
 
     public GameObject readyButton;
     public GameObject startButton;
@@ -71,6 +71,8 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("main count default: " + count1);
+
         p2Ready = 0;
 
         view = GetComponent<PhotonView>();
@@ -100,7 +102,7 @@ public class sl_SpawnPlayerManager : MonoBehaviour
             //p1
             if (count1 == 5)
             {
-                count1 = 0;
+                count1 = 1;
                 p1_mainRightClick.SetActive(true);
                 p1MainConfirm.SetActive(true);
 
@@ -126,7 +128,7 @@ public class sl_SpawnPlayerManager : MonoBehaviour
             //p2
             if (p2count1 == 5)
             {
-                p2count1 = 0;
+                p2count1 = 1;
                 p2_mainRightClick.SetActive(true);
                 p2MainConfirm.SetActive(true);
             }
@@ -136,6 +138,8 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
     }
 
+    //to check p2 is ready
+    #region
     public void ReadyGame()
     {
         Debug.Log("p2 ready" + p2Ready);
@@ -153,16 +157,19 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     {
         p2Ready = 1;
     }
+    #endregion
 
     public void Player1Click()
     {
-        if (count1 < 4)
+        Debug.Log("main count click: " + count1);
+
+        if (count1 < 5)
         {
             count1++;
             view.RPC("ViewP1Pick", RpcTarget.AllBufferedViaServer, count1);
 
         }
-        if (count1 == 4)
+        if (count1 == 5)
         {
             count1 = 0;
             view.RPC("ViewP1Pick", RpcTarget.AllBufferedViaServer, count1);
@@ -171,34 +178,18 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
     }
 
-    public void Player2Click()
-    {
-        if (p2count1 < 4)
-        {
-            p2count1++;
-            view.RPC("ViewP2Pick", RpcTarget.AllBufferedViaServer, p2count1);
-
-        }
-        if (p2count1 == 4)
-        {
-            p2count1 = 0;
-            view.RPC("ViewP2Pick", RpcTarget.AllBufferedViaServer, p2count1);
-
-        }
-
-    }
-
-
     //tag
     public void Player1TagClick()
     {
-        if (count2 < 4)
+        Debug.Log("tag count click: " + count2);
+
+        if (count2 < 5)
         {
             count2++;
             view.RPC("ViewP1Tag", RpcTarget.AllBufferedViaServer, count2);
 
         }
-        if (count2 == 4)
+        if (count2 == 5)
         {
             count2 = 0;
             view.RPC("ViewP1Tag", RpcTarget.AllBufferedViaServer, count2);
@@ -207,15 +198,37 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
     }
 
+
+    public void Player2Click()
+    {
+        Debug.Log("p2 main click " + p2count1);
+
+        if (p2count1 < 5)
+        {
+            p2count1++;
+            view.RPC("ViewP2Pick", RpcTarget.AllBufferedViaServer, p2count1);
+
+        }
+        if (p2count1 == 5)
+        {
+            p2count1 = 0;
+            view.RPC("ViewP2Pick", RpcTarget.AllBufferedViaServer, p2count1);
+
+        }
+
+    }
+
     public void Player2TagClick()
     {
-        if (p2count2 < 4)
+        Debug.Log("p2 tag click " + p2count2);
+
+        if (p2count2 < 5)
         {
             p2count2++;
             view.RPC("ViewP2Tag", RpcTarget.AllBufferedViaServer, p2count2);
 
         }
-        if (p2count2 == 4)
+        if (p2count2 == 5)
         {
             p2count2 = 0;
             view.RPC("ViewP2Tag", RpcTarget.AllBufferedViaServer, p2count2);
@@ -228,23 +241,23 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     #region
     public void Player1_MainConfirm()
     {
-        Debug.Log("p1 confirm " + count1);
-        if(count1 == 0)
-        {
-            playerNum_p1 = 1;
-        }
-        if (count1 == 1)
-        {
-            playerNum_p1 = 2;
-        }
-        if(count1 == 2)
-        {
-            playerNum_p1 = 3;
-        }
-        if (count1 == 3)
-        {
-            playerNum_p1 = 4;
-        }
+        Debug.Log("p1 main confirm " + count1);
+        //if (count1 == 0)
+        //{
+        //    playerNum_p1 = 1;
+        //}
+        //if (count1 == 1)
+        //{
+        //    playerNum_p1 = 2;
+        //}
+        //if(count1 == 2)
+        //{
+        //    playerNum_p1 = 3;
+        //}
+        //if (count1 == 3)
+        //{
+        //    playerNum_p1 = 4;
+        //}
 
 
         p1_mainRightClick.SetActive(false);
@@ -256,26 +269,28 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
     public void Player1_TagConfirm()
     {
-        if (count2 == 0)
-        {
-            playerTagNum_p1 = 1;
+        Debug.Log("p1 tag confirm " + count2);
 
-        }
-        if (count2 == 1)
-        {
-            playerTagNum_p1 = 2;
+        //if (count2 == 0)
+        //{
+        //    playerTagNum_p1 = 1;
 
-        }
-        if (count2 == 2)
-        {
-            playerTagNum_p1 = 3;
+        //}
+        //if (count2 == 1)
+        //{
+        //    playerTagNum_p1 = 2;
 
-        }
-        if (count2 == 3)
-        {
-            playerTagNum_p1 = 4;
+        //}
+        //if (count2 == 2)
+        //{
+        //    playerTagNum_p1 = 3;
 
-        }
+        //}
+        //if (count2 == 3)
+        //{
+        //    playerTagNum_p1 = 4;
+
+        //}
 
         p1_mainRightClick.SetActive(false);
         p1_tagRightClick.SetActive(false);
@@ -286,23 +301,25 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     }
     
     public void Player2_MainConfirm()
-    {
-        if (p2count1 == 0)
-        {
-            playerNum_p2 = 1;
-        }
-        if (p2count1 == 1)
-        {
-            playerNum_p2 = 2;
-        }
-        if (p2count1 == 2)
-        {
-            playerNum_p2 = 3;
-        }
-        if (p2count1 == 3)
-        {
-            playerNum_p2 = 4;
-        }
+    {        
+        Debug.Log("p2 main confirm " + p2count1);
+
+        //if (p2count1 == 0)
+        //{
+        //    playerNum_p2 = 1;
+        //}
+        //if (p2count1 == 1)
+        //{
+        //    playerNum_p2 = 2;
+        //}
+        //if (p2count1 == 2)
+        //{
+        //    playerNum_p2 = 3;
+        //}
+        //if (p2count1 == 3)
+        //{
+        //    playerNum_p2 = 4;
+        //}
 
         p2_mainRightClick.SetActive(false);
         p2_tagRightClick.SetActive(true);
@@ -313,25 +330,27 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
     public void Player2_TagConfirm()
     {
-        if (p2count2 == 0)
-        {
-            playerTagNum_p2 = 1;
-        }
-        if (p2count2 == 1)
-        {
-            playerTagNum_p2 = 2;
+        Debug.Log("p2 tag confirm " + p2count2);
 
-        }
-        if (p2count2 == 2)
-        {
-            playerTagNum_p2 = 3;
+        //if (p2count2 == 0)
+        //{
+        //    playerTagNum_p2 = 1;
+        //}
+        //if (p2count2 == 1)
+        //{
+        //    playerTagNum_p2 = 2;
 
-        }
-        if (p2count2 == 3)
-        {
-            playerTagNum_p2 = 4;
+        //}
+        //if (p2count2 == 2)
+        //{
+        //    playerTagNum_p2 = 3;
 
-        }
+        //}
+        //if (p2count2 == 3)
+        //{
+        //    playerTagNum_p2 = 4;
+
+        //}
 
         p2_mainRightClick.SetActive(false);
         p2_tagRightClick.SetActive(false);

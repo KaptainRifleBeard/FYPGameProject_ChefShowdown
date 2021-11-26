@@ -52,7 +52,7 @@ public class SL_newP1Movement : MonoBehaviour
 
         StartCoroutine(waitFoeSec());
         destination = transform.position;
-        Debug.LogWarning("p1 tag " + sl_SpawnPlayerManager.playerTagNum_p1);
+
 
     }
 
@@ -191,76 +191,59 @@ public class SL_newP1Movement : MonoBehaviour
 
         //}
         #endregion
-        //define int for tag character
-        if (sl_SpawnPlayerManager.playerTagNum_p1 == 1)
-        {
-            tagCharacter = 1;
-        }
-        if (sl_SpawnPlayerManager.playerTagNum_p1 == 2)
-        {
-            tagCharacter = 2;
-        }
-        if (sl_SpawnPlayerManager.playerTagNum_p1 == 3)
-        {
-            tagCharacter = 3;
-        }
-        if (sl_SpawnPlayerManager.playerTagNum_p1 == 4)
-        {
-            tagCharacter = 4;
-        }
-
+        
 
         if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player")
         {
-            Debug.Log("current main " + mainCharacter);
-
-            if (i < 1)
+            if (i == 0)
             {
-                if (tagCharacter == 1)
+                i = 1;
+                Debug.Log("tagCharacter: " + tagCharacter);
+
+                if (tagCharacter == 1 || tagCharacter == 0)
                 {
                     view.RPC("Brock", RpcTarget.All);
-                    i = 1;
                 }
                 if (tagCharacter == 2)
                 {
                     view.RPC("Wen", RpcTarget.All);
-                    i = 1;
                 }
                 if (tagCharacter == 3)
                 {
                     view.RPC("Jiho", RpcTarget.All);
-                    i = 1;
                 }
                 if (tagCharacter == 4)
                 {
                     view.RPC("Katsuki", RpcTarget.All);
-                    i = 1;
                 }
+
             }
-            else
+            else 
             {
-                if (mainCharacter == 1)
+                if (i == 1)
                 {
-                    view.RPC("Brock", RpcTarget.All);
-                    i--;
+                    i = 0;
+                    Debug.Log("main character: " + mainCharacter);
+                    if (mainCharacter == 1 || mainCharacter == 0)
+                    {
+                        view.RPC("Brock", RpcTarget.All);
+                    }
+                    if (mainCharacter == 2)
+                    {
+                        view.RPC("Wen", RpcTarget.All);
+                    }
+                    if (mainCharacter == 3)
+                    {
+                        view.RPC("Jiho", RpcTarget.All);
+                    }
+                    if (mainCharacter == 4)
+                    {
+                        view.RPC("Katsuki", RpcTarget.All);
+                    }
                 }
-                if (mainCharacter == 2)
-                {
-                    view.RPC("Wen", RpcTarget.All);
-                    i--;
-                }
-                if (mainCharacter == 3)
-                {
-                    view.RPC("Jiho", RpcTarget.All);
-                    i--;
-                }
-                if (mainCharacter == 4)
-                {
-                    view.RPC("Katsuki", RpcTarget.All);
-                    i--;
-                }
+                   
+
             }
-            Debug.Log("i " + i);
 
         }
 
@@ -427,35 +410,56 @@ public class SL_newP1Movement : MonoBehaviour
 
     IEnumerator waitFoeSec()
     {
-        Debug.LogWarning("p1 spawn + " + sl_SpawnPlayerManager.playerNum_p1);
+        Debug.LogWarning("p1 spawn:" + sl_SpawnPlayerManager.count1);
+        Debug.LogWarning("p1 tag: " + sl_SpawnPlayerManager.count2);
 
         yield return new WaitForSeconds(0.1f);
         //Show model when in game
-        if (sl_SpawnPlayerManager.playerNum_p1 == 1)
+        if (sl_SpawnPlayerManager.count1 == 1 || sl_SpawnPlayerManager.count1 == 0)//0 is default, 1 is choosen
         {
             view.RPC("Brock", RpcTarget.All);
             mainCharacter = 1;
         }
-        if (sl_SpawnPlayerManager.playerNum_p1 == 2)
+        if (sl_SpawnPlayerManager.count1 == 2)
         {
             view.RPC("Wen", RpcTarget.All);
             mainCharacter = 2;
 
         }
-        if (sl_SpawnPlayerManager.playerNum_p1 == 3)
+        if (sl_SpawnPlayerManager.count1 == 3)
         {
             view.RPC("Jiho", RpcTarget.All);
             mainCharacter = 3;
 
         }
-        if (sl_SpawnPlayerManager.playerNum_p1 == 4)
+        if (sl_SpawnPlayerManager.count1 == 4)
         {
             view.RPC("Katsuki", RpcTarget.All);
             mainCharacter = 4;
 
         }
 
-       
+        //tag character
+        //define int for tag character, ****i put -1 because somehow the integer auto +1 when i switch scene, but default 0 no problem
+        if (sl_SpawnPlayerManager.count2 == 0 || sl_SpawnPlayerManager.count2 == 1)
+        {
+            tagCharacter = 1;
+        }
+        if (sl_SpawnPlayerManager.count2 == 2)
+        {
+            tagCharacter = 2;
+        }
+        if (sl_SpawnPlayerManager.count2 == 3)
+        {
+            tagCharacter = 3;
+        }
+        if (sl_SpawnPlayerManager.count2 == 4)
+        {
+            tagCharacter = 4;
+        }
+
+
+
     }
 
 

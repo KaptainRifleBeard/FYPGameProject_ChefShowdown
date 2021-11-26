@@ -172,76 +172,57 @@ public class sl_newP2Movement : MonoBehaviour
 
 
 
-        //define int for tag character
-        if (sl_SpawnPlayerManager.playerTagNum_p2 == 1)
-        {
-            tagCharacter = 1;
-        }
-        if (sl_SpawnPlayerManager.playerTagNum_p2 == 2)
-        {
-            tagCharacter = 2;
-        }
-        if (sl_SpawnPlayerManager.playerTagNum_p2 == 3)
-        {
-            tagCharacter = 3;
-        }
-        if (sl_SpawnPlayerManager.playerTagNum_p2 == 4)
-        {
-            tagCharacter = 4;
-        }
-
-
         if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player2")
         {
-            Debug.Log("current main " + mainCharacter);
-
-            if (i < 1)
+            if (i == 0)
             {
-                if (tagCharacter == 1)
+                i = 1;
+                Debug.Log("tagCharacter: " + tagCharacter);
+
+                if (tagCharacter == 1 || tagCharacter == 0)
                 {
                     view.RPC("Brock2", RpcTarget.All);
-                    i = 1;
                 }
                 if (tagCharacter == 2)
                 {
                     view.RPC("Wen2", RpcTarget.All);
-                    i = 1;
                 }
                 if (tagCharacter == 3)
                 {
                     view.RPC("Jiho2", RpcTarget.All);
-                    i = 1;
                 }
                 if (tagCharacter == 4)
                 {
                     view.RPC("Katsuki2", RpcTarget.All);
-                    i = 1;
                 }
+
             }
             else
             {
-                if (mainCharacter == 1)
+                if (i == 1)
                 {
-                    view.RPC("Brock2", RpcTarget.All);
-                    i--;
+                    i = 0;
+                    Debug.Log("main character: " + mainCharacter);
+                    if (mainCharacter == 1 || mainCharacter == 0)
+                    {
+                        view.RPC("Brock2", RpcTarget.All);
+                    }
+                    if (mainCharacter == 2)
+                    {
+                        view.RPC("Wen2", RpcTarget.All);
+                    }
+                    if (mainCharacter == 3)
+                    {
+                        view.RPC("Jiho2", RpcTarget.All);
+                    }
+                    if (mainCharacter == 4)
+                    {
+                        view.RPC("Katsuki2", RpcTarget.All);
+                    }
                 }
-                if (mainCharacter == 2)
-                {
-                    view.RPC("Wen2", RpcTarget.All);
-                    i--;
-                }
-                if (mainCharacter == 3)
-                {
-                    view.RPC("Jiho2", RpcTarget.All);
-                    i--;
-                }
-                if (mainCharacter == 4)
-                {
-                    view.RPC("Katsuki2", RpcTarget.All);
-                    i--;
-                }
+
+
             }
-            Debug.Log("i " + i);
 
         }
 
@@ -266,6 +247,7 @@ public class sl_newP2Movement : MonoBehaviour
 
     //For Character model
     //0.brock, 1.wen, 2.jiho, 3.katsuki
+    #region
     [PunRPC]
     public void Brock2()
     {
@@ -383,36 +365,58 @@ public class sl_newP2Movement : MonoBehaviour
 
         }
     }
+    #endregion
 
     IEnumerator waitFoeSec()
     {
-        Debug.LogWarning("p2 spawn + "+ sl_SpawnPlayerManager.playerNum_p2);
+        Debug.LogWarning("p2 spawn:" + sl_SpawnPlayerManager.p2count1);
+        Debug.LogWarning("p2 tag: " + sl_SpawnPlayerManager.p2count1);
+
 
         yield return new WaitForSeconds(0.1f);
         //Show model when in game
-        if (sl_SpawnPlayerManager.playerNum_p2 == 1)
+        if (sl_SpawnPlayerManager.p2count1 == 1 || sl_SpawnPlayerManager.p2count1 == 0) //0 is default, 1 is choosen
         {
             view.RPC("Brock2", RpcTarget.All);
             mainCharacter = 1;
         }
-        if (sl_SpawnPlayerManager.playerNum_p2 == 2)
+        if (sl_SpawnPlayerManager.p2count1 == 2)
         {
             view.RPC("Wen2", RpcTarget.All);
             mainCharacter = 2;
 
         }
-        if (sl_SpawnPlayerManager.playerNum_p2 == 3)
+        if (sl_SpawnPlayerManager.p2count1 == 3)
         {
             view.RPC("Jiho2", RpcTarget.All);
             mainCharacter = 3;
 
         }
-        if (sl_SpawnPlayerManager.playerNum_p2 == 4)
+        if (sl_SpawnPlayerManager.p2count1 == 4)
         {
             view.RPC("Katsuki2", RpcTarget.All);
             mainCharacter = 4;
 
         }
+
+        //tag character
+        if (sl_SpawnPlayerManager.p2count2 == 0 || sl_SpawnPlayerManager.p2count2 == 1)
+        {
+            tagCharacter = 1;
+        }
+        if (sl_SpawnPlayerManager.p2count2 == 2)
+        {
+            tagCharacter = 2;
+        }
+        if (sl_SpawnPlayerManager.p2count2 == 3)
+        {
+            tagCharacter = 3;
+        }
+        if (sl_SpawnPlayerManager.p2count2 == 4)
+        {
+            tagCharacter = 4;
+        }
+
     }
 
 
