@@ -6,13 +6,18 @@ public class P2DishEffect : MonoBehaviour
 {
     public GameObject bullet;
 
-
+    //both speed 100
+    //rigidbody drag 2
     public float knockbackSpeed;
     public float pullingSpeed;
+    public static bool p2canMove;
+
+    float timer;
 
     private void Start()
     {
-
+        timer = 0;
+        p2canMove = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,6 +31,10 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "Tojangjochi")
         {
             //stun
+            p2canMove = false;
+            StartCoroutine(StunDeactive(6));
+
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Hassun")
         {
@@ -68,5 +77,10 @@ public class P2DishEffect : MonoBehaviour
         }
     }
 
+    public IEnumerator StunDeactive(int time)
+    {
+        yield return new WaitForSeconds(time);
 
+        p2canMove = true;
+    }
 }

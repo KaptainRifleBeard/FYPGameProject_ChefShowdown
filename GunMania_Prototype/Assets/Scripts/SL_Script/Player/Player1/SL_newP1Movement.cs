@@ -78,8 +78,12 @@ public class SL_newP1Movement : MonoBehaviour
                     {
                         if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         {
-                            myAgent.SetDestination(hit.point);
-                            isrunning = true;
+                            if(DishEffect.canMove)
+                            {
+                                myAgent.SetDestination(hit.point);
+                                isrunning = true;
+                            }    
+                            
                         }
                         //if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         //{
@@ -288,7 +292,10 @@ public class SL_newP1Movement : MonoBehaviour
 
             //get the unit vector which means the move direction, and multiply by the move distance.
             Vector3 move = (destination - transform.position).normalized * moveDis;
+            
             transform.Translate(move.x, 0, move.z);
+            
+            
 
         }
 
