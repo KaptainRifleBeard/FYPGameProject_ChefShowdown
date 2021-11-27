@@ -8,6 +8,8 @@ using System.Linq;
 
 public class SL_newP1Movement : MonoBehaviour
 {
+    bool startTheGame = false;
+
     private NavMeshAgent myAgent;
     PhotonView view;
 
@@ -45,226 +47,232 @@ public class SL_newP1Movement : MonoBehaviour
 
     void Start()
     {
+        destination = transform.position;
+
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
         anim = gameObject.GetComponent<Animator>();
         lineRenderer = GetComponent<LineRenderer>();
 
         StartCoroutine(waitFoeSec());
-        destination = transform.position;
+        StartCoroutine(WhenGameStart());
 
 
     }
 
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (view.IsMine)  //Photon - check is my character
+        if(startTheGame == true)
         {
-            inventoryVisible.SetActive(true);
-            indicatorVisible.SetActive(true);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            if (Input.GetMouseButton(1) && sl_ShootBehavior.p1Shoot == false)
+            if (view.IsMine)  //Photon - check is my character
             {
-                if (Physics.Raycast(ray, out hit))
+                inventoryVisible.SetActive(true);
+                indicatorVisible.SetActive(true);
+
+                if (Input.GetMouseButton(1) && sl_ShootBehavior.p1Shoot == false)
                 {
-                    if (Vector3.Distance(transform.position, hit.point) > 1.0)
+                    if (Physics.Raycast(ray, out hit))
                     {
-                        myAgent.SetDestination(hit.point);
-                        isrunning = true;
+                        if (Vector3.Distance(transform.position, hit.point) > 1.0)
+                        {
+                            myAgent.SetDestination(hit.point);
+                            isrunning = true;
+                        }
+                        //if (Vector3.Distance(transform.position, hit.point) > 1.0)
+                        //{
+                        //    destination = hit.point;
+                        //    Movement();
+                        //}
                     }
-                    //if (Vector3.Distance(transform.position, hit.point) > 1.0)
-                    //{
-                    //    destination = hit.point;
-                    //    Movement();
-                    //}
+
+                }
+
+                if (Input.GetMouseButtonUp(1))
+                {
+                    //detectAndStop = false;
+                    myAgent.isStopped = true;
+                    myAgent.ResetPath();
+                }
+            }
+            else
+            {
+                inventoryVisible.SetActive(false);
+                indicatorVisible.SetActive(false);
+
+            }
+
+            //DrawLine();
+
+            //ROTATE player
+            if (gameObject.tag == "Player")
+            {
+                //Rotate player
+                Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+                float rayLength;
+
+                if (groundPlane.Raycast(ray, out rayLength))
+                {
+                    Vector3 pointToLook = ray.GetPoint(rayLength);
+                    transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
                 }
 
             }
 
-            if (Input.GetMouseButtonUp(1))
+
+            if (sl_ShootBehavior.p1Shoot == true)
             {
-                //detectAndStop = false;
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
             }
-        }
-        else
-        {
-            inventoryVisible.SetActive(false);
-            indicatorVisible.SetActive(false);
 
-        }
 
-        //DrawLine();
+            #region
+            //ANIMATION
+            //if (!myAgent.pathPending)
+            //{
+            //    if (myAgent.remainingDistance <= myAgent.stoppingDistance)
+            //    {
+            //        isrunning = false;
+            //        stopping = true;
+            //    }
+            //    else
+            //    {
+            //        stopping = false;
 
-        //ROTATE player
-        if (gameObject.tag == "Player")
-        {
-            //Rotate player
-            Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-            float rayLength;
+            //    }
+            //}
 
-            if (groundPlane.Raycast(ray, out rayLength))
+            //if (isrunning && sl_ShootBehavior.p1Shoot == false && PhotonNetwork.IsMasterClient)
+            //{
+
+            //    anim.SetBool("isRunning", true);
+            //}
+            //else
+            //{
+            //    anim.SetBool("isRunning", false);
+            //}
+
+
+            //if (sl_ShootBehavior.bulletCount == 1 && !stopping && PhotonNetwork.IsMasterClient)
+            //{
+            //    anim.SetBool("isRunning", false);
+
+            //    //anim.SetBool("Throw", false);
+            //    anim.SetBool("hold1food", true);
+            //    anim.SetBool("hold2food", false);
+            //}
+
+            //if (sl_ShootBehavior.bulletCount == 2 && !stopping && PhotonNetwork.IsMasterClient)
+            //{
+            //    anim.SetBool("isRunning", false);
+
+            //    //anim.SetBool("Throw", false);
+            //    anim.SetBool("hold1food", false);
+            //    anim.SetBool("hold2food", true);
+            //}
+            //else if (sl_ShootBehavior.bulletCount == 0 && !stopping && PhotonNetwork.IsMasterClient)
+            //{
+            //    anim.SetBool("isRunning", true);
+
+            //    //anim.SetBool("Throw", false);
+            //    anim.SetBool("hold1food", false);
+            //    anim.SetBool("hold2food", false);
+            //}
+
+            //if (stopping)
+            //{
+            //    anim.SetBool("stop", true);
+
+            //    anim.SetBool("isRunning", false);
+            //    //anim.SetBool("Throw", false);
+            //    anim.SetBool("hold1food", false);
+            //    anim.SetBool("hold2food", false);
+            //}
+            //else
+            //{
+            //    anim.SetBool("stop", false);
+
+            //}
+            #endregion
+
+
+            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player")
             {
-                Vector3 pointToLook = ray.GetPoint(rayLength);
-                transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-            }
-
-        }
-
-
-        if (sl_ShootBehavior.p1Shoot == true)
-        {
-            myAgent.isStopped = true;
-            myAgent.ResetPath();
-        }
-
-
-        #region
-        //ANIMATION
-        //if (!myAgent.pathPending)
-        //{
-        //    if (myAgent.remainingDistance <= myAgent.stoppingDistance)
-        //    {
-        //        isrunning = false;
-        //        stopping = true;
-        //    }
-        //    else
-        //    {
-        //        stopping = false;
-
-        //    }
-        //}
-
-        //if (isrunning && sl_ShootBehavior.p1Shoot == false && PhotonNetwork.IsMasterClient)
-        //{
-
-        //    anim.SetBool("isRunning", true);
-        //}
-        //else
-        //{
-        //    anim.SetBool("isRunning", false);
-        //}
-
-
-        //if (sl_ShootBehavior.bulletCount == 1 && !stopping && PhotonNetwork.IsMasterClient)
-        //{
-        //    anim.SetBool("isRunning", false);
-
-        //    //anim.SetBool("Throw", false);
-        //    anim.SetBool("hold1food", true);
-        //    anim.SetBool("hold2food", false);
-        //}
-
-        //if (sl_ShootBehavior.bulletCount == 2 && !stopping && PhotonNetwork.IsMasterClient)
-        //{
-        //    anim.SetBool("isRunning", false);
-
-        //    //anim.SetBool("Throw", false);
-        //    anim.SetBool("hold1food", false);
-        //    anim.SetBool("hold2food", true);
-        //}
-        //else if (sl_ShootBehavior.bulletCount == 0 && !stopping && PhotonNetwork.IsMasterClient)
-        //{
-        //    anim.SetBool("isRunning", true);
-
-        //    //anim.SetBool("Throw", false);
-        //    anim.SetBool("hold1food", false);
-        //    anim.SetBool("hold2food", false);
-        //}
-
-        //if (stopping)
-        //{
-        //    anim.SetBool("stop", true);
-
-        //    anim.SetBool("isRunning", false);
-        //    //anim.SetBool("Throw", false);
-        //    anim.SetBool("hold1food", false);
-        //    anim.SetBool("hold2food", false);
-        //}
-        //else
-        //{
-        //    anim.SetBool("stop", false);
-
-        //}
-        #endregion
-        
-
-        if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player")
-        {
-            if (i == 0)
-            {
-                i = 1;
-                Debug.Log("tagCharacter: " + tagCharacter);
-
-                if (tagCharacter == 1 || tagCharacter == 0)
+                if (i == 0)
                 {
-                    view.RPC("Brock", RpcTarget.All);
-                }
-                if (tagCharacter == 2)
-                {
-                    view.RPC("Wen", RpcTarget.All);
-                }
-                if (tagCharacter == 3)
-                {
-                    view.RPC("Jiho", RpcTarget.All);
-                }
-                if (tagCharacter == 4)
-                {
-                    view.RPC("Katsuki", RpcTarget.All);
-                }
+                    i = 1;
+                    Debug.Log("tagCharacter: " + tagCharacter);
 
-            }
-            else 
-            {
-                if (i == 1)
-                {
-                    i = 0;
-                    Debug.Log("main character: " + mainCharacter);
-                    if (mainCharacter == 1 || mainCharacter == 0)
+                    if (tagCharacter == 1 || tagCharacter == 0)
                     {
                         view.RPC("Brock", RpcTarget.All);
                     }
-                    if (mainCharacter == 2)
+                    if (tagCharacter == 2)
                     {
                         view.RPC("Wen", RpcTarget.All);
                     }
-                    if (mainCharacter == 3)
+                    if (tagCharacter == 3)
                     {
                         view.RPC("Jiho", RpcTarget.All);
                     }
-                    if (mainCharacter == 4)
+                    if (tagCharacter == 4)
                     {
                         view.RPC("Katsuki", RpcTarget.All);
                     }
+
                 }
-                   
+                else
+                {
+                    if (i == 1)
+                    {
+                        i = 0;
+                        Debug.Log("main character: " + mainCharacter);
+                        if (mainCharacter == 1 || mainCharacter == 0)
+                        {
+                            view.RPC("Brock", RpcTarget.All);
+                        }
+                        if (mainCharacter == 2)
+                        {
+                            view.RPC("Wen", RpcTarget.All);
+                        }
+                        if (mainCharacter == 3)
+                        {
+                            view.RPC("Jiho", RpcTarget.All);
+                        }
+                        if (mainCharacter == 4)
+                        {
+                            view.RPC("Katsuki", RpcTarget.All);
+                        }
+                    }
+
+
+                }
 
             }
 
-        }
 
-
-        //edit spped when pass through off mesh link on roof
-        if (myAgent.isOnOffMeshLink)
-        {
-            OffMeshLinkData data = myAgent.currentOffMeshLinkData;
-
-            //calculate the final point of the link
-            Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
-
-            //Move the agent to the end point
-            myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
-
-            //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
-            if (myAgent.transform.position == endPos)
+            //edit spped when pass through off mesh link on roof
+            if (myAgent.isOnOffMeshLink)
             {
-                myAgent.CompleteOffMeshLink();
+                OffMeshLinkData data = myAgent.currentOffMeshLinkData;
+
+                //calculate the final point of the link
+                Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
+
+                //Move the agent to the end point
+                myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+
+                //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+                if (myAgent.transform.position == endPos)
+                {
+                    myAgent.CompleteOffMeshLink();
+                }
             }
         }
+     
     }
 
     public void Movement()
@@ -410,9 +418,6 @@ public class SL_newP1Movement : MonoBehaviour
 
     IEnumerator waitFoeSec()
     {
-        Debug.LogWarning("p1 spawn:" + sl_SpawnPlayerManager.count1);
-        Debug.LogWarning("p1 tag: " + sl_SpawnPlayerManager.count2);
-
         yield return new WaitForSeconds(0.1f);
         //Show model when in game
         if (sl_SpawnPlayerManager.count1 == 1 || sl_SpawnPlayerManager.count1 == 0)//0 is default, 1 is choosen
@@ -462,6 +467,11 @@ public class SL_newP1Movement : MonoBehaviour
 
     }
 
+    IEnumerator WhenGameStart()
+    {
+        yield return new WaitForSeconds(3f);
+        startTheGame = true;
+    }
 
     //IEnumerator disableStop()
     //{
