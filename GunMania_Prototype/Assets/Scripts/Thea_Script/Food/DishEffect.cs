@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class DishEffect : MonoBehaviour
 {
-    
+    PhotonView view;
+
+    Rigidbody playerRidg;
     //both speed 100
     //rigidbody drag 2
     public float knockbackSpeed;
     public float pullingSpeed;
     public static bool canMove;
-    public static bool isForced;
 
     float timer;
 
@@ -18,7 +20,8 @@ public class DishEffect : MonoBehaviour
     {
         timer = 0;
         canMove = true;
-        isForced = false;
+        playerRidg = gameObject.GetComponent<Rigidbody>();
+        view = GetComponent<PhotonView>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,14 +29,13 @@ public class DishEffect : MonoBehaviour
 
         if (other.gameObject.tag == "P2Sinseollo")
         {
-            sl_PlayerHealth.currentHealth -= 3;
+            view.RPC("Explode", RpcTarget.All);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "P2Tojangjochi")
         {
             //stun
-            canMove = false;
-            StartCoroutine(StunDeactive(6));
+            view.RPC("Stun", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
@@ -44,14 +46,11 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2Mukozuke")
         {
             //pull
-            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
-            sl_PlayerHealth.currentHealth -= 2;
-
             Vector3 direction = (other.transform.position - transform.position).normalized;
             direction.y = 0;
 
-            playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
-            isForced = true;
+            view.RPC("Pull", RpcTarget.All, direction);
+
             Destroy(other.gameObject); 
         }
         else if (other.gameObject.tag == "P2BirdNestSoup")
@@ -65,14 +64,10 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2FoxtailMillet")
         {
             //knock
-            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
-            sl_PlayerHealth.currentHealth -= 2;
-            
             Vector3 direction = (transform.position - other.transform.position).normalized;
             direction.y = 0;
 
-            playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
-            isForced = true;
+            view.RPC("Push", RpcTarget.All, direction);
 
             Destroy(other.gameObject);
         }
@@ -86,5 +81,34 @@ public class DishEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canMove = true;
+    }
+
+    [PunRPC]
+    public void Pull(Vector3 dir)
+    {
+        sl_PlayerHealth.currentHealth -= 2;
+        
+        playerRidg.AddForce(dir * pullingSpeed, ForceMode.Impulse);
+    }
+
+    [PunRPC]
+    public void Push(Vector3 dir)
+    {
+        sl_PlayerHealth.currentHealth -= 2;
+        
+        playerRidg.AddForce(dir * knockbackSpeed, ForceMode.Impulse);
+    }
+
+    [PunRPC]
+    public void Stun()
+    {
+        canMove = false;
+        StartCoroutine(StunDeactive(6));
+    }
+
+    [PunRPC]
+    public void Explode()
+    {
+        sl_PlayerHealth.currentHealth -= 3;
     }
 }

@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class P2DishEffect : MonoBehaviour
 {
+    PhotonView view;
 
+    Rigidbody playerRidg;
     //both speed 100
     //rigidbody drag 2
     public float knockbackSpeed;
     public float pullingSpeed;
     public static bool p2canMove;
-    public static bool p2isForced;
 
     float timer;
 
@@ -18,7 +20,8 @@ public class P2DishEffect : MonoBehaviour
     {
         timer = 0;
         p2canMove = true;
-        p2isForced = false;
+        playerRidg = gameObject.GetComponent<Rigidbody>();
+        view = GetComponent<PhotonView>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,14 +29,13 @@ public class P2DishEffect : MonoBehaviour
 
         if (other.gameObject.tag == "Sinseollo")
         {
-            sl_P2PlayerHealth.p2currentHealth -= 3;
+            view.RPC("Explode", RpcTarget.All);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Tojangjochi")
         {
             //stun
-            p2canMove = false;
-            StartCoroutine(StunDeactive(6));
+            view.RPC("Stun", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
@@ -44,14 +46,10 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "Mukozuke")
         {
             //pull
-            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
-            sl_P2PlayerHealth.p2currentHealth -= 2;
-
             Vector3 direction = (other.transform.position - transform.position).normalized;
             direction.y = 0;
 
-            playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
-            p2isForced = true;
+            view.RPC("Pull", RpcTarget.All, direction);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "BirdNestSoup")
@@ -65,14 +63,10 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "FoxtailMillet")
         {
             //knock
-            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
-            sl_P2PlayerHealth.p2currentHealth -= 2;
-
             Vector3 direction = (transform.position - other.transform.position).normalized;
             direction.y = 0;
 
-            playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
-            p2isForced = true;
+            view.RPC("Push", RpcTarget.All, direction);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "RawStinkyTofu")
@@ -86,5 +80,34 @@ public class P2DishEffect : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         p2canMove = true;
+    }
+
+    [PunRPC]
+    public void Pull(Vector3 dir)
+    {
+        sl_P2PlayerHealth.p2currentHealth -= 2;
+        
+        playerRidg.AddForce(dir * pullingSpeed, ForceMode.Impulse);
+    }
+
+    [PunRPC]
+    public void Push(Vector3 dir)
+    {
+        sl_P2PlayerHealth.p2currentHealth -= 2;
+
+        playerRidg.AddForce(dir * knockbackSpeed, ForceMode.Impulse);
+    }
+
+    [PunRPC]
+    public void Stun()
+    {
+        p2canMove = false;
+        StartCoroutine(StunDeactive(6));
+    }
+
+    [PunRPC]
+    public void Explode()
+    {
+        sl_P2PlayerHealth.p2currentHealth -= 3;
     }
 }
