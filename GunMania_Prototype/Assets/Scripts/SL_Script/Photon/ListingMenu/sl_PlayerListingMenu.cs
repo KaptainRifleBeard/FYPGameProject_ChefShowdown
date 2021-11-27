@@ -86,6 +86,12 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             Destroy(listings[i].gameObject);
             listings.RemoveAt(i);
         }
+
+        sl_SpawnPlayerManager.playerNum_p1 = 0;
+        sl_SpawnPlayerManager.playerNum_p2 = 0;
+        sl_SpawnPlayerManager.playerTagNum_p1 = 0;
+        sl_SpawnPlayerManager.playerTagNum_p2 = 0;
+
     }
 
     public void StartGame()
