@@ -13,6 +13,9 @@ public class sl_P2PickUp : MonoBehaviour
 
     PhotonView view;
 
+    public int prefabNum;
+    public GameObject[] foodPrefab;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -89,8 +92,27 @@ public class sl_P2PickUp : MonoBehaviour
     [PunRPC]
     public void StartCountdown()
     {
-        gameObject.SetActive(true);
-        isPicked = false;
+        //gameObject.SetActive(true);
+        prefabNum = Random.Range(0, 2);
+        Debug.Log("random: " + prefabNum);
+
+        if (prefabNum == 0)
+        {
+            foodPrefab[0].SetActive(true);
+            isPicked = false;
+        }
+
+        if (prefabNum == 1)
+        {
+            foodPrefab[1].SetActive(true);
+            isPicked = false;
+        }
+
+        if (prefabNum == 2)
+        {
+            foodPrefab[2].SetActive(true);
+            isPicked = false;
+        }
     }
 
 
