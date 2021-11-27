@@ -39,16 +39,16 @@ public class DishEffect : MonoBehaviour
         {
             sl_PlayerHealth.currentHealth += 3;
         }
-        else if (other.gameObject.tag == "P2Mukozuke")
+        else if (other.gameObject.tag == "P2FoxtailMillet")
         {
-            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
-            sl_PlayerHealth.currentHealth -= 2;
+            //Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
+            //sl_PlayerHealth.currentHealth -= 2;
 
-            Vector3 direction = (other.transform.position - transform.position).normalized;
-            direction.y = 0;
+            //Vector3 direction = (other.transform.position - transform.position).normalized;
+            //direction.y = 0;
 
-            playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
-            Destroy(other.gameObject); 
+            //playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
+            //Destroy(other.gameObject); 
         }
         else if (other.gameObject.tag == "P2BirdNestSoup")
         {
@@ -58,7 +58,7 @@ public class DishEffect : MonoBehaviour
         {
             //silence
         }
-        else if (other.gameObject.tag == "P2FoxtailMillet")
+        else if (other.gameObject.tag == "P2Mukozuke") //
         {
             Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
             sl_PlayerHealth.currentHealth -= 2;

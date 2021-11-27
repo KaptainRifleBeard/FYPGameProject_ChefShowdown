@@ -462,6 +462,21 @@ public class SL_newP1Movement : MonoBehaviour
         startTheGame = true;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "P2FoxtailMillet")
+        {
+            view.RPC("KnockbackBehavior", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    public void KnockbackBehavior()
+    {
+        myAgent.nextPosition = new Vector3(myAgent.transform.position.x, myAgent.transform.position.y, myAgent.transform.position.z - 2);
+        //myAgent.SetDestination(newPos);
+        //myAgent.nextPosition()
+    }
 
     //For UI SYNC
     #region
