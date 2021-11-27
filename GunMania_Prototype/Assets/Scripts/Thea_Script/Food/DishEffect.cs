@@ -41,6 +41,7 @@ public class DishEffect : MonoBehaviour
         }
         else if (other.gameObject.tag == "P2Mukozuke")
         {
+            //pull
             Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
             sl_PlayerHealth.currentHealth -= 2;
 
@@ -60,6 +61,7 @@ public class DishEffect : MonoBehaviour
         }
         else if (other.gameObject.tag == "P2FoxtailMillet")
         {
+            //knock
             Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
             sl_PlayerHealth.currentHealth -= 2;
             
