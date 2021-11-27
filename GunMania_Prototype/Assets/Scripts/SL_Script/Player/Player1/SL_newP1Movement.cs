@@ -139,11 +139,10 @@ public class SL_newP1Movement : MonoBehaviour
             }
 
             //stop when shoot
-            if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove || DishEffect.isForced)
+            if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove)
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
-                DishEffect.isForced = false;
             }
 
 
@@ -474,11 +473,16 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void KnockbackBehavior()
     {
-        myAgent.nextPosition = new Vector3(myAgent.transform.position.x, myAgent.transform.position.y, myAgent.transform.position.z - 2);
-        //myAgent.SetDestination(newPos);
-        //myAgent.nextPosition()
+        myAgent.enabled = false;
+        StartCoroutine(EnableAgent());
     }
 
+    IEnumerator EnableAgent()
+    {
+        yield return new WaitForSeconds(0.2f);
+        myAgent.enabled = true;
+
+    }
     //For UI SYNC
     #region
     public void Move<T>(List<T> list, int oldIndex, int newIndex)
