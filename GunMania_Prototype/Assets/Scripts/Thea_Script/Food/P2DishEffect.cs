@@ -65,14 +65,14 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "FoxtailMillet")
         {
             //knock
-            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
-            sl_P2PlayerHealth.p2currentHealth -= 2;
+            //Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
+            //sl_P2PlayerHealth.p2currentHealth -= 2;
 
-            Vector3 direction = (transform.position - other.transform.position).normalized;
-            direction.y = 0;
+            //Vector3 direction = (transform.position - other.transform.position).normalized;
+            //direction.y = 0;
 
-            playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
-            p2isForced = true;
+            //playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
+            //p2isForced = true;
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "RawStinkyTofu")

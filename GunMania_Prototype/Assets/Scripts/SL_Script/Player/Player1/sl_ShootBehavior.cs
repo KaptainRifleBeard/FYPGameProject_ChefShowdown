@@ -20,6 +20,8 @@ public class sl_ShootBehavior : MonoBehaviour
 
     PhotonView view;
     GameObject bullet;
+    int bulletNum;
+
     Vector3 directionShoot;
     Vector3 targetPosition;
     public Animator anim;
@@ -47,6 +49,32 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
+        if (playerInventory.itemList[0] != null)
+        {
+            if (playerInventory.itemList[0].itemHeldNum == 1)
+            {
+                bulletNum = 1;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 2)
+            {
+                bulletNum = 2;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 3)
+            {
+                bulletNum = 3;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 4)
+            {
+                bulletNum = 4;
+            }
+            else
+            {
+                bulletNum = 5;
+            }
+
+
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -62,7 +90,7 @@ public class sl_ShootBehavior : MonoBehaviour
                 {
                     spawn = true;
 
-                    view.RPC("SpawnBullet", RpcTarget.All);
+                    view.RPC("BulletType2", RpcTarget.All, bulletNum);
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
 
                     count++;
@@ -124,33 +152,51 @@ public class sl_ShootBehavior : MonoBehaviour
 
 
     [PunRPC]
-    public void SpawnBullet()
+    public void BulletType2(int i)
     {
-        theFood.SetActive(true);
-        if (playerInventory.itemList[0].itemHeldNum == 1)
+        bulletNum = i;
+
+        if (i == 1)
         {
+            theFood.SetActive(true);
             bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 2)
-        {
-            bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 3)
-        {
-            bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 4)
-        {
-            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
-        }
-        else
-        {
-            bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
         }
 
-    bullet.SetActive(false);
-        //bullet.transform.SetParent(shootPosition);
+        if (i == 2)
+        {
+
+            theFood.SetActive(true);
+
+            bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
+            bullet.SetActive(false);
+        }
+        if (i == 3)
+        {
+
+            theFood.SetActive(true);
+
+            bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
+            bullet.SetActive(false);
+        }
+        if (i == 4)
+        {
+
+            theFood.SetActive(true);
+
+            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
+            bullet.SetActive(false);
+        }
+        if (i == 5)
+        {
+
+            theFood.SetActive(true);
+
+            bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+        }
     }
+
 
     [PunRPC]
     public void CancelShoot()

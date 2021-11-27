@@ -36,6 +36,9 @@ public class SL_newP1Movement : MonoBehaviour
     public float speed;
     Vector3 destination;
 
+    public bool knockback;
+    Vector3 direction;
+
     private LineRenderer lineRenderer;
     private List<Vector3> point;
 
@@ -58,7 +61,7 @@ public class SL_newP1Movement : MonoBehaviour
     void Start()
     {
         destination = transform.position;
-
+        knockback = false;
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
         anim = gameObject.GetComponent<Animator>();
@@ -243,7 +246,16 @@ public class SL_newP1Movement : MonoBehaviour
 
     }
 
-    public void Movement()
+    private void FixedUpdate()
+    {
+        if (knockback)
+        {
+            myAgent.velocity = direction * 8;//Knocks the enemy back when appropriate 
+        }
+    }
+   
+
+public void Movement()
     {
         //get the distance between the player and the destination pos
         float dis = Vector3.Distance(transform.position, destination);
@@ -466,6 +478,7 @@ public class SL_newP1Movement : MonoBehaviour
     {
         if(other.gameObject.tag == "P2FoxtailMillet")
         {
+            direction = other.transform.forward;
             view.RPC("KnockbackBehavior", RpcTarget.All);
         }
     }
@@ -473,16 +486,26 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void KnockbackBehavior()
     {
-        myAgent.enabled = false;
-        StartCoroutine(EnableAgent());
+        StartCoroutine(Knockback());
     }
 
-    IEnumerator EnableAgent()
+   IEnumerator Knockback()
     {
+        knockback = true;
+        myAgent.speed = 100;
+        myAgent.angularSpeed = 0;
+        myAgent.acceleration = 200;
+
         yield return new WaitForSeconds(0.2f);
-        myAgent.enabled = true;
+
+
+        knockback = false;
+        myAgent.speed = 40;
+        myAgent.angularSpeed = 2000;
+        myAgent.acceleration = 400;
 
     }
+
     //For UI SYNC
     #region
     public void Move<T>(List<T> list, int oldIndex, int newIndex)

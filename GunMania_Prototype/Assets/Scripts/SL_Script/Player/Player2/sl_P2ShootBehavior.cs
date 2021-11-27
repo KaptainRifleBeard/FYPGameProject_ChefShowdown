@@ -20,6 +20,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     PhotonView view;
     GameObject bullet;
+    int bulletNum;
 
     Vector3 directionShoot2;
     Vector3 targetPosition2;
@@ -52,6 +53,33 @@ public class sl_P2ShootBehavior : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+        if(playerInventory.itemList[0] != null)
+        {
+            if (playerInventory.itemList[0].itemHeldNum == 1)
+            {
+                bulletNum = 1;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 2)
+            {
+                bulletNum = 2;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 3)
+            {
+                bulletNum = 3;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 4)
+            {
+                bulletNum = 4;
+            }
+            else
+            {
+                bulletNum = 5;
+            }
+
+
+        }
+
+
         if (Physics.Raycast(ray, out hit))
         {
             if (Input.GetMouseButtonDown(0) && p2Shoot == false && view.IsMine && p2bulletCount > 0)
@@ -64,6 +92,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
                 {
                     spawn = true;
                     view.RPC("SpawnBullet2", RpcTarget.All);
+                    view.RPC("BulletType", RpcTarget.All, bulletNum);
 
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
                     count++;
@@ -112,36 +141,63 @@ public class sl_P2ShootBehavior : MonoBehaviour
                 view.RPC("CancelShoot2", RpcTarget.All);
             }
         }
+
+       
     }
 
+    [PunRPC]
+    public void BulletType(int i)
+    {
+        bulletNum = i;
+       
+
+        if(i == 1)
+        {
+            theFood.SetActive(true);
+            bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
+            bullet.SetActive(false);
+        }
+
+        if(i == 2)
+        {
+
+            theFood.SetActive(true);
+
+            bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
+            bullet.SetActive(false);
+        }
+        if (i == 3)
+        {
+
+            theFood.SetActive(true);
+
+            bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //knockback
+            bullet.SetActive(false);
+        }
+        if (i == 4)
+        {
+
+            theFood.SetActive(true);
+
+            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //knockback
+            bullet.SetActive(false);
+        }
+        if (i == 5)
+        {
+
+            theFood.SetActive(true);
+
+            bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+        }
+    }
 
     [PunRPC]
     public void SpawnBullet2()
     {
-        theFood.SetActive(true);
-        if (playerInventory.itemList[0].itemHeldNum == 1)
-        {
-            bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 2)
-        {
-            bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 3)
-        {
-            bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 4)
-        {
-            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
-        }
-        else
-        {
-            bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-        }
-        bullet.SetActive(false);
+        //theFood.SetActive(true);
+        //bullet.SetActive(false);
 
-        //bullet.transform.SetParent(shootPosition);
     }
 
     [PunRPC]

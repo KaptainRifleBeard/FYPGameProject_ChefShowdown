@@ -65,14 +65,14 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2FoxtailMillet")
         {
             //knock
-            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
-            sl_PlayerHealth.currentHealth -= 2;
+            //Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
+            //sl_PlayerHealth.currentHealth -= 2;
             
-            Vector3 direction = (transform.position - other.transform.position).normalized;
-            direction.y = 0;
+            //Vector3 direction = (transform.position - other.transform.position).normalized;
+            //direction.y = 0;
 
-            playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
-            isForced = true;
+            //playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
+            //isForced = true;
 
             Destroy(other.gameObject);
         }

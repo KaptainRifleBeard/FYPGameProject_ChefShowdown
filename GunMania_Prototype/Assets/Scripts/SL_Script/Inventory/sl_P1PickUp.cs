@@ -91,7 +91,6 @@ public class sl_P1PickUp : MonoBehaviour
     public void AddFood()
     {
         gameObject.SetActive(false);
-
         Invoke("StartCountdown", 6);  //wait for 6 sec
 
     }
