@@ -51,6 +51,11 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     public GameObject readyButton;
     public GameObject startButton;
 
+
+    public GameObject[] p1Indicator;
+    public GameObject[] p2Indicator;
+
+
     public static int p2Ready;
     bool p2done;
 
@@ -104,12 +109,15 @@ public class sl_SpawnPlayerManager : MonoBehaviour
             if (count1 == 5)
             {
                 count1 = 1;
+                p1Indicator[0].SetActive(true);
                 p1_mainRightClick.SetActive(true);
                 p1MainConfirm.SetActive(true);
 
             }
 
             //p2
+            p2Indicator[0].SetActive(false);
+
             p2_mainRightClick.SetActive(false);
             p2_tagRightClick.SetActive(false);
 
@@ -120,6 +128,8 @@ public class sl_SpawnPlayerManager : MonoBehaviour
         else
         {
             //p1
+            p1Indicator[0].SetActive(false);
+
             p1_mainRightClick.SetActive(false);
             p1_tagRightClick.SetActive(false);
 
@@ -129,6 +139,8 @@ public class sl_SpawnPlayerManager : MonoBehaviour
             //p2
             if (p2count1 == 5)
             {
+                p2Indicator[0].SetActive(true);
+
                 p2count1 = 1;
                 p2_mainRightClick.SetActive(true);
                 p2MainConfirm.SetActive(true);
@@ -249,6 +261,10 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
         p1MainConfirm.SetActive(false);
         p1TagConfirm.SetActive(true);
+
+        p1Indicator[0].SetActive(false);
+        p1Indicator[1].SetActive(true);
+
     }
 
     public void Player1_TagConfirm()
@@ -260,60 +276,24 @@ public class sl_SpawnPlayerManager : MonoBehaviour
         p1MainConfirm.SetActive(false);
         p1TagConfirm.SetActive(false);
 
+        p1Indicator[0].SetActive(false);
+        p1Indicator[1].SetActive(false);
     }
-    
+
     public void Player2_MainConfirm()
-    {        
-        Debug.Log("p2 main confirm " + p2count1);
-
-        //if (p2count1 == 0)
-        //{
-        //    playerNum_p2 = 1;
-        //}
-        //if (p2count1 == 1)
-        //{
-        //    playerNum_p2 = 2;
-        //}
-        //if (p2count1 == 2)
-        //{
-        //    playerNum_p2 = 3;
-        //}
-        //if (p2count1 == 3)
-        //{
-        //    playerNum_p2 = 4;
-        //}
-
+    {   
         p2_mainRightClick.SetActive(false);
         p2_tagRightClick.SetActive(true);
 
         p2MainConfirm.SetActive(false);
         p2TagConfirm.SetActive(true);
+
+        p2Indicator[0].SetActive(false);
+        p2Indicator[1].SetActive(true);
     }
 
     public void Player2_TagConfirm()
     {
-        Debug.Log("p2 tag confirm " + p2count2);
-
-        //if (p2count2 == 0)
-        //{
-        //    playerTagNum_p2 = 1;
-        //}
-        //if (p2count2 == 1)
-        //{
-        //    playerTagNum_p2 = 2;
-
-        //}
-        //if (p2count2 == 2)
-        //{
-        //    playerTagNum_p2 = 3;
-
-        //}
-        //if (p2count2 == 3)
-        //{
-        //    playerTagNum_p2 = 4;
-
-        //}
-
         p2_mainRightClick.SetActive(false);
         p2_tagRightClick.SetActive(false);
 
@@ -322,6 +302,9 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
         //check is ready
         readyButton.SetActive(true);
+
+        p2Indicator[0].SetActive(false);
+        p2Indicator[1].SetActive(false);
     }
 
 
