@@ -246,16 +246,7 @@ public class SL_newP1Movement : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        if (knockback)
-        {
-            myAgent.velocity = direction * 8;//Knocks the enemy back when appropriate 
-        }
-    }
-   
-
-public void Movement()
+    public void Movement()
     {
         //get the distance between the player and the destination pos
         float dis = Vector3.Distance(transform.position, destination);
@@ -472,38 +463,6 @@ public void Movement()
     {
         yield return new WaitForSeconds(3f);
         startTheGame = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "P2FoxtailMillet")
-        {
-            direction = other.transform.forward;
-            view.RPC("KnockbackBehavior", RpcTarget.All);
-        }
-    }
-
-    [PunRPC]
-    public void KnockbackBehavior()
-    {
-        StartCoroutine(Knockback());
-    }
-
-   IEnumerator Knockback()
-    {
-        knockback = true;
-        myAgent.speed = 100;
-        myAgent.angularSpeed = 0;
-        myAgent.acceleration = 200;
-
-        yield return new WaitForSeconds(0.2f);
-
-
-        knockback = false;
-        myAgent.speed = 40;
-        myAgent.angularSpeed = 2000;
-        myAgent.acceleration = 400;
-
     }
 
     //For UI SYNC
