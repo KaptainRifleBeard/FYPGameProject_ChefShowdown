@@ -409,7 +409,7 @@ public class sl_newP2Movement : MonoBehaviour
         startTheGame = true;
     }
 
-    //For UI
+    //For UI SYNC
     #region
     public void Move<T>(List<T> list, int oldIndex, int newIndex)
     {
