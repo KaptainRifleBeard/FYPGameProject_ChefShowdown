@@ -2141,6 +2141,7 @@ GameObject:
   - component: {fileID: 38238731443728680}
   - component: {fileID: 8205793790207556308}
   - component: {fileID: 3482780963516650778}
+  - component: {fileID: 7614602037576942060}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -2288,7 +2289,6 @@ MonoBehaviour:
   katsukiIcon: {fileID: 21300000, guid: b902e13f44d95484b992ef8e04d5d81a, type: 3}
   mainUI: {fileID: 1952545090}
   tagUI: {fileID: 1606270528}
-  CharacterUI: {fileID: 1856778439}
 --- !u!114 &8152039215268046825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2329,6 +2329,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7319469571739812685, guid: d86da9e7c2201be47b2b8922ff31e6ca, type: 3}
+  dishBullet:
+  - {fileID: 6494858264925967452, guid: ee2e44e0f91c849469fe614d98f93441, type: 3}
+  - {fileID: 6587925989152280552, guid: 7864e0fc84a3f1d4aac2e9e104f87b24, type: 3}
+  - {fileID: 731019449026306413, guid: 888f259b92744b143aa990af3dd40404, type: 3}
+  - {fileID: 2765478323462881431, guid: 174d1d0e70b946e4f91d0a5e5be08f6b, type: 3}
   shootPosition: {fileID: 6322279731109455942}
   playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
   targetIndicatorPrefab: {fileID: 7672446411873757097, guid: e35e3a82fe7b7ec46a9d1dcc8b92d0e9, type: 3}
@@ -2412,6 +2417,21 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &7614602037576942060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784047750339751703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90891170ebe3d154e9bc32b533dfd587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 7319469571739812685, guid: d86da9e7c2201be47b2b8922ff31e6ca, type: 3}
+  knockbackSpeed: 100
+  pullingSpeed: 100
 --- !u!1 &2977256129520849530
 GameObject:
   m_ObjectHideFlags: 0
