@@ -391,7 +391,10 @@ public class SL_newP1Movement : MonoBehaviour
 
     IEnumerator waitFoeSec()
     {
+        //****i put default ui's [0] is brock. cuz p1 first pick always show empty
+        
         yield return new WaitForSeconds(0.1f);
+
         //Show model when in game
         if (sl_SpawnPlayerManager.count1 == 1 || sl_SpawnPlayerManager.count1 == 0)//0 is default, 1 is choosen
         {
