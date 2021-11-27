@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 640242416746198045}
   - component: {fileID: 2935502065072028874}
   - component: {fileID: 6826665040875176953}
+  - component: {fileID: 7436373547439324093}
   m_Layer: 0
   m_Name: Exploding Dish
   m_TagString: Untagged
@@ -97,6 +98,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7436373547439324093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3543711626040740149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88675fcfa285f684c9732b7b11a0358f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisItem: {fileID: 11400000, guid: 7e67102f856a5ae45a7e5608e904eb41, type: 2}
+  playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
 --- !u!1001 &2188960724945906972
 PrefabInstance:
   m_ObjectHideFlags: 0

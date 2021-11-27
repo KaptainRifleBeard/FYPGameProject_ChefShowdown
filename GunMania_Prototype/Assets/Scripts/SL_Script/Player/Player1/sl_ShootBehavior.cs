@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class sl_ShootBehavior : MonoBehaviour
 {
     public GameObject bulletPrefab;
+    public List<GameObject> dishBullet;
     public Transform shootPosition;
 
     public static int bulletCount;
@@ -126,8 +127,28 @@ public class sl_ShootBehavior : MonoBehaviour
     public void SpawnBullet()
     {
         theFood.SetActive(true);
-        bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
-        bullet.SetActive(false);
+        if (playerInventory.itemList[0].itemHeldNum == 1)
+        {
+            bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
+        }
+        else if (playerInventory.itemList[0].itemHeldNum == 2)
+        {
+            bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
+        }
+        else if (playerInventory.itemList[0].itemHeldNum == 3)
+        {
+            bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
+        }
+        else if (playerInventory.itemList[0].itemHeldNum == 4)
+        {
+            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
+        }
+        else
+        {
+            bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+        }
+
+    bullet.SetActive(false);
         //bullet.transform.SetParent(shootPosition);
     }
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2967265672643140095}
   - component: {fileID: 9003872672269768545}
   - component: {fileID: 7950529817498226090}
+  - component: {fileID: 553687780875476082}
   m_Layer: 0
   m_Name: Pull in close Dish
   m_TagString: Untagged
@@ -97,6 +98,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &553687780875476082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578753560885894732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88675fcfa285f684c9732b7b11a0358f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisItem: {fileID: 11400000, guid: ec3931784f155474c8444ff530442f3c, type: 2}
+  playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
 --- !u!1001 &766210295658147495
 PrefabInstance:
   m_ObjectHideFlags: 0
