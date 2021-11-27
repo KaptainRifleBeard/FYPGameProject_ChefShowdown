@@ -10,6 +10,7 @@ public class P2DishEffect : MonoBehaviour
     public float knockbackSpeed;
     public float pullingSpeed;
     public static bool p2canMove;
+    public static bool p2isForced;
 
     float timer;
 
@@ -17,6 +18,7 @@ public class P2DishEffect : MonoBehaviour
     {
         timer = 0;
         p2canMove = true;
+        p2isForced = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,6 +50,7 @@ public class P2DishEffect : MonoBehaviour
             direction.y = 0;
 
             playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
+            p2isForced = true;
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "BirdNestSoup")
@@ -67,7 +70,7 @@ public class P2DishEffect : MonoBehaviour
             direction.y = 0;
 
             playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
-
+            p2isForced = true;
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "RawStinkyTofu")

@@ -139,10 +139,11 @@ public class SL_newP1Movement : MonoBehaviour
             }
 
             //stop when shoot
-            if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove)
+            if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove || DishEffect.isForced)
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
+                DishEffect.isForced = false;
             }
 
 

@@ -10,6 +10,7 @@ public class DishEffect : MonoBehaviour
     public float knockbackSpeed;
     public float pullingSpeed;
     public static bool canMove;
+    public static bool isForced;
 
     float timer;
 
@@ -17,6 +18,7 @@ public class DishEffect : MonoBehaviour
     {
         timer = 0;
         canMove = true;
+        isForced = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,16 +41,18 @@ public class DishEffect : MonoBehaviour
         {
             sl_PlayerHealth.currentHealth += 3;
         }
-        else if (other.gameObject.tag == "P2FoxtailMillet")
+        else if (other.gameObject.tag == "P2Mukozuke")
         {
-            //Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
-            //sl_PlayerHealth.currentHealth -= 2;
+            //pull
+            Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
+            sl_PlayerHealth.currentHealth -= 2;
 
-            //Vector3 direction = (other.transform.position - transform.position).normalized;
-            //direction.y = 0;
+            Vector3 direction = (other.transform.position - transform.position).normalized;
+            direction.y = 0;
 
-            //playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
-            //Destroy(other.gameObject); 
+            playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
+            isForced = true;
+            Destroy(other.gameObject); 
         }
         else if (other.gameObject.tag == "P2BirdNestSoup")
         {
@@ -58,8 +62,9 @@ public class DishEffect : MonoBehaviour
         {
             //silence
         }
-        else if (other.gameObject.tag == "P2Mukozuke") //
+        else if (other.gameObject.tag == "P2FoxtailMillet")
         {
+            //knock
             Rigidbody playerRidg = gameObject.GetComponent<Rigidbody>();
             sl_PlayerHealth.currentHealth -= 2;
             
@@ -67,7 +72,8 @@ public class DishEffect : MonoBehaviour
             direction.y = 0;
 
             playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
-               
+            isForced = true;
+
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "P2RawStinkyTofu")
