@@ -80,7 +80,6 @@ public class DishEffect : MonoBehaviour
     public IEnumerator StunDeactive(int time)
     {
         yield return new WaitForSeconds(time);
-
         canMove = true;
     }
 }

@@ -95,12 +95,8 @@ public class SL_newP1Movement : MonoBehaviour
                     {
                         if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         {
-                            if(DishEffect.canMove)
-                            {
-                                myAgent.SetDestination(hit.point);
-                                isrunning = true;
-                            }    
-                            
+                            myAgent.SetDestination(hit.point);
+                            isrunning = true;
                         }
                         //if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         //{
@@ -142,8 +138,8 @@ public class SL_newP1Movement : MonoBehaviour
 
             }
 
-
-            if (sl_ShootBehavior.p1Shoot == true)
+            //stop when shoot
+            if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove)
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();

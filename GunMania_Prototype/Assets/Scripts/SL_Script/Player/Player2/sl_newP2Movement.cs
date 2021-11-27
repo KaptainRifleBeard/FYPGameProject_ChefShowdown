@@ -116,7 +116,7 @@ public class sl_newP2Movement : MonoBehaviour
 
 
 
-            if (sl_P2ShootBehavior.p2Shoot == true)
+            if (sl_P2ShootBehavior.p2Shoot == true || !DishEffect.canMove)
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
