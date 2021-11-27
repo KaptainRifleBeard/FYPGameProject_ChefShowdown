@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class sl_newP2Movement : MonoBehaviour
 {
@@ -31,6 +32,16 @@ public class sl_newP2Movement : MonoBehaviour
     int tagCharacter;
     int i = 0;
 
+    //For UI
+    public List<Sprite> p2CharacterList = new List<Sprite>();
+    public Sprite wenIcon;
+    public Sprite brockIcon;
+    public Sprite jihoIcon;
+    public Sprite katsukiIcon;
+
+    public Image mainUI;
+    public Image tagUI;
+
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -44,7 +55,13 @@ public class sl_newP2Movement : MonoBehaviour
 
     void Update()
     {
-        if(startTheGame == true)
+        if (p2CharacterList != null)
+        {
+            mainUI.sprite = p2CharacterList[0];
+            tagUI.sprite = p2CharacterList[1];
+        }
+
+        if (startTheGame == true)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -99,7 +116,7 @@ public class sl_newP2Movement : MonoBehaviour
 
 
 
-            if (sl_P2ShootBehavior.p2Shoot == true)
+            if (sl_P2ShootBehavior.p2Shoot == true || !DishEffect.canMove)
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
@@ -178,55 +195,7 @@ public class sl_newP2Movement : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player2")
             {
-                if (i == 0)
-                {
-                    i = 1;
-                    Debug.Log("tagCharacter: " + tagCharacter);
-
-                    if (tagCharacter == 1 || tagCharacter == 0)
-                    {
-                        view.RPC("Brock2", RpcTarget.All);
-                    }
-                    if (tagCharacter == 2)
-                    {
-                        view.RPC("Wen2", RpcTarget.All);
-                    }
-                    if (tagCharacter == 3)
-                    {
-                        view.RPC("Jiho2", RpcTarget.All);
-                    }
-                    if (tagCharacter == 4)
-                    {
-                        view.RPC("Katsuki2", RpcTarget.All);
-                    }
-
-                }
-                else
-                {
-                    if (i == 1)
-                    {
-                        i = 0;
-                        Debug.Log("main character: " + mainCharacter);
-                        if (mainCharacter == 1 || mainCharacter == 0)
-                        {
-                            view.RPC("Brock2", RpcTarget.All);
-                        }
-                        if (mainCharacter == 2)
-                        {
-                            view.RPC("Wen2", RpcTarget.All);
-                        }
-                        if (mainCharacter == 3)
-                        {
-                            view.RPC("Jiho2", RpcTarget.All);
-                        }
-                        if (mainCharacter == 4)
-                        {
-                            view.RPC("Katsuki2", RpcTarget.All);
-                        }
-                    }
-
-
-                }
+                view.RPC("SyncCharacterUIAndModel2", RpcTarget.All);
 
             }
 
@@ -381,42 +350,55 @@ public class sl_newP2Movement : MonoBehaviour
         {
             view.RPC("Brock2", RpcTarget.All);
             mainCharacter = 1;
+            p2CharacterList[0] = brockIcon;
+
         }
         if (sl_SpawnPlayerManager.p2count1 == 2)
         {
             view.RPC("Wen2", RpcTarget.All);
             mainCharacter = 2;
+            p2CharacterList[0] = wenIcon;
 
         }
         if (sl_SpawnPlayerManager.p2count1 == 3)
         {
             view.RPC("Jiho2", RpcTarget.All);
             mainCharacter = 3;
+            p2CharacterList[0] = jihoIcon;
 
         }
         if (sl_SpawnPlayerManager.p2count1 == 4)
         {
             view.RPC("Katsuki2", RpcTarget.All);
             mainCharacter = 4;
+            p2CharacterList[0] = katsukiIcon;
 
         }
 
         //tag character
         if (sl_SpawnPlayerManager.p2count2 == 0 || sl_SpawnPlayerManager.p2count2 == 1)
         {
-            tagCharacter = 1;
+            tagCharacter = 1; 
+            p2CharacterList[1] = brockIcon;
+
         }
         if (sl_SpawnPlayerManager.p2count2 == 2)
         {
-            tagCharacter = 2;
+            tagCharacter = 2; 
+            p2CharacterList[1] = wenIcon;
+
         }
         if (sl_SpawnPlayerManager.p2count2 == 3)
         {
-            tagCharacter = 3;
+            tagCharacter = 3; 
+            p2CharacterList[1] = jihoIcon;
+
         }
         if (sl_SpawnPlayerManager.p2count2 == 4)
         {
-            tagCharacter = 4;
+            tagCharacter = 4; 
+            p2CharacterList[1] = katsukiIcon;
+
         }
 
     }
@@ -426,6 +408,72 @@ public class sl_newP2Movement : MonoBehaviour
         yield return new WaitForSeconds(3f);
         startTheGame = true;
     }
+
+    //For UI SYNC
+    #region
+    public void Move<T>(List<T> list, int oldIndex, int newIndex)
+    {
+        T item = list[oldIndex];
+        list.RemoveAt(oldIndex);
+        list.Insert(newIndex, item);
+    }
+
+    [PunRPC]
+    public void SyncCharacterUIAndModel2()
+    {
+        if (i == 0)
+        {
+            i = 1;
+            Move(p2CharacterList, 0, 1);
+
+            if (tagCharacter == 1 || tagCharacter == 0)
+            {
+                view.RPC("Brock2", RpcTarget.All);
+            }
+            if (tagCharacter == 2)
+            {
+                view.RPC("Wen2", RpcTarget.All);
+            }
+            if (tagCharacter == 3)
+            {
+                view.RPC("Jiho2", RpcTarget.All);
+            }
+            if (tagCharacter == 4)
+            {
+                view.RPC("Katsuki2", RpcTarget.All);
+            }
+
+        }
+        else
+        {
+            if (i == 1)
+            {
+                i = 0;
+                Move(p2CharacterList, 1, 0);
+
+                if (mainCharacter == 1 || mainCharacter == 0)
+                {
+                    view.RPC("Brock2", RpcTarget.All);
+                }
+                if (mainCharacter == 2)
+                {
+                    view.RPC("Wen2", RpcTarget.All);
+                }
+                if (mainCharacter == 3)
+                {
+                    view.RPC("Jiho2", RpcTarget.All);
+                }
+                if (mainCharacter == 4)
+                {
+                    view.RPC("Katsuki2", RpcTarget.All);
+                }
+            }
+
+
+        }
+    }
+    #endregion
+
 
     //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     //{

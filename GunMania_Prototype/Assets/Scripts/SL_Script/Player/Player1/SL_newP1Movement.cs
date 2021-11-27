@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
 using System.Linq;
-
+using UnityEngine.UI;
 
 public class SL_newP1Movement : MonoBehaviour
 {
@@ -45,6 +45,16 @@ public class SL_newP1Movement : MonoBehaviour
     int tagCharacter;
     int i = 0;
 
+    //For UI
+    public List<Sprite> p1CharacterList = new List<Sprite>();
+    public Sprite wenIcon;
+    public Sprite brockIcon;
+    public Sprite jihoIcon;
+    public Sprite katsukiIcon;
+
+    public Image mainUI;
+    public Image tagUI;
+
     void Start()
     {
         destination = transform.position;
@@ -62,7 +72,14 @@ public class SL_newP1Movement : MonoBehaviour
 
     void Update()
     {
-        if(startTheGame == true)
+        if (p1CharacterList != null)
+        {
+            mainUI.sprite = p1CharacterList[0];
+            tagUI.sprite = p1CharacterList[1];
+        }
+
+
+        if (startTheGame == true)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -78,12 +95,8 @@ public class SL_newP1Movement : MonoBehaviour
                     {
                         if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         {
-                            if(DishEffect.canMove)
-                            {
-                                myAgent.SetDestination(hit.point);
-                                isrunning = true;
-                            }    
-                            
+                            myAgent.SetDestination(hit.point);
+                            isrunning = true;
                         }
                         //if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         //{
@@ -125,8 +138,8 @@ public class SL_newP1Movement : MonoBehaviour
 
             }
 
-
-            if (sl_ShootBehavior.p1Shoot == true)
+            //stop when shoot
+            if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove)
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
@@ -205,56 +218,7 @@ public class SL_newP1Movement : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player")
             {
-                if (i == 0)
-                {
-                    i = 1;
-                    Debug.Log("tagCharacter: " + tagCharacter);
-
-                    if (tagCharacter == 1 || tagCharacter == 0)
-                    {
-                        view.RPC("Brock", RpcTarget.All);
-                    }
-                    if (tagCharacter == 2)
-                    {
-                        view.RPC("Wen", RpcTarget.All);
-                    }
-                    if (tagCharacter == 3)
-                    {
-                        view.RPC("Jiho", RpcTarget.All);
-                    }
-                    if (tagCharacter == 4)
-                    {
-                        view.RPC("Katsuki", RpcTarget.All);
-                    }
-
-                }
-                else
-                {
-                    if (i == 1)
-                    {
-                        i = 0;
-                        Debug.Log("main character: " + mainCharacter);
-                        if (mainCharacter == 1 || mainCharacter == 0)
-                        {
-                            view.RPC("Brock", RpcTarget.All);
-                        }
-                        if (mainCharacter == 2)
-                        {
-                            view.RPC("Wen", RpcTarget.All);
-                        }
-                        if (mainCharacter == 3)
-                        {
-                            view.RPC("Jiho", RpcTarget.All);
-                        }
-                        if (mainCharacter == 4)
-                        {
-                            view.RPC("Katsuki", RpcTarget.All);
-                        }
-                    }
-
-
-                }
-
+                view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
             }
 
 
@@ -276,7 +240,7 @@ public class SL_newP1Movement : MonoBehaviour
                 }
             }
         }
-     
+
     }
 
     public void Movement()
@@ -305,6 +269,7 @@ public class SL_newP1Movement : MonoBehaviour
 
     //For Character model
     //0.brock, 1.wen, 2.jiho, 3.katsuki
+    #region
     [PunRPC]
     public void Brock()
     {
@@ -422,6 +387,7 @@ public class SL_newP1Movement : MonoBehaviour
 
         }
     }
+    #endregion
 
     IEnumerator waitFoeSec()
     {
@@ -431,23 +397,30 @@ public class SL_newP1Movement : MonoBehaviour
         {
             view.RPC("Brock", RpcTarget.All);
             mainCharacter = 1;
+            p1CharacterList[0] = brockIcon;
+
         }
         if (sl_SpawnPlayerManager.count1 == 2)
         {
             view.RPC("Wen", RpcTarget.All);
             mainCharacter = 2;
+            p1CharacterList[0] = wenIcon;
 
         }
         if (sl_SpawnPlayerManager.count1 == 3)
         {
             view.RPC("Jiho", RpcTarget.All);
             mainCharacter = 3;
+            p1CharacterList[0] = jihoIcon;
+
 
         }
         if (sl_SpawnPlayerManager.count1 == 4)
         {
             view.RPC("Katsuki", RpcTarget.All);
             mainCharacter = 4;
+            p1CharacterList[0] = katsukiIcon;
+
 
         }
 
@@ -456,21 +429,27 @@ public class SL_newP1Movement : MonoBehaviour
         if (sl_SpawnPlayerManager.count2 == 0 || sl_SpawnPlayerManager.count2 == 1)
         {
             tagCharacter = 1;
+            p1CharacterList[1] = brockIcon;
+
         }
         if (sl_SpawnPlayerManager.count2 == 2)
         {
             tagCharacter = 2;
+            p1CharacterList[1] = wenIcon;
+
         }
         if (sl_SpawnPlayerManager.count2 == 3)
         {
             tagCharacter = 3;
+            p1CharacterList[1] = jihoIcon;
+
         }
         if (sl_SpawnPlayerManager.count2 == 4)
         {
             tagCharacter = 4;
+            p1CharacterList[1] = katsukiIcon;
+
         }
-
-
 
     }
 
@@ -479,6 +458,78 @@ public class SL_newP1Movement : MonoBehaviour
         yield return new WaitForSeconds(3f);
         startTheGame = true;
     }
+
+
+    //For UI SYNC
+    #region
+    public void Move<T>(List<T> list, int oldIndex, int newIndex)
+    {
+        T item = list[oldIndex];
+        list.RemoveAt(oldIndex);
+        list.Insert(newIndex, item);
+    }
+
+
+    [PunRPC]
+    public void SyncCharacterUIAndModel()
+    {
+        if (i == 0)
+        {
+            //change ui
+            Move(p1CharacterList, 0, 1);
+
+            i = 1;
+            //change mode
+            if (tagCharacter == 1 || tagCharacter == 0)
+            {
+                view.RPC("Brock", RpcTarget.All);
+            }
+            if (tagCharacter == 2)
+            {
+                view.RPC("Wen", RpcTarget.All);
+            }
+            if (tagCharacter == 3)
+            {
+                view.RPC("Jiho", RpcTarget.All);
+            }
+            if (tagCharacter == 4)
+            {
+                view.RPC("Katsuki", RpcTarget.All);
+            }
+        }
+        else
+        {
+            if (i == 1)
+            {
+                Move(p1CharacterList, 1, 0);
+                i = 0;
+                //change mode
+                if (mainCharacter == 1 || mainCharacter == 0)
+                {
+                    view.RPC("Brock", RpcTarget.All);
+                }
+                if (mainCharacter == 2)
+                {
+                    view.RPC("Wen", RpcTarget.All);
+                }
+                if (mainCharacter == 3)
+                {
+                    view.RPC("Jiho", RpcTarget.All);
+                }
+                if (mainCharacter == 4)
+                {
+                    view.RPC("Katsuki", RpcTarget.All);
+                }
+
+            }
+
+
+        }
+
+    }
+    #endregion
+
+
 
     //IEnumerator disableStop()
     //{

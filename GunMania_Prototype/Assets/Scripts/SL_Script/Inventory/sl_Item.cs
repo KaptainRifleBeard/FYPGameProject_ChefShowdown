@@ -9,7 +9,6 @@ public class sl_Item : ScriptableObject
     public string itemName;
     public Sprite itemImage;
     public int itemHeldNum;
-
     //[TextArea] //to write more than 1 line text
     //public string itemDescription;
 

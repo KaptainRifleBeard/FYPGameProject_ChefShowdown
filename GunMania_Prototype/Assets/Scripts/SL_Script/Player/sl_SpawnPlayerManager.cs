@@ -53,6 +53,7 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
     public static int p2Ready;
     bool p2done;
+
     /*
      Note: 
     All count i set as 0, to let the button enable and disable in view. 
@@ -242,23 +243,6 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     public void Player1_MainConfirm()
     {
         Debug.Log("p1 main confirm " + count1);
-        //if (count1 == 0)
-        //{
-        //    playerNum_p1 = 1;
-        //}
-        //if (count1 == 1)
-        //{
-        //    playerNum_p1 = 2;
-        //}
-        //if(count1 == 2)
-        //{
-        //    playerNum_p1 = 3;
-        //}
-        //if (count1 == 3)
-        //{
-        //    playerNum_p1 = 4;
-        //}
-
 
         p1_mainRightClick.SetActive(false);
         p1_tagRightClick.SetActive(true);
@@ -270,28 +254,6 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     public void Player1_TagConfirm()
     {
         Debug.Log("p1 tag confirm " + count2);
-
-        //if (count2 == 0)
-        //{
-        //    playerTagNum_p1 = 1;
-
-        //}
-        //if (count2 == 1)
-        //{
-        //    playerTagNum_p1 = 2;
-
-        //}
-        //if (count2 == 2)
-        //{
-        //    playerTagNum_p1 = 3;
-
-        //}
-        //if (count2 == 3)
-        //{
-        //    playerTagNum_p1 = 4;
-
-        //}
-
         p1_mainRightClick.SetActive(false);
         p1_tagRightClick.SetActive(false);
 
