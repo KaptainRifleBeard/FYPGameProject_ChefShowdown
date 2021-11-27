@@ -14,7 +14,7 @@ public class sl_P1PickUp : MonoBehaviour
 
     public int prefabNum;
     public GameObject[] foodPrefab;
-
+    int num;
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -28,7 +28,9 @@ public class sl_P1PickUp : MonoBehaviour
         {
             if (sl_ShootBehavior.bulletCount < 2)
             {
-                view.RPC("AddFood", RpcTarget.All);
+                prefabNum = Random.Range(0, 2);
+
+                view.RPC("AddFood", RpcTarget.All, prefabNum);
                 sl_ShootBehavior.bulletCount += 1;
 
                 if (gameObject.layer == LayerMask.NameToLayer("Food"))
@@ -81,39 +83,51 @@ public class sl_P1PickUp : MonoBehaviour
         
     }
 
-    [PunRPC]
+    //[PunRPC]
     public void StartCountdown()
     {
         //gameObject.SetActive(true);
-        prefabNum = Random.Range(0, 2);
-        Debug.Log("random: " + prefabNum);
-
-        if (prefabNum == 0)
+        if (num == 1)
         {
             foodPrefab[0].SetActive(true);
-            isPicked = false;
         }
 
-        if (prefabNum == 1)
+        if (num == 2)
         {
             foodPrefab[1].SetActive(true);
-            isPicked = false;
         }
 
-        if (prefabNum == 2)
+        if (num == 3)
         {
             foodPrefab[2].SetActive(true);
-            isPicked = false;
         }
 
+        isPicked = false;
     }
 
 
     [PunRPC]
-    public void AddFood()
+    public void AddFood(int i)
     {
         gameObject.SetActive(false);
-        Invoke("StartCountdown", 6);  //wait for 6 sec
+        Invoke("StartCountdown", 3);  //wait for 6 sec
+
+        prefabNum = i;
+
+        if (i == 0)
+        {
+            num = 1;
+        }
+
+        if (i == 1)
+        {
+            num = 2;
+        }
+
+        if (i == 2)
+        {
+            num = 3;
+        }
 
     }
 
@@ -122,4 +136,5 @@ public class sl_P1PickUp : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
 }
