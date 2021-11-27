@@ -11,17 +11,17 @@ public class FoodSpawn : MonoBehaviour
     [Header("Japan Dish Spawn Points (1 for JP, 2 for KR, 3 for CN, 4 for TW)")]
     public List<GameObject> dishSpawnPoint;
 
-    [Header("Japan Food Prefabs")]
-    public List<GameObject> JPfoodPrefabs;
+    //[Header("Japan Food Prefabs")]
+    //public List<GameObject> JPfoodPrefabs;
 
-    [Header("Korea Food Prefabs")]
-    public List<GameObject> KRfoodPrefabs;
+    //[Header("Korea Food Prefabs")]
+    //public List<GameObject> KRfoodPrefabs;
 
-    [Header("China Food Prefabs")]
-    public List<GameObject> CNfoodPrefabs;
+    //[Header("China Food Prefabs")]
+    //public List<GameObject> CNfoodPrefabs;
 
-    [Header("Taiwan Food Prefabs")]
-    public List<GameObject> TWfoodPrefabs;
+    //[Header("Taiwan Food Prefabs")]
+    //public List<GameObject> TWfoodPrefabs;
 
     [Header("Japan Dish Prefabs")]
     public List<GameObject> JPdishPrefabs;
