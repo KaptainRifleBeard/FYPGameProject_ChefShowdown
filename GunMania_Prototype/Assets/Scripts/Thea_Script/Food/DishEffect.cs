@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DishEffect : MonoBehaviour
 {
-    public GameObject bullet;
     
     //both speed 100
     //rigidbody drag 2
