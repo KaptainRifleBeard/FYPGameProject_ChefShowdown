@@ -33,7 +33,7 @@ public class sl_P1PickUp : MonoBehaviour
                 {
                     isPicked = true;
                     AddNewItem();
-                    //Debug.Log(playerInventory.itemList[0].itemHeldNum);
+                    
 
                 }
                 else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
