@@ -10,6 +10,7 @@ public class DishEffect : MonoBehaviour
     public float knockbackSpeed;
     public float pullingSpeed;
     public static bool canMove;
+    public static bool isForced;
 
     float timer;
 
@@ -17,6 +18,7 @@ public class DishEffect : MonoBehaviour
     {
         timer = 0;
         canMove = true;
+        isForced = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,6 +51,7 @@ public class DishEffect : MonoBehaviour
             direction.y = 0;
 
             playerRidg.AddForce(direction * pullingSpeed, ForceMode.Impulse);
+            isForced = true;
             Destroy(other.gameObject); 
         }
         else if (other.gameObject.tag == "P2BirdNestSoup")
@@ -69,7 +72,8 @@ public class DishEffect : MonoBehaviour
             direction.y = 0;
 
             playerRidg.AddForce(direction * knockbackSpeed, ForceMode.Impulse);
-               
+            isForced = true;
+
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "P2RawStinkyTofu")
