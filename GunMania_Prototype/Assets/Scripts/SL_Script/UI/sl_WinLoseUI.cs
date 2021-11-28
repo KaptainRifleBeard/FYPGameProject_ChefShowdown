@@ -54,7 +54,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     void WinLoseCondition()
     {
-        if (sl_PlayerHealth.currentHealth == 0)
+        if (sl_PlayerHealth.currentHealth <= 0)
         {
             if (PhotonNetwork.IsMasterClient)
             {
@@ -70,7 +70,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
             }
         }
 
-        if (sl_P2PlayerHealth.p2currentHealth == 0)
+        if (sl_P2PlayerHealth.p2currentHealth <= 0)
         {
             if (PhotonNetwork.IsMasterClient)
             {
