@@ -193,7 +193,7 @@ public class sl_newP2Movement : MonoBehaviour
 
 
 
-            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player2")
+            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player2" && view.IsMine)
             {
                 view.RPC("SyncCharacterUIAndModel2", RpcTarget.All);
 

@@ -219,7 +219,7 @@ public class SL_newP1Movement : MonoBehaviour
             #endregion
 
 
-            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player")
+            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player" && view.IsMine)
             {
                 view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
             }
