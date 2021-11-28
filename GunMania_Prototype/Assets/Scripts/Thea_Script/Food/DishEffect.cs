@@ -42,6 +42,11 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2Hassun")
         {
             sl_PlayerHealth.currentHealth += 3;
+            if(sl_PlayerHealth.currentHealth >= 8)
+            {
+                sl_PlayerHealth.currentHealth = 8;
+            }
+            
         }
         else if (other.gameObject.tag == "P2Mukozuke")
         {

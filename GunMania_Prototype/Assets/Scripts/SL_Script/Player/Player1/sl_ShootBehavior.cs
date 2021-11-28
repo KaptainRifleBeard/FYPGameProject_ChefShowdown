@@ -9,6 +9,8 @@ public class sl_ShootBehavior : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public List<GameObject> dishBullet;
+    public List<GameObject> foodBullet;
+
     public Transform shootPosition;
 
     public static int bulletCount;
@@ -49,6 +51,8 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
+        //define bullet types
+        #region
         if (playerInventory.itemList[0] != null)
         {
             if (playerInventory.itemList[0].itemHeldNum == 1)
@@ -67,14 +71,60 @@ public class sl_ShootBehavior : MonoBehaviour
             {
                 bulletNum = 4;
             }
-            else
+            //from here is food (12 food)
+            else if (playerInventory.itemList[0].itemHeldNum == 10)  
             {
-                bulletNum = 5;
+                bulletNum = 10;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 11)  
+            {
+                bulletNum = 11;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 12) 
+            {
+                bulletNum = 12;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 13) 
+            {
+                bulletNum = 13;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 14)  
+            {
+                bulletNum = 14;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 15)
+            {
+                bulletNum = 15;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 16)
+            {
+                bulletNum = 16;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 17)
+            {
+                bulletNum = 17;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 18)
+            {
+                bulletNum = 18;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 19)
+            {
+                bulletNum = 19;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 20)
+            {
+                bulletNum = 20;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 21)
+            {
+                bulletNum = 21;
             }
 
-
         }
+        #endregion
 
+        //MAIN
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -90,7 +140,7 @@ public class sl_ShootBehavior : MonoBehaviour
                 {
                     spawn = true;
 
-                    view.RPC("BulletType2", RpcTarget.All, bulletNum);
+                    view.RPC("BulletType", RpcTarget.All, bulletNum);
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
 
                     count++;
@@ -152,10 +202,12 @@ public class sl_ShootBehavior : MonoBehaviour
 
 
     [PunRPC]
-    public void BulletType2(int i)
+    public void BulletType(int i)
     {
         bulletNum = i;
 
+        //dish
+        #region
         if (i == 1)
         {
             theFood.SetActive(true);
@@ -165,36 +217,129 @@ public class sl_ShootBehavior : MonoBehaviour
 
         if (i == 2)
         {
-
             theFood.SetActive(true);
-
             bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
             bullet.SetActive(false);
         }
         if (i == 3)
         {
-
             theFood.SetActive(true);
 
             bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
             bullet.SetActive(false);
+
         }
         if (i == 4)
         {
-
             theFood.SetActive(true);
 
             bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
             bullet.SetActive(false);
-        }
-        if (i == 5)
-        {
 
+        }
+        #endregion
+
+
+        //food - start from 10 - 21 
+        #region
+        if (i == 10) //c_niangao
+        {
             theFood.SetActive(true);
 
-            bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+            bullet = Instantiate(foodBullet[0], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
+
         }
+        if (i == 11)//c_spring roll
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[1], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 12)//c_wonton
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[2], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 13)//j_ichigo
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[3], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 14)//j_ikanagi
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[4], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 15)//j_sakura
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[5], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 16)//k_bap burger
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[6], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 17)//k_japchae
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[7], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 18)//k_tteobokki
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[8], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 19)//t_bubbletea
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[9], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 20)//t_pineapple
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[10], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 21)//t_taro
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[11], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        #endregion
     }
 
 
