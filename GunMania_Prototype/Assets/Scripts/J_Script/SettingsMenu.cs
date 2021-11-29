@@ -18,8 +18,8 @@ public class SettingsMenu : MonoBehaviour
         sfxMixer.SetFloat("Volume", volume);
     }
 
-    public void StartGame()
+    /*public void StartGame()
     {
         SceneManager.LoadScene("sl_ServerLobby");
-    }
+    }*/
 }
