@@ -9,6 +9,8 @@ public class sl_ShootBehavior : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public List<GameObject> dishBullet;
+    public List<GameObject> foodBullet;
+
     public Transform shootPosition;
 
     public static int bulletCount;
@@ -20,6 +22,8 @@ public class sl_ShootBehavior : MonoBehaviour
 
     PhotonView view;
     GameObject bullet;
+    int bulletNum;
+
     Vector3 directionShoot;
     Vector3 targetPosition;
     public Animator anim;
@@ -47,6 +51,80 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Update()
     {
+        //define bullet types
+        #region
+        if (playerInventory.itemList[0] != null)
+        {
+            if (playerInventory.itemList[0].itemHeldNum == 1)
+            {
+                bulletNum = 1;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 2)
+            {
+                bulletNum = 2;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 3)
+            {
+                bulletNum = 3;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 4)
+            {
+                bulletNum = 4;
+            }
+            //from here is food (12 food)
+            else if (playerInventory.itemList[0].itemHeldNum == 10)  
+            {
+                bulletNum = 10;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 11)  
+            {
+                bulletNum = 11;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 12) 
+            {
+                bulletNum = 12;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 13) 
+            {
+                bulletNum = 13;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 14)  
+            {
+                bulletNum = 14;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 15)
+            {
+                bulletNum = 15;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 16)
+            {
+                bulletNum = 16;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 17)
+            {
+                bulletNum = 17;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 18)
+            {
+                bulletNum = 18;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 19)
+            {
+                bulletNum = 19;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 20)
+            {
+                bulletNum = 20;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 21)
+            {
+                bulletNum = 21;
+            }
+
+        }
+        #endregion
+
+        //MAIN
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -62,7 +140,7 @@ public class sl_ShootBehavior : MonoBehaviour
                 {
                     spawn = true;
 
-                    view.RPC("SpawnBullet", RpcTarget.All);
+                    view.RPC("BulletType", RpcTarget.All, bulletNum);
                     targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
 
                     count++;
@@ -124,33 +202,146 @@ public class sl_ShootBehavior : MonoBehaviour
 
 
     [PunRPC]
-    public void SpawnBullet()
+    public void BulletType(int i)
     {
-        theFood.SetActive(true);
-        if (playerInventory.itemList[0].itemHeldNum == 1)
+        bulletNum = i;
+
+        //dish
+        #region
+        if (i == 1)
         {
+            theFood.SetActive(true);
             bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 2)
-        {
-            bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 3)
-        {
-            bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
-        }
-        else if (playerInventory.itemList[0].itemHeldNum == 4)
-        {
-            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
-        }
-        else
-        {
-            bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
         }
 
-    bullet.SetActive(false);
-        //bullet.transform.SetParent(shootPosition);
+        if (i == 2)
+        {
+            theFood.SetActive(true);
+            bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
+            bullet.SetActive(false);
+        }
+        if (i == 3)
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
+            bullet.SetActive(false);
+
+        }
+        if (i == 4)
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
+            bullet.SetActive(false);
+
+        }
+        #endregion
+
+
+        //food - start from 10 - 21 
+        #region
+        if (i == 10) //c_niangao
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[0], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+
+        }
+        if (i == 11)//c_spring roll
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[1], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 12)//c_wonton
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[2], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 13)//j_ichigo
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[3], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 14)//j_ikanagi
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[4], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 15)//j_sakura
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[5], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 16)//k_bap burger
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[6], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 17)//k_japchae
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[7], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 18)//k_tteobokki
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[8], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 19)//t_bubbletea
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[9], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 20)//t_pineapple
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[10], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        if (i == 21)//t_taro
+        {
+            theFood.SetActive(true);
+
+            bullet = Instantiate(foodBullet[11], shootPosition.position, Quaternion.identity);
+            bullet.SetActive(false);
+
+        }
+        #endregion
     }
+
 
     [PunRPC]
     public void CancelShoot()

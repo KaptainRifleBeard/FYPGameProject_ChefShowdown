@@ -36,6 +36,9 @@ public class SL_newP1Movement : MonoBehaviour
     public float speed;
     Vector3 destination;
 
+    public bool knockback;
+    Vector3 direction;
+
     private LineRenderer lineRenderer;
     private List<Vector3> point;
 
@@ -58,7 +61,7 @@ public class SL_newP1Movement : MonoBehaviour
     void Start()
     {
         destination = transform.position;
-
+        knockback = false;
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
         anim = gameObject.GetComponent<Animator>();
@@ -216,7 +219,7 @@ public class SL_newP1Movement : MonoBehaviour
             #endregion
 
 
-            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player")
+            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player" && view.IsMine)
             {
                 view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
             }
@@ -462,27 +465,6 @@ public class SL_newP1Movement : MonoBehaviour
         startTheGame = true;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "P2FoxtailMillet")
-        {
-            view.RPC("KnockbackBehavior", RpcTarget.All);
-        }
-    }
-
-    [PunRPC]
-    public void KnockbackBehavior()
-    {
-        myAgent.enabled = false;
-        StartCoroutine(EnableAgent());
-    }
-
-    IEnumerator EnableAgent()
-    {
-        yield return new WaitForSeconds(0.2f);
-        myAgent.enabled = true;
-
-    }
     //For UI SYNC
     #region
     public void Move<T>(List<T> list, int oldIndex, int newIndex)

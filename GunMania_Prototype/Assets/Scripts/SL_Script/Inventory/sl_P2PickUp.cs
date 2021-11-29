@@ -13,6 +13,10 @@ public class sl_P2PickUp : MonoBehaviour
 
     PhotonView view;
 
+    public int prefabNum;
+    public GameObject[] foodPrefab;
+    int num;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -27,11 +31,14 @@ public class sl_P2PickUp : MonoBehaviour
         {
             if (sl_P2ShootBehavior.p2bulletCount < 2)
             {
-                view.RPC("AddFood2", RpcTarget.All);
+                prefabNum = Random.Range(0, 2);
+
+                view.RPC("AddFood2", RpcTarget.All, prefabNum);
                 sl_P2ShootBehavior.p2bulletCount += 1;
 
                 if (gameObject.layer == LayerMask.NameToLayer("Food"))
                 {
+
                     isPicked = true;
                     AddNewItem();
 
@@ -86,19 +93,51 @@ public class sl_P2PickUp : MonoBehaviour
         sl_p2InventoryManager.RefreshItem();
     }
 
-    [PunRPC]
-    public void StartCountdown()
+    //[PunRPC]
+    public void StartCountdown2()
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
+        if (num == 1)
+        {
+            foodPrefab[0].SetActive(true);
+        }
+
+        if (num == 2)
+        {
+            foodPrefab[1].SetActive(true);
+        }
+
+        if (num == 3)
+        {
+            foodPrefab[2].SetActive(true);
+        }
+
         isPicked = false;
+
     }
 
 
     [PunRPC]
-    public void AddFood2()
+    public void AddFood2(int i)
     {
         gameObject.SetActive(false);
-        Invoke("StartCountdown", 6);  //wait for 6 sec
+        Invoke("StartCountdown2", 3);  //wait for 6 sec
+
+        prefabNum = i;
+        if (i == 0)
+        {
+            num = 1;
+        }
+
+        if (i == 1)
+        {
+            num = 2;
+        }
+
+        if (i == 2)
+        {
+            num = 3;
+        }
 
     }
 
@@ -109,44 +148,4 @@ public class sl_P2PickUp : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //private IEnumerator MoveToFront()
-    //{
-    //    yield return new WaitForSeconds(0.1f);
-    //    playerInventory.itemList[0] = playerInventory.itemList[1];
-    //    sl_p2InventoryManager.RefreshItem();
-
-    //    yield return new WaitForSeconds(0.1f);
-    //    playerInventory.itemList[1] = null;
-    //    sl_p2InventoryManager.RefreshItem();
-
-    //    count = 0;
-    //}
-
-
-    //void Update()
-    //{
-    //    ////completely hard code
-    //    //if (sl_P2ShootBehavior.p2Shoot && playerInventory.itemList[0] != null) //if shoot, check list[0] have bullet or not
-    //    //{
-    //    //    if (count < 1 && spawn == false)  //to spawn only one per time
-    //    //    {
-    //    //        if (count < 1)
-    //    //        {
-    //    //            spawn = true;
-
-    //    //            playerInventory.itemList[0] = null;
-    //    //            sl_p2InventoryManager.RefreshItem();
-    //    //            StartCoroutine(MoveToFront());
-
-    //    //            count++;
-
-    //    //        }
-    //    //        if (count == 1)
-    //    //        {
-    //    //            spawn = false;
-    //    //        }
-    //    //    }
-    //    //}
-
-    //}
 }
