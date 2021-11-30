@@ -91,7 +91,7 @@ public class DishEffect : MonoBehaviour
     [PunRPC]
     public void Pull(Vector3 dir)
     {
-        sl_PlayerHealth.currentHealth -= 2;
+        sl_PlayerHealth.currentHealth -= 1;
         
         playerRidg.AddForce(dir * pullingSpeed, ForceMode.Impulse);
     }
@@ -99,7 +99,7 @@ public class DishEffect : MonoBehaviour
     [PunRPC]
     public void Push(Vector3 dir)
     {
-        sl_PlayerHealth.currentHealth -= 2;
+        sl_PlayerHealth.currentHealth -= 1;
         
         playerRidg.AddForce(dir * knockbackSpeed, ForceMode.Impulse);
     }
@@ -114,6 +114,6 @@ public class DishEffect : MonoBehaviour
     [PunRPC]
     public void Explode()
     {
-        sl_PlayerHealth.currentHealth -= 3;
+        sl_PlayerHealth.currentHealth -= 1.5f;
     }
 }

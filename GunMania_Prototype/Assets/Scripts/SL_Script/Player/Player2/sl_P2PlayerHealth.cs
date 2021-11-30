@@ -39,7 +39,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     public void Update()
     {
-        if (p2currentHealth == 0)
+        if (p2currentHealth <= 0)
         {
             Destroy(gameObject);
         }
