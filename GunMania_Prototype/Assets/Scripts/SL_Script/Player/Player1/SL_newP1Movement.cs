@@ -116,6 +116,7 @@ public class SL_newP1Movement : MonoBehaviour
                     myAgent.isStopped = true;
                     myAgent.ResetPath();
                 }
+
             }
             else
             {
@@ -124,28 +125,34 @@ public class SL_newP1Movement : MonoBehaviour
 
             }
 
-            DrawLine();
-
-            //ROTATE player
-            if (gameObject.tag == "Player")
-            {
-                //Rotate player
-                Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-                float rayLength;
-
-                if (groundPlane.Raycast(ray, out rayLength))
-                {
-                    Vector3 pointToLook = ray.GetPoint(rayLength);
-                    transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-                }
-
-            }
+            //DrawLine();
 
             //stop when shoot
             if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove)
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
+            }
+
+
+            if (gameObject.tag == "Player" && view.IsMine)
+            {
+                Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+                float rayLength;
+
+                if (groundPlane.Raycast(ray, out rayLength))
+                {
+                    Vector3 pointToLook = ray.GetPoint(rayLength);
+                    view.RPC("PlayerRotate", RpcTarget.All, pointToLook);
+
+                }
+
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player" && view.IsMine)
+            {
+                view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
             }
 
 
@@ -219,29 +226,23 @@ public class SL_newP1Movement : MonoBehaviour
             #endregion
 
 
-            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player" && view.IsMine)
-            {
-                view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
-            }
-
-
             //edit spped when pass through off mesh link on roof
-            if (myAgent.isOnOffMeshLink)
-            {
-                OffMeshLinkData data = myAgent.currentOffMeshLinkData;
+            //if (myAgent.isOnOffMeshLink)
+            //{
+            //    OffMeshLinkData data = myAgent.currentOffMeshLinkData;
 
-                //calculate the final point of the link
-                Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
+            //    //calculate the final point of the link
+            //    Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
 
-                //Move the agent to the end point
-                myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+            //    //Move the agent to the end point
+            //    myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
 
-                //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
-                if (myAgent.transform.position == endPos)
-                {
-                    myAgent.CompleteOffMeshLink();
-                }
-            }
+            //    //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+            //    if (myAgent.transform.position == endPos)
+            //    {
+            //        myAgent.CompleteOffMeshLink();
+            //    }
+            //}
         }
 
     }
@@ -542,22 +543,30 @@ public class SL_newP1Movement : MonoBehaviour
     //    detectAndStop = false;
     //}
 
-    public void DrawLine()
+    //public void DrawLine()
+    //{
+    //    if (myAgent.path.corners.Length < 2) return;
+
+    //    int i = 1;
+    //    while (i < myAgent.path.corners.Length)
+    //    {
+    //        lineRenderer.positionCount = myAgent.path.corners.Length;
+    //        point = myAgent.path.corners.ToList();
+
+    //        for (int j = 0; j < point.Count; j++)
+    //        {
+    //            lineRenderer.SetPosition(j, point[j]);
+    //        }
+    //        i++;
+    //    }
+    //}
+
+    [PunRPC]
+    public void PlayerRotate(Vector3 look)
     {
-        if (myAgent.path.corners.Length < 2) return;
+        //Rotate player
+        transform.LookAt(new Vector3(look.x, transform.position.y, look.z));
 
-        int i = 1;
-        while (i < myAgent.path.corners.Length)
-        {
-            lineRenderer.positionCount = myAgent.path.corners.Length;
-            point = myAgent.path.corners.ToList();
-
-            for (int j = 0; j < point.Count; j++)
-            {
-                lineRenderer.SetPosition(j, point[j]);
-            }
-            i++;
-        }
     }
 
 

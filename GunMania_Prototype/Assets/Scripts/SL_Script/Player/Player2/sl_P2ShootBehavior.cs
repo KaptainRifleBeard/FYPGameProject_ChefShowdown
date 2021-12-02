@@ -376,7 +376,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
         theFood.SetActive(false);
         bullet.SetActive(true);
 
-        float shootForce = 60.0f;
+        float shootForce = 80.0f;
         bullet.transform.forward = dir.normalized;
         bullet.GetComponent<Rigidbody>().AddForce(dir.normalized * shootForce, ForceMode.Impulse); //shootforce
 

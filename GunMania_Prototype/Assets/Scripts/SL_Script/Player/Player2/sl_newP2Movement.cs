@@ -92,6 +92,8 @@ public class sl_newP2Movement : MonoBehaviour
                     myAgent.isStopped = true;
                     myAgent.ResetPath();
                 }
+
+
             }
             else
             {
@@ -100,26 +102,32 @@ public class sl_newP2Movement : MonoBehaviour
 
             }
 
-            if (gameObject.tag == "Player2")
+
+            if (sl_P2ShootBehavior.p2Shoot == true || !P2DishEffect.p2canMove)
             {
-                //Rotate player
+                myAgent.isStopped = true;
+                myAgent.ResetPath();
+            }
+
+            if (gameObject.tag == "Player2" && view.IsMine)
+            {
                 Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
                 float rayLength;
 
                 if (groundPlane.Raycast(ray, out rayLength))
                 {
                     Vector3 pointToLook = ray.GetPoint(rayLength);
-                    transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+                    view.RPC("PlayerRotate2", RpcTarget.All, pointToLook);
+
                 }
+
 
             }
 
-
-
-            if (sl_P2ShootBehavior.p2Shoot == true || !P2DishEffect.p2canMove)
+            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player2" && view.IsMine)
             {
-                myAgent.isStopped = true;
-                myAgent.ResetPath();
+                view.RPC("SyncCharacterUIAndModel2", RpcTarget.All);
+
             }
 
 
@@ -191,31 +199,23 @@ public class sl_newP2Movement : MonoBehaviour
             }
             #endregion
 
-
-
-            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player2" && view.IsMine)
-            {
-                view.RPC("SyncCharacterUIAndModel2", RpcTarget.All);
-
-            }
-
             //edit spped when pass through off mesh link on roof
-            if (myAgent.isOnOffMeshLink)
-            {
-                OffMeshLinkData data = myAgent.currentOffMeshLinkData;
+            //if (myAgent.isOnOffMeshLink)
+            //{
+            //    OffMeshLinkData data = myAgent.currentOffMeshLinkData;
 
-                //calculate the final point of the link
-                Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
+            //    //calculate the final point of the link
+            //    Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
 
-                //Move the agent to the end point
-                myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+            //    //Move the agent to the end point
+            //    myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
 
-                //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
-                if (myAgent.transform.position == endPos)
-                {
-                    myAgent.CompleteOffMeshLink();
-                }
-            }
+            //    //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+            //    if (myAgent.transform.position == endPos)
+            //    {
+            //        myAgent.CompleteOffMeshLink();
+            //    }
+            //}
         }
       
     }
@@ -474,6 +474,14 @@ public class sl_newP2Movement : MonoBehaviour
     }
     #endregion
 
+
+    [PunRPC]
+    public void PlayerRotate2(Vector3 look)
+    {
+        //Rotate player
+        transform.LookAt(new Vector3(look.x, transform.position.y, look.z));
+
+    }
 
     //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     //{
