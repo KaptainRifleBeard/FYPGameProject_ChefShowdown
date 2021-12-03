@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using UnityEngine.SceneManagement;
 
 public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
@@ -36,7 +37,9 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log("Room Created");
-        roomCanvas.CurrentRoomCanvas.Show();
+        PhotonNetwork.LoadLevel("sl_PlayerRoom");
+
+        //roomCanvas.CurrentRoomCanvas.Show();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)

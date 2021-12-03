@@ -10,7 +10,6 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
 
     private sl_RoomCanvases roomCanvas;
     public GameObject startButton;
-
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
         roomCanvas = canvases;
@@ -30,17 +29,16 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
 
     private void Update()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && PhotonNetwork.IsMasterClient && sl_SpawnPlayerManager.p2Ready == 1)
-        {
-            Debug.Log("ready " + sl_SpawnPlayerManager.p2Ready);
-            if (sl_SpawnPlayerManager.p2Ready == 1)
-            {
-                startButton.SetActive(true);
-            }
-        }
-        else
-        {
-            startButton.SetActive(false);
-        }
+        //if (PhotonNetwork.CurrentRoom.PlayerCount == 2 && PhotonNetwork.IsMasterClient)
+        //{
+        //    if (sl_SpawnPlayerManager.p2Ready == 1)
+        //    {
+        //        startButton.SetActive(true);
+        //    }
+        //}
+        //else
+        //{
+        //    startButton.SetActive(false);
+        //}
     }
 }

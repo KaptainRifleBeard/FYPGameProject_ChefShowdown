@@ -13,6 +13,10 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     public List<sl_PlayerListing> listings = new List<sl_PlayerListing>();
     private sl_RoomCanvases roomCanvas;
 
+
+    public GameObject p1Selection;
+    public GameObject p2Selection;
+
     public override void OnEnable()
     {
         base.OnEnable();
@@ -86,12 +90,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             Destroy(listings[i].gameObject);
             listings.RemoveAt(i);
         }
-
-        sl_SpawnPlayerManager.playerNum_p1 = 0;
-        sl_SpawnPlayerManager.playerNum_p2 = 0;
-        sl_SpawnPlayerManager.playerTagNum_p1 = 0;
-        sl_SpawnPlayerManager.playerTagNum_p2 = 0;
-
     }
 
     public void StartGame()
@@ -105,6 +103,19 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.CurrentRoom.IsOpen = false;
 
+    }
+
+    private void Update()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+            {
+                p1Selection.SetActive(true);
+                p2Selection.SetActive(true);
+            }
+        }
+        
     }
 
 }

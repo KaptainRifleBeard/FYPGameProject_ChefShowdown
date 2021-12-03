@@ -19,7 +19,7 @@ public class sl_RoomListingMenu : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        roomCanvas.CurrentRoomCanvas.Show();
+        //roomCanvas.CurrentRoomCanvas.Show();
         content.DestroyChildren();
         listings.Clear();
     }
