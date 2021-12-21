@@ -5,9 +5,10 @@ using UnityEngine.AI;
 using Photon.Pun;
 using UnityEngine.UI;
 
-public class sl_newP2Movement : MonoBehaviour
+public class sl_newP2Movement : MonoBehaviour, IPunObservable
 {
     bool startTheGame = false;
+    int speed;
 
     private NavMeshAgent myAgent;
     PhotonView view;
@@ -15,7 +16,15 @@ public class sl_newP2Movement : MonoBehaviour
     public GameObject inventoryVisible;
     public GameObject indicatorVisible;
 
-    public Animator anim;
+    //Animation Variables
+    public Animator myAnimator;
+    public Animator brock_Animator;
+    public Animator wen_Animator;
+    public Animator jiho_Animator;
+    public Animator katsuki_Animator;
+
+    bool throwing = false;
+
     bool isrunning;
     bool stopping;
 
@@ -46,10 +55,13 @@ public class sl_newP2Movement : MonoBehaviour
     {
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
-        anim = GetComponent<Animator>();
+        myAnimator = GetComponent<Animator>();
 
         StartCoroutine(waitFoeSec());
         StartCoroutine(WhenGameStart());
+
+        inventoryVisible.SetActive(false);
+        indicatorVisible.SetActive(false);
     }
 
 
@@ -79,6 +91,8 @@ public class sl_newP2Movement : MonoBehaviour
                         if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         {
                             myAgent.SetDestination(hit.point);
+
+                            //view.RPC("PlayerMove2", RpcTarget.All, hit.point);
                             isrunning = true;
 
                         }
@@ -130,95 +144,188 @@ public class sl_newP2Movement : MonoBehaviour
 
             }
 
-
+            //ANIMATION PART
             #region
-            //if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !PhotonNetwork.IsMasterClient)
-            //{
-
-            //    anim.SetBool("isRunning", true);
-            //}
-            //else
-            //{
-            //    anim.SetBool("isRunning", false);
-            //}
-
-            //if (sl_P2ShootBehavior.p2bulletCount == 1 && !stopping && !PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", false);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", true);
-            //    anim.SetBool("hold2food", false);
-            //}
-
-            //if (sl_P2ShootBehavior.p2bulletCount == 2 && !stopping && !PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", false);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", true);
-            //}
-            //else if (sl_P2ShootBehavior.p2bulletCount == 0 && !stopping && !PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", true);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", false);
-            //}
-
-            //if (stopping)
-            //{
-            //    anim.SetBool("stop", true);
-
-            //    anim.SetBool("isRunning", false);
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", false);
-            //}
-            //else
-            //{
-            //    anim.SetBool("stop", false);
-
-            //}
-
-            //ANIMATION
-            if (!myAgent.pathPending)
+            if (view.IsMine && !PhotonNetwork.IsMasterClient && myAnimator != null)
             {
-                if (myAgent.remainingDistance <= myAgent.stoppingDistance)
+                if (!myAgent.pathPending)
                 {
-                    isrunning = false;
-                    stopping = true;
+                    if (myAgent.remainingDistance <= myAgent.stoppingDistance)
+                    {
+                        isrunning = false;
+                        stopping = true;
+                    }
+                    else
+                    {
+                        stopping = false;
+
+                    }
                 }
-                else
+
+                //modal change start from here
+                if (changep2Icon == 0)
                 {
-                    stopping = false;
+                    myAnimator = brock_Animator;
+                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+                    }
+                    else
+                    {
+                        if (!throwing)
+                        {
+                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                        }
+                    }
+
+                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+                        throwing = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                    {
+                        stopping = true;
+                        isrunning = false;
+
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+                        StartCoroutine(ThrowTime());
+                    }
+                }
+                if (changep2Icon == 1)
+                {
+                    myAnimator = wen_Animator;
+
+                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+                    }
+                    else
+                    {
+                        if (!throwing)
+                        {
+                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                        }
+                    }
+
+                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+                        throwing = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                    {
+                        stopping = true;
+                        isrunning = false;
+
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+                        StartCoroutine(ThrowTime());
+                    }
 
                 }
+
+                if (changep2Icon == 2)
+                {
+                    myAnimator = jiho_Animator;
+
+                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+                    }
+                    else
+                    {
+                        if (!throwing)
+                        {
+                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                        }
+                    }
+
+                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+                        throwing = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                    {
+                        stopping = true;
+                        isrunning = false;
+
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+                        StartCoroutine(ThrowTime());
+                    }
+                }
+
+                if (changep2Icon == 3)
+                {
+                    myAnimator = katsuki_Animator;
+
+                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+                    }
+                    else
+                    {
+                        if (!throwing)
+                        {
+                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                        }
+                    }
+
+                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+                        throwing = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                    {
+                        stopping = true;
+                        isrunning = false;
+
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+                        StartCoroutine(ThrowTime());
+                    }
+
+                }
+
             }
             #endregion
 
-            //edit spped when pass through off mesh link on roof
-            //if (myAgent.isOnOffMeshLink)
-            //{
-            //    OffMeshLinkData data = myAgent.currentOffMeshLinkData;
-
-            //    //calculate the final point of the link
-            //    Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
-
-            //    //Move the agent to the end point
-            //    myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
-
-            //    //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
-            //    if (myAgent.transform.position == endPos)
-            //    {
-            //        myAgent.CompleteOffMeshLink();
-            //    }
-            //}
         }
-      
+
+        if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
+        {
+            myAgent.speed = 40;
+        }
+        else if(sl_P2PlayerHealth.p2currentHealth > 4 && changep2Icon == 1)
+        {
+            myAgent.speed = 48;
+        }
+        else if (changep2Icon == 3)
+        {
+            myAgent.speed = 28;
+        }
+        else
+        {
+            myAgent.speed = 40;
+        }
     }
+    IEnumerator ThrowTime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        //myAnimator.SetFloat("Blend", 0f);
+        throwing = false;
+    }
+
+
+    //Animation SYNC
+    [PunRPC]
+    public void SyncAnimation2(float blendNum)
+    {
+        //ANIMATION
+        myAnimator.SetFloat("Blend", blendNum);
+
+    }
+
 
     //For Character model
     //0.brock, 1.wen, 2.jiho, 3.katsuki
@@ -227,6 +334,7 @@ public class sl_newP2Movement : MonoBehaviour
     public void Brock2()
     {
         changep2Icon = 0;
+        //myAgent.speed = 40;
 
         for (int j = 0; j < BrockChoi.Length; j++)
         {
@@ -256,6 +364,7 @@ public class sl_newP2Movement : MonoBehaviour
     public void Wen2()
     {
         changep2Icon = 1;
+        //myAgent.speed = 48;
 
 
         for (int j = 0; j < BrockChoi.Length; j++)
@@ -287,6 +396,7 @@ public class sl_newP2Movement : MonoBehaviour
     public void Jiho2()
     {
         changep2Icon = 2;
+        //myAgent.speed = 40;
 
         for (int i = 0; i < BrockChoi.Length; i++)
         {
@@ -316,6 +426,7 @@ public class sl_newP2Movement : MonoBehaviour
     public void Katsuki2()
     {
         changep2Icon = 3;
+        //myAgent.speed = 28;
 
         for (int i = 0; i < BrockChoi.Length; i++)
         {
@@ -483,18 +594,20 @@ public class sl_newP2Movement : MonoBehaviour
 
     }
 
-    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        stream.SendNext(myAgent.transform.position);
-    //        stream.SendNext(myAgent.transform.rotation);
-    //    }
-    //    else if (stream.IsReading)
-    //    {
-    //        myAgent.transform.position = (Vector3)stream.ReceiveNext();
-    //        myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(transform.position);
+        //    stream.SendNext(transform.rotation);
+        //}
+        //else if (stream.IsReading)
+        //{
+        //    transform.position = (Vector3)stream.ReceiveNext();
+        //    transform.rotation = (Quaternion)stream.ReceiveNext();
 
-    //    }
-    //}
+        //    //float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+        //    //myAgent.transform.position += myAgent.velocity * lag;
+        //}
+    }
 }

@@ -6,27 +6,35 @@ using Photon.Pun;
 using System.Linq;
 using UnityEngine.UI;
 
-public class SL_newP1Movement : MonoBehaviour
+public class SL_newP1Movement : MonoBehaviour, IPunObservable
 {
     bool startTheGame = false;
 
     private NavMeshAgent myAgent;
     PhotonView view;
 
-    public GameObject inventoryVisible;
-    public GameObject indicatorVisible;
+    //UI variables
+    
 
-    public Animator anim;
+    //Animation Variables
+    public Animator myAnimator;
+    public Animator brock_Animator;
+    public Animator wen_Animator;
+    public Animator jiho_Animator;
+    public Animator katsuki_Animator;
+
+    bool throwing = false;
+
     bool isrunning;
     bool stopping;
 
-    //Control model
+    //Character model variables
     public GameObject[] BrockChoi;
     public GameObject[] OfficerWen;
     public GameObject[] AuntJiho;
     public GameObject[] MrKatsuki;
 
-    public static int changep1Icon = 0;
+    public static int changeModelAnim = 0;
 
     public bool p2IsWen;
 
@@ -41,7 +49,6 @@ public class SL_newP1Movement : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private List<Vector3> point;
-
 
     //to define which is main and tag character
     int mainCharacter;
@@ -58,18 +65,26 @@ public class SL_newP1Movement : MonoBehaviour
     public Image mainUI;
     public Image tagUI;
 
+    public GameObject inventoryVisible;
+    public GameObject indicatorVisible;
+
+
+
+
     void Start()
     {
         destination = transform.position;
         knockback = false;
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
-        anim = gameObject.GetComponent<Animator>();
+        myAnimator = gameObject.GetComponent<Animator>();
         lineRenderer = GetComponent<LineRenderer>();
 
         StartCoroutine(waitFoeSec());
         StartCoroutine(WhenGameStart());
 
+        inventoryVisible.SetActive(false);
+        indicatorVisible.SetActive(false);
 
     }
 
@@ -99,13 +114,10 @@ public class SL_newP1Movement : MonoBehaviour
                         if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         {
                             myAgent.SetDestination(hit.point);
+
+                            //view.RPC("PlayerMove", RpcTarget.All, hit.point);
                             isrunning = true;
                         }
-                        //if (Vector3.Distance(transform.position, hit.point) > 1.0)
-                        //{
-                        //    destination = hit.point;
-                        //    Movement();
-                        //}
                     }
 
                 }
@@ -155,77 +167,25 @@ public class SL_newP1Movement : MonoBehaviour
                 view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
             }
 
+            if (sl_PlayerHealth.currentHealth > 4 && changeModelAnim == 1)
+            {
+                myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
+            }
+            else if (sl_PlayerHealth.currentHealth < 4 && changeModelAnim == 1)
+            {
+                myAgent.speed = 40; 
+            }
+            else if(changeModelAnim == 3)
+            {
+                myAgent.speed = 28;
+            }
+            else
+            {
+                myAgent.speed = 40;
+            }
 
+            //  Unused region -- offmesh link
             #region
-            //ANIMATION
-            //if (!myAgent.pathPending)
-            //{
-            //    if (myAgent.remainingDistance <= myAgent.stoppingDistance)
-            //    {
-            //        isrunning = false;
-            //        stopping = true;
-            //    }
-            //    else
-            //    {
-            //        stopping = false;
-
-            //    }
-            //}
-
-            //if (isrunning && sl_ShootBehavior.p1Shoot == false && PhotonNetwork.IsMasterClient)
-            //{
-
-            //    anim.SetBool("isRunning", true);
-            //}
-            //else
-            //{
-            //    anim.SetBool("isRunning", false);
-            //}
-
-
-            //if (sl_ShootBehavior.bulletCount == 1 && !stopping && PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", false);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", true);
-            //    anim.SetBool("hold2food", false);
-            //}
-
-            //if (sl_ShootBehavior.bulletCount == 2 && !stopping && PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", false);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", true);
-            //}
-            //else if (sl_ShootBehavior.bulletCount == 0 && !stopping && PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", true);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", false);
-            //}
-
-            //if (stopping)
-            //{
-            //    anim.SetBool("stop", true);
-
-            //    anim.SetBool("isRunning", false);
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", false);
-            //}
-            //else
-            //{
-            //    anim.SetBool("stop", false);
-
-            //}
-            #endregion
-
-
             //edit spped when pass through off mesh link on roof
             //if (myAgent.isOnOffMeshLink)
             //{
@@ -243,33 +203,179 @@ public class SL_newP1Movement : MonoBehaviour
             //        myAgent.CompleteOffMeshLink();
             //    }
             //}
+            #endregion
         }
 
-    }
 
-    public void Movement()
-    {
-        //get the distance between the player and the destination pos
-        float dis = Vector3.Distance(transform.position, destination);
-        if (dis > 0)
+        //ANIMATION PART
+        #region
+
+        if (view.IsMine && PhotonNetwork.IsMasterClient && myAnimator != null)
         {
-            // decide the moveDis for this frame. 
-            //(Mathf.Clamp limits the first value, to make sure if the distance between the player and the destination pos is short than you set,
-            // it only need to move to the destination. So at that moment, the moveDis should set to the "dis".)
-            float moveDis = Mathf.Clamp(speed * Time.fixedDeltaTime, 0, dis);
+            if (!myAgent.pathPending)
+            {
+                if (myAgent.remainingDistance <= myAgent.stoppingDistance)
+                {
+                    isrunning = false;
+                    stopping = true;
+                }
+                else
+                {
+                    stopping = false;
 
-            //get the unit vector which means the move direction, and multiply by the move distance.
-            Vector3 move = (destination - transform.position).normalized * moveDis;
-            
-            transform.Translate(move.x, 0, move.z);
-            
-            
+                }
+            }
+
+            //modal change start from here
+            if (changeModelAnim == 0)
+            {
+                myAnimator = brock_Animator;
+
+                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
+                {
+                    //myAnimator.SetFloat("Blend", 0.5f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
+                }
+                else
+                {
+                    if (!throwing)
+                    {
+                        //myAnimator.SetFloat("Blend", 0f);
+                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
+                    }
+                }
+
+                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
+                {
+                    //myAnimator.SetFloat("Blend", 1f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
+                    throwing = true;
+                }
+                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                {
+                    stopping = true;
+                    isrunning = false;
+
+                    //myAnimator.SetFloat("Blend", 1.5f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
+                    StartCoroutine(ThrowTime());
+                }
+            }
+            if (changeModelAnim == 1)
+            {
+                myAnimator = wen_Animator;
+
+                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
+                {
+                    //myAnimator.SetFloat("Blend", 0.5f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
+                }
+                else
+                {
+                    if (!throwing)
+                    {
+                        //myAnimator.SetFloat("Blend", 0f);
+                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
+                    }
+                }
+
+                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
+                {
+                    //myAnimator.SetFloat("Blend", 1f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
+                    throwing = true;
+                }
+                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                {
+                    stopping = true;
+                    isrunning = false;
+
+                    //myAnimator.SetFloat("Blend", 1.5f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
+                    StartCoroutine(ThrowTime());
+                }
+
+            }
+
+            if (changeModelAnim == 2)
+            {
+                myAnimator = jiho_Animator;
+
+                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
+                {
+                    //myAnimator.SetFloat("Blend", 0.5f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
+                }
+                else
+                {
+                    if (!throwing)
+                    {
+                        //myAnimator.SetFloat("Blend", 0f);
+                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
+                    }
+                }
+
+                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
+                {
+                    //myAnimator.SetFloat("Blend", 1f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
+                    throwing = true;
+                }
+                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                {
+                    stopping = true;
+                    isrunning = false;
+
+                    //myAnimator.SetFloat("Blend", 1.5f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
+                    StartCoroutine(ThrowTime());
+                }
+
+            }
+
+            if (changeModelAnim == 3)
+            {
+                myAnimator = katsuki_Animator;
+
+                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
+                {
+                    //myAnimator.SetFloat("Blend", 0.5f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
+                }
+                else
+                {
+                    if (!throwing)
+                    {
+                        //myAnimator.SetFloat("Blend", 0f);
+                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
+                    }
+                }
+
+                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
+                {
+                    //myAnimator.SetFloat("Blend", 1f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
+                    throwing = true;
+                }
+                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                {
+                    stopping = true;
+                    isrunning = false;
+
+                    //myAnimator.SetFloat("Blend", 1.5f);
+                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
+                    StartCoroutine(ThrowTime());
+                }
+            }
 
         }
-
+        #endregion
 
     }
 
+
+    //-----RPC Area-----
+    #region
 
     //For Character model
     //0.brock, 1.wen, 2.jiho, 3.katsuki
@@ -277,7 +383,8 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void Brock()
     {
-        changep1Icon = 0;
+        changeModelAnim = 0;
+        //myAgent.speed = 40;
 
         for (int j = 0; j < BrockChoi.Length; j++)
         {
@@ -306,8 +413,8 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void Wen()
     {
-        changep1Icon = 1;
-
+        changeModelAnim = 1;
+        //myAgent.speed = 48;
 
         for (int j = 0; j < BrockChoi.Length; j++)
         {
@@ -337,7 +444,8 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void Jiho()
     {
-        changep1Icon = 2;
+        changeModelAnim = 2;
+        //myAgent.speed = 40;
 
         for (int i = 0; i < BrockChoi.Length; i++)
         {
@@ -366,7 +474,8 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void Katsuki()
     {
-        changep1Icon = 3;
+        changeModelAnim = 3;
+        //myAgent.speed = 28;
 
         for (int i = 0; i < BrockChoi.Length; i++)
         {
@@ -393,78 +502,6 @@ public class SL_newP1Movement : MonoBehaviour
     }
     #endregion
 
-    IEnumerator waitFoeSec()
-    {
-        //****i put default ui's [0] is brock. cuz p1 first pick always show empty
-        
-        yield return new WaitForSeconds(0.1f);
-
-        //Show model when in game
-        if (sl_SpawnPlayerManager.count1 == 1 || sl_SpawnPlayerManager.count1 == 0)//0 is default, 1 is choosen
-        {
-            view.RPC("Brock", RpcTarget.All);
-            mainCharacter = 1;
-            p1CharacterList[0] = brockIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count1 == 2)
-        {
-            view.RPC("Wen", RpcTarget.All);
-            mainCharacter = 2;
-            p1CharacterList[0] = wenIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count1 == 3)
-        {
-            view.RPC("Jiho", RpcTarget.All);
-            mainCharacter = 3;
-            p1CharacterList[0] = jihoIcon;
-
-
-        }
-        if (sl_SpawnPlayerManager.count1 == 4)
-        {
-            view.RPC("Katsuki", RpcTarget.All);
-            mainCharacter = 4;
-            p1CharacterList[0] = katsukiIcon;
-
-
-        }
-
-        //tag character
-        //define int for tag character, ****i put -1 because somehow the integer auto +1 when i switch scene, but default 0 no problem
-        if (sl_SpawnPlayerManager.count2 == 0 || sl_SpawnPlayerManager.count2 == 1)
-        {
-            tagCharacter = 1;
-            p1CharacterList[1] = brockIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count2 == 2)
-        {
-            tagCharacter = 2;
-            p1CharacterList[1] = wenIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count2 == 3)
-        {
-            tagCharacter = 3;
-            p1CharacterList[1] = jihoIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count2 == 4)
-        {
-            tagCharacter = 4;
-            p1CharacterList[1] = katsukiIcon;
-
-        }
-
-    }
-
-    IEnumerator WhenGameStart()
-    {
-        yield return new WaitForSeconds(3f);
-        startTheGame = true;
-    }
 
     //For UI SYNC
     #region
@@ -536,12 +573,136 @@ public class SL_newP1Movement : MonoBehaviour
     #endregion
 
 
+    //Player movement Control
+    #region
+    [PunRPC]
+    public void PlayerRotate(Vector3 look)
+    {
+        //Rotate player
+        transform.LookAt(new Vector3(look.x, transform.position.y, look.z));
 
-    //IEnumerator disableStop()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    detectAndStop = false;
-    //}
+    }
+
+    [PunRPC]
+    public void PlayerMove(Vector3 dest)
+    {
+        myAgent.SetDestination(dest);
+    }
+    #endregion
+
+    #endregion
+
+
+    //Animation SYNC
+    [PunRPC]
+    public void SyncAnimation(float blendNum)
+    {
+        //ANIMATION
+        myAnimator.SetFloat("Blend", blendNum);
+
+    }
+
+
+    IEnumerator ThrowTime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        //myAnimator.SetFloat("Blend", 0f);
+        throwing = false;
+    }
+
+    IEnumerator waitFoeSec()
+    {
+        //****i put default ui's [0] is brock. cuz p1 first pick always show empty
+
+        yield return new WaitForSeconds(0.1f);
+
+        //Show model when in game
+        if (sl_SpawnPlayerManager.count1 == 1 || sl_SpawnPlayerManager.count1 == 0)//0 is default, 1 is choosen
+        {
+            view.RPC("Brock", RpcTarget.All);
+            mainCharacter = 1;
+            p1CharacterList[0] = brockIcon;
+
+        }
+        if (sl_SpawnPlayerManager.count1 == 2)
+        {
+            view.RPC("Wen", RpcTarget.All);
+            mainCharacter = 2;
+            p1CharacterList[0] = wenIcon;
+
+
+        }
+        if (sl_SpawnPlayerManager.count1 == 3)
+        {
+            view.RPC("Jiho", RpcTarget.All);
+            mainCharacter = 3;
+            p1CharacterList[0] = jihoIcon;
+
+
+        }
+        if (sl_SpawnPlayerManager.count1 == 4)
+        {
+            view.RPC("Katsuki", RpcTarget.All);
+            mainCharacter = 4;
+            p1CharacterList[0] = katsukiIcon;
+
+
+        }
+
+        //tag character
+        //define int for tag character, ****i put -1 because somehow the integer auto +1 when i switch scene, but default 0 no problem
+        if (sl_SpawnPlayerManager.count2 == 0 || sl_SpawnPlayerManager.count2 == 1)
+        {
+            tagCharacter = 1;
+            p1CharacterList[1] = brockIcon;
+
+        }
+        if (sl_SpawnPlayerManager.count2 == 2)
+        {
+            tagCharacter = 2;
+            p1CharacterList[1] = wenIcon;
+
+        }
+        if (sl_SpawnPlayerManager.count2 == 3)
+        {
+            tagCharacter = 3;
+            p1CharacterList[1] = jihoIcon;
+
+        }
+        if (sl_SpawnPlayerManager.count2 == 4)
+        {
+            tagCharacter = 4;
+            p1CharacterList[1] = katsukiIcon;
+
+        }
+
+    }
+
+    IEnumerator WhenGameStart()
+    {
+        yield return new WaitForSeconds(3f);
+        startTheGame = true;
+    }
+
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(transform.position);
+        //    stream.SendNext(transform.rotation);
+
+        //}
+        //else if (stream.IsReading)
+        //{
+        //    transform.position = (Vector3)stream.ReceiveNext();
+        //    transform.rotation = (Quaternion)stream.ReceiveNext();
+
+        //    //float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+        //    //myAgent.transform.position += myAgent.velocity * lag;
+        //}
+    }
+
 
     //public void DrawLine()
     //{
@@ -561,27 +722,4 @@ public class SL_newP1Movement : MonoBehaviour
     //    }
     //}
 
-    [PunRPC]
-    public void PlayerRotate(Vector3 look)
-    {
-        //Rotate player
-        transform.LookAt(new Vector3(look.x, transform.position.y, look.z));
-
-    }
-
-
-    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        stream.SendNext(myAgent.transform.position);
-    //        stream.SendNext(myAgent.transform.rotation);
-    //    }
-    //    else if (stream.IsReading)
-    //    {
-    //        myAgent.transform.position = (Vector3)stream.ReceiveNext();
-    //        myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
-
-    //    }
-    //}
 }

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class sl_LeaveRoomMenu : MonoBehaviourPunCallbacks
 {
     private sl_RoomCanvases roomCanvas;
-
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
         roomCanvas = canvases;
@@ -17,7 +16,6 @@ public class sl_LeaveRoomMenu : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom(true);
-        //roomCanvas.CurrentRoomCanvas.Hide();
     }
 
     public override void OnLeftRoom()  //to avoid left room too quickly - MonoBehaviourPunCallbacks

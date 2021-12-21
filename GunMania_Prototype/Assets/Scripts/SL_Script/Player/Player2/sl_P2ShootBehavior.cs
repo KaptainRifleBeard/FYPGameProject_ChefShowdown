@@ -33,7 +33,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     public static bool p2Shoot;
 
     public Animator anim;
-    public GameObject theFood;
+    public GameObject[] theFoodToShow;
 
     [Header("Range Indicator")]
     public GameObject maxRange;
@@ -43,14 +43,13 @@ public class sl_P2ShootBehavior : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
         targetObject = targetIndicatorPrefab;
-        theFood.SetActive(false);
 
         maxRange.SetActive(false);
         minRange.SetActive(false);
     }
 
     void Update()
-    { 
+    {
         //define bullet types
         #region
         if (playerInventory.itemList[0] != null)
@@ -157,16 +156,32 @@ public class sl_P2ShootBehavior : MonoBehaviour
         {
             targetObject.transform.position = hit.point;
 
-            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 40)
+            //****original shoot range = 40
+            if (sl_newP2Movement.changep2Icon == 0) //brock less 2 range
             {
-                Debug.Log("out of range");
-                maxRange.SetActive(true);
-                minRange.SetActive(false);
+                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 35)
+                {
+                    maxRange.SetActive(true);
+                    minRange.SetActive(false);
+                }
+                else
+                {
+                    maxRange.SetActive(false);
+                    minRange.SetActive(true);
+                }
             }
-            else
+            if (sl_newP2Movement.changep2Icon == 2) //jiho increase 2 range
             {
-                maxRange.SetActive(false);
-                minRange.SetActive(true);
+                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 45)
+                {
+                    maxRange.SetActive(true);
+                    minRange.SetActive(false);
+                }
+                else
+                {
+                    maxRange.SetActive(false);
+                    minRange.SetActive(true);
+                }
             }
         }
 
@@ -188,7 +203,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
             }
         }
 
-       
+
     }
 
     [PunRPC]
@@ -200,20 +215,25 @@ public class sl_P2ShootBehavior : MonoBehaviour
         #region
         if (i == 1)
         {
-            theFood.SetActive(true);
+            theFoodToShow[0].SetActive(true);
+            //theFood.SetActive(true);
             bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
             bullet.SetActive(false);
         }
 
         if (i == 2)
         {
-            theFood.SetActive(true);
+            theFoodToShow[1].SetActive(true);
+
+            //theFood.SetActive(true);
             bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
             bullet.SetActive(false);
         }
         if (i == 3)
         {
-            theFood.SetActive(true);
+            theFoodToShow[2].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
             bullet.SetActive(false);
@@ -221,7 +241,9 @@ public class sl_P2ShootBehavior : MonoBehaviour
         }
         if (i == 4)
         {
-            theFood.SetActive(true);
+            theFoodToShow[3].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
             bullet.SetActive(false);
@@ -234,95 +256,138 @@ public class sl_P2ShootBehavior : MonoBehaviour
         #region
         if (i == 10) //c_niangao
         {
-            theFood.SetActive(true);
+            theFoodToShow[4].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[0], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
+
         }
         if (i == 11)//c_spring roll
         {
-            theFood.SetActive(true);
+            theFoodToShow[5].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[1], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 12)//c_wonton
         {
-            theFood.SetActive(true);
+            theFoodToShow[6].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[2], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 13)//j_ichigo
         {
-            theFood.SetActive(true);
+            theFoodToShow[7].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[3], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 14)//j_ikanagi
         {
-            theFood.SetActive(true);
+            theFoodToShow[8].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[4], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 15)//j_sakura
         {
-            theFood.SetActive(true);
+            theFoodToShow[9].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[5], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 16)//k_bap burger
         {
-            theFood.SetActive(true);
+            theFoodToShow[10].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[6], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 17)//k_japchae
         {
-            theFood.SetActive(true);
+            theFoodToShow[11].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[7], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 18)//k_tteobokki
         {
-            theFood.SetActive(true);
+            theFoodToShow[12].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[8], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 19)//t_bubbletea
         {
-            theFood.SetActive(true);
+            theFoodToShow[13].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[9], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 20)//t_pineapple
         {
-            theFood.SetActive(true);
+            theFoodToShow[14].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[10], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         if (i == 21)//t_taro
         {
-            theFood.SetActive(true);
+            theFoodToShow[15].SetActive(true);
+
+            //theFood.SetActive(true);
 
             bullet = Instantiate(foodBullet[11], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
+
         }
         #endregion
+
     }
 
     [PunRPC]
     public void CancelShoot2()
     {
-        theFood.SetActive(false);
+        //theFood.SetActive(false);
+        for (int i = 0; i < theFoodToShow.Length; i++)
+        {
+            theFoodToShow[i].SetActive(false);
+        }
+
         Destroy(targetObject);
         targetObject = targetIndicatorPrefab;
 
@@ -339,7 +404,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
-        {            
+        {
             bullet.transform.SetParent(null);
 
             //Animation
@@ -373,7 +438,12 @@ public class sl_P2ShootBehavior : MonoBehaviour
     [PunRPC]
     public void BulletDirection2(Vector3 dir)
     {
-        theFood.SetActive(false);
+        //theFood.SetActive(false);
+        for (int i = 0; i < theFoodToShow.Length; i++)
+        {
+            theFoodToShow[i].SetActive(false);
+        }
+
         bullet.SetActive(true);
 
         float shootForce = 80.0f;
@@ -413,4 +483,5 @@ public class sl_P2ShootBehavior : MonoBehaviour
     //        directionShoot2 = (Vector3)stream.ReceiveNext();
     //    }
     //}
+
 }

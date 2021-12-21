@@ -32,17 +32,6 @@ public class sl_HUDManager : MonoBehaviour
     public List<int> p1CharacterList = new List<int>();
     public List<int> p2CharacterList = new List<int>();
 
-    private void Update()
-    {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            if(Input.GetKeyDown(KeyCode.W))
-            {
-
-            }
-        }
-    }
-
     public void P1_CheckCharacter()
     {
         //Show model when in game

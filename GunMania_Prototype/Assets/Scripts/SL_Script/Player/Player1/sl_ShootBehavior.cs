@@ -26,13 +26,12 @@ public class sl_ShootBehavior : MonoBehaviour
 
     Vector3 directionShoot;
     Vector3 targetPosition;
-    public Animator anim;
 
     int count;
     bool spawn;
 
     public static bool p1Shoot = false;
-    public GameObject theFood;
+    public GameObject[] theFoodToShow;
 
     [Header("Range Indicator")]
     public GameObject maxRange;
@@ -42,7 +41,6 @@ public class sl_ShootBehavior : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
         targetObject = targetIndicatorPrefab;
-        theFood.SetActive(false);
 
         maxRange.SetActive(false);
         minRange.SetActive(false);
@@ -133,7 +131,6 @@ public class sl_ShootBehavior : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine && bulletCount > 0)
             {
                 p1Shoot = true;  //stop movement when shoot
-                anim.SetBool("Aim", true);
 
                 //make sure only spawn 1
                 if (count < 1 && spawn == false)
@@ -159,17 +156,32 @@ public class sl_ShootBehavior : MonoBehaviour
             minRange.SetActive(true);
             targetObject.transform.position = hit.point;
 
-
-            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 40)
+            //****original shoot range = 40
+            if(SL_newP1Movement.changeModelAnim == 0) //brock less 2 range
             {
-                Debug.Log("out of range");
-                maxRange.SetActive(true);
-                minRange.SetActive(false);
+                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 35)
+                {
+                    maxRange.SetActive(true);
+                    minRange.SetActive(false);
+                }
+                else
+                {
+                    maxRange.SetActive(false);
+                    minRange.SetActive(true);
+                }
             }
-            else
+            if (SL_newP1Movement.changeModelAnim == 2) //jiho increase 2 range
             {
-                maxRange.SetActive(false);
-                minRange.SetActive(true);
+                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 45)
+                {
+                    maxRange.SetActive(true);
+                    minRange.SetActive(false);
+                }
+                else
+                {
+                    maxRange.SetActive(false);
+                    minRange.SetActive(true);
+                }
             }
         }
 
@@ -193,14 +205,6 @@ public class sl_ShootBehavior : MonoBehaviour
         }
     }
 
-    IEnumerator stopAnim()
-    {
-        yield return new WaitForSeconds(0.4f);
-        anim.SetBool("Throw", false);
-
-    }
-
-
     [PunRPC]
     public void BulletType(int i)
     {
@@ -210,20 +214,20 @@ public class sl_ShootBehavior : MonoBehaviour
         #region
         if (i == 1)
         {
-            theFood.SetActive(true);
+            theFoodToShow[0].SetActive(true);
             bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
             bullet.SetActive(false);
         }
 
         if (i == 2)
         {
-            theFood.SetActive(true);
+            theFoodToShow[1].SetActive(true);
             bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
             bullet.SetActive(false);
         }
         if (i == 3)
         {
-            theFood.SetActive(true);
+            theFoodToShow[2].SetActive(true);
 
             bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
             bullet.SetActive(false);
@@ -231,7 +235,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 4)
         {
-            theFood.SetActive(true);
+            theFoodToShow[3].SetActive(true);
 
             bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
             bullet.SetActive(false);
@@ -244,7 +248,7 @@ public class sl_ShootBehavior : MonoBehaviour
         #region
         if (i == 10) //c_niangao
         {
-            theFood.SetActive(true);
+            theFoodToShow[4].SetActive(true);
 
             bullet = Instantiate(foodBullet[0], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -253,7 +257,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 11)//c_spring roll
         {
-            theFood.SetActive(true);
+            theFoodToShow[5].SetActive(true);
 
             bullet = Instantiate(foodBullet[1], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -261,7 +265,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 12)//c_wonton
         {
-            theFood.SetActive(true);
+            theFoodToShow[6].SetActive(true);
 
             bullet = Instantiate(foodBullet[2], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -269,7 +273,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 13)//j_ichigo
         {
-            theFood.SetActive(true);
+            theFoodToShow[7].SetActive(true);
 
             bullet = Instantiate(foodBullet[3], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -277,7 +281,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 14)//j_ikanagi
         {
-            theFood.SetActive(true);
+            theFoodToShow[8].SetActive(true);
 
             bullet = Instantiate(foodBullet[4], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -285,7 +289,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 15)//j_sakura
         {
-            theFood.SetActive(true);
+            theFoodToShow[9].SetActive(true);
 
             bullet = Instantiate(foodBullet[5], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -293,7 +297,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 16)//k_bap burger
         {
-            theFood.SetActive(true);
+            theFoodToShow[10].SetActive(true);
 
             bullet = Instantiate(foodBullet[6], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -301,7 +305,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 17)//k_japchae
         {
-            theFood.SetActive(true);
+            theFoodToShow[11].SetActive(true);
 
             bullet = Instantiate(foodBullet[7], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -309,7 +313,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 18)//k_tteobokki
         {
-            theFood.SetActive(true);
+            theFoodToShow[12].SetActive(true);
 
             bullet = Instantiate(foodBullet[8], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -317,7 +321,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 19)//t_bubbletea
         {
-            theFood.SetActive(true);
+            theFoodToShow[13].SetActive(true);
 
             bullet = Instantiate(foodBullet[9], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -325,7 +329,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 20)//t_pineapple
         {
-            theFood.SetActive(true);
+            theFoodToShow[14].SetActive(true);
 
             bullet = Instantiate(foodBullet[10], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -333,7 +337,7 @@ public class sl_ShootBehavior : MonoBehaviour
         }
         if (i == 21)//t_taro
         {
-            theFood.SetActive(true);
+            theFoodToShow[15].SetActive(true);
 
             bullet = Instantiate(foodBullet[11], shootPosition.position, Quaternion.identity);
             bullet.SetActive(false);
@@ -346,7 +350,12 @@ public class sl_ShootBehavior : MonoBehaviour
     [PunRPC]
     public void CancelShoot()
     {
-        theFood.SetActive(false);
+        for(int i = 0; i < theFoodToShow.Length; i++)
+        {
+            theFoodToShow[i].SetActive(false);
+        }
+
+
         Destroy(targetObject);
         targetObject = targetIndicatorPrefab;
 
@@ -366,17 +375,12 @@ public class sl_ShootBehavior : MonoBehaviour
         {
             bullet.transform.SetParent(null);
 
-            anim.SetBool("Aim", false);
-            anim.SetBool("Throw", true);
-
-
             targetPosition = hit.point;
             directionShoot = targetPosition - shootPosition.position;
 
             view.RPC("BulletDirection", RpcTarget.All, directionShoot);
             bulletCount--;
 
-            StartCoroutine(stopAnim());
             Destroy(targetObject);
 
             //for item list ui
@@ -398,7 +402,10 @@ public class sl_ShootBehavior : MonoBehaviour
     [PunRPC]
     public void BulletDirection(Vector3 dir)
     {
-        theFood.SetActive(false);
+        for (int i = 0; i < theFoodToShow.Length; i++)
+        {
+            theFoodToShow[i].SetActive(false);
+        }
         bullet.SetActive(true);
 
         float shootForce = 80.0f;

@@ -14,23 +14,17 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     public GameObject winScreen;
     public GameObject loseScreen;
-    public GameObject exitScreen;
-
 
     void Start()
     {
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
-        exitScreen.SetActive(false);
-
     }
 
 
     void Update()
     {
         StartCoroutine(WaitStartGame());
-        //PhotonNetwork.CurrentRoom.IsOpen = false;  //dont let other player join
-
     }
 
     //IEnumerator RestartGame()
@@ -46,10 +40,8 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     IEnumerator WaitStartGame()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(3.0f);
         WinLoseCondition();
-
-
     }
 
     void WinLoseCondition()
@@ -84,7 +76,6 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 loseScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
-
             }
         }
 
@@ -95,6 +86,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(3.0f);
         //exitScreen.SetActive(true);
+
         SceneManager.LoadScene("sl_BacktoMainMenu");
 
     }

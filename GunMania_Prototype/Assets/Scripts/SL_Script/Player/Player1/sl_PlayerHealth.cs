@@ -68,7 +68,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
                 hearts[i].sprite = emptyHealth;
             }
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,7 +82,31 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         {
             if (other.gameObject.tag == "P2Bullet")
             {
-                bulletDamage = 1;
+                bulletDamage = 1.0f; //original
+
+
+                //0 - b, 1 - w, 2 - j, 3 - k
+                float damagetake;
+
+                //for my model
+                if (SL_newP1Movement.changeModelAnim == 1)
+                {
+                    damagetake = 0.5f;
+                    bulletDamage = bulletDamage + damagetake; // stat: wen - take 1.5 dmg from everyone
+                }
+
+                if (SL_newP1Movement.changeModelAnim == 3 || sl_newP2Movement.changep2Icon == 2)
+                {
+                    damagetake = 0.5f;
+                    bulletDamage = bulletDamage - damagetake; // stat: katsuki, jiho - take less 0.5 dmg from everyone
+                }
+
+                //from enemy bullet
+                if (sl_newP2Movement.changep2Icon == 0)
+                {
+                    damagetake = 0.5f;
+                    bulletDamage = bulletDamage + damagetake; // stat: brock - deal more 50% dmg
+                }
 
                 view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
                 //currentHealth -= 1;
@@ -107,16 +130,21 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     [PunRPC]
     public void BulletDamage(float damage)
     {
+
         if (currentHealth > 0)
         {
             //currentHealth -= 0.5f; //because it run 2 times, so i cut it half
             currentHealth -= damage;
 
-            if (currentHealth < 0)
+            if (currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
                 currentHealth = 0;
-                Destroy(gameObject);
+                sl_InventoryManager.ClearAllInList();
+
+                PhotonNetwork.Destroy(gameObject);
+
             }
+
         }
 
     }

@@ -84,7 +84,31 @@ public class sl_P2PlayerHealth : MonoBehaviour
         {
             if (other.gameObject.tag == "Bullet")
             {
-                bulletDamage2 = 1;
+                bulletDamage2 = 1.0f; //original
+
+
+                //0 - b, 1 - w, 2 - j, 3 - k
+                float damagetake;
+
+                //for my model
+                if(sl_newP2Movement.changep2Icon == 1)
+                {
+                    damagetake = 0.5f;
+                    bulletDamage2 = bulletDamage2 + damagetake; // stat: wen - take 1.5 dmg from everyone
+                }
+                
+                if (sl_newP2Movement.changep2Icon == 3 || SL_newP1Movement.changeModelAnim == 2)
+                {
+                    damagetake = 0.5f;
+                    bulletDamage2 = bulletDamage2 - damagetake; // stat: katsuki, jiho - take less 0.5 dmg from everyone
+                }
+
+                //from enemy bullet
+                if(SL_newP1Movement.changeModelAnim == 0)
+                {
+                    damagetake = 0.5f;
+                    bulletDamage2 = bulletDamage2 + damagetake; // stat: brock - deal more 50% dmg
+                }
 
                 view.RPC("BulletDamage2", RpcTarget.All, bulletDamage2);
 
@@ -104,11 +128,15 @@ public class sl_P2PlayerHealth : MonoBehaviour
             //p2currentHealth -= 0.5f;
             p2currentHealth -= damage;
 
-            if (p2currentHealth < 0)
+            if (p2currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
                 p2currentHealth = 0;
-                Destroy(gameObject);
+                sl_p2InventoryManager.ClearAllInList();
+
+                PhotonNetwork.Destroy(gameObject);
+
             }
+
         }
     }
 
