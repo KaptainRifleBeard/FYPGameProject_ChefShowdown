@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class sl_ConnectToServer : MonoBehaviourPunCallbacks
 {
-
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -27,4 +26,5 @@ public class sl_ConnectToServer : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined Lobby");
     }
+    
 }

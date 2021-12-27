@@ -124,7 +124,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
                 if (Input.GetMouseButtonUp(1))
                 {
-                    //detectAndStop = false;
                     myAgent.isStopped = true;
                     myAgent.ResetPath();
                 }
@@ -209,7 +208,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
         //ANIMATION PART
         #region
-
         if (view.IsMine && PhotonNetwork.IsMasterClient && myAnimator != null)
         {
             if (!myAgent.pathPending)
@@ -230,147 +228,73 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             if (changeModelAnim == 0)
             {
                 myAnimator = brock_Animator;
+                GetAnimation();
 
-                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-                {
-                    //myAnimator.SetFloat("Blend", 0.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-                }
-                else
-                {
-                    if (!throwing)
-                    {
-                        //myAnimator.SetFloat("Blend", 0f);
-                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-                {
-                    //myAnimator.SetFloat("Blend", 1f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
-                    throwing = true;
-                }
-                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                {
-                    stopping = true;
-                    isrunning = false;
-
-                    //myAnimator.SetFloat("Blend", 1.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-                    StartCoroutine(ThrowTime());
-                }
             }
             if (changeModelAnim == 1)
             {
                 myAnimator = wen_Animator;
-
-                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-                {
-                    //myAnimator.SetFloat("Blend", 0.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-                }
-                else
-                {
-                    if (!throwing)
-                    {
-                        //myAnimator.SetFloat("Blend", 0f);
-                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-                {
-                    //myAnimator.SetFloat("Blend", 1f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
-                    throwing = true;
-                }
-                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                {
-                    stopping = true;
-                    isrunning = false;
-
-                    //myAnimator.SetFloat("Blend", 1.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-                    StartCoroutine(ThrowTime());
-                }
+                GetAnimation();
 
             }
 
             if (changeModelAnim == 2)
             {
                 myAnimator = jiho_Animator;
-
-                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-                {
-                    //myAnimator.SetFloat("Blend", 0.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-                }
-                else
-                {
-                    if (!throwing)
-                    {
-                        //myAnimator.SetFloat("Blend", 0f);
-                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-                {
-                    //myAnimator.SetFloat("Blend", 1f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
-                    throwing = true;
-                }
-                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                {
-                    stopping = true;
-                    isrunning = false;
-
-                    //myAnimator.SetFloat("Blend", 1.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-                    StartCoroutine(ThrowTime());
-                }
+                GetAnimation();
 
             }
 
             if (changeModelAnim == 3)
             {
                 myAnimator = katsuki_Animator;
-
-                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-                {
-                    //myAnimator.SetFloat("Blend", 0.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-                }
-                else
-                {
-                    if (!throwing)
-                    {
-                        //myAnimator.SetFloat("Blend", 0f);
-                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-                {
-                    //myAnimator.SetFloat("Blend", 1f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
-                    throwing = true;
-                }
-                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                {
-                    stopping = true;
-                    isrunning = false;
-
-                    //myAnimator.SetFloat("Blend", 1.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-                    StartCoroutine(ThrowTime());
-                }
+                GetAnimation();
             }
 
         }
         #endregion
 
+    }
+
+
+    public void GetAnimation()
+    {
+        if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
+        {
+            view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
+        }
+        else
+        {
+            if (!throwing)
+            {
+                view.RPC("SyncAnimation", RpcTarget.All, 0f);
+            }
+        }
+
+        if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
+        {
+            view.RPC("SyncAnimation", RpcTarget.All, 1f);
+            throwing = true;
+        }
+        if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+        {
+            stopping = true;
+            isrunning = false;
+
+            view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
+            StartCoroutine(ThrowTime());
+        }
+
+        //take damage
+        if (sl_PlayerHealth.takingDamage)
+        {
+            view.RPC("SyncAnimation", RpcTarget.All, 2f);
+        }
+
+        if(sl_PlayerHealth.currentHealth <= 0)
+        {
+            view.RPC("SyncAnimation", RpcTarget.All, 2.5f);
+        }
     }
 
 

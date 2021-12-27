@@ -30,7 +30,8 @@ public class sl_SceneManager : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("sl_ServerLobby");
 
     }
+
 }
