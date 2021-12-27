@@ -12,14 +12,16 @@ public class DishEffect : MonoBehaviour
     //rigidbody drag 2
     public float knockbackSpeed;
     public float pullingSpeed;
+    public int stunTime;
+    public int silenceTime;
     public static bool canMove;
+    public static bool canPick;
 
-    float timer;
 
     private void Start()
     {
-        timer = 0;
         canMove = true;
+        canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
     }
@@ -35,11 +37,11 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2Tojangjochi")
         {
             //stun
-            view.RPC("Stun", RpcTarget.All);
+            view.RPC("Stun", RpcTarget.All, stunTime);
 
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.tag == "P2Hassun")
+        else if (other.gameObject.tag == "Hassun")
         {
             sl_PlayerHealth.currentHealth += 3;
             if(sl_PlayerHealth.currentHealth >= 8)
@@ -65,6 +67,9 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall")
         {
             //silence
+            view.RPC("Silence", RpcTarget.All, silenceTime);
+
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "P2FoxtailMillet")
         {
@@ -86,6 +91,12 @@ public class DishEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canMove = true;
+    }
+
+    public IEnumerator SilenceDeactive(int time)
+    {
+        yield return new WaitForSeconds(time);
+        canPick = true;
     }
 
     [PunRPC]
@@ -115,5 +126,13 @@ public class DishEffect : MonoBehaviour
     public void Explode()
     {
         sl_PlayerHealth.currentHealth -= 1.5f;
+    }
+
+    [PunRPC]
+    public void Silence()
+    {
+        sl_PlayerHealth.currentHealth -= 1;
+        canPick = false;
+        StartCoroutine(StunDeactive(6));
     }
 }
