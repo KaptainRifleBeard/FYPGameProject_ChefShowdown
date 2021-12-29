@@ -18,20 +18,25 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     private sl_RoomCanvases roomCanvas;
     public GameObject lobby;
 
+    public GameObject nickname;
     public GameObject canvasRoomListing;
     public GameObject canvasCreateRoom;
     public TextMeshProUGUI joinOrCreateText;
 
+    public InputField placePlayerName;
+
     private void Start()
     {
-        //ShowCreateRoom();
+        placePlayerName.interactable = false;
+        placePlayerName.text = PhotonNetwork.NickName;
     }
 
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
         roomCanvas = canvases;
-    }
+        joinOrCreateText.text = " ";
 
+    }
 
     public void CreateRoom()
     {
@@ -43,8 +48,6 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     {
         Debug.Log("Room Created");
         PhotonNetwork.LoadLevel("sl_PlayerRoom");
-
-        //roomCanvas.CurrentRoomCanvas.Show();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -52,11 +55,19 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
         Debug.Log("Failed to create room");
     }
 
-    public void StartGame()
+    public void StartGame() //for play button
     {
-        lobby.SetActive(true);
+        //lobby.SetActive(true);
+        //nickname.SetActive(true);
+
+        PhotonNetwork.LoadLevel("sl_NameSetScene");
+
     }
 
+    public void CloseLobby()
+    {
+        lobby.SetActive(false);
+    }
 
     //for hide and show in main menu
     public void ShowRoomListing()

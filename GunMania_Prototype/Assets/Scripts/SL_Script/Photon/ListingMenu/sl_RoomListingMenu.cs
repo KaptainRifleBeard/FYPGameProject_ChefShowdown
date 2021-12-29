@@ -15,6 +15,7 @@ public class sl_RoomListingMenu : MonoBehaviourPunCallbacks
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
         roomCanvas = canvases;
+
     }
 
     public override void OnJoinedRoom()
@@ -22,6 +23,7 @@ public class sl_RoomListingMenu : MonoBehaviourPunCallbacks
         //roomCanvas.CurrentRoomCanvas.Show();
         content.DestroyChildren();
         listings.Clear();
+
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)

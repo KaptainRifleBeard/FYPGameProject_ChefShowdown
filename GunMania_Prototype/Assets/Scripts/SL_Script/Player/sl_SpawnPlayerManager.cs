@@ -59,7 +59,6 @@ public class sl_SpawnPlayerManager : MonoBehaviour
     public static int p2Ready;
     public static bool p2done;
 
-
     /*
      Note: 
     All count i set as 0, to let the button enable and disable in view. 
@@ -100,11 +99,11 @@ public class sl_SpawnPlayerManager : MonoBehaviour
         p2TextField.text = "Brock";
         p2StatField.text = "Does an extra 50% damage for all foods & dishes thrown \n\nFood & Dish thrown has minus 2 to their travel distance";
 
+        Debug.Log("Welcome " + PhotonNetwork.NickName);
     }
 
     void Update()
     {
-
         if (PhotonNetwork.IsMasterClient)
         {
             //p1

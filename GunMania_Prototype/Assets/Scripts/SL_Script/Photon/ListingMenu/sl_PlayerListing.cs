@@ -8,7 +8,7 @@ using TMPro;
 
 public class sl_PlayerListing : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private Text text;
     Player player;
 
     public Player Player { get; private set; }
@@ -17,6 +17,16 @@ public class sl_PlayerListing : MonoBehaviour
     {
         Player = p;
         text.text = p.NickName;
+
+    }
+
+    private void FixedUpdate()
+    {
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            print(player.NickName);
+        }
+
     }
 
 }

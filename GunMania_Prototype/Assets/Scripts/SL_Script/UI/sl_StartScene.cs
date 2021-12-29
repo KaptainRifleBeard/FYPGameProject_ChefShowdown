@@ -10,7 +10,7 @@ public class sl_StartScene : MonoBehaviour
     {
         if(Input.anyKey)
         {
-            SceneManager.LoadScene("sl_ServerLobby");
+            SceneManager.LoadScene("sl_NameSetScene");
         }
     }
 
@@ -18,6 +18,6 @@ public class sl_StartScene : MonoBehaviour
 
     public void PressButtonStart() //for start scene
     {
-        SceneManager.LoadScene("sl_ServerLobby");
+        SceneManager.LoadScene("sl_NameSetScene");
     }
 }

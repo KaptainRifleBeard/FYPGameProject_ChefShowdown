@@ -10,8 +10,6 @@ public class sl_InventoryManager : MonoBehaviour
 
     public sl_Inventory myInventory;
     public GameObject slotGrid;
-    //public Text itemInfo;
-
 
     //public sl_Slot slotPrefab;
     public GameObject emptySlot;
