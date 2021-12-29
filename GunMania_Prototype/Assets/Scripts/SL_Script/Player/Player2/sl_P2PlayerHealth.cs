@@ -30,10 +30,16 @@ public class sl_P2PlayerHealth : MonoBehaviour
     float bulletDamage2;
     GameObject bulletToDestroy2;
 
+    public static bool takingDamage2;  //for animation
+
+
     void Start()
     {
         view = GetComponent<PhotonView>();
         p2currentHealth = maxHealth;
+
+        takingDamage2 = false;
+
     }
 
 
@@ -43,7 +49,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
         //{
         //    Destroy(gameObject);
         //}
-
+        if (takingDamage2)
+        {
+            StartCoroutine(TakeDamage2());
+        }
     }
 
 
@@ -119,6 +128,13 @@ public class sl_P2PlayerHealth : MonoBehaviour
         }
            
     }
+    IEnumerator TakeDamage2()
+    {
+        yield return new WaitForSeconds(0.2f);
+        takingDamage2 = false;
+    }
+
+
 
     [PunRPC]
     public void BulletDamage2(float damage)

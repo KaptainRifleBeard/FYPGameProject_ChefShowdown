@@ -91,7 +91,10 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         if (view.IsMine)
         {
             namePlayer.text = PhotonNetwork.NickName;
+            view.RPC("DisplayName", RpcTarget.All, namePlayer.text);
+
         }
+
     }
 
     void Update()
@@ -262,6 +265,12 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     }
 
+
+    [PunRPC]
+    public void DisplayName(string name)
+    {
+        namePlayer.text = name;
+    }
 
     public void GetAnimation()
     {
