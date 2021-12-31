@@ -14,6 +14,8 @@ public class sl_SetPlayerName : MonoBehaviour
     public Text setName;
     public GameObject nicknameUI;
 
+    string pName;
+
     private void Awake()
     {
         if (instance != null)
@@ -30,6 +32,8 @@ public class sl_SetPlayerName : MonoBehaviour
         //Changes the character limit in the main input field.
         nicknameUI.SetActive(false);
         playerName.characterLimit = 7;
+
+        instance.setName.text = pName;
     }
 
 
