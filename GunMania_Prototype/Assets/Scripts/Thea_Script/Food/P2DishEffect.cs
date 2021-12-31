@@ -12,7 +12,10 @@ public class P2DishEffect : MonoBehaviour
     //rigidbody drag 2
     public float knockbackSpeed;
     public float pullingSpeed;
+    public int stunTime;
+    public int silenceTime;
     public static bool p2canMove;
+    public static bool p2canPick;
 
     float timer;
 
@@ -35,13 +38,17 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "Tojangjochi")
         {
             //stun
-            view.RPC("Stun", RpcTarget.All);
+            view.RPC("Stun", RpcTarget.All, stunTime);
 
             Destroy(other.gameObject);
         }
-        else if (other.gameObject.tag == "Hassun")
+        else if (other.gameObject.tag == "P2Hassun")
         {
-            sl_P2PlayerHealth.p2currentHealth += 3;
+            sl_PlayerHealth.currentHealth += 3;
+            if (sl_PlayerHealth.currentHealth >= 8)
+            {
+                sl_PlayerHealth.currentHealth = 8;
+            }
         }
         else if (other.gameObject.tag == "Mukozuke")
         {
@@ -59,6 +66,9 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "BuddhaJumpsOvertheWall")
         {
             //silence
+            view.RPC("Silence", RpcTarget.All, silenceTime);
+
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "FoxtailMillet")
         {
@@ -80,6 +90,12 @@ public class P2DishEffect : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         p2canMove = true;
+    }
+
+    public IEnumerator SilenceDeactive(int time)
+    {
+        yield return new WaitForSeconds(time);
+        p2canPick = true;
     }
 
     [PunRPC]
@@ -109,5 +125,13 @@ public class P2DishEffect : MonoBehaviour
     public void Explode()
     {
         sl_P2PlayerHealth.p2currentHealth -= 1.5f;
+    }
+
+    [PunRPC]
+    public void Silence()
+    {
+        sl_P2PlayerHealth.p2currentHealth -= 1;
+        p2canPick = false;
+        StartCoroutine(StunDeactive(6));
     }
 }

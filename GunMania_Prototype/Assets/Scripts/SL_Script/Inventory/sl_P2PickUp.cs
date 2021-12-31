@@ -29,30 +29,34 @@ public class sl_P2PickUp : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player2"))
         {
-            if (sl_P2ShootBehavior.p2bulletCount < 2)
+            if (P2DishEffect.p2canPick)
             {
-                prefabNum = Random.Range(0, 2);
-
-                view.RPC("AddFood2", RpcTarget.All, prefabNum);
-                sl_P2ShootBehavior.p2bulletCount += 1;
-
-                if (gameObject.layer == LayerMask.NameToLayer("Food"))
+                if (sl_P2ShootBehavior.p2bulletCount < 2)
                 {
+                    prefabNum = Random.Range(0, 2);
 
-                    isPicked = true;
-                    AddNewItem();
+                    view.RPC("AddFood2", RpcTarget.All, prefabNum);
+                    sl_P2ShootBehavior.p2bulletCount += 1;
+
+                    if (gameObject.layer == LayerMask.NameToLayer("Food"))
+                    {
+
+                        isPicked = true;
+                        AddNewItem();
 
 
-                }
-                else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
-                {
-                    isPickedDish = true;
-                    AddNewItem();
+                    }
+                    else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
+                    {
+                        isPickedDish = true;
+                        AddNewItem();
 
-                    view.RPC("DestroyDish2", RpcTarget.All);
+                        view.RPC("DestroyDish2", RpcTarget.All);
 
+                    }
                 }
             }
+            
         }
     }
 
