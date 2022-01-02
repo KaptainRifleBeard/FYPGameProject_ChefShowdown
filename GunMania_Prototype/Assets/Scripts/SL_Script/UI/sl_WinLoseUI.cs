@@ -6,37 +6,37 @@ using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using UnityEngine.SceneManagement;
-using TMPro;
+
 
 public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 {
     public static readonly byte RestartEventCode = 1;
+    public Text player1Nickname;
+    public Text player2Nickname;
+    public Text chamOrRunner1_text;
+    public Text chamOrRunner2_text;
 
     public GameObject winScreen;
-    public GameObject loseScreen;
+    public GameObject theUI_1;
+    public GameObject theUI_2;
+
+    public Sprite[] icons;
+
+    public Image player1CurrentIcon;
+    public Image player2CurrentIcon;
 
     void Start()
     {
         winScreen.SetActive(false);
-        loseScreen.SetActive(false);
     }
 
 
     void Update()
     {
         StartCoroutine(WaitStartGame());
+
+
     }
-
-    //IEnumerator RestartGame()
-    //{
-    //    sl_PlayerHealth.currentHealth = 8;
-    //    sl_P2PlayerHealth.p2currentHealth = 8;
-    //    yield return new WaitForSeconds(1.0f);
-
-    //    RaiseEventOptions eventOpt = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-    //    ExitGames.Client.Photon.SendOptions sendOptions = new ExitGames.Client.Photon.SendOptions { Reliability = true };
-    //    PhotonNetwork.RaiseEvent(RestartEventCode, null, eventOpt, sendOptions);
-    //}
 
     IEnumerator WaitStartGame()
     {
@@ -46,16 +46,28 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     void WinLoseCondition()
     {
+        CheckIcon_p1();
+        UiSize_p1();
+
+        CheckIcon_p2();
+        UiSize_p2();
+
         if (sl_PlayerHealth.currentHealth <= 0)
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                loseScreen.SetActive(true);
+                Nickname();
+
+                //p1 lose
+                winScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
             }
             else
             {
+                Nickname();
+
+                //p2 win
                 winScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
@@ -66,30 +78,114 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.IsMasterClient)
             {
+                Nickname();
 
+                //p1 win
                 winScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
             }
             else
             {
-                loseScreen.SetActive(true);
+                Nickname();
+
+                //p2 lose
+                winScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
             }
         }
 
     }
-   
+
+    void CheckIcon_p1()
+    {
+        //for icon
+        if (SL_newP1Movement.changeModelAnim == 0) //brock
+        {
+            player1CurrentIcon.sprite = icons[0];
+        }
+        if (SL_newP1Movement.changeModelAnim == 1) //wen
+        {
+            player1CurrentIcon.sprite = icons[1];
+        }
+        if (SL_newP1Movement.changeModelAnim == 2) //jiho
+        {
+            player1CurrentIcon.sprite = icons[2];
+        }
+        if (SL_newP1Movement.changeModelAnim == 3) //katsuki
+        {
+            player1CurrentIcon.sprite = icons[3];
+        }
+
+    }
+
+    void CheckIcon_p2()
+    {
+        //for icon
+        if (sl_newP2Movement.changep2Icon == 0) //brock
+        {
+            player2CurrentIcon.sprite = icons[0];
+        }
+        if (sl_newP2Movement.changep2Icon == 1) //wen
+        {
+            player2CurrentIcon.sprite = icons[1];
+        }
+        if (sl_newP2Movement.changep2Icon == 2) //jiho
+        {
+            player2CurrentIcon.sprite = icons[2];
+        }
+        if (sl_newP2Movement.changep2Icon == 3) //katsuki
+        {
+            player2CurrentIcon.sprite = icons[3];
+        }
+
+    }
+
+    void UiSize_p1()
+    {
+        //for text
+        if (sl_PlayerHealth.currentHealth <= 0)
+        {
+            chamOrRunner1_text.text = "Runner-up";
+            theUI_1.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+        }
+        else
+        {
+            chamOrRunner1_text.text = "Fling Champion";
+            theUI_1.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+
+    }
+
+    void UiSize_p2()
+    {
+        if (sl_P2PlayerHealth.p2currentHealth <= 0)
+        {
+            chamOrRunner2_text.text = "Runner-up";
+            theUI_2.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+        }
+        else
+        {
+            chamOrRunner2_text.text = "Fling Champion";
+            theUI_2.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+    }
+
+    void Nickname()
+    {
+        player1Nickname.text = SL_newP1Movement.p1CurrentName;
+        player2Nickname.text = sl_newP2Movement.p2CurrentName;
+
+    }
 
     IEnumerator ToExitScreen()
     {
         yield return new WaitForSeconds(3.0f);
-        //exitScreen.SetActive(true);
-
-        SceneManager.LoadScene("sl_BacktoMainMenu");
+        //SceneManager.LoadScene("sl_BacktoMainMenu");
 
     }
+
 
 
 }
