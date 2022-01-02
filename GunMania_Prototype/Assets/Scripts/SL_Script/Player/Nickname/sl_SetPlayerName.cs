@@ -6,24 +6,14 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class sl_SetPlayerName : MonoBehaviour
+public class sl_SetPlayerName : MonoBehaviourPunCallbacks
 {
-    static sl_SetPlayerName instance;
-
     public InputField playerName;
     public Text setName;
     public GameObject nicknameUI;
 
-    private void Awake()
-    {
-        if (instance != null)
-        {
+    bool changeScene;
 
-            Destroy(this);
-        }
-
-        instance = this;
-    }
 
     void Start()
     {
@@ -35,8 +25,9 @@ public class sl_SetPlayerName : MonoBehaviour
 
     public void SetPlayerName()
     {
-        PhotonNetwork.NickName = instance.setName.text;
+        PhotonNetwork.NickName = setName.text;
         SceneManager.LoadScene("sl_ServerLobby");
+
     }
 
     public void ShowNickname()

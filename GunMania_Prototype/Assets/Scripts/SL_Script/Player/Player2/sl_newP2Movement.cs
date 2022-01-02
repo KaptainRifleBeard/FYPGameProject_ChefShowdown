@@ -70,9 +70,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         //set nickname
         if (view.IsMine)
         {
-            namePlayer.text = PhotonNetwork.NickName;
-            view.RPC("DisplayName2", RpcTarget.All, namePlayer.text);
-
+            //namePlayer.text = PhotonNetwork.NickName;
         }
 
     }
@@ -177,31 +175,128 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
                 }
 
                 //modal change start from here
-                //modal change start from here
                 if (changep2Icon == 0)
                 {
                     myAnimator = brock_Animator;
-                    GetAnimation2();
+                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+                    }
+                    else
+                    {
+                        if (!throwing)
+                        {
+                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                        }
+                    }
 
+                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+                        throwing = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                    {
+                        stopping = true;
+                        isrunning = false;
+
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+                        StartCoroutine(ThrowTime());
+                    }
                 }
                 if (changep2Icon == 1)
                 {
                     myAnimator = wen_Animator;
-                    GetAnimation2();
+
+                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+                    }
+                    else
+                    {
+                        if (!throwing)
+                        {
+                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                        }
+                    }
+
+                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+                        throwing = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                    {
+                        stopping = true;
+                        isrunning = false;
+
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+                        StartCoroutine(ThrowTime());
+                    }
 
                 }
 
                 if (changep2Icon == 2)
                 {
                     myAnimator = jiho_Animator;
-                    GetAnimation2();
 
+                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+                    }
+                    else
+                    {
+                        if (!throwing)
+                        {
+                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                        }
+                    }
+
+                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+                        throwing = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                    {
+                        stopping = true;
+                        isrunning = false;
+
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+                        StartCoroutine(ThrowTime());
+                    }
                 }
 
                 if (changep2Icon == 3)
                 {
                     myAnimator = katsuki_Animator;
-                    GetAnimation2();
+
+                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+                    }
+                    else
+                    {
+                        if (!throwing)
+                        {
+                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                        }
+                    }
+
+                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+                    {
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+                        throwing = true;
+                    }
+                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+                    {
+                        stopping = true;
+                        isrunning = false;
+
+                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+                        StartCoroutine(ThrowTime());
+                    }
+
                 }
 
             }
@@ -226,53 +321,6 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             myAgent.speed = 40;
         }
     }
-
-    [PunRPC]
-    public void DisplayName2(string name)
-    {
-        namePlayer.text = name;
-    }
-
-    public void GetAnimation2()
-    {
-        if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
-        {
-            view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
-        }
-        else
-        {
-            if (!throwing)
-            {
-                view.RPC("SyncAnimation2", RpcTarget.All, 0f);
-            }
-        }
-
-        if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
-        {
-            view.RPC("SyncAnimation2", RpcTarget.All, 1f);
-            throwing = true;
-        }
-        if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-        {
-            stopping = true;
-            isrunning = false;
-
-            view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
-            StartCoroutine(ThrowTime());
-        }
-
-        //take damage
-        if (sl_P2PlayerHealth.takingDamage2)
-        {
-            view.RPC("SyncAnimation2", RpcTarget.All, 2f);
-        }
-
-        if (sl_P2PlayerHealth.p2currentHealth <= 0)
-        {
-            view.RPC("SyncAnimation2", RpcTarget.All, 2.5f);
-        }
-    }
-
     IEnumerator ThrowTime()
     {
         yield return new WaitForSeconds(0.3f);
