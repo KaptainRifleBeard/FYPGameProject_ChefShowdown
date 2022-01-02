@@ -51,6 +51,8 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     public Image mainUI;
     public Image tagUI;
 
+    public Text p2Name;
+
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -62,6 +64,11 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
         inventoryVisible.SetActive(false);
         indicatorVisible.SetActive(false);
+
+        if (view.IsMine)
+        {
+            p2Name.text = PhotonNetwork.NickName;
+        }
     }
 
 

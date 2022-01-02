@@ -16,7 +16,6 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     private sl_RoomCanvases roomCanvas;
     public GameObject lobby;
-    public GameObject mainmenu;
 
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
@@ -47,9 +46,14 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
         Debug.Log("Failed to create room");
     }
 
-    public void StartGame()
+    public void ShowLobby()
     {
         lobby.SetActive(true);
+    }
+
+    public void HideLobby()
+    {
+        lobby.SetActive(false);
     }
 
     //public void JoinRoom()

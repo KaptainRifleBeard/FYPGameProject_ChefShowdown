@@ -29,6 +29,12 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    public void CloseSettingsMenu()
+    {
+        settingsMenu.SetActive(false);
+
+    }
+
     public void HideNicknameUI()
     {
         openNicknameUI.SetActive(false);
