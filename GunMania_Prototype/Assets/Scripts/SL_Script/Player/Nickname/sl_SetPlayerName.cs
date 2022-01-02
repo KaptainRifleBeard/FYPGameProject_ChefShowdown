@@ -4,36 +4,19 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class sl_SetPlayerName : MonoBehaviourPunCallbacks
+public class sl_SetPlayerName : MonoBehaviour
 {
-    public InputField playerName;
-    public Text setName;
-    public GameObject nicknameUI;
-
-    bool changeScene;
-
+    public Text playerName;
+    PhotonView view;
 
     void Start()
     {
-        //Changes the character limit in the main input field.
-        nicknameUI.SetActive(false);
-        playerName.characterLimit = 7;
+        playerName.text = view.Owner.NickName;
     }
 
-
-    public void SetPlayerName()
+    void Update()
     {
-        PhotonNetwork.NickName = setName.text;
-        SceneManager.LoadScene("sl_ServerLobby");
-
+        
     }
-
-    public void ShowNickname()
-    {
-        playerName.interactable = true;
-        nicknameUI.SetActive(true);
-    }
-
 }

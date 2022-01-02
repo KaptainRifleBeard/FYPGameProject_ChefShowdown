@@ -68,7 +68,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     public GameObject inventoryVisible;
     public GameObject indicatorVisible;
 
-    public Text namePlayer;
+
 
 
     void Start()
@@ -86,12 +86,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         inventoryVisible.SetActive(false);
         indicatorVisible.SetActive(false);
 
-
-        //set nickname
-        if (view.IsMine)
-        {
-            namePlayer.text = PhotonNetwork.NickName;
-        }
     }
 
     void Update()

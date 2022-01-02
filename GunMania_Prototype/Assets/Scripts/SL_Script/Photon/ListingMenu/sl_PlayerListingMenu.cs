@@ -13,11 +13,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     public List<sl_PlayerListing> listings = new List<sl_PlayerListing>();
     private sl_RoomCanvases roomCanvas;
 
-    private void Awake()
-    {
-        GetCurrentRoomPlayer();
-    }
-
     public override void OnEnable()
     {
         base.OnEnable();
@@ -79,10 +74,7 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log("Player: " + newPlayer.NickName);
         AddPlayerListing(newPlayer);
-
-
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
