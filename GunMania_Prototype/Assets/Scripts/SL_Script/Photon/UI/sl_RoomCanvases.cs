@@ -18,7 +18,7 @@ public class sl_RoomCanvases : MonoBehaviour
         FirstInitialize();
     }
 
-    private void FirstInitialize()
+    public void FirstInitialize()
     {
         CreateOrJoinCanvas.FirstInitialize(this);
         //CurrentRoomCanvas.FirstInitialize(this);

@@ -36,10 +36,32 @@ MonoBehaviour:
   RpcList:
   - ClickRpc
   - DestroyRpc
+  - BulletCount
   - BulletDamage
   - BulletDamage2
+  - ShootStraight
+  - ShootStraight2
+  - SpawnBullet
+  - ShootBullet
+  - ShootBullet2
+  - SpawnBullet2
+  - dishSpawnUpdate
+  - spawnUpdate
+  - dishSpawn
+  - Spawn
+  - RandomSpawnDish
+  - DishCountdown
+  - DishRespawn
+  - DishSpawn
+  - PlayAnimation
+  - newShootBullet
+  - newSpawnBullet
   - BulletDirection
   - BulletDirection2
+  - ChangeModel
+  - ChangeModel2
+  - ChangeToBrock
+  - ChangeToWen
   - Brock
   - Wen
   - Brock2
@@ -49,6 +71,25 @@ MonoBehaviour:
   - AddFood2
   - DestroyDish
   - DestroyDish2
+  - DestroyBullet
+  - DestroyBullet2
+  - Click_p1Brock
+  - Click_p1Wen
+  - Click_p2Brock
+  - Click_p2Wen
+  - UpdateP1Selection
+  - UpdateP2Selection
+  - UpdateSelection
+  - P1ShowBrock
+  - P1ShowWen
+  - P2ShowBrock
+  - P2ShowWen
+  - DestroySelf
+  - DestroySelf2
+  - SetInactive
+  - SetInactive2
+  - DestroyObject
+  - DestroyObject2
   - CancelShoot
   - CancelShoot2
   - Jiho
@@ -59,7 +100,11 @@ MonoBehaviour:
   - Katsuki2
   - ViewP1Tag
   - ViewP2Tag
+  - SetStartButton
+  - ReadyGame
   - SendReadyGame
+  - ShareUI
+  - SyncCharacterUI
   - SyncCharacterUIAndModel
   - SyncCharacterUIAndModel2
   - KnockbackBehavior
@@ -72,6 +117,8 @@ MonoBehaviour:
   - StartCountdown2
   - PlayerRotate
   - PlayerRotate2
+  - HideP2
+  - ShowP2
   - DishDestroy
   - PlayerMove
   - PlayerMove2
@@ -79,7 +126,6 @@ MonoBehaviour:
   - SyncAnimation2
   - DisplayName
   - DisplayName2
-  - Silence
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

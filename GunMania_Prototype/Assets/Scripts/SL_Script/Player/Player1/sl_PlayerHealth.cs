@@ -41,6 +41,11 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     public void Update()
     {
+        //if (currentHealth <= 0)
+        //{
+        //    Destroy(gameObject);
+        //}
+
         if(takingDamage)
         {
             StartCoroutine(TakeDamage());
@@ -147,5 +152,45 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         }
 
     }
+
+
+    //will fire when event is activated
+    //public void OnEvent(EventData photonEvent)
+    //{
+    //    if(photonEvent.Code == sl_WinLoseUI.RestartEventCode)
+    //    {
+    //        currentHealth = 8;
+    //        sl_P2PlayerHealth.p2currentHealth = 8;
+
+    //        StartCoroutine(Respawn());
+
+    //    }
+    //}
+
+    //private void OnEnable()
+    //{
+    //    PhotonNetwork.AddCallbackTarget(this);
+    //}
+
+    //private void OnDisable()
+    //{
+    //    PhotonNetwork.RemoveCallbackTarget(this);
+    //}
+
+
+
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        //stream.SendNext(currentHealth);
+
+    //    }
+    //    else if (stream.IsReading)
+    //    {
+    //        //currentHealth = (float)stream.ReceiveNext();
+    //    }
+
+    //}
 
 }

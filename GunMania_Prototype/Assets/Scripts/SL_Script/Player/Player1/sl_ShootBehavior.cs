@@ -427,5 +427,16 @@ public class sl_ShootBehavior : MonoBehaviour
         count = 0;
     }
 
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if(stream.IsWriting)
+    //    {
+    //        stream.SendNext(directionShoot);
+    //    }
+    //    else
+    //    {
+    //        directionShoot = (Vector3)stream.ReceiveNext();
+    //    }
+    //}
 
 }

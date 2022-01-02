@@ -51,8 +51,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     public Image mainUI;
     public Image tagUI;
 
-    public Text namePlayer2;
-    public static string p2CurrentName;
+    public Text namePlayer;
 
 
     void Start()
@@ -71,9 +70,11 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         //set nickname
         if (view.IsMine)
         {
-            
+            namePlayer.text = PhotonNetwork.NickName;
+            view.RPC("DisplayName2", RpcTarget.All, namePlayer.text);
 
         }
+
     }
 
 
@@ -94,9 +95,6 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
             if (view.IsMine)  //Photon - check is my character
             {
-                namePlayer2.text = PhotonNetwork.NickName;
-                view.RPC("DisplayName2", RpcTarget.All, namePlayer2.text);
-
                 inventoryVisible.SetActive(true);
                 indicatorVisible.SetActive(true);
 
@@ -160,80 +158,79 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
             }
 
-            if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
+            //ANIMATION PART
+            #region
+            if (view.IsMine && !PhotonNetwork.IsMasterClient && myAnimator != null)
             {
-                myAgent.speed = 40;
-            }
-            else if (sl_P2PlayerHealth.p2currentHealth > 4 && changep2Icon == 1)
-            {
-                myAgent.speed = 48;
-            }
-            else if (changep2Icon == 3)
-            {
-                myAgent.speed = 28;
-            }
-            else
-            {
-                myAgent.speed = 40;
-            }
+                if (!myAgent.pathPending)
+                {
+                    if (myAgent.remainingDistance <= myAgent.stoppingDistance)
+                    {
+                        isrunning = false;
+                        stopping = true;
+                    }
+                    else
+                    {
+                        stopping = false;
 
+                    }
+                }
+
+                //modal change start from here
+                //modal change start from here
+                if (changep2Icon == 0)
+                {
+                    myAnimator = brock_Animator;
+                    GetAnimation2();
+
+                }
+                if (changep2Icon == 1)
+                {
+                    myAnimator = wen_Animator;
+                    GetAnimation2();
+
+                }
+
+                if (changep2Icon == 2)
+                {
+                    myAnimator = jiho_Animator;
+                    GetAnimation2();
+
+                }
+
+                if (changep2Icon == 3)
+                {
+                    myAnimator = katsuki_Animator;
+                    GetAnimation2();
+                }
+
+            }
+            #endregion
 
         }
 
-        //ANIMATION PART
-        #region
-        if (view.IsMine && !PhotonNetwork.IsMasterClient && myAnimator != null)
+        if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
         {
-            if (!myAgent.pathPending)
-            {
-                if (myAgent.remainingDistance <= myAgent.stoppingDistance)
-                {
-                    isrunning = false;
-                    stopping = true;
-                }
-                else
-                {
-                    stopping = false;
-
-                }
-            }
-
-            //modal change start from here
-            if (changep2Icon == 0)
-            {
-                myAnimator = brock_Animator;
-                GetAnimation2();
-
-            }
-            if (changep2Icon == 1)
-            {
-                myAnimator = wen_Animator;
-                GetAnimation2();
-
-            }
-
-            if (changep2Icon == 2)
-            {
-                myAnimator = jiho_Animator;
-                GetAnimation2();
-
-            }
-
-            if (changep2Icon == 3)
-            {
-                myAnimator = katsuki_Animator;
-                GetAnimation2();
-            }
-
+            myAgent.speed = 40;
         }
-        #endregion
-
+        else if(sl_P2PlayerHealth.p2currentHealth > 4 && changep2Icon == 1)
+        {
+            myAgent.speed = 48;
+        }
+        else if (changep2Icon == 3)
+        {
+            myAgent.speed = 28;
+        }
+        else
+        {
+            myAgent.speed = 40;
+        }
     }
 
     [PunRPC]
     public void DisplayName2(string name)
     {
-        namePlayer2.text = name;
+        namePlayer.text = name;
     }
 
     public void GetAnimation2()
@@ -279,6 +276,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     IEnumerator ThrowTime()
     {
         yield return new WaitForSeconds(0.3f);
+        //myAnimator.SetFloat("Blend", 0f);
         throwing = false;
     }
 
@@ -422,8 +420,6 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     IEnumerator waitFoeSec()
     {
         yield return new WaitForSeconds(0.1f);
-        p2CurrentName = namePlayer2.text;
-
         //Show model when in game
         if (sl_SpawnPlayerManager.p2count1 == 1 || sl_SpawnPlayerManager.p2count1 == 0) //0 is default, 1 is choosen
         {
@@ -486,9 +482,6 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     {
         yield return new WaitForSeconds(3f);
         startTheGame = true;
-
-
-
     }
 
     //For UI SYNC

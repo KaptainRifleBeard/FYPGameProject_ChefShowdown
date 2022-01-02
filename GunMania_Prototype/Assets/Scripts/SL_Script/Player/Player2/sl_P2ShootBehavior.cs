@@ -472,4 +472,16 @@ public class sl_P2ShootBehavior : MonoBehaviour
         anim.SetBool("Throw", false);
     }
 
+    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(directionShoot2);
+    //    }
+    //    else
+    //    {
+    //        directionShoot2 = (Vector3)stream.ReceiveNext();
+    //    }
+    //}
+
 }

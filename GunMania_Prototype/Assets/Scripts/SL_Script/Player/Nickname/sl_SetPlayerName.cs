@@ -2,29 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class sl_SetPlayerName : MonoBehaviour
 {
-    //static sl_SetPlayerName instance;
+    static sl_SetPlayerName instance;
 
     public InputField playerName;
     public Text setName;
     public GameObject nicknameUI;
 
-    //string pName;
+    string pName;
 
-    //private void Awake()
-    //{
-    //    if (instance != null)
-    //    {
+    private void Awake()
+    {
+        if (instance != null)
+        {
 
-    //        Destroy(this);
-    //    }
+            Destroy(this);
+        }
 
-    //    instance = this;
-    //}
+        instance = this;
+    }
 
     void Start()
     {
@@ -32,13 +33,13 @@ public class sl_SetPlayerName : MonoBehaviour
         nicknameUI.SetActive(false);
         playerName.characterLimit = 7;
 
-        //setName.text = pName;
+        instance.setName.text = pName;
     }
 
 
     public void SetPlayerName()
     {
-        PhotonNetwork.NickName = setName.text;
+        PhotonNetwork.NickName = instance.setName.text;
         SceneManager.LoadScene("sl_ServerLobby");
     }
 

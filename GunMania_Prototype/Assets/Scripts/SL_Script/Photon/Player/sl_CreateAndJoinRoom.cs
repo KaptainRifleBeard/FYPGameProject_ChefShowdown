@@ -18,6 +18,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     private sl_RoomCanvases roomCanvas;
     public GameObject lobby;
 
+    public GameObject nickname;
     public GameObject canvasRoomListing;
     public GameObject canvasCreateRoom;
 
@@ -29,7 +30,9 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        placePlayerName.interactable = false;
         placePlayerName.text = PhotonNetwork.NickName;
+
         canvasCreateRoom.SetActive(false);
     }
 
@@ -54,6 +57,15 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.Log("Failed to create room");
+    }
+
+    public void StartGame() //for play button
+    {
+        //lobby.SetActive(true);
+        //nickname.SetActive(true);
+
+        PhotonNetwork.LoadLevel("sl_NameSetScene");
+
     }
 
     public void CloseLobby()
@@ -104,5 +116,4 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
         roomListAnim.SetBool("OpenRoomListing", true);
 
     }
-
 }

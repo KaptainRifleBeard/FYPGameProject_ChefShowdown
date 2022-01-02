@@ -21,6 +21,8 @@ public class sl_HUDManager : MonoBehaviour
     public GameObject mainCharacter_p2;
     public GameObject tagCharacter_p2;
 
+    public GameObject[] p1_Array;
+
     int p1MainNumber;
     int p1TagNumber;
 

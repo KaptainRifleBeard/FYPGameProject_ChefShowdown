@@ -13,6 +13,8 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     private NavMeshAgent myAgent;
     PhotonView view;
 
+    //UI variables
+    
 
     //Animation Variables
     public Animator myAnimator;
@@ -33,6 +35,9 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     public GameObject[] MrKatsuki;
 
     public static int changeModelAnim = 0;
+
+    public bool p2IsWen;
+
 
     //new movement
     bool detectAndStop;
@@ -64,7 +69,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     public GameObject indicatorVisible;
 
     public Text namePlayer;
-    public static string p1CurrentName;
 
 
     void Start()
@@ -82,12 +86,15 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         inventoryVisible.SetActive(false);
         indicatorVisible.SetActive(false);
 
+
         //set nickname
         if (view.IsMine)
         {
-           
+            namePlayer.text = PhotonNetwork.NickName;
+            view.RPC("DisplayName", RpcTarget.All, namePlayer.text);
 
         }
+
     }
 
     void Update()
@@ -106,9 +113,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
             if (view.IsMine)  //Photon - check is my character
             {
-                namePlayer.text = PhotonNetwork.NickName;
-                view.RPC("DisplayName", RpcTarget.All, namePlayer.text);
-
                 inventoryVisible.SetActive(true);
                 indicatorVisible.SetActive(true);
 
@@ -260,6 +264,54 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         #endregion
 
     }
+
+
+    [PunRPC]
+    public void DisplayName(string name)
+    {
+        namePlayer.text = name;
+    }
+
+    public void GetAnimation()
+    {
+        if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
+        {
+            view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
+        }
+        else
+        {
+            if (!throwing)
+            {
+                view.RPC("SyncAnimation", RpcTarget.All, 0f);
+            }
+        }
+
+        if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
+        {
+            view.RPC("SyncAnimation", RpcTarget.All, 1f);
+            throwing = true;
+        }
+        if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+        {
+            stopping = true;
+            isrunning = false;
+
+            view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
+            StartCoroutine(ThrowTime());
+        }
+
+        //take damage
+        if (sl_PlayerHealth.takingDamage)
+        {
+            view.RPC("SyncAnimation", RpcTarget.All, 2f);
+        }
+
+        if(sl_PlayerHealth.currentHealth <= 0)
+        {
+            view.RPC("SyncAnimation", RpcTarget.All, 2.5f);
+        }
+    }
+
 
     //-----RPC Area-----
     #region
@@ -489,60 +541,10 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     }
 
-    [PunRPC]
-    public void DisplayName(string name)
-    {
-        namePlayer.text = name;
-    }
-
-
-
-
-    //-----Functions-----
-
-    public void GetAnimation()
-    {
-        if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-        {
-            view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-        }
-        else
-        {
-            if (!throwing)
-            {
-                view.RPC("SyncAnimation", RpcTarget.All, 0f);
-            }
-        }
-
-        if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-        {
-            view.RPC("SyncAnimation", RpcTarget.All, 1f);
-            throwing = true;
-        }
-        if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-        {
-            stopping = true;
-            isrunning = false;
-
-            view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-            StartCoroutine(ThrowTime());
-        }
-
-        //take damage
-        if (sl_PlayerHealth.takingDamage)
-        {
-            view.RPC("SyncAnimation", RpcTarget.All, 2f);
-        }
-
-        if (sl_PlayerHealth.currentHealth <= 0)
-        {
-            view.RPC("SyncAnimation", RpcTarget.All, 2.5f);
-        }
-    }
-
     IEnumerator ThrowTime()
     {
         yield return new WaitForSeconds(0.3f);
+        //myAnimator.SetFloat("Blend", 0f);
         throwing = false;
     }
 
@@ -551,7 +553,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         //****i put default ui's [0] is brock. cuz p1 first pick always show empty
 
         yield return new WaitForSeconds(0.1f);
-        p1CurrentName = namePlayer.text;
 
         //Show model when in game
         if (sl_SpawnPlayerManager.count1 == 1 || sl_SpawnPlayerManager.count1 == 0)//0 is default, 1 is choosen
@@ -619,9 +620,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     {
         yield return new WaitForSeconds(3f);
         startTheGame = true;
-
-
-
     }
 
 
