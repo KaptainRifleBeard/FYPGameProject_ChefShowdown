@@ -131,7 +131,6 @@ public class sl_P2ShootBehavior : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && p2Shoot == false && view.IsMine && p2bulletCount > 0)
             {
                 p2Shoot = true;  //stop movement when shoot
-                anim.SetBool("Aim", true);
 
                 //make sure only spawn 1
                 if (count < 1 && spawn == false)
@@ -407,10 +406,6 @@ public class sl_P2ShootBehavior : MonoBehaviour
         {
             bullet.transform.SetParent(null);
 
-            //Animation
-            anim.SetBool("Aim", false);
-            anim.SetBool("Throw", true);
-
             targetPosition2 = hit.point;
             directionShoot2 = targetPosition2 - shootPosition.position;
 
@@ -469,7 +464,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     IEnumerator stopAnim()
     {
         yield return new WaitForSeconds(0.4f);
-        anim.SetBool("Throw", false);
+        //anim.SetBool("Throw", false);
     }
 
     //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
