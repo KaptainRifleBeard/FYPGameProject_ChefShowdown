@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
@@ -17,15 +16,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     private sl_RoomCanvases roomCanvas;
     public GameObject lobby;
-
-    public GameObject canvasRoomListing;
-    public GameObject canvasCreateRoom;
-    public TextMeshProUGUI joinOrCreateText;
-
-    private void Start()
-    {
-        //ShowCreateRoom();
-    }
+    public GameObject mainmenu;
 
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
@@ -35,6 +26,10 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
+        //if(PhotonNetwork.IsConnected)
+        //{
+        //    return;
+        //}
         options.MaxPlayers = 2;
         PhotonNetwork.JoinOrCreateRoom(createInput.text, options, null);
     }
@@ -57,21 +52,16 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
         lobby.SetActive(true);
     }
 
+    //public void JoinRoom()
+    //{
+    //    PhotonNetwork.JoinRoom(joinInput.text);
+    //}
 
-    //for hide and show in main menu
-    public void ShowRoomListing()
-    {
-        canvasRoomListing.SetActive(true);
-        canvasCreateRoom.SetActive(false);
+    //public override void OnJoinedRoom()
+    //{
+    //    PhotonNetwork.LoadLevel("sl_PlayerSelectLobby");
 
-        joinOrCreateText.text = "Join a match";
-    }
+    //}
 
-    public void ShowCreateRoom()
-    {
-        canvasRoomListing.SetActive(false);
-        canvasCreateRoom.SetActive(true);
-        joinOrCreateText.text = "Create a match";
-    }
-
+    
 }

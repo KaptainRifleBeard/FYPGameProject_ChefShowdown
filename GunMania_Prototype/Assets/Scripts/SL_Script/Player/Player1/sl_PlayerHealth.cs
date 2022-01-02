@@ -30,25 +30,18 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     float bulletDamage;
 
-    public static bool takingDamage;  //for animation
-
     void Start()
     {
         view = GetComponent<PhotonView>();
         currentHealth = maxHealth;
-        takingDamage = false;
     }
 
     public void Update()
     {
-        //if (currentHealth <= 0)
-        //{
-        //    Destroy(gameObject);
-        //}
 
-        if(takingDamage)
+        if (currentHealth <= 0)
         {
-            StartCoroutine(TakeDamage());
+            Destroy(gameObject);
         }
     }
 
@@ -90,7 +83,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             if (other.gameObject.tag == "P2Bullet")
             {
                 bulletDamage = 1.0f; //original
-                takingDamage = true;
+
 
                 //0 - b, 1 - w, 2 - j, 3 - k
                 float damagetake;
@@ -125,11 +118,14 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     }
 
 
-    IEnumerator TakeDamage()
-    {
-        yield return new WaitForSeconds(0.2f);
-        takingDamage = false;
-    }
+    //IEnumerator Respawn()
+    //{
+    //    sl_InventoryManager.ClearAllInList();
+    //    yield return new WaitForSeconds(1.0f);
+    //    gameObject.transform.position = spawnPostionA.transform.position;
+
+    //    currentHealth = 16;
+    //}
 
     [PunRPC]
     public void BulletDamage(float damage)

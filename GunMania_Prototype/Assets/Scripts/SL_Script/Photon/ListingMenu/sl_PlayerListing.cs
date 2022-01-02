@@ -4,12 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
 using Photon.Pun;
-using TMPro;
 
 public class sl_PlayerListing : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI text;
-    Player player;
+    [SerializeField] private Text text;
 
     public Player Player { get; private set; }
 
@@ -18,5 +16,4 @@ public class sl_PlayerListing : MonoBehaviour
         Player = p;
         text.text = p.NickName;
     }
-
 }
