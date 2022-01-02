@@ -182,7 +182,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     IEnumerator ToExitScreen()
     {
         yield return new WaitForSeconds(3.0f);
-        //SceneManager.LoadScene("sl_BacktoMainMenu");
+        SceneManager.LoadScene("sl_BacktoMainMenu");
 
     }
 

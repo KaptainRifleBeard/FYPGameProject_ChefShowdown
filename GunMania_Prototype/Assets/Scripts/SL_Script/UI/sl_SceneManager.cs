@@ -7,7 +7,7 @@ using Photon.Pun.UtilityScripts;
 using UnityEngine.SceneManagement;
 
 
-public class sl_SceneManager : MonoBehaviour
+public class sl_SceneManager : MonoBehaviourPunCallbacks
 {
     public void DisconnectPlayer()
     {
@@ -17,8 +17,8 @@ public class sl_SceneManager : MonoBehaviour
         //}
         //PhotonNetwork.LoadLevel(0);
 
-        PhotonNetwork.LeaveRoom();
-        StartCoroutine(DisconnectAndLoad());
+        PhotonNetwork.LeaveRoom(true);
+        //StartCoroutine(DisconnectAndLoad());
         
     }
 
@@ -32,5 +32,12 @@ public class sl_SceneManager : MonoBehaviour
 
         SceneManager.LoadScene(0);
 
+    }
+
+    public override void OnLeftRoom()  //to avoid left room too quickly - MonoBehaviourPunCallbacks
+    {
+        SceneManager.LoadScene("sl_ServerLobby");
+
+        base.OnLeftRoom();
     }
 }
