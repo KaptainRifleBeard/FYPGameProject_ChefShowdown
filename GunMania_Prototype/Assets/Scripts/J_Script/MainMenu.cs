@@ -7,10 +7,17 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public GameObject settingsMenu;
+    public GameObject openNicknameUI;
+
+    private void Start()
+    {
+        openNicknameUI.SetActive(false);
+
+    }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("sl_ServerLobby");
+        //SceneManager.LoadScene("sl_ServerLobby");
     }
 
     public void OpenSettingsMenu()
@@ -20,6 +27,12 @@ public class MainMenu : MonoBehaviour
             bool isActive = settingsMenu.activeSelf;
             settingsMenu.SetActive(!isActive);
         }
+    }
+
+    public void HideNicknameUI()
+    {
+        openNicknameUI.SetActive(false);
+
     }
 
     public void QuitGame()
