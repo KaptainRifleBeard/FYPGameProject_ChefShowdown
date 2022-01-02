@@ -15,7 +15,19 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     RoomOptions options = new RoomOptions();
 
     private sl_RoomCanvases roomCanvas;
-    public GameObject lobby;
+    public GameObject lobby; //the whole lobby 
+
+    //for animation
+    public GameObject canvasRoomListing; //tthe room listing part for animation
+    public GameObject canvasCreateRoom; //the create room part for animation
+
+    public Animator roomListAnim;
+    public Animator createRoomAnim;
+
+    private void Start()
+    {
+        lobby.SetActive(false);
+    }
 
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
@@ -56,16 +68,39 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
         lobby.SetActive(false);
     }
 
-    //public void JoinRoom()
-    //{
-    //    PhotonNetwork.JoinRoom(joinInput.text);
-    //}
 
-    //public override void OnJoinedRoom()
-    //{
-    //    PhotonNetwork.LoadLevel("sl_PlayerSelectLobby");
 
-    //}
+    //room's animation part
+    //for hide and show in main menu
+    public void ShowRoomListing()
+    {
+        StartCoroutine(CloseCreateRoomInput());
 
-    
+    }
+
+    public void ShowCreateRoom()
+    {
+        StartCoroutine(OpenCreateRoomInput());
+        roomListAnim.SetBool("OpenRoomListing", false);
+
+    }
+
+    //Create room animation
+    IEnumerator OpenCreateRoomInput()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canvasCreateRoom.SetActive(true);
+
+        createRoomAnim.SetBool("ShowCreateRoomInput", true);
+
+    }
+
+    IEnumerator CloseCreateRoomInput()
+    {
+        yield return new WaitForSeconds(0.5f);
+        createRoomAnim.SetBool("ShowCreateRoomInput", false);
+        roomListAnim.SetBool("OpenRoomListing", true);
+
+    }
+
 }
