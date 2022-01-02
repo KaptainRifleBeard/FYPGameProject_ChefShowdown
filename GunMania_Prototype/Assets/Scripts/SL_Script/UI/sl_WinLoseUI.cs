@@ -15,11 +15,6 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     public GameObject winScreen;
     public GameObject loseScreen;
 
-    public GameObject winLoseCharacterInfo;
-    public Transform p1Pos;
-    public Transform p2Pos;
-
-
     void Start()
     {
         winScreen.SetActive(false);
@@ -53,19 +48,14 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     {
         if (sl_PlayerHealth.currentHealth <= 0)
         {
-            Instantiate(winLoseCharacterInfo, p1Pos.position, Quaternion.identity);
-            Instantiate(winLoseCharacterInfo, p2Pos.position, Quaternion.identity);
-
             if (PhotonNetwork.IsMasterClient)
             {
-                //p1 lose
-                winScreen.SetActive(true);
+                loseScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
             }
             else
             {
-                //p2 win
                 winScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
@@ -74,19 +64,15 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
         if (sl_P2PlayerHealth.p2currentHealth <= 0)
         {
-            Instantiate(winLoseCharacterInfo, p1Pos.position, Quaternion.identity);
-            Instantiate(winLoseCharacterInfo, p2Pos.position, Quaternion.identity);
-
             if (PhotonNetwork.IsMasterClient)
             {
-                //p1 win
+
                 winScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
             }
             else
             {
-                //p2 lose
                 loseScreen.SetActive(true);
                 StartCoroutine(ToExitScreen());
 
@@ -99,7 +85,9 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     IEnumerator ToExitScreen()
     {
         yield return new WaitForSeconds(3.0f);
-        //SceneManager.LoadScene("sl_BacktoMainMenu");
+        //exitScreen.SetActive(true);
+
+        SceneManager.LoadScene("sl_BacktoMainMenu");
 
     }
 

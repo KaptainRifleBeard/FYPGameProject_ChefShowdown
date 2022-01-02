@@ -21,24 +21,20 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public GameObject nickname;
     public GameObject canvasRoomListing;
     public GameObject canvasCreateRoom;
+    public TextMeshProUGUI joinOrCreateText;
 
     public InputField placePlayerName;
-
-    //for animation
-    public Animator roomListAnim;
-    public Animator createRoomAnim;
 
     private void Start()
     {
         placePlayerName.interactable = false;
         placePlayerName.text = PhotonNetwork.NickName;
-
-        canvasCreateRoom.SetActive(false);
     }
 
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
         roomCanvas = canvases;
+        joinOrCreateText.text = " ";
 
     }
 
@@ -76,44 +72,17 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     //for hide and show in main menu
     public void ShowRoomListing()
     {
-        //canvasRoomListing.SetActive(true);
-        //canvasCreateRoom.SetActive(false);
-        StartCoroutine(CloseCreateRoomInput());
+        canvasRoomListing.SetActive(true);
+        canvasCreateRoom.SetActive(false);
 
+        joinOrCreateText.text = "Join a match";
     }
 
     public void ShowCreateRoom()
     {
-
-        //canvasRoomListing.SetActive(false);
-        //canvasCreateRoom.SetActive(true);
-
-        StartCoroutine(OpenCreateRoomInput());
-        roomListAnim.SetBool("OpenRoomListing", false);
-
-    }
-
-
-
-
-    //Create room animation
-    IEnumerator OpenCreateRoomInput()
-    {
-
-        yield return new WaitForSeconds(0.8f);
+        canvasRoomListing.SetActive(false);
         canvasCreateRoom.SetActive(true);
-        createRoomAnim.SetBool("ShowCreateRoomInput", true);
-
+        joinOrCreateText.text = "Create a match";
     }
 
-    IEnumerator CloseCreateRoomInput()
-    {
-
-        yield return new WaitForSeconds(0.8f);
-        canvasCreateRoom.SetActive(false);
-        createRoomAnim.SetBool("ShowCreateRoomInput", false);
-
-        roomListAnim.SetBool("OpenRoomListing", true);
-
-    }
 }

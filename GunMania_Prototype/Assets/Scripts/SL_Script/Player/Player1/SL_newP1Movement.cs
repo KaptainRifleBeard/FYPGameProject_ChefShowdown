@@ -541,6 +541,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     }
 
+
     IEnumerator ThrowTime()
     {
         yield return new WaitForSeconds(0.3f);
