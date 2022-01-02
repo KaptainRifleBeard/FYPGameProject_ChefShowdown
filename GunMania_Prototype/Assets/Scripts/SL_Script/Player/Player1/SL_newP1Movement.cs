@@ -69,7 +69,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     public GameObject indicatorVisible;
 
     public Text p1Name;
-
+    public static string p1CurrentName;
 
     void Start()
     {
@@ -89,6 +89,8 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         if(view.IsMine)
         {
             p1Name.text = PhotonNetwork.NickName;
+            view.RPC("p1NickName", RpcTarget.All, p1Name.text);
+
         }
 
     }
@@ -608,6 +610,12 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     }
 
 
+    [PunRPC]
+    public void p1NickName(string name)
+    {
+        p1Name.text = name;
+    }
+
     IEnumerator ThrowTime()
     {
         yield return new WaitForSeconds(0.3f);
@@ -687,6 +695,9 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     {
         yield return new WaitForSeconds(3f);
         startTheGame = true;
+
+        p1CurrentName = p1Name.text;
+
     }
 
 

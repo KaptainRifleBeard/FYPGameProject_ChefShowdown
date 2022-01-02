@@ -52,6 +52,8 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     public Image tagUI;
 
     public Text p2Name;
+    public static string p2CurrentName;
+
 
     void Start()
     {
@@ -68,6 +70,8 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         if (view.IsMine)
         {
             p2Name.text = PhotonNetwork.NickName;
+            view.RPC("p2NickName", RpcTarget.All, p2Name.text);
+
         }
     }
 
@@ -333,6 +337,11 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
     }
 
+    [PunRPC]
+    public void p2NickName(string name)
+    {
+        p2Name.text = name;
+    }
 
     //For Character model
     //0.brock, 1.wen, 2.jiho, 3.katsuki
@@ -525,6 +534,9 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     {
         yield return new WaitForSeconds(3f);
         startTheGame = true;
+
+        p2CurrentName = p2Name.text;
+
     }
 
     //For UI SYNC
