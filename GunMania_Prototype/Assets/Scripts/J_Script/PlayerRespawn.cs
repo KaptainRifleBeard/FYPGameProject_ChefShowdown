@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private Transform respawnPoint;
+    [SerializeField] private Transform player1;
+    [SerializeField] private Transform respawnPoint1;
+    [SerializeField] private Transform player2;
+    [SerializeField] private Transform respawnPoint2;
 
     void Start()
     {
@@ -16,6 +18,7 @@ public class PlayerRespawn : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         //yield return new WaitForSeconds(2f);
-        player.transform.position = respawnPoint.transform.position;
+        player1.transform.position = respawnPoint1.transform.position;
+        player2.transform.position = respawnPoint2.transform.position;
     }
 }

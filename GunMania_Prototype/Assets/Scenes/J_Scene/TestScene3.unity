@@ -2171,6 +2171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 71e53a747ffb90245b969d45fdaa2ce0, type: 2}
   playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
+  prefabNum: 0
+  foodPrefab: []
 --- !u!114 &43184173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2185,6 +2187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 71e53a747ffb90245b969d45fdaa2ce0, type: 2}
   playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
+  prefabNum: 0
+  foodPrefab: []
 --- !u!136 &43184174
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5592,6 +5596,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 200, y: 199.99997, z: 1.4210855e-12}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &130881509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 130881510}
+  m_Layer: 0
+  m_Name: CountdownTimer (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &130881510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130881509}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1231308240}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &133279379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13876,6 +13910,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 200, y: 199.99997, z: 1.4210855e-12}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &330444595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 385044421}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &336701722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15456,11 +15506,25 @@ PrefabInstance:
       objectReference: {fileID: 1351086682}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08a2527c2230f9c43b0aa2d5af5b1b12, type: 3}
---- !u!224 &385044421 stripped
+--- !u!224 &385044421
 RectTransform:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 7095363644911952732, guid: 08a2527c2230f9c43b0aa2d5af5b1b12, type: 3}
   m_PrefabInstance: {fileID: 385044420}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330444595}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1231308240}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &385049858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28203,9 +28267,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06896f280b6f654c99d9088885591b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1Nickname: {fileID: 0}
+  player2Nickname: {fileID: 0}
+  chamOrRunner1_text: {fileID: 0}
+  chamOrRunner2_text: {fileID: 0}
   winScreen: {fileID: 1002172763}
-  loseScreen: {fileID: 1351086682}
-  exitScreen: {fileID: 1188854638}
+  theUI_1: {fileID: 0}
+  theUI_2: {fileID: 0}
+  icons: []
+  player1CurrentIcon: {fileID: 0}
+  player2CurrentIcon: {fileID: 0}
 --- !u!4 &742765101
 Transform:
   m_ObjectHideFlags: 0
@@ -30406,10 +30477,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wenIcon: {fileID: 21300000, guid: 41a4eee779fa48e4db7bc5f6cd241b10, type: 3}
   brockIcon: {fileID: 21300000, guid: 07f324052825b834cae18687414bfe10, type: 3}
-  brock: {fileID: 1578024952}
-  tagBrock: {fileID: 1690120814}
-  wen: {fileID: 549979590}
-  tagWen: {fileID: 1698564434}
+  jihoIcon: {fileID: 0}
+  katsukiIcon: {fileID: 0}
+  mainCharacter_p1: {fileID: 0}
+  tagCharacter_p1: {fileID: 0}
+  mainCharacter_p2: {fileID: 0}
+  tagCharacter_p2: {fileID: 0}
+  p1_Array: []
+  p1CharacterList: 
+  p2CharacterList: 
 --- !u!4 &789511647
 Transform:
   m_ObjectHideFlags: 0
@@ -30786,6 +30862,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 1fbeeb3b59539224bb400a54b16b7144, type: 2}
   playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
+  prefabNum: 0
+  foodPrefab: []
 --- !u!114 &793471362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30800,6 +30878,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 1fbeeb3b59539224bb400a54b16b7144, type: 2}
   playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
+  prefabNum: 0
+  foodPrefab: []
 --- !u!136 &793471363
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -40708,6 +40788,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 6ece44dba3948624f89d2bf1848e77f6, type: 2}
   playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
+  prefabNum: 0
+  foodPrefab: []
 --- !u!114 &1107908396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40722,6 +40804,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 6ece44dba3948624f89d2bf1848e77f6, type: 2}
   playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
+  prefabNum: 0
+  foodPrefab: []
 --- !u!136 &1107908397
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -45058,6 +45142,7 @@ RectTransform:
   - {fileID: 1002172764}
   - {fileID: 1188854641}
   - {fileID: 385044421}
+  - {fileID: 130881510}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47128,14 +47213,6 @@ MonoBehaviour:
   - {fileID: 45835961}
   - {fileID: 1029366151}
   - {fileID: 52361315}
-  JPfoodPrefabs:
-  - {fileID: 1107908391}
-  KRfoodPrefabs:
-  - {fileID: 793471357}
-  CNfoodPrefabs:
-  - {fileID: 2087586912}
-  TWfoodPrefabs:
-  - {fileID: 43184168}
   JPdishPrefabs:
   - {fileID: 2260437171972032750, guid: 4486e546d81aebf428de8f7672ec86e8, type: 3}
   - {fileID: 1559786453640428713, guid: ee8780f578c8aec4f98cf9b291407538, type: 3}
@@ -64687,8 +64764,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8cc01aff1f145469f2f4824e705352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4357416387902559856, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
-  respawnPoint: {fileID: 1033019473}
+  player1: {fileID: 0}
+  respawnPoint1: {fileID: 1033019473}
+  player2: {fileID: 0}
+  respawnPoint2: {fileID: 1849941355}
 --- !u!65 &1791929734
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73996,6 +74075,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 8744c768ffc69244198c32d2cc9818fa, type: 2}
   playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
+  prefabNum: 0
+  foodPrefab: []
 --- !u!114 &2087586917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74010,6 +74091,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 8744c768ffc69244198c32d2cc9818fa, type: 2}
   playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
+  prefabNum: 0
+  foodPrefab: []
 --- !u!136 &2087586918
 CapsuleCollider:
   m_ObjectHideFlags: 0
