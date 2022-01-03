@@ -28,7 +28,10 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     public Image[] hearts;
 
+
     float bulletDamage;
+    float statDamage;
+    float percentage;
 
     void Start()
     {
@@ -48,7 +51,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     public void FixedUpdate()
     {
         healthText.text = currentHealth.ToString();
-
 
         for (int i = 0; i < hearts.Length; i++)
         {
@@ -83,33 +85,37 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             if (other.gameObject.tag == "P2Bullet")
             {
                 bulletDamage = 1.0f; //original
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+            }
+
+            //DISHES
+            if (other.gameObject.tag == "P2Sinseollo")
+            {
+                bulletDamage = 3f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+
+            }
+
+            if (other.gameObject.tag == "P2BirdNestSoup") //stay in the range deal more dmg per second
+            {
+                bulletDamage = 1.0f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
 
 
-                //0 - b, 1 - w, 2 - j, 3 - k
-                float damagetake;
+            }
 
-                //for my model
-                if (SL_newP1Movement.changeModelAnim == 1)
-                {
-                    damagetake = 0.5f;
-                    bulletDamage = bulletDamage + damagetake; // stat: wen - take 1.5 dmg from everyone
-                }
+            if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
+            {
+                bulletDamage = 2.0f;
+                percentage = (bulletDamage * 50f) / 100f;
 
-                if (SL_newP1Movement.changeModelAnim == 3 || sl_newP2Movement.changep2Icon == 2)
-                {
-                    damagetake = 0.5f;
-                    bulletDamage = bulletDamage - damagetake; // stat: katsuki, jiho - take less 0.5 dmg from everyone
-                }
-
-                //from enemy bullet
-                if (sl_newP2Movement.changep2Icon == 0)
-                {
-                    damagetake = 0.5f;
-                    bulletDamage = bulletDamage + damagetake; // stat: brock - deal more 50% dmg
-                }
-
-                view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
-                //currentHealth -= 1;
+                GetDamage(bulletDamage, percentage);
 
             }
 
@@ -117,15 +123,45 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     }
 
+    public void GetDamage(float damage, float percent)
+    {
+        /*
+                //0 - b, 1 - w, 2 - j, 3 - k
+        brock - extra 50% damage for all foods & dishes thrown, range -2
+        wen - take extra 0.5 dmg from everyone, speed + 20
+        jiho - deal less 50% damage when attacks, range+2
+        katsuki - take less 50% damage from everyone, speed-30
 
-    //IEnumerator Respawn()
-    //{
-    //    sl_InventoryManager.ClearAllInList();
-    //    yield return new WaitForSeconds(1.0f);
-    //    gameObject.transform.position = spawnPostionA.transform.position;
+        */
 
-    //    currentHealth = 16;
-    //}
+        //for my model
+        if (SL_newP1Movement.changeModelAnim == 1) //w
+        {
+            damage += 0.5f;
+        }
+
+        if (SL_newP1Movement.changeModelAnim == 3)//k
+        {
+            damage -= 0.5f;
+        }
+
+
+
+        //from enemy bullet
+        if (sl_newP2Movement.changep2Icon == 0) //enemy brock
+        {
+            damage = damage + percent;
+        }
+
+        if (sl_newP2Movement.changep2Icon == 2)//enemy jiho
+        {
+            damage = damage - percent;
+        }
+
+        view.RPC("BulletDamage", RpcTarget.All, damage);
+    }
+
+
 
     [PunRPC]
     public void BulletDamage(float damage)
@@ -148,6 +184,11 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         }
 
     }
+
+
+
+
+
 
 
     //will fire when event is activated
@@ -188,5 +229,17 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     //    }
 
     //}
+
+
+
+    //IEnumerator Respawn()
+    //{
+    //    sl_InventoryManager.ClearAllInList();
+    //    yield return new WaitForSeconds(1.0f);
+    //    gameObject.transform.position = spawnPostionA.transform.position;
+
+    //    currentHealth = 16;
+    //}
+
 
 }

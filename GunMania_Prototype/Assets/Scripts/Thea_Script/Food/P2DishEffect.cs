@@ -44,11 +44,11 @@ public class P2DishEffect : MonoBehaviour
         }
         else if (other.gameObject.tag == "P2Hassun")
         {
-            sl_PlayerHealth.currentHealth += 3;
-            if (sl_PlayerHealth.currentHealth >= 8)
-            {
-                sl_PlayerHealth.currentHealth = 8;
-            }
+            //sl_PlayerHealth.currentHealth += 3;
+            //if (sl_PlayerHealth.currentHealth >= 8)
+            //{
+            //    sl_PlayerHealth.currentHealth = 8;
+            //}
         }
         else if (other.gameObject.tag == "Mukozuke")
         {
@@ -101,7 +101,7 @@ public class P2DishEffect : MonoBehaviour
     [PunRPC]
     public void Pull(Vector3 dir)
     {
-        sl_P2PlayerHealth.p2currentHealth -= 1;
+        //sl_P2PlayerHealth.p2currentHealth -= 1;
         
         playerRidg.AddForce(dir * pullingSpeed, ForceMode.Impulse);
     }
@@ -109,7 +109,7 @@ public class P2DishEffect : MonoBehaviour
     [PunRPC]
     public void Push(Vector3 dir)
     {
-        sl_P2PlayerHealth.p2currentHealth -= 1;
+        //sl_P2PlayerHealth.p2currentHealth -= 1;
 
         playerRidg.AddForce(dir * knockbackSpeed, ForceMode.Impulse);
     }
@@ -124,13 +124,13 @@ public class P2DishEffect : MonoBehaviour
     [PunRPC]
     public void Explode()
     {
-        sl_P2PlayerHealth.p2currentHealth -= 1.5f;
+        //sl_P2PlayerHealth.p2currentHealth -= 1.5f;
     }
 
     [PunRPC]
     public void Silence()
     {
-        sl_P2PlayerHealth.p2currentHealth -= 1;
+        //sl_P2PlayerHealth.p2currentHealth -= 1;
         p2canPick = false;
         StartCoroutine(StunDeactive(6));
     }

@@ -28,6 +28,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public Image[] hearts;
 
     float bulletDamage2;
+    float statDamage;
+    float percentage;
+
+
     GameObject bulletToDestroy2;
 
     void Start()
@@ -50,7 +54,6 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public void FixedUpdate()
     {
         healthText.text = p2currentHealth.ToString();
-
 
         for (int i = 0; i < hearts.Length; i++)
         {
@@ -75,6 +78,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.tag == "Bullet") //dont put this in masterclient, or else ur view wont destroy bullet
         {
             Destroy(other.gameObject);
@@ -85,40 +89,85 @@ public class sl_P2PlayerHealth : MonoBehaviour
             if (other.gameObject.tag == "Bullet")
             {
                 bulletDamage2 = 1.0f; //original
+                percentage = (bulletDamage2 * 50f) / 100f;
 
-
-                //0 - b, 1 - w, 2 - j, 3 - k
-                float damagetake;
-
-                //for my model
-                if(sl_newP2Movement.changep2Icon == 1)
-                {
-                    damagetake = 0.5f;
-                    bulletDamage2 = bulletDamage2 + damagetake; // stat: wen - take 1.5 dmg from everyone
-                }
-                
-                if (sl_newP2Movement.changep2Icon == 3 || SL_newP1Movement.changeModelAnim == 2)
-                {
-                    damagetake = 0.5f;
-                    bulletDamage2 = bulletDamage2 - damagetake; // stat: katsuki, jiho - take less 0.5 dmg from everyone
-                }
-
-                //from enemy bullet
-                if(SL_newP1Movement.changeModelAnim == 0)
-                {
-                    damagetake = 0.5f;
-                    bulletDamage2 = bulletDamage2 + damagetake; // stat: brock - deal more 50% dmg
-                }
-
-                view.RPC("BulletDamage2", RpcTarget.All, bulletDamage2);
-
-                //p2currentHealth -= 1;
-                
+                GetDamage(bulletDamage2, percentage);
             }
 
+            //DISHES
+            if (other.gameObject.tag == "Sinseollo")
+            {
+                bulletDamage2 = 3f;
+                percentage = (bulletDamage2 * 50f) / 100f;
+
+                GetDamage(bulletDamage2, percentage);
+
+            }
+
+            if (other.gameObject.tag == "BirdNestSoup") //stay in the range deal more dmg per second
+            {
+                bulletDamage2 = 1.0f;
+                percentage = (bulletDamage2 * 50f) / 100f;
+
+                GetDamage(bulletDamage2, percentage);
+
+
+            }
+
+            if (other.gameObject.tag == "BuddhaJumpsOvertheWall" || other.gameObject.tag == "FoxtailMillet" || other.gameObject.tag == "Mukozuke")
+            {
+                bulletDamage2 = 2.0f;
+                percentage = (bulletDamage2 * 50f) / 100f;
+
+                GetDamage(bulletDamage2, percentage);
+
+            }
         }
            
     }
+
+    public void GetDamage(float damage, float percent)
+    {
+        /*
+                 //0 - b, 1 - w, 2 - j, 3 - k
+         brock - extra 50% damage for all foods & dishes thrown, range -2
+         wen - take extra 0.5 dmg from everyone, speed + 20
+         jiho - deal less 50% damage when attacks, range+2
+         katsuki - take less 50% damage from everyone, speed-30
+
+         */
+
+        //for my model
+        if (sl_newP2Movement.changep2Icon == 1) //w
+        {
+            damage += 0.5f;
+        }
+
+        if (sl_newP2Movement.changep2Icon == 3)//k
+        {
+            damage -= 0.5f;
+        }
+
+
+
+        //from enemy bullet
+        if (SL_newP1Movement.changeModelAnim == 0) //enemy brock
+        {
+            damage = damage + percent;
+        }
+
+        if (SL_newP1Movement.changeModelAnim == 2)//enemy jiho
+        {
+            damage = damage - percent;
+        }
+
+
+        view.RPC("BulletDamage2", RpcTarget.All, damage);
+
+    }
+
+
+
 
     [PunRPC]
     public void BulletDamage2(float damage)

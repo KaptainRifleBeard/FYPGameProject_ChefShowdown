@@ -26,7 +26,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        lobby.SetActive(false);
+
     }
 
     public void FirstInitialize(sl_RoomCanvases canvases)
