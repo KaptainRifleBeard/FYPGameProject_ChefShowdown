@@ -132,6 +132,6 @@ public class P2DishEffect : MonoBehaviour
     {
         //sl_P2PlayerHealth.p2currentHealth -= 1;
         p2canPick = false;
-        StartCoroutine(StunDeactive(6));
+        StartCoroutine(SilenceDeactive(6));
     }
 }

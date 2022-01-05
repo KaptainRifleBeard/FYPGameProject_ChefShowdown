@@ -17,6 +17,8 @@ public class DishEffect : MonoBehaviour
     public static bool canMove;
     public static bool canPick;
 
+    public sl_Inventory playerInventory;
+
 
     private void Start()
     {
@@ -37,7 +39,7 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2Tojangjochi")
         {
             //stun
-            view.RPC("Stun", RpcTarget.All, stunTime);
+            view.RPC("Stun", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
@@ -63,11 +65,14 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2BirdNestSoup")
         {
             //aoe
+            view.RPC("aoe", RpcTarget.All);
+
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall")
         {
             //silence
-            view.RPC("Silence", RpcTarget.All, silenceTime);
+            view.RPC("Silence", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
@@ -97,6 +102,16 @@ public class DishEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canPick = true;
+    }
+
+    public IEnumerator DMGoverTime(int time)
+    {
+        yield return new WaitForSeconds(time);
+        //sl_PlayerHealth.currentHealth -= 1.5f;
+        yield return new WaitForSeconds(time);
+        //sl_PlayerHealth.currentHealth -= 1.5f;
+        yield return new WaitForSeconds(time);
+        //sl_PlayerHealth.currentHealth -= 1.5f;
     }
 
     [PunRPC]
@@ -133,6 +148,13 @@ public class DishEffect : MonoBehaviour
     {
         //sl_PlayerHealth.currentHealth -= 1;
         canPick = false;
-        StartCoroutine(StunDeactive(6));
+        StartCoroutine(SilenceDeactive(6));
+    }
+
+    [PunRPC]
+    public void aoe()
+    {
+        //sl_PlayerHealth.currentHealth -= 1;
+        StartCoroutine(DMGoverTime(1));
     }
 }
