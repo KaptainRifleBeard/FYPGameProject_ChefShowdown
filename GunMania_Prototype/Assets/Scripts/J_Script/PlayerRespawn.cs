@@ -13,12 +13,25 @@ public class PlayerRespawn : MonoBehaviour
     {
         //StartCoroutine(OnTriggerEnter());
         //Invoke("OnTriggerEnter", 2);
+
+        player1 = GameObject.FindGameObjectWithTag("Player").transform;
+        //player2 = GameObject.FindGameObjectWithTag("Player2").transform;
+
     }
 
     public void OnTriggerEnter(Collider other)
     {
         //yield return new WaitForSeconds(2f);
-        player1.transform.position = respawnPoint1.transform.position;
-        player2.transform.position = respawnPoint2.transform.position;
+
+        if(other.gameObject.tag == "Player")
+        {
+            player1.transform.position = respawnPoint1.transform.position;
+        }
+
+        if (other.gameObject.tag == "Player2")
+        {
+            player2.transform.position = respawnPoint2.transform.position;
+        }
     }
+    
 }
