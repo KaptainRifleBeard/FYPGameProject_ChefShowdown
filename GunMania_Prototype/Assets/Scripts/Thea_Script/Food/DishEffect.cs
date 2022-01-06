@@ -97,6 +97,10 @@ public class DishEffect : MonoBehaviour
             //drop food :')
             view.RPC("DropFood", RpcTarget.All);
 
+            sl_ShootBehavior.bulletCount--;
+            playerInventory.itemList[0] = null;
+            sl_InventoryManager.RefreshItem();
+
             Destroy(other.gameObject);
         }
     }
