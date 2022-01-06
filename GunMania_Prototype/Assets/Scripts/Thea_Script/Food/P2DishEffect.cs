@@ -23,6 +23,7 @@ public class P2DishEffect : MonoBehaviour
     {
         timer = 0;
         p2canMove = true;
+        p2canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
     }
