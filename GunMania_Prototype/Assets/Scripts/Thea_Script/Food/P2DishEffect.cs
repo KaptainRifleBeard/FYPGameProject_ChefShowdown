@@ -17,11 +17,9 @@ public class P2DishEffect : MonoBehaviour
     public static bool p2canMove;
     public static bool p2canPick;
 
-    float timer;
 
     private void Start()
     {
-        timer = 0;
         p2canMove = true;
         p2canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();

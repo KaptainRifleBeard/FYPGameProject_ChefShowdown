@@ -31784,8 +31784,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06896f280b6f654c99d9088885591b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1Nickname: {fileID: 0}
+  player2Nickname: {fileID: 0}
+  chamOrRunner1_text: {fileID: 0}
+  chamOrRunner2_text: {fileID: 0}
   winScreen: {fileID: 2074169554}
-  loseScreen: {fileID: 731871786}
+  theUI_1: {fileID: 0}
+  theUI_2: {fileID: 0}
+  icons: []
+  player1CurrentIcon: {fileID: 0}
+  player2CurrentIcon: {fileID: 0}
 --- !u!4 &1123060982
 Transform:
   m_ObjectHideFlags: 0
@@ -36729,7 +36737,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1267580567}
-  - component: {fileID: 1267580568}
   m_Layer: 0
   m_Name: China
   m_TagString: Untagged
@@ -36755,22 +36762,6 @@ Transform:
   m_Father: {fileID: 1762293898}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1267580568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1267580566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76cf9b93b58000469eedebaf80e57dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodPrefab:
-  - {fileID: 536606356}
-  - {fileID: 195775418}
-  - {fileID: 161351050}
 --- !u!1001 &1267661288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47204,7 +47195,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1689235550}
-  - component: {fileID: 1689235551}
   m_Layer: 0
   m_Name: Korea
   m_TagString: Untagged
@@ -47230,22 +47220,6 @@ Transform:
   m_Father: {fileID: 1762293898}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1689235551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689235549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76cf9b93b58000469eedebaf80e57dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodPrefab:
-  - {fileID: 424403119}
-  - {fileID: 28056420}
-  - {fileID: 1644069750}
 --- !u!1001 &1698577338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55109,7 +55083,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2002239756}
-  - component: {fileID: 2002239757}
   m_Layer: 0
   m_Name: Japan
   m_TagString: Untagged
@@ -55135,22 +55108,6 @@ Transform:
   m_Father: {fileID: 1762293898}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2002239757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2002239755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76cf9b93b58000469eedebaf80e57dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodPrefab:
-  - {fileID: 1422030992}
-  - {fileID: 688188517}
-  - {fileID: 305710510}
 --- !u!1 &2010544588
 GameObject:
   m_ObjectHideFlags: 0
@@ -55160,7 +55117,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2010544589}
-  - component: {fileID: 2010544590}
   m_Layer: 0
   m_Name: Taiwan
   m_TagString: Untagged
@@ -55186,22 +55142,6 @@ Transform:
   m_Father: {fileID: 1762293898}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2010544590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2010544588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76cf9b93b58000469eedebaf80e57dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodPrefab:
-  - {fileID: 1911153182}
-  - {fileID: 108381917}
-  - {fileID: 537992841}
 --- !u!1001 &2010699137
 PrefabInstance:
   m_ObjectHideFlags: 0
