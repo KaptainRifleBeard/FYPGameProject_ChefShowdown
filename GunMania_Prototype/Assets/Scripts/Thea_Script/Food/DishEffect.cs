@@ -19,6 +19,10 @@ public class DishEffect : MonoBehaviour
 
     public sl_Inventory playerInventory;
 
+    public List<GameObject> foodPrefab;
+
+    Vector3 offset;
+
 
     private void Start()
     {
@@ -26,6 +30,8 @@ public class DishEffect : MonoBehaviour
         canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
+
+        offset = new Vector3(0, 0, 5);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,6 +95,9 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2RawStinkyTofu")
         {
             //drop food :')
+            view.RPC("DropFood", RpcTarget.All);
+
+            Destroy(other.gameObject);
         }
     }
 
@@ -156,5 +165,79 @@ public class DishEffect : MonoBehaviour
     {
         //sl_PlayerHealth.currentHealth -= 1;
         StartCoroutine(DMGoverTime(1));
+    }
+
+    [PunRPC]
+    public void DropFood()
+    {
+        if (playerInventory.itemList[0] != null)
+        {
+            if (playerInventory.itemList[0].itemHeldNum == 1)
+            {
+                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 2)
+            {
+                Instantiate(foodPrefab[1], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 3)
+            {
+                Instantiate(foodPrefab[2], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 4)
+            {
+                Instantiate(foodPrefab[3], transform.position + offset, Quaternion.identity);
+            }
+            //from here is food (12 food)
+            else if (playerInventory.itemList[0].itemHeldNum == 10)
+            {
+                Instantiate(foodPrefab[4], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 11)
+            {
+                Instantiate(foodPrefab[5], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 12)
+            {
+                Instantiate(foodPrefab[6], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 13)
+            {
+                Instantiate(foodPrefab[7], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 14)
+            {
+                Instantiate(foodPrefab[8], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 15)
+            {
+                Instantiate(foodPrefab[9], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 16)
+            {
+                Instantiate(foodPrefab[10], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 17)
+            {
+                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 18)
+            {
+                Instantiate(foodPrefab[11], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 19)
+            {
+                Instantiate(foodPrefab[12], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 20)
+            {
+                Instantiate(foodPrefab[13], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 21)
+            {
+                Instantiate(foodPrefab[14], transform.position + offset, Quaternion.identity);
+            }
+
+        }
     }
 }
