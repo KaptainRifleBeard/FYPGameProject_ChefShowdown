@@ -26,37 +26,37 @@ public class sl_P1PickUp : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("player collide " + gameObject.name);
-            if (sl_ShootBehavior.bulletCount < 2)
-            {
-                prefabNum = Random.Range(0, 2);
-
-                view.RPC("AddFood", RpcTarget.All, prefabNum);
-                sl_ShootBehavior.bulletCount += 1;
-
-
-
-                if (gameObject.layer == LayerMask.NameToLayer("Food"))
-                {
-                    isPicked = true;
-                    AddNewItem();
-
-
-                }
-                else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
-                {
-                    isPickedDish = true;
-                    AddNewItem();
-
-                    view.RPC("DestroyDish", RpcTarget.All);
-
-                }
-            }
+            
 
             if (DishEffect.canPick)
             {
-               
-            
+                Debug.Log("player collide " + gameObject.name);
+                if (sl_ShootBehavior.bulletCount < 2)
+                {
+                    prefabNum = Random.Range(0, 2);
+
+                    view.RPC("AddFood", RpcTarget.All, prefabNum);
+                    sl_ShootBehavior.bulletCount += 1;
+
+
+
+                    if (gameObject.layer == LayerMask.NameToLayer("Food"))
+                    {
+                        isPicked = true;
+                        AddNewItem();
+
+
+                    }
+                    else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
+                    {
+                        isPickedDish = true;
+                        AddNewItem();
+
+                        view.RPC("DestroyDish", RpcTarget.All);
+
+                    }
+                }
+
             }
 
         }

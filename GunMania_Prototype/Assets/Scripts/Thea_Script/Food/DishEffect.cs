@@ -17,6 +17,12 @@ public class DishEffect : MonoBehaviour
     public static bool canMove;
     public static bool canPick;
 
+    public sl_Inventory playerInventory;
+
+    public List<GameObject> foodPrefab;
+
+    Vector3 offset;
+
 
     private void Start()
     {
@@ -24,6 +30,8 @@ public class DishEffect : MonoBehaviour
         canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
+
+        offset = new Vector3(0, 0, 5);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,7 +45,7 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2Tojangjochi")
         {
             //stun
-            view.RPC("Stun", RpcTarget.All, stunTime);
+            view.RPC("Stun", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
@@ -63,11 +71,14 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2BirdNestSoup")
         {
             //aoe
+            view.RPC("aoe", RpcTarget.All);
+
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall")
         {
             //silence
-            view.RPC("Silence", RpcTarget.All, silenceTime);
+            view.RPC("Silence", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
@@ -84,6 +95,13 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2RawStinkyTofu")
         {
             //drop food :')
+            view.RPC("DropFood", RpcTarget.All);
+
+            sl_ShootBehavior.bulletCount--;
+            playerInventory.itemList[0] = null;
+            sl_InventoryManager.RefreshItem();
+
+            Destroy(other.gameObject);
         }
     }
 
@@ -97,6 +115,16 @@ public class DishEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canPick = true;
+    }
+
+    public IEnumerator DMGoverTime(int time)
+    {
+        yield return new WaitForSeconds(time);
+        //sl_PlayerHealth.currentHealth -= 1.5f;
+        yield return new WaitForSeconds(time);
+        //sl_PlayerHealth.currentHealth -= 1.5f;
+        yield return new WaitForSeconds(time);
+        //sl_PlayerHealth.currentHealth -= 1.5f;
     }
 
     [PunRPC]
@@ -133,6 +161,87 @@ public class DishEffect : MonoBehaviour
     {
         //sl_PlayerHealth.currentHealth -= 1;
         canPick = false;
-        StartCoroutine(StunDeactive(6));
+        StartCoroutine(SilenceDeactive(6));
+    }
+
+    [PunRPC]
+    public void aoe()
+    {
+        //sl_PlayerHealth.currentHealth -= 1;
+        StartCoroutine(DMGoverTime(1));
+    }
+
+    [PunRPC]
+    public void DropFood()
+    {
+        if (playerInventory.itemList[0] != null)
+        {
+            if (playerInventory.itemList[0].itemHeldNum == 1)
+            {
+                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 2)
+            {
+                Instantiate(foodPrefab[1], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 3)
+            {
+                Instantiate(foodPrefab[2], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 4)
+            {
+                Instantiate(foodPrefab[3], transform.position + offset, Quaternion.identity);
+            }
+            //from here is food (12 food)
+            else if (playerInventory.itemList[0].itemHeldNum == 10)
+            {
+                Instantiate(foodPrefab[4], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 11)
+            {
+                Instantiate(foodPrefab[5], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 12)
+            {
+                Instantiate(foodPrefab[6], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 13)
+            {
+                Instantiate(foodPrefab[7], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 14)
+            {
+                Instantiate(foodPrefab[8], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 15)
+            {
+                Instantiate(foodPrefab[9], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 16)
+            {
+                Instantiate(foodPrefab[10], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 17)
+            {
+                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 18)
+            {
+                Instantiate(foodPrefab[11], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 19)
+            {
+                Instantiate(foodPrefab[12], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 20)
+            {
+                Instantiate(foodPrefab[13], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 21)
+            {
+                Instantiate(foodPrefab[14], transform.position + offset, Quaternion.identity);
+            }
+
+        }
     }
 }

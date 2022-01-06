@@ -23,6 +23,7 @@ public class P2DishEffect : MonoBehaviour
     {
         timer = 0;
         p2canMove = true;
+        p2canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
     }
@@ -132,6 +133,6 @@ public class P2DishEffect : MonoBehaviour
     {
         //sl_P2PlayerHealth.p2currentHealth -= 1;
         p2canPick = false;
-        StartCoroutine(StunDeactive(6));
+        StartCoroutine(SilenceDeactive(6));
     }
 }
