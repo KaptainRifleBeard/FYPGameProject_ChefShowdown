@@ -14,9 +14,10 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     PhotonView view;
 
     //UI variables
-    
+
 
     //Animation Variables
+    [Header("Animation")]
     public Animator myAnimator;
     public Animator brock_Animator;
     public Animator wen_Animator;
@@ -29,10 +30,13 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     bool stopping;
 
     //Character model variables
+    [Header("Model")]
     public GameObject[] BrockChoi;
     public GameObject[] OfficerWen;
     public GameObject[] AuntJiho;
     public GameObject[] MrKatsuki;
+
+    public GameObject wenTrail;
 
     public static int changeModelAnim = 0;
 
@@ -56,6 +60,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     int i = 0;
 
     //For UI
+    [Header("UI")]
     public List<Sprite> p1CharacterList = new List<Sprite>();
     public Sprite wenIcon;
     public Sprite brockIcon;
@@ -176,10 +181,12 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
             if (sl_PlayerHealth.currentHealth > 4 && changeModelAnim == 1)
             {
+                wenTrail.SetActive(true);
                 myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
             }
             else if (sl_PlayerHealth.currentHealth < 4 && changeModelAnim == 1)
             {
+                wenTrail.SetActive(false);
                 myAgent.speed = 40; 
             }
             else if(changeModelAnim == 3)

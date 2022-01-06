@@ -17,6 +17,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     public GameObject indicatorVisible;
 
     //Animation Variables
+    [Header("Animation")]
     public Animator myAnimator;
     public Animator brock_Animator;
     public Animator wen_Animator;
@@ -29,10 +30,13 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     bool stopping;
 
     //Control model
+    [Header("Model")]
     public GameObject[] BrockChoi;
     public GameObject[] OfficerWen;
     public GameObject[] AuntJiho;
     public GameObject[] MrKatsuki;
+
+    public GameObject wenTrail;
 
     public static int changep2Icon = 0;
 
@@ -42,6 +46,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     int i = 0;
 
     //For UI
+    [Header("UI")]
     public List<Sprite> p2CharacterList = new List<Sprite>();
     public Sprite wenIcon;
     public Sprite brockIcon;
@@ -303,13 +308,15 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
         }
 
-        if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
+        if (sl_PlayerHealth.currentHealth > 4 && changep2Icon == 1)
         {
-            myAgent.speed = 40;
+            wenTrail.SetActive(true);
+            myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
         }
-        else if(sl_P2PlayerHealth.p2currentHealth > 4 && changep2Icon == 1)
+        else if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
         {
-            myAgent.speed = 48;
+            wenTrail.SetActive(false);
+            myAgent.speed = 40;
         }
         else if (changep2Icon == 3)
         {
@@ -319,7 +326,10 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         {
             myAgent.speed = 40;
         }
+
     }
+
+
     IEnumerator ThrowTime()
     {
         yield return new WaitForSeconds(0.3f);
