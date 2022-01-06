@@ -8,11 +8,12 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject settingsMenu;
     public GameObject openNicknameUI;
+    public GameObject creditScreen;
 
     private void Start()
     {
         openNicknameUI.SetActive(false);
-
+        creditScreen.SetActive(false);
     }
 
     public void StartGame()
@@ -40,6 +41,23 @@ public class MainMenu : MonoBehaviour
         openNicknameUI.SetActive(false);
 
     }
+
+    public void OpenCreditScreen()
+    {
+        creditScreen.SetActive(true);
+
+    }
+    public void CloseCreditScreen()
+    {
+        creditScreen.SetActive(false);
+
+    }
+
+    public void ToServerLobby()
+    {
+        SceneManager.LoadScene("sl_ServerLobby");
+    }
+
 
     public void QuitGame()
     {
