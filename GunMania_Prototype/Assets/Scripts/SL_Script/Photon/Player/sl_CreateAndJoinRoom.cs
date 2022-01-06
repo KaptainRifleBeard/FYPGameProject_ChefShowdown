@@ -88,7 +88,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     //Create room animation
     IEnumerator OpenCreateRoomInput()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         canvasCreateRoom.SetActive(true);
 
         createRoomAnim.SetBool("ShowCreateRoomInput", true);
@@ -97,7 +97,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     IEnumerator CloseCreateRoomInput()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         createRoomAnim.SetBool("ShowCreateRoomInput", false);
         roomListAnim.SetBool("OpenRoomListing", true);
 
