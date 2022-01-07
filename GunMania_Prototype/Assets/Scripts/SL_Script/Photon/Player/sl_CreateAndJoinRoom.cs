@@ -16,10 +16,12 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     private sl_RoomCanvases roomCanvas;
     public GameObject lobby; //the whole lobby 
+    public GameObject erroMsg; 
 
     //for animation
     public GameObject canvasRoomListing; //tthe room listing part for animation
     public GameObject canvasCreateRoom; //the create room part for animation
+    public GameObject roomListPos;
 
     public Animator roomListAnim;
     public Animator createRoomAnim;
@@ -41,8 +43,16 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
         //{
         //    return;
         //}
-        options.MaxPlayers = 2;
-        PhotonNetwork.JoinOrCreateRoom(createInput.text, options, null);
+
+        if(createInput.text == "")
+        {
+            StartCoroutine(BlinkText());
+        }
+        else
+        {
+            options.MaxPlayers = 2;
+            PhotonNetwork.JoinOrCreateRoom(createInput.text, options, null);
+        }
     }
 
     public override void OnCreatedRoom()
@@ -74,6 +84,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     //for hide and show in main menu
     public void ShowRoomListing()
     {
+        canvasRoomListing.transform.position = roomListPos.transform.position;
         StartCoroutine(CloseCreateRoomInput());
 
     }
@@ -89,6 +100,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     IEnumerator OpenCreateRoomInput()
     {
         yield return new WaitForSeconds(0.2f);
+        canvasRoomListing.transform.position = new Vector3(-54f, -293f, 0f);
         canvasCreateRoom.SetActive(true);
 
         createRoomAnim.SetBool("ShowCreateRoomInput", true);
@@ -98,8 +110,17 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     IEnumerator CloseCreateRoomInput()
     {
         yield return new WaitForSeconds(0.2f);
+
         createRoomAnim.SetBool("ShowCreateRoomInput", false);
         roomListAnim.SetBool("OpenRoomListing", true);
+
+    }
+
+    IEnumerator BlinkText()
+    {
+        erroMsg.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        erroMsg.SetActive(false);
 
     }
 
