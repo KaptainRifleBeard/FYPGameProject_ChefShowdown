@@ -40,6 +40,9 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     {
         view = GetComponent<PhotonView>();
         currentHealth = maxHealth;
+
+        getDamage = false;
+        playerDead = false;
     }
 
     public void Update()
@@ -100,10 +103,10 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
 
             //bullets
-            percentage = (bulletDamage * 50f) / 100f;
             if (other.gameObject.tag == "P2Bullet")
             {
                 bulletDamage = 1.0f; //original
+                percentage = (bulletDamage * 50f) / 100f;
 
                 GetDamage(bulletDamage, percentage);
             }
@@ -111,14 +114,16 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             //DISHES
             if (other.gameObject.tag == "P2Sinseollo")
             {
-                bulletDamage = 3f;
+                bulletDamage = 3f; percentage = (bulletDamage * 50f) / 100f;
+
                 GetDamage(bulletDamage, percentage);
 
             }
 
             if (other.gameObject.tag == "P2BirdNestSoup") //stay in the range deal more dmg per second
             {
-                bulletDamage = 1.0f;
+                bulletDamage = 1.0f; percentage = (bulletDamage * 50f) / 100f;
+
                 GetDamage(bulletDamage, percentage);
 
 
@@ -126,7 +131,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
             {
-                bulletDamage = 2.0f;
+                bulletDamage = 2.0f; percentage = (bulletDamage * 50f) / 100f;
+
                 GetDamage(bulletDamage, percentage);
 
             }

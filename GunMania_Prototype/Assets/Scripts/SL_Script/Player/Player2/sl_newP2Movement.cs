@@ -188,7 +188,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
         //ANIMATION PART
         #region
-        if (view.IsMine && !PhotonNetwork.IsMasterClient && myAnimator != null)
+        if (!PhotonNetwork.IsMasterClient && myAnimator != null)
         {
             if (!myAgent.pathPending)
             {
@@ -239,27 +239,26 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     {
         if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
         {
-            view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
+            myAnimator.SetFloat("Blend", 0.5f);
         }
         else
         {
             if (!throwing)
             {
-                view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+                myAnimator.SetFloat("Blend", 0f);
             }
         }
 
         if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
         {
-            view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+            myAnimator.SetFloat("Blend", 1f);
             throwing = true;
         }
         if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
         {
             stopping = true;
             isrunning = false;
-
-            view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+            myAnimator.SetFloat("Blend", 1.5f);
             StartCoroutine(ThrowTime());
         }
 
@@ -271,37 +270,21 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             throwing = false;
 
             animName = "GetDmg";
+            myAnimator.SetBool(animName, true);
 
-            view.RPC("SyncOtherAnim2", RpcTarget.All, animName);
             StartCoroutine(DamageTime());
         }
 
         if (sl_P2PlayerHealth.player2Dead == true)
         {
             animName = "isPlayerDead";
+            myAnimator.SetBool(animName, true);
 
-            view.RPC("SyncOtherAnim2", RpcTarget.All, animName);
             myAgent.isStopped = true;
             throwing = false;
             stopRotate = true;
 
         }
-    }
-
-    //Animation SYNC
-    [PunRPC]
-    public void SyncAnimation2(float blendNum)
-    {
-        //ANIMATION
-        myAnimator.SetFloat("Blend", blendNum);
-
-    }
-
-    [PunRPC]
-    public void SyncOtherAnim2(string name)
-    {
-        myAnimator.SetBool(name, true);
-
     }
 
 
