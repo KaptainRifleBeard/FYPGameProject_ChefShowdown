@@ -262,7 +262,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
             //theFood.SetActive(true);
 
-            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
+            bullet = Instantiate(dishBullet[4], shootPosition.position, Quaternion.identity); //stun
             bullet.SetActive(false);
 
         }
@@ -272,7 +272,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
             //theFood.SetActive(true);
 
-            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
+            bullet = Instantiate(dishBullet[5], shootPosition.position, Quaternion.identity); //stun
             bullet.SetActive(false);
 
         }
