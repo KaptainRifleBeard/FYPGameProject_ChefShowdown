@@ -162,7 +162,7 @@ public class DishEffect : MonoBehaviour
     {
         //sl_PlayerHealth.currentHealth -= 1;
         canPick = false;
-        StartCoroutine(SilenceDeactive(6));
+        StartCoroutine(SilenceDeactive(4));
     }
 
     [PunRPC]

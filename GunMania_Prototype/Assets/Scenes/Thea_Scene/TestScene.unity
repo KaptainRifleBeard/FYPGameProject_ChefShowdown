@@ -22650,8 +22650,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8cc01aff1f145469f2f4824e705352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4357416387902559856, guid: 4f4f6fc0ff07ad84d843ad6f5875ec03, type: 3}
-  respawnPoint: {fileID: 1929943114}
+  player1: {fileID: 0}
+  respawnPoint1: {fileID: 0}
+  player2: {fileID: 0}
+  respawnPoint2: {fileID: 0}
 --- !u!65 &813871561
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51866,13 +51868,15 @@ MonoBehaviour:
   - {fileID: 1430138710}
   - {fileID: 583778036}
   JPdishPrefabs:
-  - {fileID: 3543711626040740149, guid: fb9287d0022897d46b02e1285358fe39, type: 3}
-  KRdishPrefabs:
-  - {fileID: 2216557538061964674, guid: c16c8870e92cc5c40968fc08e5a037e1, type: 3}
-  CNdishPrefabs:
   - {fileID: 578753560885894732, guid: 3f0217f9182db544aac1cd192a8d795c, type: 3}
-  TWdishPrefabs:
+  - {fileID: 2010859790010146716, guid: 4d78d94e399c26446b0746f1f5393b64, type: 3}
+  KRdishPrefabs:
+  - {fileID: 3543711626040740149, guid: fb9287d0022897d46b02e1285358fe39, type: 3}
   - {fileID: 248297383725738345, guid: 1d7e00cc423b32c419a99304cb9d7598, type: 3}
+  CNdishPrefabs:
+  - {fileID: 1722905446872088060, guid: dcd9f3a8eae49214ea4fbf160fdc809f, type: 3}
+  TWdishPrefabs:
+  - {fileID: 3543711626040740149, guid: fb9287d0022897d46b02e1285358fe39, type: 3}
   sec: 6
   dishsec: 5
   countdownTime: 5
