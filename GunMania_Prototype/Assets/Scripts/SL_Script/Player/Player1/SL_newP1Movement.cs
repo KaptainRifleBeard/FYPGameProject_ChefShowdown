@@ -14,14 +14,16 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     PhotonView view;
 
     //UI variables
-    
+
 
     //Animation Variables
+    [Header("Animation")]
     public Animator myAnimator;
     public Animator brock_Animator;
     public Animator wen_Animator;
     public Animator jiho_Animator;
     public Animator katsuki_Animator;
+    string animName;
 
     bool throwing = false;
 
@@ -29,10 +31,13 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     bool stopping;
 
     //Character model variables
+    [Header("Model")]
     public GameObject[] BrockChoi;
     public GameObject[] OfficerWen;
     public GameObject[] AuntJiho;
     public GameObject[] MrKatsuki;
+
+    public GameObject wenTrail;
 
     public static int changeModelAnim = 0;
 
@@ -56,6 +61,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     int i = 0;
 
     //For UI
+    [Header("UI")]
     public List<Sprite> p1CharacterList = new List<Sprite>();
     public Sprite wenIcon;
     public Sprite brockIcon;
@@ -70,6 +76,8 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     public Text p1Name;
     public static string p1CurrentName;
+
+    bool stopRotate;
 
     void Start()
     {
@@ -154,7 +162,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             }
 
 
-            if (gameObject.tag == "Player" && view.IsMine)
+            if (gameObject.tag == "Player" && view.IsMine && !stopRotate)
             {
                 Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
                 float rayLength;
@@ -176,10 +184,12 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
             if (sl_PlayerHealth.currentHealth > 4 && changeModelAnim == 1)
             {
+                wenTrail.SetActive(true);
                 myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
             }
             else if (sl_PlayerHealth.currentHealth < 4 && changeModelAnim == 1)
             {
+                wenTrail.SetActive(false);
                 myAgent.speed = 40; 
             }
             else if(changeModelAnim == 3)
@@ -217,7 +227,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         //ANIMATION PART
         #region
 
-        if (view.IsMine && PhotonNetwork.IsMasterClient && myAnimator != null)
+        if (PhotonNetwork.IsMasterClient && myAnimator != null)
         {
             if (!myAgent.pathPending)
             {
@@ -237,142 +247,28 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             if (changeModelAnim == 0)
             {
                 myAnimator = brock_Animator;
+                GetAnimation();
 
-                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-                {
-                    //myAnimator.SetFloat("Blend", 0.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-                }
-                else
-                {
-                    if (!throwing)
-                    {
-                        //myAnimator.SetFloat("Blend", 0f);
-                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-                {
-                    //myAnimator.SetFloat("Blend", 1f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
-                    throwing = true;
-                }
-                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                {
-                    stopping = true;
-                    isrunning = false;
-
-                    //myAnimator.SetFloat("Blend", 1.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-                    StartCoroutine(ThrowTime());
-                }
             }
             if (changeModelAnim == 1)
             {
                 myAnimator = wen_Animator;
-
-                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-                {
-                    //myAnimator.SetFloat("Blend", 0.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-                }
-                else
-                {
-                    if (!throwing)
-                    {
-                        //myAnimator.SetFloat("Blend", 0f);
-                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-                {
-                    //myAnimator.SetFloat("Blend", 1f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
-                    throwing = true;
-                }
-                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                {
-                    stopping = true;
-                    isrunning = false;
-
-                    //myAnimator.SetFloat("Blend", 1.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-                    StartCoroutine(ThrowTime());
-                }
+                GetAnimation();
 
             }
 
             if (changeModelAnim == 2)
             {
                 myAnimator = jiho_Animator;
-
-                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-                {
-                    //myAnimator.SetFloat("Blend", 0.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-                }
-                else
-                {
-                    if (!throwing)
-                    {
-                        //myAnimator.SetFloat("Blend", 0f);
-                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-                {
-                    //myAnimator.SetFloat("Blend", 1f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
-                    throwing = true;
-                }
-                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                {
-                    stopping = true;
-                    isrunning = false;
-
-                    //myAnimator.SetFloat("Blend", 1.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-                    StartCoroutine(ThrowTime());
-                }
+                GetAnimation();
 
             }
 
             if (changeModelAnim == 3)
             {
                 myAnimator = katsuki_Animator;
-
-                if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
-                {
-                    //myAnimator.SetFloat("Blend", 0.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 0.5f);
-                }
-                else
-                {
-                    if (!throwing)
-                    {
-                        //myAnimator.SetFloat("Blend", 0f);
-                        view.RPC("SyncAnimation", RpcTarget.All, 0f);
-                    }
-                }
-
-                if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
-                {
-                    //myAnimator.SetFloat("Blend", 1f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1f);
-                    throwing = true;
-                }
-                if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                {
-                    stopping = true;
-                    isrunning = false;
-
-                    //myAnimator.SetFloat("Blend", 1.5f);
-                    view.RPC("SyncAnimation", RpcTarget.All, 1.5f);
-                    StartCoroutine(ThrowTime());
-                }
+                GetAnimation();
+               
             }
 
         }
@@ -599,16 +495,57 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     #endregion
 
-
-    //Animation SYNC
-    [PunRPC]
-    public void SyncAnimation(float blendNum)
+    public void GetAnimation()
     {
-        //ANIMATION
-        myAnimator.SetFloat("Blend", blendNum);
+        if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
+        {
+            myAnimator.SetFloat("Blend", 0.5f);
+        }
+        else
+        {
+            if (!throwing)
+            {
+                myAnimator.SetFloat("Blend", 0f);
+            }
+        }
 
+        if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
+        {
+            myAnimator.SetFloat("Blend", 1f);
+            throwing = true;
+        }
+        if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+        {
+            stopping = true;
+            isrunning = false;
+            myAnimator.SetFloat("Blend", 1.5f);
+            StartCoroutine(ThrowTime());
+        }
+
+
+        if(sl_PlayerHealth.getDamage == true && sl_PlayerHealth.currentHealth > 0)
+        {
+            stopRotate = true;
+            myAgent.isStopped = true;
+            throwing = false;
+
+            animName = "GetDmg";
+            myAnimator.SetBool(animName, true);
+
+            StartCoroutine(DamageTime());
+        }
+
+        if(sl_PlayerHealth.playerDead == true)
+        {
+            animName = "isPlayerDead";
+            myAnimator.SetBool(animName, true);
+
+            myAgent.isStopped = true;
+            throwing = false;
+            stopRotate = true;
+
+        }
     }
-
 
     [PunRPC]
     public void p1NickName(string name)
@@ -621,6 +558,15 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         yield return new WaitForSeconds(0.3f);
         //myAnimator.SetFloat("Blend", 0f);
         throwing = false;
+    }
+
+    IEnumerator DamageTime()
+    {
+        yield return new WaitForSeconds(1.0f);
+        myAnimator.SetBool("GetDmg", false);
+
+        myAgent.isStopped = false;
+        stopRotate = false;
     }
 
     IEnumerator waitFoeSec()

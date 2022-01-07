@@ -33,10 +33,16 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     float statDamage;
     float percentage;
 
+    public static bool getDamage;
+    public static bool playerDead;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
         currentHealth = maxHealth;
+
+        getDamage = false;
+        playerDead = false;
     }
 
     public void Update()
@@ -44,8 +50,10 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            playerDead = true;
+            StartCoroutine(PlayerDead());
         }
+
     }
 
     public void FixedUpdate()
@@ -82,6 +90,19 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
         if (PhotonNetwork.IsMasterClient) //make sure it run only once
         {
+            if (other.gameObject.tag == "WaterSpray")
+            {
+                float waterDamage;
+                waterDamage = 1;
+                view.RPC("BulletDamage", RpcTarget.All, waterDamage);
+
+                getDamage = true;
+                StartCoroutine(StopGetDamage());
+            }
+
+
+
+            //bullets
             if (other.gameObject.tag == "P2Bullet")
             {
                 bulletDamage = 1.0f; //original
@@ -93,7 +114,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             //DISHES
             if (other.gameObject.tag == "P2Sinseollo")
             {
-                bulletDamage = 3f;
+                bulletDamage = 3f; 
                 percentage = (bulletDamage * 50f) / 100f;
 
                 GetDamage(bulletDamage, percentage);
@@ -102,7 +123,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BirdNestSoup") //stay in the range deal more dmg per second
             {
-                bulletDamage = 1.0f;
+                bulletDamage = 1.0f; 
                 percentage = (bulletDamage * 50f) / 100f;
 
                 GetDamage(bulletDamage, percentage);
@@ -125,6 +146,10 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     public void GetDamage(float damage, float percent)
     {
+
+        getDamage = true;
+        StartCoroutine(StopGetDamage());
+
         /*
                 //0 - b, 1 - w, 2 - j, 3 - k
         brock - extra 50% damage for all foods & dishes thrown, range -2
@@ -157,16 +182,28 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         {
             damage = damage - percent;
         }
-
         view.RPC("BulletDamage", RpcTarget.All, damage);
+
     }
 
+    IEnumerator StopGetDamage()
+    {
+        yield return new WaitForSeconds(1.0f);
+        getDamage = false;
+    }
 
+    IEnumerator PlayerDead()
+    {
+        yield return new WaitForSeconds(3.0f);
+        currentHealth = 0;
+
+        sl_InventoryManager.ClearAllInList();
+        PhotonNetwork.Destroy(gameObject);
+    }
 
     [PunRPC]
     public void BulletDamage(float damage)
     {
-
         if (currentHealth > 0)
         {
             //currentHealth -= 0.5f; //because it run 2 times, so i cut it half
@@ -174,10 +211,9 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
-                currentHealth = 0;
-                sl_InventoryManager.ClearAllInList();
+                playerDead = true;
+                StartCoroutine(PlayerDead());
 
-                PhotonNetwork.Destroy(gameObject);
 
             }
 
