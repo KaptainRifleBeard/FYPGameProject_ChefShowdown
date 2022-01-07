@@ -301,8 +301,6 @@ public class FoodSpawn : MonoBehaviour
 
         }
 
-        Debug.Log("dish respawn");
-
     }
 
     #endregion

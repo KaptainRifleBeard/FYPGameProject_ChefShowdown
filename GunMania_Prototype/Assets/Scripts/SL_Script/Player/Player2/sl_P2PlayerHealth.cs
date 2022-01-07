@@ -32,7 +32,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
     float percentage;
 
 
-    GameObject bulletToDestroy2;
+    public static bool getDamage2;
+    public static bool player2Dead;
 
     void Start()
     {
@@ -45,7 +46,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
     {
         if (p2currentHealth <= 0)
         {
-            Destroy(gameObject);
+            player2Dead = true;
+            StartCoroutine(Player2Dead());
         }
 
     }
@@ -86,11 +88,23 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         if (!PhotonNetwork.IsMasterClient)
         {
+            if (other.gameObject.tag == "WaterSpray")
+            {
+                float waterDamage;
+                waterDamage = 1;
+                view.RPC("BulletDamage2", RpcTarget.All, waterDamage);
+
+                getDamage2 = true;
+                StartCoroutine(StopGetDamage());
+            }
+
+
+            //bullets
+            percentage = (bulletDamage2 * 50f) / 100f;
+
             if (other.gameObject.tag == "Bullet")
             {
                 bulletDamage2 = 1.0f; //original
-                percentage = (bulletDamage2 * 50f) / 100f;
-
                 GetDamage(bulletDamage2, percentage);
             }
 
@@ -98,17 +112,12 @@ public class sl_P2PlayerHealth : MonoBehaviour
             if (other.gameObject.tag == "Sinseollo")
             {
                 bulletDamage2 = 3f;
-                percentage = (bulletDamage2 * 50f) / 100f;
-
                 GetDamage(bulletDamage2, percentage);
-
             }
 
             if (other.gameObject.tag == "BirdNestSoup") //stay in the range deal more dmg per second
             {
                 bulletDamage2 = 1.0f;
-                percentage = (bulletDamage2 * 50f) / 100f;
-
                 GetDamage(bulletDamage2, percentage);
 
 
@@ -117,8 +126,6 @@ public class sl_P2PlayerHealth : MonoBehaviour
             if (other.gameObject.tag == "BuddhaJumpsOvertheWall" || other.gameObject.tag == "FoxtailMillet" || other.gameObject.tag == "Mukozuke")
             {
                 bulletDamage2 = 2.0f;
-                percentage = (bulletDamage2 * 50f) / 100f;
-
                 GetDamage(bulletDamage2, percentage);
 
             }
@@ -128,6 +135,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     public void GetDamage(float damage, float percent)
     {
+        getDamage2 = true;
+        StartCoroutine(StopGetDamage());
         /*
                  //0 - b, 1 - w, 2 - j, 3 - k
          brock - extra 50% damage for all foods & dishes thrown, range -2
@@ -160,13 +169,23 @@ public class sl_P2PlayerHealth : MonoBehaviour
         {
             damage = damage - percent;
         }
-
-
         view.RPC("BulletDamage2", RpcTarget.All, damage);
 
     }
 
+    IEnumerator StopGetDamage()
+    {
+        yield return new WaitForSeconds(0.5f);
+        getDamage2 = false;
+    }
+    IEnumerator Player2Dead()
+    {
+        yield return new WaitForSeconds(3.0f);
+        p2currentHealth = 0;
 
+        sl_p2InventoryManager.ClearAllInList();
+        PhotonNetwork.Destroy(gameObject);
+    }
 
 
     [PunRPC]
@@ -179,11 +198,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (p2currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
-                p2currentHealth = 0;
-                sl_p2InventoryManager.ClearAllInList();
-
-                PhotonNetwork.Destroy(gameObject);
-
+                player2Dead = true;
+                StartCoroutine(Player2Dead());
             }
 
         }

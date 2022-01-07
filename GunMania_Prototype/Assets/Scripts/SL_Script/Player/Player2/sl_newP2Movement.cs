@@ -23,6 +23,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     public Animator wen_Animator;
     public Animator jiho_Animator;
     public Animator katsuki_Animator;
+    string animName;
 
     bool throwing = false;
 
@@ -59,6 +60,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     public Text p2Name;
     public static string p2CurrentName;
 
+    bool stopRotate;
 
     void Start()
     {
@@ -160,183 +162,131 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
             }
 
-            //ANIMATION PART
-            #region
-            if (view.IsMine && !PhotonNetwork.IsMasterClient && myAnimator != null)
+
+            if (sl_PlayerHealth.currentHealth > 4 && changep2Icon == 1)
             {
-                if (!myAgent.pathPending)
-                {
-                    if (myAgent.remainingDistance <= myAgent.stoppingDistance)
-                    {
-                        isrunning = false;
-                        stopping = true;
-                    }
-                    else
-                    {
-                        stopping = false;
+                wenTrail.SetActive(true);
+                myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
+            }
+            else if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
+            {
+                wenTrail.SetActive(false);
+                myAgent.speed = 40;
+            }
+            else if (changep2Icon == 3)
+            {
+                myAgent.speed = 28;
+            }
+            else
+            {
+                myAgent.speed = 40;
+            }
 
-                    }
+
+
+        }
+
+        //ANIMATION PART
+        #region
+        if (view.IsMine && !PhotonNetwork.IsMasterClient && myAnimator != null)
+        {
+            if (!myAgent.pathPending)
+            {
+                if (myAgent.remainingDistance <= myAgent.stoppingDistance)
+                {
+                    isrunning = false;
+                    stopping = true;
                 }
-
-                //modal change start from here
-                if (changep2Icon == 0)
+                else
                 {
-                    myAnimator = brock_Animator;
-                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
-                    {
-                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
-                    }
-                    else
-                    {
-                        if (!throwing)
-                        {
-                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
-                        }
-                    }
-
-                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
-                    {
-                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
-                        throwing = true;
-                    }
-                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                    {
-                        stopping = true;
-                        isrunning = false;
-
-                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
-                        StartCoroutine(ThrowTime());
-                    }
-                }
-                if (changep2Icon == 1)
-                {
-                    myAnimator = wen_Animator;
-
-                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
-                    {
-                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
-                    }
-                    else
-                    {
-                        if (!throwing)
-                        {
-                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
-                        }
-                    }
-
-                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
-                    {
-                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
-                        throwing = true;
-                    }
-                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                    {
-                        stopping = true;
-                        isrunning = false;
-
-                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
-                        StartCoroutine(ThrowTime());
-                    }
+                    stopping = false;
 
                 }
+            }
 
-                if (changep2Icon == 2)
-                {
-                    myAnimator = jiho_Animator;
-
-                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
-                    {
-                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
-                    }
-                    else
-                    {
-                        if (!throwing)
-                        {
-                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
-                        }
-                    }
-
-                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
-                    {
-                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
-                        throwing = true;
-                    }
-                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                    {
-                        stopping = true;
-                        isrunning = false;
-
-                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
-                        StartCoroutine(ThrowTime());
-                    }
-                }
-
-                if (changep2Icon == 3)
-                {
-                    myAnimator = katsuki_Animator;
-
-                    if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
-                    {
-                        view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
-                    }
-                    else
-                    {
-                        if (!throwing)
-                        {
-                            view.RPC("SyncAnimation2", RpcTarget.All, 0f);
-                        }
-                    }
-
-                    if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
-                    {
-                        view.RPC("SyncAnimation2", RpcTarget.All, 1f);
-                        throwing = true;
-                    }
-                    if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
-                    {
-                        stopping = true;
-                        isrunning = false;
-
-                        view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
-                        StartCoroutine(ThrowTime());
-                    }
-
-                }
+            if (changep2Icon == 0)
+            {
+                myAnimator = brock_Animator;
+                GetAnimation();
 
             }
-            #endregion
+            if (changep2Icon == 1)
+            {
+                myAnimator = wen_Animator;
+                GetAnimation();
 
-        }
+            }
 
-        if (sl_PlayerHealth.currentHealth > 4 && changep2Icon == 1)
-        {
-            wenTrail.SetActive(true);
-            myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
+            if (changep2Icon == 2)
+            {
+                myAnimator = jiho_Animator;
+                GetAnimation();
+
+            }
+
+            if (changep2Icon == 3)
+            {
+                myAnimator = katsuki_Animator;
+                GetAnimation();
+            }
         }
-        else if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
+        
+        #endregion
+    }
+
+
+    public void GetAnimation()
+    {
+        if (isrunning && sl_P2ShootBehavior.p2Shoot == false && !throwing) //run
         {
-            wenTrail.SetActive(false);
-            myAgent.speed = 40;
-        }
-        else if (changep2Icon == 3)
-        {
-            myAgent.speed = 28;
+            view.RPC("SyncAnimation2", RpcTarget.All, 0.5f);
         }
         else
         {
-            myAgent.speed = 40;
+            if (!throwing)
+            {
+                view.RPC("SyncAnimation2", RpcTarget.All, 0f);
+            }
         }
 
+        if (Input.GetMouseButton(0) && sl_P2ShootBehavior.p2Shoot == true && stopping) //aim
+        {
+            view.RPC("SyncAnimation2", RpcTarget.All, 1f);
+            throwing = true;
+        }
+        if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+        {
+            stopping = true;
+            isrunning = false;
+
+            view.RPC("SyncAnimation2", RpcTarget.All, 1.5f);
+            StartCoroutine(ThrowTime());
+        }
+
+
+        if (sl_P2PlayerHealth.getDamage2 == true && sl_P2PlayerHealth.p2currentHealth > 0)
+        {
+            stopRotate = true;
+            myAgent.isStopped = true;
+            throwing = false;
+
+            animName = "GetDmg";
+
+            view.RPC("SyncOtherAnim2", RpcTarget.All, animName);
+            StartCoroutine(DamageTime());
+        }
+
+        if (sl_P2PlayerHealth.player2Dead == true)
+        {
+            animName = "isPlayerDead";
+
+            view.RPC("SyncOtherAnim2", RpcTarget.All, animName);
+            myAgent.isStopped = true;
+            throwing = false;
+            stopRotate = true;
+
+        }
     }
-
-
-    IEnumerator ThrowTime()
-    {
-        yield return new WaitForSeconds(0.3f);
-        //myAnimator.SetFloat("Blend", 0f);
-        throwing = false;
-    }
-
 
     //Animation SYNC
     [PunRPC]
@@ -348,10 +298,36 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     }
 
     [PunRPC]
+    public void SyncOtherAnim2(string name)
+    {
+        myAnimator.SetBool(name, true);
+
+    }
+
+
+    [PunRPC]
     public void p2NickName(string name)
     {
         p2Name.text = name;
     }
+
+
+    IEnumerator ThrowTime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        //myAnimator.SetFloat("Blend", 0f);
+        throwing = false;
+    }
+
+    IEnumerator DamageTime()
+    {
+        yield return new WaitForSeconds(1.0f);
+        myAnimator.SetBool("GetDmg", false);
+
+        myAgent.isStopped = false;
+        stopRotate = false;
+    }
+
 
     //For Character model
     //0.brock, 1.wen, 2.jiho, 3.katsuki
