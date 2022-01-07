@@ -16,6 +16,7 @@ public class sl_SetNickname : MonoBehaviour
     void Start()
     {
         playerNameInput.characterLimit = 7;
+        errorMsg.SetActive(false);
     }
 
     

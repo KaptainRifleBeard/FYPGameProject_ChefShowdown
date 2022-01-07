@@ -28,6 +28,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        erroMsg.SetActive(false);
 
     }
 
