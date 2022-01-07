@@ -114,7 +114,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             //DISHES
             if (other.gameObject.tag == "P2Sinseollo")
             {
-                bulletDamage = 3f; percentage = (bulletDamage * 50f) / 100f;
+                bulletDamage = 3f; 
+                percentage = (bulletDamage * 50f) / 100f;
 
                 GetDamage(bulletDamage, percentage);
 
@@ -122,7 +123,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BirdNestSoup") //stay in the range deal more dmg per second
             {
-                bulletDamage = 1.0f; percentage = (bulletDamage * 50f) / 100f;
+                bulletDamage = 1.0f; 
+                percentage = (bulletDamage * 50f) / 100f;
 
                 GetDamage(bulletDamage, percentage);
 
@@ -131,7 +133,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
             {
-                bulletDamage = 2.0f; percentage = (bulletDamage * 50f) / 100f;
+                bulletDamage = 2.0f;
+                percentage = (bulletDamage * 50f) / 100f;
 
                 GetDamage(bulletDamage, percentage);
 
@@ -143,6 +146,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     public void GetDamage(float damage, float percent)
     {
+
         getDamage = true;
         StartCoroutine(StopGetDamage());
 
@@ -178,7 +182,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         {
             damage = damage - percent;
         }
-        view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
+        view.RPC("BulletDamage", RpcTarget.All, damage);
 
     }
 
