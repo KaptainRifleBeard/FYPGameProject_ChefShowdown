@@ -65,7 +65,7 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "BuddhaJumpsOvertheWall")
         {
             //silence
-            view.RPC("Silence", RpcTarget.All, silenceTime);
+            view.RPC("Silence", RpcTarget.All);
 
             Destroy(other.gameObject);
         }

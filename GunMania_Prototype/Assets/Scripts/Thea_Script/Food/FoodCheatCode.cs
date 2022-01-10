@@ -23,12 +23,42 @@ public class FoodCheatCode : MonoBehaviour
         if (Input.GetKeyDown("1"))
         {
             Instantiate(prefabs[0], playerPOS.position + offset, Quaternion.identity);
-            Debug.Log("apple");
+            
         }
         else if (Input.GetKeyDown("2"))
         {
             Instantiate(prefabs[1], playerPOS.position + offset, Quaternion.identity);
-            Debug.Log("cherry");
+            
+        }
+        else if (Input.GetKeyDown("3"))
+        {
+            Instantiate(prefabs[2], playerPOS.position + offset, Quaternion.identity);
+
+        }
+        else if (Input.GetKeyDown("4"))
+        {
+            Instantiate(prefabs[3], playerPOS.position + offset, Quaternion.identity);
+
+        }
+        else if (Input.GetKeyDown("5"))
+        {
+            Instantiate(prefabs[4], playerPOS.position + offset, Quaternion.identity);
+
+        }
+        else if (Input.GetKeyDown("6"))
+        {
+            Instantiate(prefabs[5], playerPOS.position + offset, Quaternion.identity);
+
+        }
+        else if (Input.GetKeyDown("7"))
+        {
+            Instantiate(prefabs[6], playerPOS.position + offset, Quaternion.identity);
+
+        }
+        else if (Input.GetKeyDown("8"))
+        {
+            Instantiate(prefabs[7], playerPOS.position + offset, Quaternion.identity);
+
         }
     }
 }
