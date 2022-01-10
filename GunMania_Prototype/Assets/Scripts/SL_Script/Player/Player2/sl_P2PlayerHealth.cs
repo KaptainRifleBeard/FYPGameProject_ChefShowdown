@@ -129,7 +129,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "BuddhaJumpsOvertheWall" || other.gameObject.tag == "FoxtailMillet" || other.gameObject.tag == "Mukozuke")
             {
-                /*bulletDamage2 = 2.0f;*/ percentage = (bulletDamage2 * 50f) / 100f;
+                bulletDamage2 = 2.0f; percentage = (bulletDamage2 * 50f) / 100f;
                 GetDamage(bulletDamage2, percentage);
 
             }

@@ -133,7 +133,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
             {
-                //bulletDamage = 2.0f;
+                bulletDamage = 2.0f;
                 percentage = (bulletDamage * 50f) / 100f;
 
                 GetDamage(bulletDamage, percentage);
