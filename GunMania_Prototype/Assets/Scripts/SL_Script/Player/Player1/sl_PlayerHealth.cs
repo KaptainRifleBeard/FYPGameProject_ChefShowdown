@@ -140,6 +140,16 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
+            if (other.gameObject.tag == "Hassun") //heal
+            {
+                currentHealth += 3.0f;
+                if (currentHealth >= 8.0f)
+                {
+                    currentHealth = 8.0f;
+                }
+
+            }
+
         }
 
     }

@@ -133,6 +133,16 @@ public class sl_P2PlayerHealth : MonoBehaviour
                 GetDamage(bulletDamage2, percentage);
 
             }
+
+            if (other.gameObject.tag == "P2Hassun") //heal
+            {
+                p2currentHealth += 3.0f;
+                if (p2currentHealth >= 8.0f)
+                {
+                    p2currentHealth = 8.0f;
+                }
+
+            }
         }
            
     }

@@ -19,6 +19,7 @@ public class DishEffect : MonoBehaviour
 
     public sl_Inventory playerInventory;
 
+    public List<GameObject> dishPrefab;
     public List<GameObject> foodPrefab;
 
     Vector3 offset;
@@ -161,7 +162,7 @@ public class DishEffect : MonoBehaviour
     {
         //sl_PlayerHealth.currentHealth -= 1;
         canPick = false;
-        StartCoroutine(SilenceDeactive(6));
+        StartCoroutine(SilenceDeactive(4));
     }
 
     [PunRPC]
@@ -178,68 +179,84 @@ public class DishEffect : MonoBehaviour
         {
             if (playerInventory.itemList[0].itemHeldNum == 1)
             {
-                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+                Instantiate(dishPrefab[0], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 2)
             {
-                Instantiate(foodPrefab[1], transform.position + offset, Quaternion.identity);
+                Instantiate(dishPrefab[1], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 3)
             {
-                Instantiate(foodPrefab[2], transform.position + offset, Quaternion.identity);
+                Instantiate(dishPrefab[2], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 4)
             {
-                Instantiate(foodPrefab[3], transform.position + offset, Quaternion.identity);
+                Instantiate(dishPrefab[3], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 5)
+            {
+                Instantiate(dishPrefab[4], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 6)
+            {
+                Instantiate(dishPrefab[5], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 7)
+            {
+                Instantiate(dishPrefab[6], transform.position + offset, Quaternion.identity);
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 8)
+            {
+                Instantiate(dishPrefab[7], transform.position + offset, Quaternion.identity);
             }
             //from here is food (12 food)
             else if (playerInventory.itemList[0].itemHeldNum == 10)
             {
-                Instantiate(foodPrefab[4], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 11)
             {
-                Instantiate(foodPrefab[5], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[1], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 12)
             {
-                Instantiate(foodPrefab[6], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[2], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 13)
             {
-                Instantiate(foodPrefab[7], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[3], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 14)
             {
-                Instantiate(foodPrefab[8], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[4], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 15)
             {
-                Instantiate(foodPrefab[9], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[5], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 16)
             {
-                Instantiate(foodPrefab[10], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[6], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 17)
             {
-                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[7], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 18)
             {
-                Instantiate(foodPrefab[11], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[8], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 19)
             {
-                Instantiate(foodPrefab[12], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[9], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 20)
             {
-                Instantiate(foodPrefab[13], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[10], transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 21)
             {
-                Instantiate(foodPrefab[14], transform.position + offset, Quaternion.identity);
+                Instantiate(foodPrefab[11], transform.position + offset, Quaternion.identity);
             }
 
         }

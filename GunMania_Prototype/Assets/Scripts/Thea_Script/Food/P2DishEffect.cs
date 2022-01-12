@@ -17,11 +17,9 @@ public class P2DishEffect : MonoBehaviour
     public static bool p2canMove;
     public static bool p2canPick;
 
-    float timer;
 
     private void Start()
     {
-        timer = 0;
         p2canMove = true;
         p2canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();
@@ -67,7 +65,7 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "BuddhaJumpsOvertheWall")
         {
             //silence
-            view.RPC("Silence", RpcTarget.All, silenceTime);
+            view.RPC("Silence", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
@@ -133,6 +131,6 @@ public class P2DishEffect : MonoBehaviour
     {
         //sl_P2PlayerHealth.p2currentHealth -= 1;
         p2canPick = false;
-        StartCoroutine(SilenceDeactive(6));
+        StartCoroutine(SilenceDeactive(4));
     }
 }
