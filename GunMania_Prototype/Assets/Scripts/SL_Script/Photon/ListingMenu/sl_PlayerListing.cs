@@ -14,6 +14,6 @@ public class sl_PlayerListing : MonoBehaviour
     public void SetPlayerInfo(Player p)
     {
         Player = p;
-        text.text = p.NickName;
+        //text.text = p.NickName;
     }
 }
