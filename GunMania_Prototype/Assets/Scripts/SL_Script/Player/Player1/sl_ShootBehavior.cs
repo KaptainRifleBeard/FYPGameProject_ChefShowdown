@@ -8,13 +8,13 @@ using UnityEngine.AI;
 public class sl_ShootBehavior : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public List<GameObject> dishBullet;
-    public List<GameObject> foodBullet;
-
     public Transform shootPosition;
 
-    public static int bulletCount;
     public sl_Inventory playerInventory;  //set which inventory should be place in
+
+    public static int bulletCount;
+    public static bool p1Shoot = false;
+
 
     //for target indicator
     public GameObject targetIndicatorPrefab;
@@ -22,20 +22,28 @@ public class sl_ShootBehavior : MonoBehaviour
 
     PhotonView view;
     GameObject bullet;
-    int bulletNum;
 
     Vector3 directionShoot;
     Vector3 targetPosition;
 
+    int bulletNum;
+    //for check shoot once
     int count;
     bool spawn;
 
-    public static bool p1Shoot = false;
-    public GameObject[] theFoodToShow;
 
     [Header("Range Indicator")]
     public GameObject maxRange;
     public GameObject minRange;
+
+
+    [Header("Bullet List")]
+    public List<GameObject> dishBullet;
+    public List<GameObject> foodBullet;
+
+    public GameObject[] theFoodToShow;
+
+
 
     void Start()
     {

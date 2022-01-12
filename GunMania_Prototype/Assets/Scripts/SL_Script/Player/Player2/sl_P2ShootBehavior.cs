@@ -7,13 +7,13 @@ using Photon.Realtime;
 public class sl_P2ShootBehavior : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public List<GameObject> dishBullet;
-    public List<GameObject> foodBullet;
-
     public Transform shootPosition;
-    public static int p2bulletCount;
 
     public sl_Inventory playerInventory;  //set which inventory should be place in
+
+    public static int p2bulletCount;
+    public static bool p2Shoot;   
+
 
     //for target indicator
     public GameObject targetIndicatorPrefab;
@@ -21,23 +21,28 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     PhotonView view;
     GameObject bullet;
-    int bulletNum;
+    
 
     Vector3 directionShoot2;
     Vector3 targetPosition2;
 
+    int bulletNum;
     //for check shoot once
     int count;
     bool spawn;
 
-    public static bool p2Shoot;
-
-    public Animator anim;
-    public GameObject[] theFoodToShow;
+  
 
     [Header("Range Indicator")]
     public GameObject maxRange;
     public GameObject minRange;
+
+    [Header("Bullet List")]
+    public List<GameObject> dishBullet;
+    public List<GameObject> foodBullet;
+
+    public GameObject[] theFoodToShow;
+
 
     void Start()
     {
