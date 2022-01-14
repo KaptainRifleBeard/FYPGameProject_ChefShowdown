@@ -11,6 +11,7 @@ public class WaterSpawn : MonoBehaviour
 
     void Start()
     {
+
         InvokeRepeating("SpawnWater", spawnTime, spawnDelay);
 
         //after 5secs stop, wait 10secs spawn again. so its 15secs
@@ -20,5 +21,6 @@ public class WaterSpawn : MonoBehaviour
     {
         Instantiate(spawnee, spawnPos.position, spawnPos.rotation);
     }
+
 
 }
