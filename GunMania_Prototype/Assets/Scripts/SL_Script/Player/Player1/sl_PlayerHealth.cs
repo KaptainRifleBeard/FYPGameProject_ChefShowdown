@@ -30,8 +30,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
 
     float bulletDamage;
-    float statDamage;
     float percentage;
+    bool isDish;
 
     public static bool getDamage;
     public static bool playerDead;
@@ -41,6 +41,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         view = GetComponent<PhotonView>();
         currentHealth = maxHealth;
 
+        isDish = false;
         getDamage = false;
         playerDead = false;
     }
@@ -90,6 +91,11 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
         if (PhotonNetwork.IsMasterClient) //make sure it run only once
         {
+            if (other.gameObject.layer == 6)
+            {
+                isDish = true; //for katsuki to check dish
+            }
+
             if (other.gameObject.tag == "WaterSpray")
             {
                 float waterDamage;
@@ -102,9 +108,10 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
 
 
-            //bullets
+            //*****bullets
             if (other.gameObject.tag == "P2Bullet")
             {
+                isDish = false;
                 bulletDamage = 1.0f; //original
                 percentage = (bulletDamage * 50f) / 100f;
 
@@ -142,11 +149,15 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "Hassun") //heal
             {
+                //rmb to add rpc to sync
+                bulletDamage = 0.0f;
+
                 currentHealth += 3.0f;
                 if (currentHealth >= 8.0f)
                 {
                     currentHealth = 8.0f;
                 }
+                view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
 
             }
 
@@ -165,7 +176,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         brock - extra 50% damage for all foods & dishes thrown, range -2
         wen - take extra 0.5 dmg from everyone, speed + 20
         jiho - deal less 50% damage when attacks, range+2
-        katsuki - take less 50% damage from everyone, speed-30
+        katsuki - dish take less 50% damage from everyone, speed-30
 
         */
 
@@ -175,9 +186,13 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             damage += 0.5f;
         }
 
-        if (SL_newP1Movement.changeModelAnim == 3)//k
+        if (SL_newP1Movement.changeModelAnim == 3 && !isDish)//k
         {
-            damage -= 0.5f;
+            damage -= 0; //if is food, get full damage
+        }
+        if (SL_newP1Movement.changeModelAnim == 3 && isDish)//k
+        {
+            damage = damage - percent;
         }
 
 
@@ -192,6 +207,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         {
             damage = damage - percent;
         }
+
         view.RPC("BulletDamage", RpcTarget.All, damage);
 
     }
@@ -214,6 +230,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     [PunRPC]
     public void BulletDamage(float damage)
     {
+        
+        isDish = false; //everytime run this set to false
         if (currentHealth > 0)
         {
             //currentHealth -= 0.5f; //because it run 2 times, so i cut it half

@@ -28,8 +28,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public Image[] hearts;
 
     float bulletDamage2;
-    float statDamage;
     float percentage;
+    bool isDish;
 
 
     public static bool getDamage2;
@@ -91,6 +91,11 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         if (!PhotonNetwork.IsMasterClient)
         {
+            if (other.gameObject.layer == 6)
+            {
+                isDish = true; //for katsuki to check dish
+            }
+
             if (other.gameObject.tag == "WaterSpray")
             {
                 float waterDamage;
@@ -102,11 +107,11 @@ public class sl_P2PlayerHealth : MonoBehaviour
             }
 
 
-            //bullets
-            
-
+            //****bullets
             if (other.gameObject.tag == "Bullet")
             {
+                isDish = false;
+
                 bulletDamage2 = 1.0f; //original
                 percentage = (bulletDamage2 * 50f) / 100f;
                 GetDamage(bulletDamage2, percentage);
@@ -115,13 +120,15 @@ public class sl_P2PlayerHealth : MonoBehaviour
             //DISHES
             if (other.gameObject.tag == "Sinseollo")
             {
-                bulletDamage2 = 3f; percentage = (bulletDamage2 * 50f) / 100f;
+                bulletDamage2 = 3f; 
+                percentage = (bulletDamage2 * 50f) / 100f;
                 GetDamage(bulletDamage2, percentage);
             }
 
             if (other.gameObject.tag == "BirdNestSoup") //stay in the range deal more dmg per second
             {
-                bulletDamage2 = 1.0f; percentage = (bulletDamage2 * 50f) / 100f;
+                bulletDamage2 = 1.0f; 
+                percentage = (bulletDamage2 * 50f) / 100f;
                 GetDamage(bulletDamage2, percentage);
 
 
@@ -129,18 +136,23 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "BuddhaJumpsOvertheWall" || other.gameObject.tag == "FoxtailMillet" || other.gameObject.tag == "Mukozuke")
             {
-                bulletDamage2 = 2.0f; percentage = (bulletDamage2 * 50f) / 100f;
+                bulletDamage2 = 2.0f; 
+                percentage = (bulletDamage2 * 50f) / 100f;
                 GetDamage(bulletDamage2, percentage);
 
             }
 
             if (other.gameObject.tag == "P2Hassun") //heal
             {
+                //rmb to add rpc to sync
+                bulletDamage2 = 0.0f;
+
                 p2currentHealth += 3.0f;
                 if (p2currentHealth >= 8.0f)
                 {
                     p2currentHealth = 8.0f;
                 }
+                view.RPC("BulletDamage", RpcTarget.All, bulletDamage2);
 
             }
         }
@@ -166,9 +178,13 @@ public class sl_P2PlayerHealth : MonoBehaviour
             damage += 0.5f;
         }
 
-        if (sl_newP2Movement.changep2Icon == 3)//k
+        if (sl_newP2Movement.changep2Icon == 3 && !isDish)//k
         {
-            damage -= 0.5f;
+            damage -= 0; //if is food, get full damage
+        }
+        if (sl_newP2Movement.changep2Icon == 3 && isDish)//k
+        {
+            damage = damage - percent;
         }
 
 
@@ -183,6 +199,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
         {
             damage = damage - percent;
         }
+
+
         view.RPC("BulletDamage2", RpcTarget.All, damage);
 
     }
@@ -205,6 +223,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
     [PunRPC]
     public void BulletDamage2(float damage)
     {
+        isDish = false; //everytime run this set to false
+
         if (p2currentHealth > 0)
         {
             //p2currentHealth -= 0.5f;

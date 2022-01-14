@@ -83,6 +83,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
             {
                 bulletNum = 6;
             }
+
             //from here is food (12 food)
             else if (playerInventory.itemList[0].itemHeldNum == 10)
             {

@@ -14,7 +14,7 @@ public class PlayerRespawn : MonoBehaviour
         //StartCoroutine(OnTriggerEnter());
         //Invoke("OnTriggerEnter", 2);
 
-        player1 = GameObject.FindGameObjectWithTag("Player").transform;
+        //player1 = GameObject.FindGameObjectWithTag("Player").transform;
         //player2 = GameObject.FindGameObjectWithTag("Player2").transform;
 
     }
