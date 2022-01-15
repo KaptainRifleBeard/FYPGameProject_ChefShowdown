@@ -13,15 +13,17 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject confirmFirstCharacter;
     public GameObject confirmSecondCharacter;
 
-    //public GameObject withdrawFirst;
-    //public GameObject withdrawSecond;
-
+    public GameObject withdrawFirst;
+    public GameObject withdrawSecond;
 
     public GameObject[] first_leftRight;
     public GameObject[] second_leftRight;
 
+    public GameObject[] statInfo;
 
     [Space(10)] [Header("Character")]
+    public GameObject[] indicator;
+
     public GameObject[] characterTypes1;
     int p1_firstCharacter;
 
@@ -31,17 +33,48 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
 
     [Space(10)] [Header("Stat Description")]
+    //***** Stat background = Player1 > Models > Main/Tag Model > main/tag Arrow > StatBg
+
     public GameObject[] statDesc1;
     int firstDesc;
 
     public GameObject[] statDesc2;
     int secondDesc;
 
-    //For SYNC RPC
+
+    //check withdraw n confirm
+    bool confirm1;
+    bool confirm2;
+
+    bool withdrawing1;
+    bool withdrawing2;
+
+    int numConfirm1;
+    int numConfirm2;
+
+    int numWithdraw;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
+
+        indicator[0].SetActive(false);
+        indicator[1].SetActive(false);
+
+        statInfo[0].SetActive(true);
+        statInfo[1].SetActive(false);
+
+        //first buttons
+        first_leftRight[0].SetActive(false);
+        first_leftRight[1].SetActive(false);
+
+        confirmFirstCharacter.SetActive(false);
+
+        //second button
+        second_leftRight[0].SetActive(false);
+        second_leftRight[1].SetActive(false);
+
+        confirmSecondCharacter.SetActive(false);
     }
 
 
@@ -49,8 +82,33 @@ public class sl_P1CharacterSelect : MonoBehaviour
     {
         if(view.IsMine)
         {
-            view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+            //view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
         }
+
+
+        //setup
+        #region
+        //first
+        if(confirm1)
+        {
+            numConfirm1 = 1;
+        }
+        else
+        {
+            numConfirm1 = 0;
+        }
+
+        //second
+        if (confirm2)
+        {
+            numConfirm2 = 1;
+        }
+        else
+        {
+            numConfirm2 = 0;
+        }
+
+        #endregion
     }
 
     //Models
@@ -141,22 +199,15 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public void Confirm_FirstCharacter()
     {
         PlayerPrefs.SetInt("p1_firstCharacter", p1_firstCharacter);
-
+       
         //disable first 
         confirmFirstCharacter.SetActive(false);
         first_leftRight[0].SetActive(false);
         first_leftRight[1].SetActive(false);
-        for(int i = 0; i < statDesc1.Length; i++)
-        {
-            statDesc1[i].SetActive(false);
-        }
 
-        //enable second
-        statDesc2[0].SetActive(true);
+        withdrawFirst.SetActive(true);
 
-        confirmSecondCharacter.SetActive(true);
-        second_leftRight[0].SetActive(true);
-        second_leftRight[1].SetActive(true);
+        confirm1 = true;
     }
 
     public void Confirm_SecondCharacter()
@@ -168,7 +219,116 @@ public class sl_P1CharacterSelect : MonoBehaviour
         second_leftRight[0].SetActive(false);
         second_leftRight[1].SetActive(false);
 
+        withdrawSecond.SetActive(true);
+
+        confirm2 = true;
     }
+
+    //click to choose character
+    public void FirstIcon_OnClick()
+    {
+        indicator[0].SetActive(true);
+        indicator[1].SetActive(false);
+
+        statInfo[0].SetActive(true);
+        statInfo[1].SetActive(false);
+
+        if(numConfirm1 == 0)
+        {
+            //first
+            first_leftRight[0].SetActive(true);
+            first_leftRight[1].SetActive(true);
+
+            confirmFirstCharacter.SetActive(true);
+            withdrawFirst.SetActive(false);
+        }
+        else
+        {
+            confirmFirstCharacter.SetActive(false);
+            withdrawFirst.SetActive(true);
+        }
+
+        statDesc1[firstDesc].SetActive(true);
+
+        //second
+        second_leftRight[0].SetActive(false);
+        second_leftRight[1].SetActive(false);
+
+        confirmSecondCharacter.SetActive(false);
+        withdrawSecond.SetActive(false);
+
+        for(int i = 0; i < statDesc2.Length; i++)
+        {
+            statDesc2[i].SetActive(false);
+        }
+
+    }
+
+    public void SecondIcon_OnClick()
+    {
+        indicator[0].SetActive(false);
+        indicator[1].SetActive(true);
+
+        statInfo[0].SetActive(false);
+        statInfo[1].SetActive(true);
+
+        //first
+        first_leftRight[0].SetActive(false);
+        first_leftRight[1].SetActive(false);
+
+        confirmFirstCharacter.SetActive(false);
+        withdrawFirst.SetActive(false);
+
+        for (int i = 0; i < statDesc2.Length; i++)
+        {
+            statDesc1[i].SetActive(false);
+        }
+
+        //second
+        if (numConfirm2 == 0)
+        {
+            //first
+            second_leftRight[0].SetActive(true);
+            second_leftRight[1].SetActive(true);
+
+            confirmSecondCharacter.SetActive(true);
+            withdrawSecond.SetActive(false);
+        }
+        else
+        {
+            confirmSecondCharacter.SetActive(false);
+            withdrawSecond.SetActive(true);
+        }
+        statDesc2[secondDesc].SetActive(true);
+
+    }
+
+
+    //withdraw part
+    public void FirstCharacter_Withdraw()
+    {
+        //button
+        first_leftRight[0].SetActive(true);
+        first_leftRight[1].SetActive(true);
+
+
+        withdrawFirst.SetActive(false);
+        confirmFirstCharacter.SetActive(true);
+    }
+
+    public void SecondCharacter_Withdraw()
+    {
+        //button
+        second_leftRight[0].SetActive(true);
+        second_leftRight[1].SetActive(true);
+
+
+        withdrawSecond.SetActive(false);
+        confirmSecondCharacter.SetActive(true);
+
+
+    }
+
 
     #endregion
 
@@ -321,6 +481,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public void ToTestScene()
     {
         //check p2 is ready
-        
+
     }
 }
