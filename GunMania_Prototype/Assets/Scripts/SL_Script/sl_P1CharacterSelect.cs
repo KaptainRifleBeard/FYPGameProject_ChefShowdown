@@ -16,6 +16,9 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject withdrawFirst;
     public GameObject withdrawSecond;
 
+    public GameObject[] characterButton;
+
+
     public GameObject[] first_leftRight;
     public GameObject[] second_leftRight;
 
@@ -82,14 +85,25 @@ public class sl_P1CharacterSelect : MonoBehaviour
     {
         if(view.IsMine)
         {
-            //view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+            view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        }
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            characterButton[0].SetActive(true);
+            characterButton[1].SetActive(true);
+        }
+        else
+        {
+            characterButton[0].SetActive(false);
+            characterButton[1].SetActive(false);
         }
 
 
         //setup
         #region
         //first
-        if(confirm1)
+        if (confirm1)
         {
             numConfirm1 = 1;
         }
@@ -193,6 +207,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         statDesc2[secondDesc].SetActive(true);
     }
     #endregion
+
 
     //For Buttons
     #region
