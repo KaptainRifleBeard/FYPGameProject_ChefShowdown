@@ -6,12 +6,6 @@ using UnityEngine.UI;
 
 public class sl_SpawnPlayerManager : MonoBehaviour
 {
-    public static int playerNum_p1;
-    public static int playerTagNum_p1;
-
-    public static int playerNum_p2;
-    public static int playerTagNum_p2;
-
     public GameObject p1_mainRightClick;
     public GameObject p2_mainRightClick;
 

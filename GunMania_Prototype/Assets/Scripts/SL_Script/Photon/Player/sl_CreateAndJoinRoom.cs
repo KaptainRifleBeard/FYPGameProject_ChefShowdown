@@ -59,9 +59,9 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log("Room Created");
-        PhotonNetwork.LoadLevel("sl_PlayerRoom");
+        //PhotonNetwork.LoadLevel("sl_PlayerRoom");
+        PhotonNetwork.LoadLevel("sl_NewPlayerRoom");
 
-        //roomCanvas.CurrentRoomCanvas.Show();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
