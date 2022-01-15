@@ -30,6 +30,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
     float bulletDamage2;
     float percentage;
     bool isDish;
+    float molotovTimer;
 
 
     public static bool getDamage2;
@@ -125,14 +126,14 @@ public class sl_P2PlayerHealth : MonoBehaviour
                 GetDamage(bulletDamage2, percentage);
             }
 
-            if (other.gameObject.tag == "BirdNestSoup") //stay in the range deal more dmg per second
-            {
-                bulletDamage2 = 1.0f; 
-                percentage = (bulletDamage2 * 50f) / 100f;
-                GetDamage(bulletDamage2, percentage);
+            //if (other.gameObject.tag == "BirdNestSoup") //stay in the range deal more dmg per second
+            //{
+            //    bulletDamage2 = 1.0f; 
+            //    percentage = (bulletDamage2 * 50f) / 100f;
+            //    GetDamage(bulletDamage2, percentage);
 
 
-            }
+            //}
 
             if (other.gameObject.tag == "BuddhaJumpsOvertheWall" || other.gameObject.tag == "FoxtailMillet" || other.gameObject.tag == "Mukozuke")
             {
@@ -155,8 +156,43 @@ public class sl_P2PlayerHealth : MonoBehaviour
                 view.RPC("BulletDamage", RpcTarget.All, bulletDamage2);
 
             }
+
+            if (other.gameObject.tag == "BirdNestSoup")
+            {
+                bulletDamage2 = 2.0f;
+                percentage = (bulletDamage2 * 50f) / 100f;
+
+                GetDamage(bulletDamage2, percentage);
+            }
         }
            
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "BirdNestSoup")
+        {
+            molotovTimer += Time.deltaTime;
+
+            if (molotovTimer >= 1.0f)
+            {
+                bulletDamage2 = 1.0f;
+                percentage = (bulletDamage2 * 50f) / 100f;
+
+                GetDamage(bulletDamage2, percentage);
+                molotovTimer = 0;
+            }
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "BirdNestSoup")
+        {
+            molotovTimer = 0;
+        }
+
     }
 
     public void GetDamage(float damage, float percent)
