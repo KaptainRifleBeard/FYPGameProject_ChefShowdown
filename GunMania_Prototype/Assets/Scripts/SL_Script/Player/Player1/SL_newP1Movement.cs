@@ -571,19 +571,17 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     IEnumerator waitFoeSec()
     {
-        //****i put default ui's [0] is brock. cuz p1 first pick always show empty
-
         yield return new WaitForSeconds(0.1f);
 
         //Show model when in game
-        if (sl_SpawnPlayerManager.count1 == 1 || sl_SpawnPlayerManager.count1 == 0)//0 is default, 1 is choosen
+        if (sl_P1CharacterSelect.p1_firstCharacter == 0)
         {
             view.RPC("Brock", RpcTarget.All);
             mainCharacter = 1;
             p1CharacterList[0] = brockIcon;
 
         }
-        if (sl_SpawnPlayerManager.count1 == 2)
+        if (sl_P1CharacterSelect.p1_firstCharacter == 1)
         {
             view.RPC("Wen", RpcTarget.All);
             mainCharacter = 2;
@@ -591,7 +589,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
 
         }
-        if (sl_SpawnPlayerManager.count1 == 3)
+        if (sl_P1CharacterSelect.p1_firstCharacter == 2)
         {
             view.RPC("Jiho", RpcTarget.All);
             mainCharacter = 3;
@@ -599,7 +597,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
 
         }
-        if (sl_SpawnPlayerManager.count1 == 4)
+        if (sl_P1CharacterSelect.p1_firstCharacter == 3)
         {
             view.RPC("Katsuki", RpcTarget.All);
             mainCharacter = 4;
@@ -609,26 +607,25 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         }
 
         //tag character
-        //define int for tag character, ****i put -1 because somehow the integer auto +1 when i switch scene, but default 0 no problem
-        if (sl_SpawnPlayerManager.count2 == 0 || sl_SpawnPlayerManager.count2 == 1)
+        if (sl_P1CharacterSelect.p1_secondCharacter == 0)
         {
             tagCharacter = 1;
             p1CharacterList[1] = brockIcon;
 
         }
-        if (sl_SpawnPlayerManager.count2 == 2)
+        if (sl_P1CharacterSelect.p1_secondCharacter == 1)
         {
             tagCharacter = 2;
             p1CharacterList[1] = wenIcon;
 
         }
-        if (sl_SpawnPlayerManager.count2 == 3)
+        if (sl_P1CharacterSelect.p1_secondCharacter == 2)
         {
             tagCharacter = 3;
             p1CharacterList[1] = jihoIcon;
 
         }
-        if (sl_SpawnPlayerManager.count2 == 4)
+        if (sl_P1CharacterSelect.p1_secondCharacter == 3)
         {
             tagCharacter = 4;
             p1CharacterList[1] = katsukiIcon;

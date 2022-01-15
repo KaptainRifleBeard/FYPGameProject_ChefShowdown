@@ -28,16 +28,14 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject[] indicator;
 
     public GameObject[] characterTypes1;
-    int p1_firstCharacter;
+    public static int p1_firstCharacter; //for change model
 
 
     public GameObject[] characterTypes2;
-    int p1_secondCharacter;
+    public static int p1_secondCharacter;
 
 
     [Space(10)] [Header("Stat Description")]
-    //***** Stat background = Player1 > Models > Main/Tag Model > main/tag Arrow > StatBg
-
     public GameObject[] statDesc1;
     int firstDesc;
 
@@ -213,7 +211,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
     #region
     public void Confirm_FirstCharacter()
     {
-        PlayerPrefs.SetInt("p1_firstCharacter", p1_firstCharacter);
+        //PlayerPrefs.SetInt("p1_firstCharacter", p1_firstCharacter);
        
         //disable first 
         confirmFirstCharacter.SetActive(false);
@@ -227,7 +225,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     public void Confirm_SecondCharacter()
     {
-        PlayerPrefs.SetInt("p1_secondCharacter", p1_secondCharacter);
+        //PlayerPrefs.SetInt("p1_secondCharacter", p1_secondCharacter);
 
         //disable second 
         confirmSecondCharacter.SetActive(false);
