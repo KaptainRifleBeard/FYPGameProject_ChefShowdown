@@ -35,41 +35,6 @@ public class sl_SpawnPlayers : MonoBehaviour
 
         }
 
-
-        //if (sl_SpawnPlayerManager.playerNum_p1 == 1)
-        //{
-        //    p1_StartModel = 1;
-        //}
-        //if (sl_SpawnPlayerManager.playerNum_p1 == 2)
-        //{
-        //    p1_StartModel = 2;
-        //}
-        //if (sl_SpawnPlayerManager.playerNum_p1 == 3)
-        //{
-        //    p1_StartModel = 3;
-        //}
-        //if (sl_SpawnPlayerManager.playerNum_p1 == 4)
-        //{
-        //    p1_StartModel = 4;
-        //}
-
-
-        //if (sl_SpawnPlayerManager.playerNum_p2 == 1)
-        //{
-        //    p2_StartModel = 1;
-        //}
-        //if (sl_SpawnPlayerManager.playerNum_p2 == 2)
-        //{
-        //    p2_StartModel = 2;
-        //}
-        //if (sl_SpawnPlayerManager.playerNum_p2 == 3)
-        //{
-        //    p2_StartModel = 3;
-        //}
-        //if (sl_SpawnPlayerManager.playerNum_p2 == 4)
-        //{
-        //    p2_StartModel = 4;
-        //}
     }
 
 }
