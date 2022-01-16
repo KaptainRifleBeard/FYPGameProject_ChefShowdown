@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class sl_P2CharacterSelect : MonoBehaviour
 {
     PhotonView view;
 
-
     [Space(10)]
     [Header("Buttons")]
+
     public GameObject readyButton;
     public GameObject p2_confirmFirstCharacter;
     public GameObject p2_confirmSecondCharacter;
@@ -24,6 +25,8 @@ public class sl_P2CharacterSelect : MonoBehaviour
     public GameObject[] p2_second_leftRight;
 
     public GameObject[] p2_statInfo;
+
+    public GameObject leaveButton;
 
     [Space(10)]
     [Header("Character")]
@@ -40,15 +43,14 @@ public class sl_P2CharacterSelect : MonoBehaviour
     [Space(10)]
     [Header("Stat Description")]
     public GameObject[] p2_statDesc1;
-    int p2_firstDesc;
+    public static int p2_firstDesc;
 
     public GameObject[] p2_statDesc2;
-    int p2_secondDesc;
+    public static int p2_secondDesc;
 
     [Space(10)]
     [Header("Disable P1 Button")]
     public GameObject[] buttonDisable;
-
 
     //check withdraw n confirm
     bool p2_confirm1;
@@ -62,6 +64,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
     int p2_numWithdraw;
 
+    bool resetAll;
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -71,6 +74,8 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
         p2_statInfo[0].SetActive(true);
         p2_statInfo[1].SetActive(false);
+
+        leaveButton.SetActive(true);
 
         //first buttons
         p2_first_leftRight[0].SetActive(false);
@@ -83,6 +88,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
         p2_second_leftRight[1].SetActive(false);
 
         p2_confirmSecondCharacter.SetActive(false);
+
     }
 
 
@@ -94,11 +100,15 @@ public class sl_P2CharacterSelect : MonoBehaviour
             {
                 buttonDisable[i].SetActive(false);
             }
+            leaveButton.SetActive(false) ;
+
         }
         else
         {
             p2_characterButton[0].SetActive(true);
             p2_characterButton[1].SetActive(true);
+
+            leaveButton.SetActive(true);
 
         }
 
@@ -126,6 +136,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
         }
 
         #endregion
+
     }
 
     //Models
@@ -368,6 +379,20 @@ public class sl_P2CharacterSelect : MonoBehaviour
     #endregion
 
 
+    public void p2LeftRoom()
+    {
+        Debug.Log("reset");
+        p2_firstCharacter = 0;
+        p2_secondCharacter = 0;
+
+        p2_firstDesc = 0;
+        p2_secondDesc = 0;
+
+
+        view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter);
+    }
+
+
     //RPC Area
     [PunRPC]
     public void SyncToPlayer1(int c, int c2)  //use int because rpc cannot send gameobject[]
@@ -511,7 +536,5 @@ public class sl_P2CharacterSelect : MonoBehaviour
         }
         #endregion
     }
-
-
 
 }

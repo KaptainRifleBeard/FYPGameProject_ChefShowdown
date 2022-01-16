@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using TMPro;
 
 public class sl_P1CharacterSelect : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject[] characterTypes2;
     public static int p1_secondCharacter;
 
+    public GameObject leaveButton;
 
     [Space(10)] [Header("Stat Description")]
     public GameObject[] statDesc1;
@@ -60,6 +62,8 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     protected int numWithdraw;
 
+
+
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -69,6 +73,8 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         statInfo[0].SetActive(true);
         statInfo[1].SetActive(false);
+
+        leaveButton.SetActive(true);
 
         //first buttons
         first_leftRight[0].SetActive(false);
@@ -90,7 +96,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         {
             characterButton[0].SetActive(true);
             characterButton[1].SetActive(true);
-
+            leaveButton.SetActive(true);
         }
         else
         {
@@ -98,6 +104,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
             {
                 buttonDisable[i].SetActive(false);
             }
+            leaveButton.SetActive(false);
 
         }
 
@@ -125,6 +132,9 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
 
         #endregion
+
+
+       
     }
 
     //Models

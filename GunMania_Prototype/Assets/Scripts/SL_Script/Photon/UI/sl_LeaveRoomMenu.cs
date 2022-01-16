@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class sl_LeaveRoomMenu : MonoBehaviourPunCallbacks
 {
     private sl_RoomCanvases roomCanvas;
+
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
         roomCanvas = canvases;
