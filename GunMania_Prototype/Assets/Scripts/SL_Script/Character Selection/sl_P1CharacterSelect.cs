@@ -97,6 +97,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
             characterButton[0].SetActive(true);
             characterButton[1].SetActive(true);
             leaveButton.SetActive(true);
+
         }
         else
         {
@@ -105,7 +106,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
                 buttonDisable[i].SetActive(false);
             }
             leaveButton.SetActive(false);
-
         }
 
 

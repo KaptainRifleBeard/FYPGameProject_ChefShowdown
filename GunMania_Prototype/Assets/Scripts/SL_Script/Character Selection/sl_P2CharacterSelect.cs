@@ -56,15 +56,13 @@ public class sl_P2CharacterSelect : MonoBehaviour
     bool p2_confirm1;
     bool p2_confirm2;
 
-    bool p2_withdrawing1;
-    bool p2_withdrawing2;
-
     int p2_numConfirm1;
     int p2_numConfirm2;
 
-    int p2_numWithdraw;
+    //check p2 press ready button
+    public static bool p2Ready;
+    public static int p2Num;
 
-    bool resetAll;
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -101,6 +99,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
                 buttonDisable[i].SetActive(false);
             }
             leaveButton.SetActive(false) ;
+            readyButton.SetActive(false);
 
         }
         else
@@ -109,7 +108,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
             p2_characterButton[1].SetActive(true);
 
             leaveButton.SetActive(true);
-
+            readyButton.SetActive(true);
         }
 
         //setup p2
@@ -392,6 +391,24 @@ public class sl_P2CharacterSelect : MonoBehaviour
         view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter);
     }
 
+    //to check p2 is ready
+
+    public void ReadyGame()
+    {
+        readyButton.SetActive(false);
+        p2Ready = true;
+
+        if (p2Ready)
+        {
+            view.RPC("SendReadyGame22", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    public void SendReadyGame22()
+    {
+        p2Num = 1;
+    }
 
     //RPC Area
     [PunRPC]

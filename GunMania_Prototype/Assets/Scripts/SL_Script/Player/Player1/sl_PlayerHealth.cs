@@ -119,6 +119,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             }
 
             //DISHES
+            #region
             if (other.gameObject.tag == "P2Sinseollo")
             {
                 bulletDamage = 3f; 
@@ -160,7 +161,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
                 view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
 
             }
-
+            #endregion
         }
 
     }
