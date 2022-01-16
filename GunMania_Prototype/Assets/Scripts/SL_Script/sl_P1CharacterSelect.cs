@@ -43,6 +43,10 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject[] statDesc2;
     protected int secondDesc;
 
+    [Space(10)]
+    [Header("Disable Buttons")]
+    public GameObject[] buttonDisable;
+
 
     //check withdraw n confirm
     protected bool confirm1;
@@ -82,44 +86,45 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     void Update()
     {
-        //if (PhotonNetwork.IsMasterClient && view.IsMine)
-        //{
-        //    characterButton[0].SetActive(true);
-        //    characterButton[1].SetActive(true);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            characterButton[0].SetActive(true);
+            characterButton[1].SetActive(true);
 
-        //    view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        }
+        else
+        {
+            for (int i = 0; i < buttonDisable.Length; i++)
+            {
+                buttonDisable[i].SetActive(false);
+            }
 
-        //}
-        //else
-        //{
-        //    characterButton[0].SetActive(false);
-        //    characterButton[1].SetActive(false);
-        //}
+        }
 
 
-        ////setup
-        //#region
-        ////first
-        //if (confirm1)
-        //{
-        //    numConfirm1 = 1;
-        //}
-        //else
-        //{
-        //    numConfirm1 = 0;
-        //}
+        //setup
+        #region
+        //first
+        if (confirm1)
+        {
+            numConfirm1 = 1;
+        }
+        else
+        {
+            numConfirm1 = 0;
+        }
 
-        ////second
-        //if (confirm2)
-        //{
-        //    numConfirm2 = 1;
-        //}
-        //else
-        //{
-        //    numConfirm2 = 0;
-        //}
+        //second
+        if (confirm2)
+        {
+            numConfirm2 = 1;
+        }
+        else
+        {
+            numConfirm2 = 0;
+        }
 
-        //#endregion
+        #endregion
     }
 
     //Models

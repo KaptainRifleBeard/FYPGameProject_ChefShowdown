@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class sl_P2CharacterSelect : sl_P1CharacterSelect
+public class sl_P2CharacterSelect : MonoBehaviour
 {
     PhotonView view;
-    [Space(30)]
-    [Header("Player2")]
 
 
     [Space(10)]
@@ -46,6 +44,10 @@ public class sl_P2CharacterSelect : sl_P1CharacterSelect
 
     public GameObject[] p2_statDesc2;
     int p2_secondDesc;
+
+    [Space(10)]
+    [Header("Disable P1 Button")]
+    public GameObject[] buttonDisable;
 
 
     //check withdraw n confirm
@@ -88,48 +90,17 @@ public class sl_P2CharacterSelect : sl_P1CharacterSelect
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            characterButton[0].SetActive(true);
-            characterButton[1].SetActive(true);
-
-            p2_characterButton[0].SetActive(false);
-            p2_characterButton[1].SetActive(false);
-
+            for(int i = 0; i < buttonDisable.Length; i++)
+            {
+                buttonDisable[i].SetActive(false);
+            }
         }
         else
         {
-            characterButton[0].SetActive(false);
-            characterButton[1].SetActive(false);
-
             p2_characterButton[0].SetActive(true);
             p2_characterButton[1].SetActive(true);
 
         }
-
-
-        //setup p1
-        #region
-        //first
-        if (confirm1)
-        {
-            numConfirm1 = 1;
-        }
-        else
-        {
-            numConfirm1 = 0;
-        }
-
-        //second
-        if (confirm2)
-        {
-            numConfirm2 = 1;
-        }
-        else
-        {
-            numConfirm2 = 0;
-        }
-
-        #endregion
-
 
         //setup p2
         #region
@@ -540,6 +511,7 @@ public class sl_P2CharacterSelect : sl_P1CharacterSelect
         }
         #endregion
     }
+
 
 
 }
