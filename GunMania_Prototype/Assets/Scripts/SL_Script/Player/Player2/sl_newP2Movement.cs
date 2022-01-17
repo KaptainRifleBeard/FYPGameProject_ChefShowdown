@@ -442,28 +442,28 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     {
         yield return new WaitForSeconds(0.1f);
         //Show model when in game
-        if (sl_P2CharacterSelect.p2_firstCharacter == 0) 
+        if (sl_SpawnPlayerManager.p2count1 == 1 || sl_SpawnPlayerManager.p2count1 == 0) //0 is default, 1 is choosen
         {
             view.RPC("Brock2", RpcTarget.All);
             mainCharacter = 1;
             p2CharacterList[0] = brockIcon;
 
         }
-        if (sl_P2CharacterSelect.p2_firstCharacter == 1)
+        if (sl_SpawnPlayerManager.p2count1 == 2)
         {
             view.RPC("Wen2", RpcTarget.All);
             mainCharacter = 2;
             p2CharacterList[0] = wenIcon;
 
         }
-        if (sl_P2CharacterSelect.p2_firstCharacter == 2)
+        if (sl_SpawnPlayerManager.p2count1 == 3)
         {
             view.RPC("Jiho2", RpcTarget.All);
             mainCharacter = 3;
             p2CharacterList[0] = jihoIcon;
 
         }
-        if (sl_P2CharacterSelect.p2_firstCharacter == 3)
+        if (sl_SpawnPlayerManager.p2count1 == 4)
         {
             view.RPC("Katsuki2", RpcTarget.All);
             mainCharacter = 4;
@@ -472,25 +472,25 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         }
 
         //tag character
-        if (sl_P2CharacterSelect.p2_secondCharacter == 0)
+        if (sl_SpawnPlayerManager.p2count2 == 0 || sl_SpawnPlayerManager.p2count2 == 1)
         {
             tagCharacter = 1; 
             p2CharacterList[1] = brockIcon;
 
         }
-        if (sl_P2CharacterSelect.p2_secondCharacter == 1)
+        if (sl_SpawnPlayerManager.p2count2 == 2)
         {
             tagCharacter = 2; 
             p2CharacterList[1] = wenIcon;
 
         }
-        if (sl_P2CharacterSelect.p2_secondCharacter == 2)
+        if (sl_SpawnPlayerManager.p2count2 == 3)
         {
             tagCharacter = 3; 
             p2CharacterList[1] = jihoIcon;
 
         }
-        if (sl_P2CharacterSelect.p2_secondCharacter == 3)
+        if (sl_SpawnPlayerManager.p2count2 == 4)
         {
             tagCharacter = 4; 
             p2CharacterList[1] = katsukiIcon;

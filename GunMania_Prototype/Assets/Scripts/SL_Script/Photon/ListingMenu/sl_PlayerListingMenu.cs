@@ -4,7 +4,6 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
-using TMPro;
 
 public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 {
@@ -13,14 +12,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public List<sl_PlayerListing> listings = new List<sl_PlayerListing>();
     private sl_RoomCanvases roomCanvas;
-
-
-    [Space(10)]
-    [Header("When P2 is waiting")]
-    public TextMeshProUGUI waitingText;
-    public GameObject[] blankIcon;
-
-    public GameObject[] thingsToDisable;
 
     public override void OnEnable()
     {
@@ -109,35 +100,4 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
     }
 
-    private void Update()
-    {
-        if (listings.Count == 1)
-        {
-            waitingText.text = "Waiting";
-            blankIcon[0].SetActive(true);
-            blankIcon[1].SetActive(true);
-
-            for (int i = 0; i < thingsToDisable.Length; i++)
-            {
-                thingsToDisable[i].SetActive(false);
-            }
-
-        }
-        else
-        {
-            waitingText.text = "Player 2";
-
-            blankIcon[0].SetActive(false);
-            blankIcon[1].SetActive(false);
-
-            for (int i = 0; i < thingsToDisable.Length; i++)
-            {
-                thingsToDisable[i].SetActive(true);
-            }
-
-
-        }
-
-
-    }
 }
