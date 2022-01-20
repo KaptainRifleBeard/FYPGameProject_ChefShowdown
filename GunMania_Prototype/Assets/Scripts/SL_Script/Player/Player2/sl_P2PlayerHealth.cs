@@ -181,6 +181,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
                 GetDamage(bulletDamage2, percentage);
                 molotovTimer = 0;
+
             }
 
         }

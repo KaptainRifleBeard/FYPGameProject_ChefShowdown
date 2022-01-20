@@ -186,6 +186,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
                 GetDamage(bulletDamage, percentage);
                 molotovTimer = 0;
+
             }
 
         }
