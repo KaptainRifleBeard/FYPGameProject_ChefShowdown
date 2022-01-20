@@ -6,15 +6,11 @@ using Photon.Pun;
 
 public class CatDogPatrol : MonoBehaviour
 {
+    PhotonView view;
     public bool isCat;
-    public List<Transform> catSpawnPoints;
-    public List<Transform> dogSpawnPoints;
     int index;
 
-    public List<Transform> Waypoint1;
-    public List<Transform> Waypoint2;
-    public List<Transform> Waypoint3;
-    public List<Transform> Waypoint4;
+    private Waypoints waypoints1;
 
     private int destPoint = 0;
     private NavMeshAgent agent;
@@ -24,34 +20,49 @@ public class CatDogPatrol : MonoBehaviour
         if(other.gameObject.tag == "Spawn1")
         {
             index = 1;
+            Debug.Log(index);
         }
         else if(other.gameObject.tag == "Spawn2")
         {
             index = 2;
+            Debug.Log(index);
+        }
+
+        if(other.gameObject.tag == "Despawn")
+        {
+            Destroy(gameObject);
+            CatDogSpawn.canSpawn = true;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        view = GetComponent<PhotonView>();
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
 
+        waypoints1 = FindObjectOfType<Waypoints>();
+
         if (index == 1 && isCat)
         {
-            GoToNextPoint1();
+            view.RPC("GoToNextPoint1", RpcTarget.All);
+            //GoToNextPoint1();
         }
         else if (index == 2 && isCat)
         {
-            GoToNextPoint2();
+            view.RPC("GoToNextPoint2", RpcTarget.All);
+            //GoToNextPoint2();
         }
         else if (index == 1 && !isCat)
         {
-            GoToNextPoint3();
+            view.RPC("GoToNextPoint3", RpcTarget.All);
+            //GoToNextPoint3();
         }
         else if (index == 2 && !isCat)
         {
-            GoToNextPoint4();
+            view.RPC("GoToNextPoint4", RpcTarget.All);
+            //GoToNextPoint4();
         }
     }
 
@@ -62,70 +73,78 @@ public class CatDogPatrol : MonoBehaviour
         {
             if(index == 1 && isCat)
             {
-                GoToNextPoint1();
+                view.RPC("GoToNextPoint1", RpcTarget.All);
+                //GoToNextPoint1();
             }
             else if(index == 2 && isCat)
             {
-                GoToNextPoint2();
+                view.RPC("GoToNextPoint2", RpcTarget.All);
+                //GoToNextPoint2();
             }
             else if(index == 1 && !isCat)
             {
-                GoToNextPoint3();
+                view.RPC("GoToNextPoint3", RpcTarget.All);
+                //GoToNextPoint3();
             }
             else if(index == 2 && !isCat)
             {
-                GoToNextPoint4();
+                view.RPC("GoToNextPoint4", RpcTarget.All);
+                //GoToNextPoint4();
             }
             
         }
             
     }
 
-    void GoToNextPoint1()
+    [PunRPC]
+    public void GoToNextPoint1()
     {
-        if (Waypoint1.Count == 0)
+        if (waypoints1.Waypoint1.Count == 0)
         {
             return;
         }
 
-        agent.destination = Waypoint1[destPoint].position;
+        agent.SetDestination (waypoints1.Waypoint1[destPoint].position);
 
-        destPoint = (destPoint + 1) % Waypoint1.Count;
+        destPoint = (destPoint + 1) % waypoints1.Waypoint1.Count;
     }
 
-    void GoToNextPoint2()
+    [PunRPC]
+    public void GoToNextPoint2()
     {
-        if (Waypoint2.Count == 0)
+        if (waypoints1.Waypoint2.Count == 0)
         {
             return;
         }
 
-        agent.destination = Waypoint2[destPoint].position;
+        agent.SetDestination(waypoints1.Waypoint2[destPoint].position);
 
-        destPoint = (destPoint + 1) % Waypoint2.Count;
+        destPoint = (destPoint + 1) % waypoints1.Waypoint2.Count;
     }
 
-    void GoToNextPoint3()
+    [PunRPC]
+    public void GoToNextPoint3()
     {
-        if (Waypoint3.Count == 0)
+        if (waypoints1.Waypoint3.Count == 0)
         {
             return;
         }
 
-        agent.destination = Waypoint3[destPoint].position;
+        agent.SetDestination(waypoints1.Waypoint3[destPoint].position);
 
-        destPoint = (destPoint + 1) % Waypoint3.Count;
+        destPoint = (destPoint + 1) % waypoints1.Waypoint3.Count;
     }
 
-    void GoToNextPoint4()
+    [PunRPC]
+    public void GoToNextPoint4()
     {
-        if (Waypoint4.Count == 0)
+        if (waypoints1.Waypoint4.Count == 0)
         {
             return;
         }
 
-        agent.destination = Waypoint4[destPoint].position;
+        agent.SetDestination(waypoints1.Waypoint4[destPoint].position);
 
-        destPoint = (destPoint + 1) % Waypoint4.Count;
+        destPoint = (destPoint + 1) % waypoints1.Waypoint4.Count;
     }
 }
