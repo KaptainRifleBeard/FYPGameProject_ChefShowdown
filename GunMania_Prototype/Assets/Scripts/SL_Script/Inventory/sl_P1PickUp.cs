@@ -30,7 +30,7 @@ public class sl_P1PickUp : MonoBehaviour
 
             if (DishEffect.canPick)
             {
-                Debug.Log("player collide " + gameObject.name);
+                //Debug.Log("player collide " + gameObject.name);
                 if (sl_ShootBehavior.bulletCount < 2)
                 {
                     prefabNum = Random.Range(0, 2);

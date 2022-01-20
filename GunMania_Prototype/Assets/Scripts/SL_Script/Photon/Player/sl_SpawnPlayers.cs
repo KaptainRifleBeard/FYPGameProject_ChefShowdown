@@ -14,9 +14,6 @@ public class sl_SpawnPlayers : MonoBehaviour
     GameObject player1;
     GameObject player2;
 
-    public static int p1_StartModel;
-    public static int p2_StartModel;
-
     void Start()
     {
         if (PhotonNetwork.IsMasterClient)

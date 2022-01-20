@@ -38,12 +38,6 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     }
 
-    IEnumerator WaitStartGame()
-    {
-        yield return new WaitForSeconds(3.0f);
-        WinLoseCondition();
-    }
-
     void WinLoseCondition()
     {
         CheckIcon_p1();
@@ -59,7 +53,22 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p1 lose
-                winScreen.SetActive(true);
+                if (sl_RematchAndLeave.rematchCount == 2)
+                {
+                    winScreen.SetActive(false);
+
+                    sl_InventoryManager.ClearAllInList();
+                    sl_p2InventoryManager.ClearAllInList();
+
+                    sl_ShootBehavior.bulletCount = 0;
+                    sl_P2ShootBehavior.p2bulletCount = 0;
+
+                    sl_RematchAndLeave.rematchCount = 0;
+                }
+                else
+                {
+                    winScreen.SetActive(true);
+                }
                 StartCoroutine(ToExitScreen());
 
             }
@@ -68,7 +77,23 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p2 win
-                winScreen.SetActive(true);
+                if (sl_RematchAndLeave.rematchCount == 2)
+                {
+                    winScreen.SetActive(false);
+
+                    sl_InventoryManager.ClearAllInList();
+                    sl_p2InventoryManager.ClearAllInList();
+
+                    sl_ShootBehavior.bulletCount = 0;
+                    sl_P2ShootBehavior.p2bulletCount = 0;
+
+                    sl_RematchAndLeave.rematchCount = 0;
+
+                }
+                else
+                {
+                    winScreen.SetActive(true);
+                }
                 StartCoroutine(ToExitScreen());
 
             }
@@ -81,7 +106,23 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p1 win
-                winScreen.SetActive(true);
+                if (sl_RematchAndLeave.rematchCount == 2)
+                {
+                    winScreen.SetActive(false);
+
+                    sl_InventoryManager.ClearAllInList();
+                    sl_p2InventoryManager.ClearAllInList();
+
+                    sl_ShootBehavior.bulletCount = 0;
+                    sl_P2ShootBehavior.p2bulletCount = 0;
+
+                    sl_RematchAndLeave.rematchCount = 0;
+
+                }
+                else
+                {
+                    winScreen.SetActive(true);
+                }
                 StartCoroutine(ToExitScreen());
 
             }
@@ -90,7 +131,23 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p2 lose
-                winScreen.SetActive(true);
+                if (sl_RematchAndLeave.rematchCount == 2)
+                {
+                    winScreen.SetActive(false);
+
+                    sl_InventoryManager.ClearAllInList();
+                    sl_p2InventoryManager.ClearAllInList();
+
+                    sl_ShootBehavior.bulletCount = 0;
+                    sl_P2ShootBehavior.p2bulletCount = 0;
+
+                    sl_RematchAndLeave.rematchCount = 0;
+
+                }
+                else
+                {
+                    winScreen.SetActive(true);
+                }
                 StartCoroutine(ToExitScreen());
 
             }
@@ -98,6 +155,9 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     }
 
+
+    //icon and name
+    #region
     void CheckIcon_p1()
     {
         //for icon
@@ -178,12 +238,18 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         player2Nickname.text = sl_newP2Movement.p2CurrentName;
 
     }
+    #endregion
 
-    IEnumerator ToExitScreen()
+    IEnumerator WaitStartGame()
     {
         yield return new WaitForSeconds(3.0f);
-        SceneManager.LoadScene("sl_BacktoMainMenu");
+        WinLoseCondition();
+    }
 
+    IEnumerator ToExitScreen() //wait for animation
+    {
+        yield return new WaitForSeconds(3.0f);
+        //SceneManager.LoadScene("sl_BacktoMainMenu");
     }
 
 

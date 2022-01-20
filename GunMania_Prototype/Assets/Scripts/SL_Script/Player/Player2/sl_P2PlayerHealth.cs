@@ -52,7 +52,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
             player2Dead = true;
             StartCoroutine(Player2Dead());
         }
-
+        
     }
 
 
@@ -213,7 +213,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
     IEnumerator Player2Dead()
     {
         yield return new WaitForSeconds(3.0f);
-        p2currentHealth = 0;
+        //p2currentHealth = 0;
 
         sl_p2InventoryManager.ClearAllInList();
         PhotonNetwork.Destroy(gameObject);
@@ -227,13 +227,12 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         if (p2currentHealth > 0)
         {
-            //p2currentHealth -= 0.5f;
             p2currentHealth -= damage;
 
             if (p2currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
                 player2Dead = true;
-                StartCoroutine(Player2Dead());
+
             }
 
         }
