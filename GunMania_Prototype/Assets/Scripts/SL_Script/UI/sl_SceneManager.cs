@@ -18,8 +18,9 @@ public class sl_SceneManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.LoadLevel(0);
 
         PhotonNetwork.LeaveRoom(true);
+
         //StartCoroutine(DisconnectAndLoad());
-        
+
     }
 
     IEnumerator DisconnectAndLoad()

@@ -10,11 +10,9 @@ public class sl_RematchAndLeave : MonoBehaviour
 
     //these num is just for ui sync
     int rematchNum; 
-    int leaveNum;
 
     //these is for function
     public static int rematchCount;
-
 
     [Space(10)]
     [Header("P1")]
@@ -24,13 +22,8 @@ public class sl_RematchAndLeave : MonoBehaviour
 
     public GameObject p1_tick;
 
-
     [Space(10)]
     [Header("P2")]
-    public GameObject leaveButton2;
-    public GameObject rematchButton2;
-    public Button p2RButton;
-
     public GameObject p2_tick;
 
     void Start()
@@ -40,52 +33,17 @@ public class sl_RematchAndLeave : MonoBehaviour
         p1_tick.SetActive(false);
         p2_tick.SetActive(false);
 
+        leaveButton.SetActive(true);
+        rematchButton.SetActive(true);
+
         rematchNum = 0;
-        leaveNum = 0;
 
         rematchCount = 0;
-
-
     }
 
 
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            leaveButton.SetActive(true);
-
-            leaveButton2.SetActive(false);
-            rematchButton2.SetActive(false);
-
-            if (leaveNum == 2)
-            {
-                rematchButton.SetActive(false);
-                rematchButton2.SetActive(false);
-            }
-            else
-            {
-                rematchButton.SetActive(true);
-            }
-        }
-        else
-        {
-            leaveButton.SetActive(false);
-            rematchButton.SetActive(false);
-
-            leaveButton2.SetActive(true);
-
-            if (leaveNum == 1)
-            {
-                rematchButton.SetActive(false);
-                rematchButton2.SetActive(false);
-            }
-            else
-            {
-                rematchButton2.SetActive(true);
-            }
-        }
-
         if(rematchCount >= 2)
         {
             StartCoroutine(ResetCount());
@@ -93,52 +51,43 @@ public class sl_RematchAndLeave : MonoBehaviour
 
     }
 
-    public void P1_Rematch()
+    public void Rematch()
     {
-        rematchNum = 1;
         rematchCount += 1;
 
-        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount, leaveNum);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            rematchNum = 1; //for tick ui
+        }
+        else
+        {
+            rematchNum = 2;
+        }
 
+        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount);
     }
 
-    public void P2_Rematch()
+    public void LeaveMatch()
     {
-        rematchNum = 2;
-        rematchCount += 1;
+        rematchCount = 0;
 
-        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount, leaveNum);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            rematchNum = 3; //for tick ui
+        }
+        else
+        {
+            rematchNum = 4;
+        }
 
-    }
-
-
-    public void p1_LeaveMatch()
-    {
-        leaveNum = 1;
-
-        rematchNum = 3;
-        rematchCount -= 1;
-
-        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount, leaveNum);
-
-    }
-
-    public void p2_LeaveMatch()
-    {
-        leaveNum = 2;
-        rematchNum = 4;
-        rematchCount -= 1;
-
-
-        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount, leaveNum);
+        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount);
     }
 
     [PunRPC]
-    public void SyncRematch(int rematch, int rCount, int leave)
+    public void SyncRematch(int rematch, int rCount)
     {
         rematchNum = rematch;
         rematchCount = rCount;
-        leaveNum = leave;
 
         //1, 2 = true; 3, 4 = false
         //rematch
@@ -154,28 +103,21 @@ public class sl_RematchAndLeave : MonoBehaviour
         if (rematch == 3)
         {
             p1_tick.SetActive(false);
+            p1RButton.interactable = false;
         }
         if (rematch == 4)
         {
             p2_tick.SetActive(false);
+            p1RButton.interactable = false;
+
         }
         #endregion
 
-        if(rCount == 2)
+        if (rCount == 2)
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
         }
 
-        if(leave == 1)
-        {
-            p1_tick.SetActive(false);
-            rematchButton2.SetActive(false);
-        }
-        if(leave == 2)
-        {
-            p2_tick.SetActive(false);
-            rematchButton.SetActive(false);
-        }
     }
 
     IEnumerator ResetCount()

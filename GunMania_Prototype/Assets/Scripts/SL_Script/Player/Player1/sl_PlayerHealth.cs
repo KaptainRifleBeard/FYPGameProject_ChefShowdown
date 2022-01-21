@@ -223,7 +223,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         yield return new WaitForSeconds(3.0f);
         //currentHealth = 0;
 
-        sl_InventoryManager.ClearAllInList();
+        //sl_InventoryManager.ClearAllInList();
         //PhotonNetwork.Destroy(gameObject);
     }
 

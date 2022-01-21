@@ -215,7 +215,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         //p2currentHealth = 0;
 
-        sl_p2InventoryManager.ClearAllInList();
+        //sl_p2InventoryManager.ClearAllInList();
         //PhotonNetwork.Destroy(gameObject);
     }
 
