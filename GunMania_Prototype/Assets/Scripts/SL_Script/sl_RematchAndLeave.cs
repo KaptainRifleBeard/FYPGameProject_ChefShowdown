@@ -26,6 +26,10 @@ public class sl_RematchAndLeave : MonoBehaviour
     [Header("P2")]
     public GameObject p2_tick;
 
+    public GameObject p1_checkbox;
+    public GameObject p2_checkbox;
+
+
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -103,11 +107,15 @@ public class sl_RematchAndLeave : MonoBehaviour
         if (rematch == 3)
         {
             p1_tick.SetActive(false);
+            p1_checkbox.SetActive(false);
+
             p1RButton.interactable = false;
         }
         if (rematch == 4)
         {
             p2_tick.SetActive(false);
+            p2_checkbox.SetActive(false);
+
             p1RButton.interactable = false;
 
         }
