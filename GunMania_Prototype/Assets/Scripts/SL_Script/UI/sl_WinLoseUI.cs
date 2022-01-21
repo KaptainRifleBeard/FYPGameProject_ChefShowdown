@@ -53,6 +53,8 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p1 lose
+                winScreen.SetActive(true);
+
                 if (sl_RematchAndLeave.rematchCount == 2)
                 {
                     winScreen.SetActive(false);
@@ -65,18 +67,14 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
                     sl_RematchAndLeave.rematchCount = 0;
                 }
-                else
-                {
-                    winScreen.SetActive(true);
-                }
-                StartCoroutine(ToExitScreen());
-
             }
             else
             {
                 Nickname();
 
                 //p2 win
+                winScreen.SetActive(true);
+
                 if (sl_RematchAndLeave.rematchCount == 2)
                 {
                     winScreen.SetActive(false);
@@ -88,14 +86,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                     sl_P2ShootBehavior.p2bulletCount = 0;
 
                     sl_RematchAndLeave.rematchCount = 0;
-
                 }
-                else
-                {
-                    winScreen.SetActive(true);
-                }
-                StartCoroutine(ToExitScreen());
-
             }
         }
 
@@ -106,6 +97,8 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p1 win
+                winScreen.SetActive(true);
+
                 if (sl_RematchAndLeave.rematchCount == 2)
                 {
                     winScreen.SetActive(false);
@@ -117,20 +110,15 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                     sl_P2ShootBehavior.p2bulletCount = 0;
 
                     sl_RematchAndLeave.rematchCount = 0;
-
                 }
-                else
-                {
-                    winScreen.SetActive(true);
-                }
-                StartCoroutine(ToExitScreen());
-
             }
             else
             {
                 Nickname();
 
                 //p2 lose
+                winScreen.SetActive(true);
+
                 if (sl_RematchAndLeave.rematchCount == 2)
                 {
                     winScreen.SetActive(false);
@@ -142,14 +130,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                     sl_P2ShootBehavior.p2bulletCount = 0;
 
                     sl_RematchAndLeave.rematchCount = 0;
-
                 }
-                else
-                {
-                    winScreen.SetActive(true);
-                }
-                StartCoroutine(ToExitScreen());
-
             }
         }
 

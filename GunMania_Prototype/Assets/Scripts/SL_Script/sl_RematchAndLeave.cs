@@ -20,6 +20,7 @@ public class sl_RematchAndLeave : MonoBehaviour
     [Header("P1")]
     public GameObject leaveButton;
     public GameObject rematchButton;
+    public Button p1RButton;
 
     public GameObject p1_tick;
 
@@ -28,6 +29,7 @@ public class sl_RematchAndLeave : MonoBehaviour
     [Header("P2")]
     public GameObject leaveButton2;
     public GameObject rematchButton2;
+    public Button p2RButton;
 
     public GameObject p2_tick;
 
@@ -52,11 +54,19 @@ public class sl_RematchAndLeave : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             leaveButton.SetActive(true);
-            rematchButton.SetActive(true);
 
             leaveButton2.SetActive(false);
             rematchButton2.SetActive(false);
 
+            if (leaveNum == 2)
+            {
+                rematchButton.SetActive(false);
+                rematchButton2.SetActive(false);
+            }
+            else
+            {
+                rematchButton.SetActive(true);
+            }
         }
         else
         {
@@ -64,8 +74,16 @@ public class sl_RematchAndLeave : MonoBehaviour
             rematchButton.SetActive(false);
 
             leaveButton2.SetActive(true);
-            rematchButton2.SetActive(true);
 
+            if (leaveNum == 1)
+            {
+                rematchButton.SetActive(false);
+                rematchButton2.SetActive(false);
+            }
+            else
+            {
+                rematchButton2.SetActive(true);
+            }
         }
 
         if(rematchCount >= 2)
@@ -80,7 +98,7 @@ public class sl_RematchAndLeave : MonoBehaviour
         rematchNum = 1;
         rematchCount += 1;
 
-        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount);
+        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount, leaveNum);
 
     }
 
@@ -89,39 +107,38 @@ public class sl_RematchAndLeave : MonoBehaviour
         rematchNum = 2;
         rematchCount += 1;
 
-        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount);
+        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount, leaveNum);
 
     }
 
 
     public void p1_LeaveMatch()
     {
+        leaveNum = 1;
+
         rematchNum = 3;
         rematchCount -= 1;
 
-        //delete tick, p2 show only leave button on
-        rematchButton2.SetActive(false);
-
-        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount);
+        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount, leaveNum);
 
     }
 
     public void p2_LeaveMatch()
     {
+        leaveNum = 2;
         rematchNum = 4;
         rematchCount -= 1;
 
-        //delete tick, p2 show only leave button on
-        rematchButton.SetActive(false);
 
-        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount);
+        view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount, leaveNum);
     }
 
     [PunRPC]
-    public void SyncRematch(int rematch, int rCount)
+    public void SyncRematch(int rematch, int rCount, int leave)
     {
         rematchNum = rematch;
         rematchCount = rCount;
+        leaveNum = leave;
 
         //1, 2 = true; 3, 4 = false
         //rematch
@@ -148,12 +165,24 @@ public class sl_RematchAndLeave : MonoBehaviour
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
         }
+
+        if(leave == 1)
+        {
+            p1_tick.SetActive(false);
+            rematchButton2.SetActive(false);
+        }
+        if(leave == 2)
+        {
+            p2_tick.SetActive(false);
+            rematchButton.SetActive(false);
+        }
     }
 
     IEnumerator ResetCount()
     {
         yield return new WaitForSeconds(2.0f);
         rematchCount = 0;
+
     }
 
 }

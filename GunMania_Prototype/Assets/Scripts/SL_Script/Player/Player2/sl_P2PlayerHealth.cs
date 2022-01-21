@@ -216,7 +216,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
         //p2currentHealth = 0;
 
         sl_p2InventoryManager.ClearAllInList();
-        PhotonNetwork.Destroy(gameObject);
+        //PhotonNetwork.Destroy(gameObject);
     }
 
 

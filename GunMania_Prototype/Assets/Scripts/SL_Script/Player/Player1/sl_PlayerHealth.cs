@@ -224,7 +224,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         //currentHealth = 0;
 
         sl_InventoryManager.ClearAllInList();
-        PhotonNetwork.Destroy(gameObject);
+        //PhotonNetwork.Destroy(gameObject);
     }
 
 
