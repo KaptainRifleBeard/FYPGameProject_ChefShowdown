@@ -5,17 +5,23 @@ using UnityEngine.UI;
 
 public class CDBeforeGame : MonoBehaviour
 {
+    public GameObject loadingScreen;
+
     public int CDTime;
     public Text CDDisplay;
 
     private void Start()
     {
+        loadingScreen.SetActive(true);
         StartCoroutine(CDToStart());
     }
 
     IEnumerator CDToStart()
     {
-        while(CDTime > 0)
+        yield return new WaitForSeconds(1f);
+        loadingScreen.SetActive(false);
+
+        while (CDTime > 0)
         {
             CDDisplay.text = CDTime.ToString();
             yield return new WaitForSeconds(1f);
