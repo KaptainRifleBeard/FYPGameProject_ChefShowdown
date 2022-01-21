@@ -18,9 +18,12 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     [Space(10)]
     [Header("When P2 is waiting")]
     public TextMeshProUGUI waitingText;
+
+    public GameObject[] p1_blankIcon;
     public GameObject[] blankIcon;
 
     public GameObject[] thingsToDisable;
+    public GameObject[] disableP2Indicator;
 
     public override void OnEnable()
     {
@@ -110,11 +113,22 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
     }
 
+    public void DisableP2Indicator()
+    {
+
+        for (int i = 0; i < disableP2Indicator.Length; i++)
+        {
+            disableP2Indicator[i].SetActive(false);
+        }
+
+    }
+
     private void Update()
     {
         if (listings.Count == 1)
         {
             waitingText.text = "Waiting";
+
             blankIcon[0].SetActive(true);
             blankIcon[1].SetActive(true);
 
@@ -122,19 +136,20 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             {
                 thingsToDisable[i].SetActive(false);
             }
-
+            DisableP2Indicator();
         }
         else
         {
             waitingText.text = "Player 2";
 
-            blankIcon[0].SetActive(false);
-            blankIcon[1].SetActive(false);
+            //blankIcon[0].SetActive(false);
+            //blankIcon[1].SetActive(false);
 
             for (int i = 0; i < thingsToDisable.Length; i++)
             {
                 thingsToDisable[i].SetActive(true);
             }
+
 
 
         }

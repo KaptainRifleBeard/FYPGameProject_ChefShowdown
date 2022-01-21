@@ -26,7 +26,9 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     public GameObject[] statInfo;
 
-    [Space(10)] [Header("Character")]
+    [Space(10)]
+    [Header("Character")]
+    public GameObject[] blankIcon;
     public GameObject[] indicator;
 
     public GameObject[] characterTypes1;
@@ -62,6 +64,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     protected int numWithdraw;
 
+    int blank; //for sync blank icon
 
 
     void Start()
@@ -71,7 +74,10 @@ public class sl_P1CharacterSelect : MonoBehaviour
         indicator[0].SetActive(false);
         indicator[1].SetActive(false);
 
-        statInfo[0].SetActive(true);
+        blankIcon[0].SetActive(true);
+        blankIcon[1].SetActive(true);
+
+        statInfo[0].SetActive(false);
         statInfo[1].SetActive(false);
 
         leaveButton.SetActive(true);
@@ -87,6 +93,9 @@ public class sl_P1CharacterSelect : MonoBehaviour
         second_leftRight[1].SetActive(false);
 
         confirmSecondCharacter.SetActive(false);
+
+        blank = 0;
+
     }
 
 
@@ -108,6 +117,27 @@ public class sl_P1CharacterSelect : MonoBehaviour
             leaveButton.SetActive(false);
         }
 
+        if(PhotonNetwork.IsMasterClient)
+        {
+            if(blank == 0)
+            {
+                statInfo[0].SetActive(false);
+                statInfo[1].SetActive(false);
+
+            }
+            if (blank == 1)
+            {
+                blankIcon[0].SetActive(false);
+                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+
+            }
+            if (blank == 2)
+            {
+                blankIcon[1].SetActive(false);
+                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+            }
+
+        }
 
         //setup
         #region
@@ -133,8 +163,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         #endregion
 
-
-       
+        
     }
 
     //Models
@@ -145,7 +174,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         p1_firstCharacter = (p1_firstCharacter + 1) % characterTypes1.Length;
         characterTypes1[p1_firstCharacter].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
 
     }
 
@@ -160,7 +189,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         characterTypes1[p1_firstCharacter].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
 
     }
 
@@ -170,7 +199,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         p1_secondCharacter = (p1_secondCharacter + 1) % characterTypes2.Length;
         characterTypes2[p1_secondCharacter].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
 
     }
 
@@ -185,7 +214,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         characterTypes2[p1_secondCharacter].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
     }
     #endregion
 
@@ -198,7 +227,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         firstDesc = (firstDesc + 1) % statDesc1.Length;
         statDesc1[firstDesc].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
 
     }
 
@@ -213,7 +242,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         statDesc1[firstDesc].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
     }
 
     public void Second_NextCharacterStat()
@@ -222,7 +251,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         secondDesc = (secondDesc + 1) % statDesc2.Length;
         statDesc2[secondDesc].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
     }
 
     public void Second_PreviousCharacterStat()
@@ -236,7 +265,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         statDesc2[secondDesc].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
     }
     #endregion
 
@@ -274,13 +303,16 @@ public class sl_P1CharacterSelect : MonoBehaviour
     //click to choose character
     public void FirstIcon_OnClick()
     {
+        blank = 1;
+
         indicator[0].SetActive(true);
         indicator[1].SetActive(false);
 
         statInfo[0].SetActive(true);
         statInfo[1].SetActive(false);
+        
 
-        if(numConfirm1 == 0)
+        if (numConfirm1 == 0)
         {
             //first
             first_leftRight[0].SetActive(true);
@@ -313,6 +345,8 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     public void SecondIcon_OnClick()
     {
+        blank = 2;
+
         indicator[0].SetActive(false);
         indicator[1].SetActive(true);
 
@@ -376,17 +410,15 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     }
 
-
     #endregion
-
 
     //RPC Area
     [PunRPC]
-    public void SyncToPlayer2(int c, int c2)  //use int because rpc cannot send gameobject[]
+    public void SyncToPlayer2(int c, int c2, int b)  //use int because rpc cannot send gameobject[]
     {
         p1_firstCharacter = c;
         p1_secondCharacter = c2;
-
+        blank = b;
 
         //first
         #region
@@ -522,6 +554,31 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         }
         #endregion
+
+        if (b == 0)
+        {
+            
+            blankIcon[0].SetActive(true);
+            blankIcon[1].SetActive(true);
+
+            statInfo[0].SetActive(false);
+            statInfo[1].SetActive(false);
+        }
+        if (b == 1)
+        {
+            blankIcon[0].SetActive(false);
+
+            //enable the stat bg info
+            statInfo[0].SetActive(true);
+            statInfo[1].SetActive(false);
+        }
+        if (b == 2)
+        {
+            blankIcon[1].SetActive(false);
+
+            statInfo[0].SetActive(false);
+            statInfo[1].SetActive(true);
+        }
     }
 
 
