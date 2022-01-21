@@ -1629,7 +1629,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &252649297
 GameObject:
@@ -3353,7 +3353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 116.800125, y: 55.900322}
+  m_AnchoredPosition: {x: 116.800125, y: 41.52}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &524652293
@@ -5476,7 +5476,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1000693896
 MonoBehaviour:
@@ -5534,6 +5534,8 @@ MonoBehaviour:
   - {fileID: 1629206910}
   - {fileID: 1343339897}
   - {fileID: 776017258}
+  nameText: {fileID: 1559765003}
+  nameText2: {fileID: 1372729573}
   buttonDisable:
   - {fileID: 818538601}
   - {fileID: 214534692}
@@ -6250,7 +6252,7 @@ GameObject:
   - component: {fileID: 1196992393}
   - component: {fileID: 1196992392}
   m_Layer: 5
-  m_Name: CurrentRoomCanvas
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6276,7 +6278,7 @@ RectTransform:
   - {fileID: 287189585}
   - {fileID: 737565013}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7600,7 +7602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 133.24011, y: 146.00032}
+  m_AnchoredPosition: {x: 133.24011, y: 139.17}
   m_SizeDelta: {x: 382.6772, y: 102.4352}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1372729573
@@ -8700,7 +8702,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -158, y: 146}
+  m_AnchoredPosition: {x: -158, y: 139.17}
   m_SizeDelta: {x: 382.6772, y: 102.4352}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1559765003
@@ -9907,7 +9909,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1735514982
 MonoBehaviour:
@@ -9965,6 +9967,8 @@ MonoBehaviour:
   - {fileID: 1851567378}
   - {fileID: 1613029269}
   - {fileID: 691687189}
+  nameText: {fileID: 1372729573}
+  nameText2: {fileID: 0}
   buttonDisable:
   - {fileID: 1365388076}
   - {fileID: 604730191}

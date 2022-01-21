@@ -8,6 +8,8 @@ using TMPro;
 
 public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 {
+    PhotonView view;
+
     [SerializeField] private sl_PlayerListing playerListing;
     [SerializeField]private Transform content;
 
@@ -24,6 +26,13 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public GameObject[] thingsToDisable;
     public GameObject[] disableP2Indicator;
+
+    public static int p2IsIn;
+
+    private void Start()
+    {
+        view = GetComponent<PhotonView>();
+    }
 
     public override void OnEnable()
     {
@@ -68,7 +77,7 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     {
         int i = listings.FindIndex(x => x.Player == player);
 
-        if(i != -1)
+        if (i != -1)
         {
             listings[i].SetPlayerInfo(player);
         }
@@ -79,9 +88,10 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             {
                 listing.SetPlayerInfo(player);
                 listings.Add(listing);
+
             }
         }
-        
+
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -137,10 +147,14 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
                 thingsToDisable[i].SetActive(false);
             }
             DisableP2Indicator();
+
+            p2IsIn = 0;
         }
         else
         {
-            waitingText.text = "Player 2";
+
+            waitingText.text = sl_P2CharacterSelect.roomNickname2;
+            p2IsIn = 1;
 
             //blankIcon[0].SetActive(false);
             //blankIcon[1].SetActive(false);
@@ -156,4 +170,5 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
 
     }
+
 }

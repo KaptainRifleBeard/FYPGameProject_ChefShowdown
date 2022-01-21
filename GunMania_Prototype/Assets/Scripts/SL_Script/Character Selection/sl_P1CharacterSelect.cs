@@ -47,6 +47,12 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject[] statDesc2;
     protected int secondDesc;
 
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI nameText2;
+
+    public static string roomNickname;
+
+
     [Space(10)]
     [Header("Disable Buttons")]
     public GameObject[] buttonDisable;
@@ -107,6 +113,11 @@ public class sl_P1CharacterSelect : MonoBehaviour
             characterButton[1].SetActive(true);
             leaveButton.SetActive(true);
 
+            nameText.text = PhotonNetwork.NickName;
+            roomNickname = nameText.text;
+
+            view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
+           
         }
         else
         {
@@ -582,9 +593,10 @@ public class sl_P1CharacterSelect : MonoBehaviour
     }
 
 
-    public void ToTestScene()
+    [PunRPC]
+    public void SyncName_PlayerRoom(string n)
     {
-        //check p2 is ready
-
+        nameText.text = n;
     }
+
 }

@@ -49,6 +49,11 @@ public class sl_P2CharacterSelect : MonoBehaviour
     public GameObject[] p2_statDesc2;
     public static int p2_secondDesc;
 
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI nameText2;
+
+    public static string roomNickname2;
+
     [Space(10)]
     [Header("Disable P1 Button")]
     public GameObject[] buttonDisable;
@@ -100,7 +105,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            for(int i = 0; i < buttonDisable.Length; i++)
+            for (int i = 0; i < buttonDisable.Length; i++)
             {
                 buttonDisable[i].SetActive(false);
             }
@@ -116,6 +121,10 @@ public class sl_P2CharacterSelect : MonoBehaviour
             leaveButton.SetActive(true);
             readyButton.SetActive(true);
 
+            nameText.text = PhotonNetwork.NickName;
+            roomNickname2 = nameText.text;
+
+            view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
         }
 
         if (!PhotonNetwork.IsMasterClient)
@@ -614,6 +623,13 @@ public class sl_P2CharacterSelect : MonoBehaviour
             p2_statInfo[0].SetActive(false);
             p2_statInfo[1].SetActive(true);
         }
+    }
+
+    [PunRPC]
+    public void SyncName_PlayerRoom2(string n, string n2)
+    {
+        nameText.text = n;
+        roomNickname2 = n2; //sync name to playerListingMenu
     }
 
 }
