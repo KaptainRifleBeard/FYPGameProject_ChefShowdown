@@ -31,6 +31,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     float bulletDamage;
     float percentage;
     bool isDish;
+    float molotovTimer;
 
     public static bool getDamage;
     public static bool playerDead;
@@ -118,7 +119,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             }
 
             //DISHES
-            #region
             if (other.gameObject.tag == "P2Sinseollo")
             {
                 bulletDamage = 3f; 
@@ -128,15 +128,15 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
-            if (other.gameObject.tag == "P2BirdNestSoup") //stay in the range deal more dmg per second
-            {
-                bulletDamage = 1.0f; 
-                percentage = (bulletDamage * 50f) / 100f;
+            //if (other.gameObject.tag == "P2BirdNestSoup") //stay in the range deal more dmg per second
+            //{
+            //    bulletDamage = 1.0f; 
+            //    percentage = (bulletDamage * 50f) / 100f;
 
-                GetDamage(bulletDamage, percentage);
+            //    GetDamage(bulletDamage, percentage);
 
 
-            }
+            //}
 
             if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
             {
@@ -160,7 +160,42 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
                 view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
 
             }
-            #endregion
+
+            if (other.gameObject.tag == "P2BirdNestSoup")
+            {
+                bulletDamage = 2.0f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+            }
+        }
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "P2BirdNestSoup")
+        {
+            molotovTimer += Time.deltaTime;
+
+            if (molotovTimer >= 1.0f)
+            {
+                bulletDamage = 1.0f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+                molotovTimer = 0;
+
+            }
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "P2BirdNestSoup")
+        {
+            molotovTimer = 0;
         }
 
     }
