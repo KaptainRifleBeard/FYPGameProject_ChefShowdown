@@ -109,7 +109,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
             {
                 buttonDisable[i].SetActive(false);
             }
-            leaveButton.SetActive(false) ;
+            leaveButton.SetActive(false);
             readyButton.SetActive(false);
 
         }
