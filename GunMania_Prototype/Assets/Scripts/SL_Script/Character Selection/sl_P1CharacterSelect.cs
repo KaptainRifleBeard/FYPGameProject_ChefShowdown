@@ -52,6 +52,10 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     public static string roomNickname;
 
+    [Space(10)]
+    [Header("Player Tick")]
+    public GameObject tick;
+
 
     [Space(10)]
     [Header("Disable Buttons")]
@@ -59,16 +63,9 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
 
     //check withdraw n confirm
-    protected bool confirm1;
-    protected bool confirm2;
+    public static int numConfirm1;
+    public static int numConfirm2;
 
-    protected bool withdrawing1;
-    protected bool withdrawing2;
-
-    protected int numConfirm1;
-    protected int numConfirm2;
-
-    protected int numWithdraw;
 
     int blank; //for sync blank icon
 
@@ -99,6 +96,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         second_leftRight[1].SetActive(false);
 
         confirmSecondCharacter.SetActive(false);
+        tick.SetActive(false);
 
         blank = 0;
 
@@ -139,42 +137,17 @@ public class sl_P1CharacterSelect : MonoBehaviour
             if (blank == 1)
             {
                 blankIcon[0].SetActive(false);
-                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
 
             }
             if (blank == 2)
             {
                 blankIcon[1].SetActive(false);
-                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
             }
 
         }
 
-        //setup
-        #region
-        //first
-        if (confirm1)
-        {
-            numConfirm1 = 1;
-        }
-        else
-        {
-            numConfirm1 = 0;
-        }
-
-        //second
-        if (confirm2)
-        {
-            numConfirm2 = 1;
-        }
-        else
-        {
-            numConfirm2 = 0;
-        }
-
-        #endregion
-
-        
     }
 
     //Models
@@ -185,7 +158,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         p1_firstCharacter = (p1_firstCharacter + 1) % characterTypes1.Length;
         characterTypes1[p1_firstCharacter].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
 
     }
 
@@ -200,7 +173,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         characterTypes1[p1_firstCharacter].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
 
     }
 
@@ -210,7 +183,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         p1_secondCharacter = (p1_secondCharacter + 1) % characterTypes2.Length;
         characterTypes2[p1_secondCharacter].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
 
     }
 
@@ -225,7 +198,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         characterTypes2[p1_secondCharacter].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
     }
     #endregion
 
@@ -238,7 +211,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         firstDesc = (firstDesc + 1) % statDesc1.Length;
         statDesc1[firstDesc].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
 
     }
 
@@ -253,7 +226,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         statDesc1[firstDesc].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
     }
 
     public void Second_NextCharacterStat()
@@ -262,7 +235,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         secondDesc = (secondDesc + 1) % statDesc2.Length;
         statDesc2[secondDesc].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
     }
 
     public void Second_PreviousCharacterStat()
@@ -276,7 +249,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         statDesc2[secondDesc].SetActive(true);
 
-        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank);
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
     }
     #endregion
 
@@ -294,7 +267,9 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         withdrawFirst.SetActive(true);
 
-        confirm1 = true;
+        numConfirm1 = 1;
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
+
     }
 
     public void Confirm_SecondCharacter()
@@ -308,8 +283,43 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         withdrawSecond.SetActive(true);
 
-        confirm2 = true;
+        numConfirm2 = 1;
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
+
     }
+
+    //withdraw part
+    public void FirstCharacter_Withdraw()
+    {
+        //button
+        first_leftRight[0].SetActive(true);
+        first_leftRight[1].SetActive(true);
+
+
+        withdrawFirst.SetActive(false);
+        confirmFirstCharacter.SetActive(true);
+
+        numConfirm1 = 0;
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
+
+    }
+
+    public void SecondCharacter_Withdraw()
+    {
+        //button
+        second_leftRight[0].SetActive(true);
+        second_leftRight[1].SetActive(true);
+
+
+        withdrawSecond.SetActive(false);
+        confirmSecondCharacter.SetActive(true);
+
+        numConfirm2 = 0;
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
+
+    }
+
+
 
     //click to choose character
     public void FirstIcon_OnClick()
@@ -395,41 +405,17 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     }
 
-
-    //withdraw part
-    public void FirstCharacter_Withdraw()
-    {
-        //button
-        first_leftRight[0].SetActive(true);
-        first_leftRight[1].SetActive(true);
-
-
-        withdrawFirst.SetActive(false);
-        confirmFirstCharacter.SetActive(true);
-    }
-
-    public void SecondCharacter_Withdraw()
-    {
-        //button
-        second_leftRight[0].SetActive(true);
-        second_leftRight[1].SetActive(true);
-
-
-        withdrawSecond.SetActive(false);
-        confirmSecondCharacter.SetActive(true);
-
-
-    }
-
     #endregion
 
     //RPC Area
     [PunRPC]
-    public void SyncToPlayer2(int c, int c2, int b)  //use int because rpc cannot send gameobject[]
+    public void SyncToPlayer2(int c, int c2, int b, int n, int n2)  //use int because rpc cannot send gameobject[]
     {
         p1_firstCharacter = c;
         p1_secondCharacter = c2;
         blank = b;
+        numConfirm1 = n;
+        numConfirm2 = n2;
 
         //first
         #region
@@ -566,6 +552,8 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         #endregion
 
+        //blank icon
+        #region
         if (b == 0)
         {
             
@@ -590,6 +578,18 @@ public class sl_P1CharacterSelect : MonoBehaviour
             statInfo[0].SetActive(false);
             statInfo[1].SetActive(true);
         }
+        #endregion
+
+        //show tick
+        if (n == 1 && n2 == 1)
+        {
+            tick.SetActive(true);
+        }
+        else
+        {
+            tick.SetActive(false);
+        }
+
     }
 
 
