@@ -46,23 +46,23 @@ public class CatDogPatrol : MonoBehaviour
 
         if (index == 1 && isCat)
         {
-            view.RPC("GoToNextPoint1", RpcTarget.All);
-            //GoToNextPoint1();
+            //view.RPC("GoToNextPoint1", RpcTarget.All);
+            GoToNextPoint1();
         }
         else if (index == 2 && isCat)
         {
-            view.RPC("GoToNextPoint2", RpcTarget.All);
-            //GoToNextPoint2();
+            //view.RPC("GoToNextPoint2", RpcTarget.All);
+            GoToNextPoint2();
         }
         else if (index == 1 && !isCat)
         {
-            view.RPC("GoToNextPoint3", RpcTarget.All);
-            //GoToNextPoint3();
+            //view.RPC("GoToNextPoint3", RpcTarget.All);
+            GoToNextPoint3();
         }
         else if (index == 2 && !isCat)
         {
-            view.RPC("GoToNextPoint4", RpcTarget.All);
-            //GoToNextPoint4();
+            //view.RPC("GoToNextPoint4", RpcTarget.All);
+            GoToNextPoint4();
         }
     }
 
@@ -73,23 +73,23 @@ public class CatDogPatrol : MonoBehaviour
         {
             if(index == 1 && isCat)
             {
-                view.RPC("GoToNextPoint1", RpcTarget.All);
-                //GoToNextPoint1();
+                //view.RPC("GoToNextPoint1", RpcTarget.All);
+                GoToNextPoint1();
             }
             else if(index == 2 && isCat)
             {
-                view.RPC("GoToNextPoint2", RpcTarget.All);
-                //GoToNextPoint2();
+                //view.RPC("GoToNextPoint2", RpcTarget.All);
+                GoToNextPoint2();
             }
             else if(index == 1 && !isCat)
             {
-                view.RPC("GoToNextPoint3", RpcTarget.All);
-                //GoToNextPoint3();
+                //view.RPC("GoToNextPoint3", RpcTarget.All);
+                GoToNextPoint3();
             }
             else if(index == 2 && !isCat)
             {
-                view.RPC("GoToNextPoint4", RpcTarget.All);
-                //GoToNextPoint4();
+                //view.RPC("GoToNextPoint4", RpcTarget.All);
+                GoToNextPoint4();
             }
             
         }
