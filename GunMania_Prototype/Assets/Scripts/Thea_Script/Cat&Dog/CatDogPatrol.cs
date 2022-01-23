@@ -20,18 +20,26 @@ public class CatDogPatrol : MonoBehaviour
         if(other.gameObject.tag == "Spawn1")
         {
             index = 1;
-            Debug.Log(index);
+            //Debug.Log(index);
         }
         else if(other.gameObject.tag == "Spawn2")
         {
             index = 2;
-            Debug.Log(index);
+            //Debug.Log(index);
         }
 
         if(other.gameObject.tag == "Despawn")
         {
             Destroy(gameObject);
             CatDogSpawn.canSpawn = true;
+            if(isCat)
+            {
+               CatDogSpawn.catCanSpawn = true;
+            }
+            else
+            {
+                CatDogSpawn.dogCanSpawn = true;
+            }
         }
     }
 
