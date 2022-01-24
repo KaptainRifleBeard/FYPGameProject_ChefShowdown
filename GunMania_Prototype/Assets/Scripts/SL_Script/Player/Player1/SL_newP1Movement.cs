@@ -571,7 +571,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     IEnumerator waitFoeSec()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
 
         //Show model when in game
         if (sl_P1CharacterSelect.p1_firstCharacter == 0)
@@ -636,7 +636,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     IEnumerator WhenGameStart()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f); //add more 1sec for ui loading
         startTheGame = true;
 
         p1CurrentName = p1Name.text;

@@ -28,7 +28,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     public Image[] hearts;
 
-
     float bulletDamage;
     float percentage;
     bool isDish;
@@ -49,12 +48,12 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     public void Update()
     {
-
         if (currentHealth <= 0)
         {
             playerDead = true;
             StartCoroutine(PlayerDead());
         }
+
 
     }
 
@@ -257,16 +256,16 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     IEnumerator PlayerDead()
     {
         yield return new WaitForSeconds(3.0f);
-        currentHealth = 0;
+        //currentHealth = 0;
 
-        sl_InventoryManager.ClearAllInList();
-        PhotonNetwork.Destroy(gameObject);
+        //sl_InventoryManager.ClearAllInList();
+        //PhotonNetwork.Destroy(gameObject);
     }
+
 
     [PunRPC]
     public void BulletDamage(float damage)
     {
-        
         isDish = false; //everytime run this set to false
         if (currentHealth > 0)
         {
@@ -276,9 +275,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             if (currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
                 playerDead = true;
-                StartCoroutine(PlayerDead());
-
-
             }
 
         }
