@@ -41,6 +41,11 @@ public class CatDogPatrol : MonoBehaviour
                 CatDogSpawn.dogCanSpawn = true;
             }
         }
+
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Player")
+        {
+            agent.speed = 35;
+        }
     }
 
     // Start is called before the first frame update
