@@ -150,31 +150,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
         }
 
-        //setup p2
-        #region
-
-        //first
-        //if (p2_confirm1)
-        //{
-        //    p2_numConfirm1 = 1;
-        //}
-        //else
-        //{
-        //    p2_numConfirm1 = 0;
-        //}
-
-        ////second
-        //if (p2_confirm2)
-        //{
-        //    p2_numConfirm2 = 1;
-        //}
-        //else
-        //{
-        //    p2_numConfirm2 = 0;
-        //}
-
-        #endregion
-
     }
 
     //Models
