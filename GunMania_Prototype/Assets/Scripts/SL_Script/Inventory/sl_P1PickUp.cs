@@ -44,8 +44,6 @@ public class sl_P1PickUp : MonoBehaviour
                     {
                         isPicked = true;
                         AddNewItem();
-
-
                     }
                     else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
                     {
@@ -120,14 +118,14 @@ public class sl_P1PickUp : MonoBehaviour
     [PunRPC]
     public void AddFood(int i, bool pick)
     {
-        gameObject.SetActive(false);
-        Invoke("StartCountdown", 3);  //wait for 6 sec
-
         prefabNum = i;
         pickup = pick;
 
         if(pick)
         {
+            gameObject.SetActive(false);
+            Invoke("StartCountdown", 3);  //wait for 6 sec
+
             if (i == 0)
             {
                 num = 1;
@@ -143,8 +141,6 @@ public class sl_P1PickUp : MonoBehaviour
                 num = 3;
             }
         }
-        
-
     }
 
     [PunRPC]

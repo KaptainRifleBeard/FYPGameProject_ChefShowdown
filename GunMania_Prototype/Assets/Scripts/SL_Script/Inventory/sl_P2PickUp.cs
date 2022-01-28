@@ -15,7 +15,9 @@ public class sl_P2PickUp : MonoBehaviour
 
     public int prefabNum;
     public GameObject[] foodPrefab;
+
     int num;
+    bool pickup; //stop pick when is full
 
     void Start()
     {
@@ -29,13 +31,11 @@ public class sl_P2PickUp : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player2"))
         {
-            
-
             if (P2DishEffect.p2canPick)
             {
-                Debug.Log("player2 collide " + gameObject.name);
                 if (sl_P2ShootBehavior.p2bulletCount < 2)
                 {
+                    pickup = true;
                     prefabNum = Random.Range(0, 2);
 
                     view.RPC("AddFood2", RpcTarget.All, prefabNum);
@@ -57,6 +57,11 @@ public class sl_P2PickUp : MonoBehaviour
                         view.RPC("DestroyDish2", RpcTarget.All);
 
                     }
+                }
+                else
+                {
+                    pickup = false;
+                    view.RPC("AddFood2", RpcTarget.All, prefabNum, pickup);
                 }
             }
 
@@ -125,25 +130,31 @@ public class sl_P2PickUp : MonoBehaviour
 
 
     [PunRPC]
-    public void AddFood2(int i)
+    public void AddFood2(int i, bool pick)
     {
-        gameObject.SetActive(false);
-        Invoke("StartCountdown2", 3);  //wait for 6 sec
-
         prefabNum = i;
-        if (i == 0)
-        {
-            num = 1;
-        }
+        pickup = pick;
 
-        if (i == 1)
+        if(pick)
         {
-            num = 2;
-        }
+            gameObject.SetActive(false);
+            Invoke("StartCountdown2", 3);  //wait for 6 sec
 
-        if (i == 2)
-        {
-            num = 3;
+            if (i == 0)
+            {
+                num = 1;
+            }
+
+            if (i == 1)
+            {
+                num = 2;
+            }
+
+            if (i == 2)
+            {
+                num = 3;
+            }
+
         }
 
     }
