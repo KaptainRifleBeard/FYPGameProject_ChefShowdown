@@ -571,7 +571,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     IEnumerator waitFoeSec()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         //Show model when in game
         if (sl_P1CharacterSelect.p1_firstCharacter == 0)
