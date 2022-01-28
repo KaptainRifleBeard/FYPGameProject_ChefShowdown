@@ -48,7 +48,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     public void Update()
     {
-        if (p2currentHealth <= 0)
+        if (p2currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
         {
             player2Dead = true;
             StartCoroutine(Player2Dead());

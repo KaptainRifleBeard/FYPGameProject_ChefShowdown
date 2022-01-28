@@ -19,6 +19,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject withdrawSecond;
 
     public GameObject[] characterButton;
+    public Button[] disableConfirmButtn;
 
 
     public GameObject[] first_leftRight;
@@ -31,7 +32,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject[] blankIcon;
     public GameObject[] indicator;
 
-    public GameObject[] characterTypes1;
+    public List<GameObject> characterTypes1;
     public static int p1_firstCharacter; //for change model
 
 
@@ -100,6 +101,12 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         blank = 0;
 
+
+        //to check same character select, set 1 when start.
+        //Then when onlick 2ndIcon for first time, set back to 0
+        //p1_firstCharacter = 1;
+        //p1_secondCharacter = 2;
+
     }
 
 
@@ -114,8 +121,12 @@ public class sl_P1CharacterSelect : MonoBehaviour
             nameText.text = PhotonNetwork.NickName;
             roomNickname = nameText.text;
 
+            if(numConfirm1 == 1 || numConfirm2 == 1)
+            {
+                CheckSelectedCharacter();
+            }
+
             view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
-           
         }
         else
         {
@@ -155,7 +166,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public void First_NextCharacter()
     {
         characterTypes1[p1_firstCharacter].SetActive(false);
-        p1_firstCharacter = (p1_firstCharacter + 1) % characterTypes1.Length;
+        p1_firstCharacter = (p1_firstCharacter + 1) % characterTypes1.Count;
         characterTypes1[p1_firstCharacter].SetActive(true);
 
         view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
@@ -169,7 +180,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         if(p1_firstCharacter < 0)
         {
-            p1_firstCharacter += characterTypes1.Length;
+            p1_firstCharacter += characterTypes1.Count;
         }
         characterTypes1[p1_firstCharacter].SetActive(true);
 
@@ -200,6 +211,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
     }
+
     #endregion
 
 
@@ -258,8 +270,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
     #region
     public void Confirm_FirstCharacter()
     {
-        //PlayerPrefs.SetInt("p1_firstCharacter", p1_firstCharacter);
-       
         //disable first 
         confirmFirstCharacter.SetActive(false);
         first_leftRight[0].SetActive(false);
@@ -274,8 +284,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     public void Confirm_SecondCharacter()
     {
-        //PlayerPrefs.SetInt("p1_secondCharacter", p1_secondCharacter);
-
         //disable second 
         confirmSecondCharacter.SetActive(false);
         second_leftRight[0].SetActive(false);
@@ -320,7 +328,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
     }
 
 
-
     //click to choose character
     public void FirstIcon_OnClick()
     {
@@ -329,7 +336,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
         indicator[0].SetActive(true);
         indicator[1].SetActive(false);
 
-        statInfo[0].SetActive(true);
+        statInfo[0].SetActive(true);    
         statInfo[1].SetActive(false);
         
 
@@ -366,6 +373,8 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     public void SecondIcon_OnClick()
     {
+        //p1_secondCharacter = 0;
+
         blank = 2;
 
         indicator[0].SetActive(false);
@@ -395,6 +404,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
             confirmSecondCharacter.SetActive(true);
             withdrawSecond.SetActive(false);
+
         }
         else
         {
@@ -405,7 +415,29 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
     }
 
+
     #endregion
+
+    //check is same character
+    public void CheckSelectedCharacter()
+    {
+        if (p1_firstCharacter == p1_secondCharacter)
+        {
+            if(numConfirm1 == 1 || numConfirm2 == 1)
+            {
+                disableConfirmButtn[1].interactable = false;
+                disableConfirmButtn[0].interactable = false;
+
+            }
+
+        }
+        else
+        {
+            disableConfirmButtn[0].interactable = true;
+            disableConfirmButtn[1].interactable = true;
+        }
+    }
+
 
     //RPC Area
     [PunRPC]

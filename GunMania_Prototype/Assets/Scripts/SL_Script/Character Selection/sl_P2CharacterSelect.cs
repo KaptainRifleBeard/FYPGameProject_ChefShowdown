@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using UnityEngine.UI;
 
 public class sl_P2CharacterSelect : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
     public GameObject p2_withdrawSecond;
 
     public GameObject[] p2_characterButton;
+    public Button[] disableConfirmButtn;
 
 
     public GameObject[] p2_first_leftRight;
@@ -124,6 +126,11 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
             nameText.text = PhotonNetwork.NickName;
             roomNickname2 = nameText.text;
+
+            if (p2_numConfirm1 == 1 || p2_numConfirm2 == 1)
+            {
+                CheckSelectedCharacter();
+            }
 
             view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
         }
@@ -361,6 +368,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
     public void p2_SecondIcon_OnClick()
     {
+        //p2_secondCharacter = 0;
         blank = 2;
 
         p2_indicator[0].SetActive(false);
@@ -403,6 +411,26 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
 
     #endregion
+
+    //check is same character
+    public void CheckSelectedCharacter()
+    {
+        if (p2_firstCharacter == p2_secondCharacter)
+        {
+            if (p2_numConfirm1 == 1 || p2_numConfirm2 == 1)
+            {
+                disableConfirmButtn[1].interactable = false;
+                disableConfirmButtn[0].interactable = false;
+
+            }
+
+        }
+        else
+        {
+            disableConfirmButtn[0].interactable = true;
+            disableConfirmButtn[1].interactable = true;
+        }
+    }
 
 
     public void p2LeftRoom()

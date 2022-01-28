@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class sl_MatchCountdown : MonoBehaviour
 {
-    public float timeRemaining = 300; //5*60 = 300
+    public static float timeRemaining = 300; //5*60 = 300
 
     public bool timerIsRunning = false;
     public Text timeText;
