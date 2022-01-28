@@ -440,30 +440,31 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
     IEnumerator waitFoeSec()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
+
         //Show model when in game
-        if (sl_SpawnPlayerManager.p2count1 == 1 || sl_SpawnPlayerManager.p2count1 == 0) //0 is default, 1 is choosen
+        if (sl_P2CharacterSelect.p2_firstCharacter == 0)
         {
             view.RPC("Brock2", RpcTarget.All);
             mainCharacter = 1;
             p2CharacterList[0] = brockIcon;
 
         }
-        if (sl_SpawnPlayerManager.p2count1 == 2)
+        if (sl_P2CharacterSelect.p2_firstCharacter == 1)
         {
             view.RPC("Wen2", RpcTarget.All);
             mainCharacter = 2;
             p2CharacterList[0] = wenIcon;
 
         }
-        if (sl_SpawnPlayerManager.p2count1 == 3)
+        if (sl_P2CharacterSelect.p2_firstCharacter == 2)
         {
             view.RPC("Jiho2", RpcTarget.All);
             mainCharacter = 3;
             p2CharacterList[0] = jihoIcon;
 
         }
-        if (sl_SpawnPlayerManager.p2count1 == 4)
+        if (sl_P2CharacterSelect.p2_firstCharacter == 3)
         {
             view.RPC("Katsuki2", RpcTarget.All);
             mainCharacter = 4;
@@ -472,25 +473,25 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         }
 
         //tag character
-        if (sl_SpawnPlayerManager.p2count2 == 0 || sl_SpawnPlayerManager.p2count2 == 1)
+        if (sl_P2CharacterSelect.p2_secondCharacter == 0)
         {
             tagCharacter = 1; 
             p2CharacterList[1] = brockIcon;
 
         }
-        if (sl_SpawnPlayerManager.p2count2 == 2)
+        if (sl_P2CharacterSelect.p2_secondCharacter == 1)
         {
             tagCharacter = 2; 
             p2CharacterList[1] = wenIcon;
 
         }
-        if (sl_SpawnPlayerManager.p2count2 == 3)
+        if (sl_P2CharacterSelect.p2_secondCharacter == 2)
         {
             tagCharacter = 3; 
             p2CharacterList[1] = jihoIcon;
 
         }
-        if (sl_SpawnPlayerManager.p2count2 == 4)
+        if (sl_P2CharacterSelect.p2_secondCharacter == 3)
         {
             tagCharacter = 4; 
             p2CharacterList[1] = katsukiIcon;

@@ -18,7 +18,7 @@ public class CDBeforeGame : MonoBehaviour
 
     IEnumerator CDToStart()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.0f);
         loadingScreen.SetActive(false);
 
         while (CDTime > 0)
