@@ -20,18 +20,31 @@ public class CatDogPatrol : MonoBehaviour
         if(other.gameObject.tag == "Spawn1")
         {
             index = 1;
-            Debug.Log(index);
+            //Debug.Log(index);
         }
         else if(other.gameObject.tag == "Spawn2")
         {
             index = 2;
-            Debug.Log(index);
+            //Debug.Log(index);
         }
 
         if(other.gameObject.tag == "Despawn")
         {
             Destroy(gameObject);
             CatDogSpawn.canSpawn = true;
+            if(isCat)
+            {
+               CatDogSpawn.catCanSpawn = true;
+            }
+            else
+            {
+                CatDogSpawn.dogCanSpawn = true;
+            }
+        }
+
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Player")
+        {
+            agent.speed = 35;
         }
     }
 
@@ -46,23 +59,23 @@ public class CatDogPatrol : MonoBehaviour
 
         if (index == 1 && isCat)
         {
-            view.RPC("GoToNextPoint1", RpcTarget.All);
-            //GoToNextPoint1();
+            //view.RPC("GoToNextPoint1", RpcTarget.All);
+            GoToNextPoint1();
         }
         else if (index == 2 && isCat)
         {
-            view.RPC("GoToNextPoint2", RpcTarget.All);
-            //GoToNextPoint2();
+            //view.RPC("GoToNextPoint2", RpcTarget.All);
+            GoToNextPoint2();
         }
         else if (index == 1 && !isCat)
         {
-            view.RPC("GoToNextPoint3", RpcTarget.All);
-            //GoToNextPoint3();
+            //view.RPC("GoToNextPoint3", RpcTarget.All);
+            GoToNextPoint3();
         }
         else if (index == 2 && !isCat)
         {
-            view.RPC("GoToNextPoint4", RpcTarget.All);
-            //GoToNextPoint4();
+            //view.RPC("GoToNextPoint4", RpcTarget.All);
+            GoToNextPoint4();
         }
     }
 
@@ -73,23 +86,23 @@ public class CatDogPatrol : MonoBehaviour
         {
             if(index == 1 && isCat)
             {
-                view.RPC("GoToNextPoint1", RpcTarget.All);
-                //GoToNextPoint1();
+                //view.RPC("GoToNextPoint1", RpcTarget.All);
+                GoToNextPoint1();
             }
             else if(index == 2 && isCat)
             {
-                view.RPC("GoToNextPoint2", RpcTarget.All);
-                //GoToNextPoint2();
+                //view.RPC("GoToNextPoint2", RpcTarget.All);
+                GoToNextPoint2();
             }
             else if(index == 1 && !isCat)
             {
-                view.RPC("GoToNextPoint3", RpcTarget.All);
-                //GoToNextPoint3();
+                //view.RPC("GoToNextPoint3", RpcTarget.All);
+                GoToNextPoint3();
             }
             else if(index == 2 && !isCat)
             {
-                view.RPC("GoToNextPoint4", RpcTarget.All);
-                //GoToNextPoint4();
+                //view.RPC("GoToNextPoint4", RpcTarget.All);
+                GoToNextPoint4();
             }
             
         }
