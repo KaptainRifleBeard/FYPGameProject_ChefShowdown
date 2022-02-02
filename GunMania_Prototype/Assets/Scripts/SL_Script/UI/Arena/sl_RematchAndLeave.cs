@@ -123,7 +123,7 @@ public class sl_RematchAndLeave : MonoBehaviour
         if (rCount == 2)
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
-            sl_MatchCountdown.timeRemaining = 10;
+            sl_MatchCountdown.timeRemaining = 300;
         }
 
     }

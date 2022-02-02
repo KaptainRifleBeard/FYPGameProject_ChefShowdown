@@ -35,6 +35,8 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     {
         view = GetComponent<PhotonView>();
         PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.IsMessageQueueRunning = true;
+
     }
 
     public override void OnEnable()
@@ -120,6 +122,7 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient/* && playerCount == 2*/)  // room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
+            PhotonNetwork.IsMessageQueueRunning = false; //this is to stop the rpc after i change scene
 
             startGame = true;
         }
@@ -134,7 +137,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public void DisableP2Indicator()
     {
-
         for (int i = 0; i < disableP2Indicator.Length; i++)
         {
             disableP2Indicator[i].SetActive(false);

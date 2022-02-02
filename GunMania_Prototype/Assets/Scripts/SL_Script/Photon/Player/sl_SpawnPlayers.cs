@@ -16,6 +16,8 @@ public class sl_SpawnPlayers : MonoBehaviour
 
     void Start()
     {
+        PhotonNetwork.IsMessageQueueRunning = true;
+
         if (PhotonNetwork.IsMasterClient)
         {
             player1 = PhotonNetwork.Instantiate(p1.name, spawnPostionA.transform.position, Quaternion.identity);

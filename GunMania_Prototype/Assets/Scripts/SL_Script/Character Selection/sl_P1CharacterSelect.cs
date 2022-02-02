@@ -111,7 +111,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         if (sceneName == "sl_NewPlayerRoom")
         {
-            PhotonNetwork.IsMessageQueueRunning = true;
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -163,7 +162,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
         }
         else
         {
-            PhotonNetwork.IsMessageQueueRunning = false; //this is to stop the rpc after i change scene
         }
 
 

@@ -38,7 +38,7 @@ public class sl_P2PickUp : MonoBehaviour
                     pickup = true;
                     prefabNum = Random.Range(0, 2);
 
-                    view.RPC("AddFood2", RpcTarget.All, prefabNum);
+                    view.RPC("AddFood2", RpcTarget.All, prefabNum, pickup);
                     sl_P2ShootBehavior.p2bulletCount += 1;
 
                     if (gameObject.layer == LayerMask.NameToLayer("Food"))
