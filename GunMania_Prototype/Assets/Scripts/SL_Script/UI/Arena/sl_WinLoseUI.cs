@@ -46,7 +46,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         CheckIcon_p2();
         UiSize_p2();
 
-        if (sl_PlayerHealth.currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
+        if (sl_PlayerHealth.currentHealth <= 0 /*|| sl_MatchCountdown.timeRemaining == 0*/)
         {
             if (PhotonNetwork.IsMasterClient)
             {

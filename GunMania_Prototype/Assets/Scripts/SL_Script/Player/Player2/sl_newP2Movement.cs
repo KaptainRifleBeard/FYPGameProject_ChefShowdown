@@ -441,6 +441,9 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     IEnumerator waitFoeSec()
     {
         yield return new WaitForSeconds(0.2f);
+        view.RPC("Brock2", RpcTarget.All);
+        mainCharacter = 1;
+        p2CharacterList[0] = brockIcon;
 
         //Show model when in game
         if (sl_P2CharacterSelect.p2_firstCharacter == 0)

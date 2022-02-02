@@ -351,7 +351,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_SecondIcon_OnClick
         m_Mode: 1
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: SecondCharacter_Withdraw
         m_Mode: 1
@@ -785,7 +785,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: CheckSelectedCharacter
         m_Mode: 1
@@ -1527,7 +1527,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: FirstCharacter_Withdraw
         m_Mode: 1
@@ -1539,7 +1539,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: CheckSelectedCharacter
         m_Mode: 1
@@ -1653,7 +1653,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &252649297
 GameObject:
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: First_NextCharacter
         m_Mode: 1
@@ -1730,7 +1730,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: First_NextCharacterStat
         m_Mode: 1
@@ -1742,7 +1742,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: CheckSelectedCharacter
         m_Mode: 1
@@ -2285,7 +2285,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_First_PreviousCharacter
         m_Mode: 1
@@ -2297,7 +2297,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_First_PreviousCharacterStat
         m_Mode: 1
@@ -2508,7 +2508,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_FirstIcon_OnClick
         m_Mode: 1
@@ -2999,7 +2999,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: SecondIcon_OnClick
         m_Mode: 1
@@ -3325,7 +3325,6 @@ MonoBehaviour:
   content: {fileID: 270053232}
   listings: []
   waitingText: {fileID: 1372729573}
-  p1_blankIcon: []
   blankIcon:
   - {fileID: 1688817535}
   - {fileID: 1010251670}
@@ -3823,7 +3822,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_FirstCharacter_Withdraw
         m_Mode: 1
@@ -4193,6 +4192,134 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637972618}
   m_CullTransparentMesh: 1
+--- !u!1 &653067743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 653067745}
+  - component: {fileID: 653067744}
+  - component: {fileID: 653067746}
+  m_Layer: 0
+  m_Name: p1Character
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &653067744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653067743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4427c1194a1408046b52809425a29dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startButton: {fileID: 5993284}
+  confirmFirstCharacter: {fileID: 818538601}
+  confirmSecondCharacter: {fileID: 1798909520}
+  withdrawFirst: {fileID: 214534692}
+  withdrawSecond: {fileID: 99293272}
+  characterButton:
+  - {fileID: 1080850975}
+  - {fileID: 476667147}
+  disableConfirmButtn:
+  - {fileID: 818538602}
+  - {fileID: 1798909521}
+  first_leftRight:
+  - {fileID: 252649297}
+  - {fileID: 1761603342}
+  second_leftRight:
+  - {fileID: 2128201028}
+  - {fileID: 1499643662}
+  statInfo:
+  - {fileID: 1326597209}
+  - {fileID: 1800905590}
+  blankIcon:
+  - {fileID: 937644199}
+  - {fileID: 100981275}
+  indicator:
+  - {fileID: 1799983647}
+  - {fileID: 460954930}
+  characterTypes1:
+  - {fileID: 127535011}
+  - {fileID: 1655132329}
+  - {fileID: 1000081248}
+  - {fileID: 1238878367}
+  characterTypes2:
+  - {fileID: 2131591178}
+  - {fileID: 1352008246}
+  - {fileID: 95839502}
+  - {fileID: 1707157203}
+  leaveButton: {fileID: 1664105398}
+  statDesc1:
+  - {fileID: 2138797487}
+  - {fileID: 259925583}
+  - {fileID: 65348407}
+  - {fileID: 1559545478}
+  statDesc2:
+  - {fileID: 273290380}
+  - {fileID: 1629206910}
+  - {fileID: 1343339897}
+  - {fileID: 776017258}
+  nameText: {fileID: 1559765003}
+  tick: {fileID: 1457312133}
+  buttonDisable:
+  - {fileID: 5993284}
+  - {fileID: 1664105398}
+  - {fileID: 818538601}
+  - {fileID: 214534692}
+  - {fileID: 252649297}
+  - {fileID: 1761603342}
+  - {fileID: 1798909520}
+  - {fileID: 99293272}
+  - {fileID: 2128201028}
+  - {fileID: 1499643662}
+  - {fileID: 1080850975}
+  - {fileID: 476667147}
+--- !u!4 &653067745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653067743}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.29504114, y: -0.4034384, z: 1.9442196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &653067746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653067743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &659303208
 GameObject:
   m_ObjectHideFlags: 0
@@ -4679,7 +4806,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2LeftRoom
         m_Mode: 1
@@ -4884,7 +5011,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: Confirm_FirstCharacter
         m_Mode: 1
@@ -5307,7 +5434,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_Second_NextCharacter
         m_Mode: 1
@@ -5319,7 +5446,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_Second_NextCharacterStat
         m_Mode: 1
@@ -5594,133 +5721,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000081248}
   m_CullTransparentMesh: 1
---- !u!1 &1000693894
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1000693895}
-  - component: {fileID: 1000693896}
-  - component: {fileID: 1000693897}
-  m_Layer: 0
-  m_Name: p1CharacterSelect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1000693895
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000693894}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 198, y: 191, z: -1.0548859}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1000693896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000693894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4427c1194a1408046b52809425a29dc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startButton: {fileID: 5993284}
-  confirmFirstCharacter: {fileID: 818538601}
-  confirmSecondCharacter: {fileID: 1798909520}
-  withdrawFirst: {fileID: 214534692}
-  withdrawSecond: {fileID: 99293272}
-  characterButton:
-  - {fileID: 1080850975}
-  - {fileID: 476667147}
-  disableConfirmButtn:
-  - {fileID: 818538602}
-  - {fileID: 1798909521}
-  first_leftRight:
-  - {fileID: 252649297}
-  - {fileID: 1761603342}
-  second_leftRight:
-  - {fileID: 2128201028}
-  - {fileID: 1499643662}
-  statInfo:
-  - {fileID: 1326597209}
-  - {fileID: 1800905590}
-  blankIcon:
-  - {fileID: 937644199}
-  - {fileID: 100981275}
-  indicator:
-  - {fileID: 1799983647}
-  - {fileID: 460954930}
-  characterTypes1:
-  - {fileID: 127535011}
-  - {fileID: 1655132329}
-  - {fileID: 1000081248}
-  - {fileID: 1238878367}
-  characterTypes2:
-  - {fileID: 2131591178}
-  - {fileID: 1352008246}
-  - {fileID: 95839502}
-  - {fileID: 1707157203}
-  leaveButton: {fileID: 1664105398}
-  statDesc1:
-  - {fileID: 2138797487}
-  - {fileID: 259925583}
-  - {fileID: 65348407}
-  - {fileID: 1559545478}
-  statDesc2:
-  - {fileID: 273290380}
-  - {fileID: 1629206910}
-  - {fileID: 1343339897}
-  - {fileID: 776017258}
-  nameText: {fileID: 1559765003}
-  nameText2: {fileID: 1372729573}
-  tick: {fileID: 1457312133}
-  buttonDisable:
-  - {fileID: 818538601}
-  - {fileID: 214534692}
-  - {fileID: 252649297}
-  - {fileID: 1761603342}
-  - {fileID: 1798909520}
-  - {fileID: 99293272}
-  - {fileID: 2128201028}
-  - {fileID: 1499643662}
-  - {fileID: 1080850975}
-  - {fileID: 476667147}
---- !u!114 &1000693897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000693894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 1
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &1010251670
 GameObject:
   m_ObjectHideFlags: 0
@@ -6041,7 +6041,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: FirstIcon_OnClick
         m_Mode: 1
@@ -6174,7 +6174,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_SecondCharacter_Withdraw
         m_Mode: 1
@@ -6307,6 +6307,134 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136046986}
   m_CullTransparentMesh: 1
+--- !u!1 &1137824260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137824262}
+  - component: {fileID: 1137824261}
+  - component: {fileID: 1137824263}
+  m_Layer: 0
+  m_Name: p2Character
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1137824261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137824260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd2def443f63c694593f730cd768488a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  readyButton: {fileID: 1368819023}
+  p2_confirmFirstCharacter: {fileID: 1365388076}
+  p2_confirmSecondCharacter: {fileID: 1530310470}
+  p2_withdrawFirst: {fileID: 604730191}
+  p2_withdrawSecond: {fileID: 1104823634}
+  p2_characterButton:
+  - {fileID: 364148101}
+  - {fileID: 21012578}
+  disableConfirmButtn:
+  - {fileID: 1365388078}
+  - {fileID: 1530310472}
+  p2_first_leftRight:
+  - {fileID: 1291410821}
+  - {fileID: 347312398}
+  p2_second_leftRight:
+  - {fileID: 895172349}
+  - {fileID: 1413401951}
+  p2_statInfo:
+  - {fileID: 1634043755}
+  - {fileID: 1429003335}
+  leaveButton: {fileID: 799622940}
+  blankIcon:
+  - {fileID: 1688817535}
+  - {fileID: 1010251670}
+  p2_indicator:
+  - {fileID: 2106264186}
+  - {fileID: 1759778944}
+  p2_characterTypes1:
+  - {fileID: 2116356721}
+  - {fileID: 980842931}
+  - {fileID: 566704445}
+  - {fileID: 675279967}
+  p2_characterTypes2:
+  - {fileID: 1553787134}
+  - {fileID: 1733027597}
+  - {fileID: 836712353}
+  - {fileID: 1616643935}
+  p2_statDesc1:
+  - {fileID: 1743990731}
+  - {fileID: 1645743830}
+  - {fileID: 2132371602}
+  - {fileID: 118072655}
+  p2_statDesc2:
+  - {fileID: 620448716}
+  - {fileID: 1851567378}
+  - {fileID: 1613029269}
+  - {fileID: 691687189}
+  nameText: {fileID: 1372729573}
+  tick: {fileID: 536903774}
+  buttonDisable:
+  - {fileID: 799622940}
+  - {fileID: 1365388076}
+  - {fileID: 604730191}
+  - {fileID: 1291410821}
+  - {fileID: 347312398}
+  - {fileID: 1530310470}
+  - {fileID: 1104823634}
+  - {fileID: 895172349}
+  - {fileID: 1413401951}
+  - {fileID: 1368819023}
+  - {fileID: 364148101}
+  - {fileID: 21012578}
+--- !u!4 &1137824262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137824260}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.29504114, y: -0.4034384, z: 1.9442196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1137824263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137824260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1155689513
 GameObject:
   m_ObjectHideFlags: 0
@@ -6431,7 +6559,7 @@ RectTransform:
   - {fileID: 737565013}
   - {fileID: 660733162}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7080,7 +7208,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_First_NextCharacter
         m_Mode: 1
@@ -7092,7 +7220,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_First_NextCharacterStat
         m_Mode: 1
@@ -7538,7 +7666,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_Confirm_FirstCharacter
         m_Mode: 1
@@ -7651,7 +7779,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: ReadyGame
         m_Mode: 1
@@ -7977,7 +8105,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_Second_PreviousCharacter
         m_Mode: 1
@@ -7989,7 +8117,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_Second_PreviousCharacterStat
         m_Mode: 1
@@ -8463,7 +8591,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: Second_PreviousCharacter
         m_Mode: 1
@@ -8475,7 +8603,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: CheckSelectedCharacter
         m_Mode: 1
@@ -8487,7 +8615,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: Second_PreviousCharacterStat
         m_Mode: 1
@@ -8703,7 +8831,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1735514982}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P2CharacterSelect, Assembly-CSharp
         m_MethodName: p2_Confirm_SecondCharacter
         m_Mode: 1
@@ -10097,134 +10225,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733027597}
   m_CullTransparentMesh: 1
---- !u!1 &1735514979
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1735514981}
-  - component: {fileID: 1735514982}
-  - component: {fileID: 1735514980}
-  m_Layer: 0
-  m_Name: p2CharacterSelect
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1735514980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735514979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 19
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!4 &1735514981
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735514979}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 198, y: 191, z: -1.0548859}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1735514982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735514979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2def443f63c694593f730cd768488a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  readyButton: {fileID: 1368819023}
-  p2_confirmFirstCharacter: {fileID: 1365388076}
-  p2_confirmSecondCharacter: {fileID: 1530310470}
-  p2_withdrawFirst: {fileID: 604730191}
-  p2_withdrawSecond: {fileID: 1104823634}
-  p2_characterButton:
-  - {fileID: 364148101}
-  - {fileID: 21012578}
-  disableConfirmButtn:
-  - {fileID: 1365388078}
-  - {fileID: 1530310472}
-  p2_first_leftRight:
-  - {fileID: 1291410821}
-  - {fileID: 347312398}
-  p2_second_leftRight:
-  - {fileID: 895172349}
-  - {fileID: 1413401951}
-  p2_statInfo:
-  - {fileID: 1634043755}
-  - {fileID: 1429003335}
-  leaveButton: {fileID: 799622940}
-  blankIcon:
-  - {fileID: 1688817535}
-  - {fileID: 1010251670}
-  p2_indicator:
-  - {fileID: 2106264186}
-  - {fileID: 1759778944}
-  p2_characterTypes1:
-  - {fileID: 2116356721}
-  - {fileID: 980842931}
-  - {fileID: 566704445}
-  - {fileID: 675279967}
-  p2_characterTypes2:
-  - {fileID: 1553787134}
-  - {fileID: 1733027597}
-  - {fileID: 836712353}
-  - {fileID: 1616643935}
-  p2_statDesc1:
-  - {fileID: 1743990731}
-  - {fileID: 1645743830}
-  - {fileID: 2132371602}
-  - {fileID: 118072655}
-  p2_statDesc2:
-  - {fileID: 620448716}
-  - {fileID: 1851567378}
-  - {fileID: 1613029269}
-  - {fileID: 691687189}
-  nameText: {fileID: 1372729573}
-  tick: {fileID: 536903774}
-  buttonDisable:
-  - {fileID: 799622940}
-  - {fileID: 1365388076}
-  - {fileID: 604730191}
-  - {fileID: 1291410821}
-  - {fileID: 347312398}
-  - {fileID: 1530310470}
-  - {fileID: 1104823634}
-  - {fileID: 895172349}
-  - {fileID: 1413401951}
-  - {fileID: 1368819023}
-  - {fileID: 364148101}
-  - {fileID: 21012578}
 --- !u!1 &1743990731
 GameObject:
   m_ObjectHideFlags: 0
@@ -10463,7 +10463,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: First_PreviousCharacter
         m_Mode: 1
@@ -10475,7 +10475,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: First_PreviousCharacterStat
         m_Mode: 1
@@ -10487,7 +10487,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: CheckSelectedCharacter
         m_Mode: 1
@@ -10600,7 +10600,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: Confirm_SecondCharacter
         m_Mode: 1
@@ -10612,7 +10612,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: CheckSelectedCharacter
         m_Mode: 1
@@ -12079,7 +12079,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: Second_NextCharacter
         m_Mode: 1
@@ -12091,7 +12091,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: CheckSelectedCharacter
         m_Mode: 1
@@ -12103,7 +12103,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1000693896}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: sl_P1CharacterSelect, Assembly-CSharp
         m_MethodName: Second_NextCharacterStat
         m_Mode: 1

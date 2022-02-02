@@ -52,7 +52,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
     public static int p2_secondDesc;
 
     public TextMeshProUGUI nameText;
-
     public static string roomNickname2;
 
     [Space(10)]
@@ -66,10 +65,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
     //check withdraw n confirm
     public static int p2_numConfirm1;
     public static int p2_numConfirm2;
-
-    //check p2 press ready button
-    public static bool p2Ready;
-    public static int p2Num;
 
     int blank; //for sync blank icon
 
@@ -124,19 +119,23 @@ public class sl_P2CharacterSelect : MonoBehaviour
             leaveButton.SetActive(true);
             //readyButton.SetActive(true);
 
+
             nameText.text = PhotonNetwork.NickName;
             roomNickname2 = nameText.text;
+
+            view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
+
 
             if (p2_numConfirm1 == 1 || p2_numConfirm2 == 1)
             {
                 CheckSelectedCharacter();
             }
 
-            view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
         }
 
         if (!PhotonNetwork.IsMasterClient)
         {
+
             if (blank == 0)
             {
                 p2_statInfo[0].SetActive(false);
@@ -265,8 +264,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
     #region
     public void p2_Confirm_FirstCharacter()
     {
-        //PlayerPrefs.SetInt("p1_firstCharacter", p1_firstCharacter);
-
         //disable first 
         p2_confirmFirstCharacter.SetActive(false);
         p2_first_leftRight[0].SetActive(false);
@@ -281,8 +278,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
     public void p2_Confirm_SecondCharacter()
     {
-        //PlayerPrefs.SetInt("p1_secondCharacter", p1_secondCharacter);
-
         //disable second 
         p2_confirmSecondCharacter.SetActive(false);
         p2_second_leftRight[0].SetActive(false);
@@ -448,25 +443,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
         p2_indicator[1].SetActive(false);
 
         view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
-    }
-
-    //to check p2 is ready
-
-    public void ReadyGame()
-    {
-        //readyButton.SetActive(false);
-        p2Ready = true;
-
-        if (p2Ready)
-        {
-            view.RPC("SendReadyGame22", RpcTarget.All);
-        }
-    }
-
-    [PunRPC]
-    public void SendReadyGame22()
-    {
-        p2Num = 1;
     }
 
     //RPC Area
@@ -655,11 +631,11 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
     }
 
+
     [PunRPC]
     public void SyncName_PlayerRoom2(string n, string n2)
     {
         nameText.text = n;
         roomNickname2 = n2; //sync name to playerListingMenu
     }
-
 }

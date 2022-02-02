@@ -21,7 +21,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     [Header("When P2 is waiting")]
     public TextMeshProUGUI waitingText;
 
-    public GameObject[] p1_blankIcon;
     public GameObject[] blankIcon;
 
     public GameObject[] thingsToDisable;
@@ -32,6 +31,7 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     private void Start()
     {
         view = GetComponent<PhotonView>();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public override void OnEnable()
@@ -109,12 +109,12 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             listings.RemoveAt(i);
         }
     }
-
+    
     public void StartGame()
     {
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        if (PhotonNetwork.IsMasterClient /*&& playerCount == 2*/)  // room owner
+        if (PhotonNetwork.IsMasterClient/* && playerCount == 2*/)  // room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
 

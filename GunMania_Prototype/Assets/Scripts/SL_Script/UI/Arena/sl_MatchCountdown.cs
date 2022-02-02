@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 
 public class sl_MatchCountdown : MonoBehaviour
 {
-    public static float timeRemaining = 300; //5*60 = 300
+    public static float timeRemaining = 10; //5*60 = 300, rmb reset this in RematchAndLeave
 
     public bool timerIsRunning = false;
     public Text timeText;
 
     void Start()
     {
-        StartCoroutine(WaitToStart());
+        if (PhotonNetwork.PlayerList.Length >= 2)
+        {
+            StartCoroutine(WaitToStart());
+        }
+
     }
 
 

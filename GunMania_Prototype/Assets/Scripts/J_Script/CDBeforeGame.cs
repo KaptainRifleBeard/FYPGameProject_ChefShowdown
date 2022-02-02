@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class CDBeforeGame : MonoBehaviour
 {
@@ -14,22 +15,28 @@ public class CDBeforeGame : MonoBehaviour
     {
         loadingScreen.SetActive(true);
         StartCoroutine(CDToStart());
+
+        
     }
 
     IEnumerator CDToStart()
     {
         yield return new WaitForSeconds(1.0f);
-        loadingScreen.SetActive(false);
-
-        while (CDTime > 0)
+        if (PhotonNetwork.PlayerList.Length >= 2)
         {
-            CDDisplay.text = CDTime.ToString();
-            yield return new WaitForSeconds(1f);
-            CDTime--;
-        }
+            loadingScreen.SetActive(false);
 
-        CDDisplay.text = "START";
-        yield return new WaitForSeconds(1f);
-        CDDisplay.gameObject.SetActive(false);
+            while (CDTime > 0)
+            {
+                CDDisplay.text = CDTime.ToString();
+                yield return new WaitForSeconds(1f);
+                CDTime--;
+            }
+
+            CDDisplay.text = "START";
+            yield return new WaitForSeconds(1f);
+            CDDisplay.gameObject.SetActive(false);
+        }
+            
     }
 }

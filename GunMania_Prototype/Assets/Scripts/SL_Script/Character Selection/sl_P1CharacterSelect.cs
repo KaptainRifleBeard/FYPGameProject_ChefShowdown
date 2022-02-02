@@ -9,7 +9,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
 {
     PhotonView view;
 
-    [Header("Player1")]
     [Space(10)] [Header("Buttons")]
     public GameObject startButton;
     public GameObject confirmFirstCharacter;
@@ -32,7 +31,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public GameObject[] blankIcon;
     public GameObject[] indicator;
 
-    public List<GameObject> characterTypes1;
+    public GameObject[] characterTypes1;
     public static int p1_firstCharacter; //for change model
 
 
@@ -49,8 +48,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
     protected int secondDesc;
 
     public TextMeshProUGUI nameText;
-    public TextMeshProUGUI nameText2;
-
     public static string roomNickname;
 
     [Space(10)]
@@ -101,12 +98,6 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         blank = 0;
 
-
-        //to check same character select, set 1 when start.
-        //Then when onlick 2ndIcon for first time, set back to 0
-        //p1_firstCharacter = 1;
-        //p1_secondCharacter = 2;
-
     }
 
 
@@ -121,12 +112,13 @@ public class sl_P1CharacterSelect : MonoBehaviour
             nameText.text = PhotonNetwork.NickName;
             roomNickname = nameText.text;
 
-            if(numConfirm1 == 1 || numConfirm2 == 1)
+            view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
+
+            if (numConfirm1 == 1 || numConfirm2 == 1)
             {
                 CheckSelectedCharacter();
             }
 
-            view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
         }
         else
         {
@@ -166,7 +158,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
     public void First_NextCharacter()
     {
         characterTypes1[p1_firstCharacter].SetActive(false);
-        p1_firstCharacter = (p1_firstCharacter + 1) % characterTypes1.Count;
+        p1_firstCharacter = (p1_firstCharacter + 1) % characterTypes1.Length;
         characterTypes1[p1_firstCharacter].SetActive(true);
 
         view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
@@ -180,7 +172,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         if(p1_firstCharacter < 0)
         {
-            p1_firstCharacter += characterTypes1.Count;
+            p1_firstCharacter += characterTypes1.Length;
         }
         characterTypes1[p1_firstCharacter].SetActive(true);
 
