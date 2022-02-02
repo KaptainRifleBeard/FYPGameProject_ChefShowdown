@@ -29,7 +29,6 @@ public class sl_RematchAndLeave : MonoBehaviour
     public GameObject p1_checkbox;
     public GameObject p2_checkbox;
 
-
     void Start()
     {
         view = GetComponent<PhotonView>();
