@@ -10,8 +10,6 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
 
     private sl_RoomCanvases roomCanvas;
     public GameObject startButton;
-    public GameObject p1select;
-    public GameObject p2select;
 
     public void FirstInitialize(sl_RoomCanvases canvases)
     {
@@ -32,22 +30,18 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
 
     private void Update()
     {
-        //startButton.SetActive(true);
+        startButton.SetActive(true);
 
-        if (PhotonNetwork.IsMasterClient &&
-            sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1 &&
-            sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1)
-        {
-            startButton.SetActive(true);
-            //p1select.SetActive(false);
-            //p2select.SetActive(false);
+        //if (PhotonNetwork.IsMasterClient &&
+        //    sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1 &&
+        //    sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1)
+        //{
+        //    startButton.SetActive(true);
 
-        }
-        else
-        {
-            startButton.SetActive(false);
-            //p1select.SetActive(true);
-            //p2select.SetActive(true);
-        }
+        //}
+        //else
+        //{
+        //    startButton.SetActive(false);
+        //}
     }
 }
