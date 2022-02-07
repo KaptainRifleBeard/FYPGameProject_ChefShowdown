@@ -14,5 +14,13 @@ public class SoundTrigger : MonoBehaviour
         }
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            stallsAudio.Stop();
+        }
+    }
+
 
 }
