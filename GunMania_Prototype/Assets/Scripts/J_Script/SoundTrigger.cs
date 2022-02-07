@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class SoundTrigger : MonoBehaviour
 {
-    public AudioSource stallSFX;
+    [SerializeField] private AudioSource stallsAudio;
 
     void OnTriggerEnter(Collider other)
     {
-        stallSFX.Play();
+        if (other.CompareTag("Player"))
+        {
+            stallsAudio.Play();
+        }
     }
 
 
