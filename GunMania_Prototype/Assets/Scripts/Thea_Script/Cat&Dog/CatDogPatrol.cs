@@ -7,7 +7,6 @@ using Photon.Pun;
 public class CatDogPatrol : MonoBehaviour
 {
     PhotonView view;
-    public bool isCat;
     int index;
 
     private Waypoints waypoints1;
@@ -20,26 +19,28 @@ public class CatDogPatrol : MonoBehaviour
         if(other.gameObject.tag == "Spawn1")
         {
             index = 1;
-            //Debug.Log(index);
+            Debug.Log(index);
         }
         else if(other.gameObject.tag == "Spawn2")
         {
             index = 2;
-            //Debug.Log(index);
+            Debug.Log(index);
+        }
+        else if (other.gameObject.tag == "Spawn3")
+        {
+            index = 3;
+            Debug.Log(index);
+        }
+        else if (other.gameObject.tag == "Spawn4")
+        {
+            index = 4;
+            Debug.Log(index);
         }
 
-        if(other.gameObject.tag == "Despawn")
+        if (other.gameObject.tag == "Despawn")
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
             CatDogSpawn.canSpawn = true;
-            if(isCat)
-            {
-               CatDogSpawn.catCanSpawn = true;
-            }
-            else
-            {
-                CatDogSpawn.dogCanSpawn = true;
-            }
         }
 
         if(other.gameObject.tag == "Player" || other.gameObject.tag == "Player")
@@ -57,22 +58,22 @@ public class CatDogPatrol : MonoBehaviour
 
         waypoints1 = FindObjectOfType<Waypoints>();
 
-        if (index == 1 && isCat)
+        if (index == 1)
         {
             //view.RPC("GoToNextPoint1", RpcTarget.All);
             GoToNextPoint1();
         }
-        else if (index == 2 && isCat)
+        else if (index == 2)
         {
             //view.RPC("GoToNextPoint2", RpcTarget.All);
             GoToNextPoint2();
         }
-        else if (index == 1 && !isCat)
+        else if (index == 3)
         {
             //view.RPC("GoToNextPoint3", RpcTarget.All);
             GoToNextPoint3();
         }
-        else if (index == 2 && !isCat)
+        else if (index == 4)
         {
             //view.RPC("GoToNextPoint4", RpcTarget.All);
             GoToNextPoint4();
@@ -84,22 +85,22 @@ public class CatDogPatrol : MonoBehaviour
     {
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
-            if(index == 1 && isCat)
+            if(index == 1)
             {
                 //view.RPC("GoToNextPoint1", RpcTarget.All);
                 GoToNextPoint1();
             }
-            else if(index == 2 && isCat)
+            else if(index == 2)
             {
                 //view.RPC("GoToNextPoint2", RpcTarget.All);
                 GoToNextPoint2();
             }
-            else if(index == 1 && !isCat)
+            else if(index == 3)
             {
                 //view.RPC("GoToNextPoint3", RpcTarget.All);
                 GoToNextPoint3();
             }
-            else if(index == 2 && !isCat)
+            else if(index == 4)
             {
                 //view.RPC("GoToNextPoint4", RpcTarget.All);
                 GoToNextPoint4();

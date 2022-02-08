@@ -168,6 +168,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
                 GetDamage(bulletDamage, percentage);
             }
+
+            
         }
 
     }
@@ -188,6 +190,14 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
+        }
+
+        if (other.gameObject.tag == "Cat")
+        {
+            bulletDamage = 0.5f;
+            percentage = (bulletDamage * 50f) / 100f;
+
+            GetDamage(bulletDamage, percentage);
         }
     }
 

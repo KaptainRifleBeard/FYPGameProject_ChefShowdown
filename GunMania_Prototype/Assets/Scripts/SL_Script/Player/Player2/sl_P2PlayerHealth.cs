@@ -164,6 +164,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
                 GetDamage(bulletDamage2, percentage);
             }
+
+            
         }
            
     }
@@ -184,6 +186,14 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             }
 
+        }
+
+        if (other.gameObject.tag == "Cat")
+        {
+            bulletDamage2 = 0.5f;
+            percentage = (bulletDamage2 * 50f) / 100f;
+
+            GetDamage(bulletDamage2, percentage);
         }
     }
 
