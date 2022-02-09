@@ -106,66 +106,68 @@ public class sl_P1CharacterSelect : MonoBehaviour
     void Update()
     {
         // Create a temporary reference to the current scene.
-        Scene currentScene = SceneManager.GetActiveScene();
-        string sceneName = currentScene.name;
+        //Scene currentScene = SceneManager.GetActiveScene();
+        //string sceneName = currentScene.name;
 
-        if (sceneName == "sl_NewPlayerRoom")
+        //if (sceneName == "sl_NewPlayerRoom")
+        //{
+        //    PhotonNetwork.IsMessageQueueRunning = true;
+
+           
+        //}
+        //else
+        //{
+        //    PhotonNetwork.IsMessageQueueRunning = false;
+        //}
+
+
+        if (PhotonNetwork.IsMasterClient)
         {
+            characterButton[0].SetActive(true);
+            characterButton[1].SetActive(true);
+            leaveButton.SetActive(true);
 
-            if (PhotonNetwork.IsMasterClient)
+            nameText.text = PhotonNetwork.NickName;
+            roomNickname = nameText.text;
+            //view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
+
+
+            if (numConfirm1 == 1 || numConfirm2 == 1)
             {
-                characterButton[0].SetActive(true);
-                characterButton[1].SetActive(true);
-                leaveButton.SetActive(true);
-
-                nameText.text = PhotonNetwork.NickName;
-                roomNickname = nameText.text;
-                view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
-
-
-                if (numConfirm1 == 1 || numConfirm2 == 1)
-                {
-                    CheckSelectedCharacter();
-                }
-
-            }
-            else
-            {
-                for (int i = 0; i < buttonDisable.Length; i++)
-                {
-                    buttonDisable[i].SetActive(false);
-                }
-                leaveButton.SetActive(false);
+                CheckSelectedCharacter();
             }
 
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (blank == 0)
-                {
-                    statInfo[0].SetActive(false);
-                    statInfo[1].SetActive(false);
-
-                }
-                if (blank == 1)
-                {
-                    blankIcon[0].SetActive(false);
-                    view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
-
-                }
-                if (blank == 2)
-                {
-                    blankIcon[1].SetActive(false);
-                    view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
-                }
-
-            }
         }
         else
         {
+            for (int i = 0; i < buttonDisable.Length; i++)
+            {
+                buttonDisable[i].SetActive(false);
+            }
+            leaveButton.SetActive(false);
         }
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (blank == 0)
+            {
+                statInfo[0].SetActive(false);
+                statInfo[1].SetActive(false);
 
+            }
+            if (blank == 1)
+            {
+                blankIcon[0].SetActive(false);
+                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
 
+            }
+            if (blank == 2)
+            {
+                blankIcon[1].SetActive(false);
+                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
+            }
+
+        }
     }
 
     //Models

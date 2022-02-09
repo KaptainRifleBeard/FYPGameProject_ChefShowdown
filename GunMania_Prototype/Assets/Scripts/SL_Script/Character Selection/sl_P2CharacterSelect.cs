@@ -102,68 +102,69 @@ public class sl_P2CharacterSelect : MonoBehaviour
     void Update()
     {
         // Create a temporary reference to the current scene.
-        Scene currentScene = SceneManager.GetActiveScene();
-        string sceneName = currentScene.name;
+        //Scene currentScene = SceneManager.GetActiveScene();
+        //string sceneName = currentScene.name;
 
-        if(sceneName == "sl_NewPlayerRoom")
+        //if(sceneName == "sl_NewPlayerRoom")
+        //{
+        //    PhotonNetwork.IsMessageQueueRunning = true;
+
+           
+        //}
+        //else
+        //{
+        //    PhotonNetwork.IsMessageQueueRunning = false;
+        //}
+
+        if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.IsMessageQueueRunning = true;
-
-            if (PhotonNetwork.IsMasterClient)
+            for (int i = 0; i < buttonDisable.Length; i++)
             {
-                for (int i = 0; i < buttonDisable.Length; i++)
-                {
-                    buttonDisable[i].SetActive(false);
-                }
-                leaveButton.SetActive(false);
-                //readyButton.SetActive(false);
-
+                buttonDisable[i].SetActive(false);
             }
-            else
-            {
-                p2_characterButton[0].SetActive(true);
-                p2_characterButton[1].SetActive(true);
+            leaveButton.SetActive(false);
+            //readyButton.SetActive(false);
 
-                leaveButton.SetActive(true);
-                //readyButton.SetActive(true);
-
-                nameText.text = PhotonNetwork.NickName;
-                roomNickname2 = nameText.text;
-                //view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
-                view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
-
-                if (p2_numConfirm1 == 1 || p2_numConfirm2 == 1)
-                {
-                    CheckSelectedCharacter();
-                }
-
-            }
-
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                if (blank == 0)
-                {
-                    p2_statInfo[0].SetActive(false);
-                    p2_statInfo[1].SetActive(false);
-
-                }
-                if (blank == 1)
-                {
-                    blankIcon[0].SetActive(false);
-                    view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
-
-                }
-                if (blank == 2)
-                {
-                    blankIcon[1].SetActive(false);
-                    view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
-                }
-
-            }
         }
         else
         {
-            PhotonNetwork.IsMessageQueueRunning = false;
+            p2_characterButton[0].SetActive(true);
+            p2_characterButton[1].SetActive(true);
+
+            leaveButton.SetActive(true);
+            //readyButton.SetActive(true);
+
+            nameText.text = PhotonNetwork.NickName;
+            roomNickname2 = nameText.text;
+            //view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
+
+            if (p2_numConfirm1 == 1 || p2_numConfirm2 == 1)
+            {
+                CheckSelectedCharacter();
+            }
+
+        }
+
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            if (blank == 0)
+            {
+                p2_statInfo[0].SetActive(false);
+                p2_statInfo[1].SetActive(false);
+
+            }
+            if (blank == 1)
+            {
+                blankIcon[0].SetActive(false);
+                view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
+
+            }
+            if (blank == 2)
+            {
+                blankIcon[1].SetActive(false);
+                view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
+            }
+
         }
     }
 
