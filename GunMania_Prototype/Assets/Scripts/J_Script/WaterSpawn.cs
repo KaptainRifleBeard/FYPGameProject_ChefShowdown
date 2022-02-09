@@ -10,6 +10,8 @@ public class WaterSpawn : MonoBehaviour
     public float spawnTime;
     public float spawnDelay;
 
+    public AudioSource waterAudio;
+
     void Start()
     {
 
@@ -30,6 +32,7 @@ public class WaterSpawn : MonoBehaviour
     public void SpawnWater()
     {
         Instantiate(spawnee, spawnPos.position, spawnPos.rotation);
+        waterAudio.Play();
 
     }
 

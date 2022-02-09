@@ -5,6 +5,7 @@ using UnityEngine;
 public class WaterDestroy : MonoBehaviour
 {
     public float waterCountdown = 3f;
+    public AudioSource waterAudio;
 
     // Update is called once per frame
     void Update()
@@ -16,6 +17,7 @@ public class WaterDestroy : MonoBehaviour
             if(waterCountdown <= 0)
             {
                 Destroy(gameObject);
+                waterAudio.Stop();
             }
         }
     }
