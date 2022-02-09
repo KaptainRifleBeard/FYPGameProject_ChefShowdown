@@ -98,10 +98,12 @@ public class DishEffect : MonoBehaviour
             //drop food :')
             view.RPC("DropFood", RpcTarget.All);
 
-            sl_ShootBehavior.bulletCount--;
-            playerInventory.itemList[0] = null;
-            sl_InventoryManager.RefreshItem();
-
+            if (playerInventory.itemList[0] != null)
+            {
+                sl_ShootBehavior.bulletCount--;
+                playerInventory.itemList[0] = null;
+                sl_InventoryManager.RefreshItem();
+            }
             Destroy(other.gameObject);
         }
     }
@@ -179,84 +181,84 @@ public class DishEffect : MonoBehaviour
         {
             if (playerInventory.itemList[0].itemHeldNum == 1)
             {
-                Instantiate(dishPrefab[0], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(dishPrefab[0].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 2)
             {
-                Instantiate(dishPrefab[1], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(dishPrefab[1].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 3)
             {
-                Instantiate(dishPrefab[2], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(dishPrefab[2].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 4)
             {
-                Instantiate(dishPrefab[3], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(dishPrefab[3].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 5)
             {
-                Instantiate(dishPrefab[4], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(dishPrefab[4].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 6)
             {
-                Instantiate(dishPrefab[5], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(dishPrefab[5].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 7)
             {
-                Instantiate(dishPrefab[6], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(dishPrefab[6].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 8)
             {
-                Instantiate(dishPrefab[7], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(dishPrefab[7].name, transform.position + offset, Quaternion.identity);
             }
             //from here is food (12 food)
             else if (playerInventory.itemList[0].itemHeldNum == 10)
             {
-                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[0].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 11)
             {
-                Instantiate(foodPrefab[1], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[1].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 12)
             {
-                Instantiate(foodPrefab[2], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[2].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 13)
             {
-                Instantiate(foodPrefab[3], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[3].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 14)
             {
-                Instantiate(foodPrefab[4], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[4].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 15)
             {
-                Instantiate(foodPrefab[5], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[5].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 16)
             {
-                Instantiate(foodPrefab[6], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[6].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 17)
             {
-                Instantiate(foodPrefab[7], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[7].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 18)
             {
-                Instantiate(foodPrefab[8], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[8].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 19)
             {
-                Instantiate(foodPrefab[9], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[9].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 20)
             {
-                Instantiate(foodPrefab[10], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[10].name, transform.position + offset, Quaternion.identity);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 21)
             {
-                Instantiate(foodPrefab[11], transform.position + offset, Quaternion.identity);
+                PhotonNetwork.Instantiate(foodPrefab[11].name, transform.position + offset, Quaternion.identity);
             }
 
         }
