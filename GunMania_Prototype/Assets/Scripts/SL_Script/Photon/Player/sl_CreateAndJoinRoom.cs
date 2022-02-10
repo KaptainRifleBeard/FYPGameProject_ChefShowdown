@@ -22,6 +22,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public GameObject canvasRoomListing; //tthe room listing part for animation
     public GameObject canvasCreateRoom; //the create room part for animation
     public GameObject roomListPos;
+    public GameObject createRoomPos;
 
     public Animator roomListAnim;
     public Animator createRoomAnim;
@@ -92,6 +93,8 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public void ShowCreateRoom()
     {
+        canvasCreateRoom.transform.position = createRoomPos.transform.position;
+
         StartCoroutine(OpenCreateRoomInput());
         roomListAnim.SetBool("OpenRoomListing", false);
 
@@ -111,6 +114,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     IEnumerator CloseCreateRoomInput()
     {
         yield return new WaitForSeconds(0.2f);
+        canvasCreateRoom.transform.position = new Vector3(-54f, -293f, 0f);
 
         createRoomAnim.SetBool("ShowCreateRoomInput", false);
         roomListAnim.SetBool("OpenRoomListing", true);
