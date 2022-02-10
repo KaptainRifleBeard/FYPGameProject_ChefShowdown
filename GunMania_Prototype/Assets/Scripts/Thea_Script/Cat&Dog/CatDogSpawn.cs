@@ -15,15 +15,31 @@ public class CatDogSpawn : MonoBehaviour
     public static bool catCanSpawn;
     public static bool dogCanSpawn;
 
-    public bool spawn2;
+    public int spawnInt = 1;
     public int spawnTime = 20;
 
     // Start is called before the first frame update
     void Start()
     {
         canSpawn = false;
-
-       StartCoroutine(Spawn(spawnTime));
+        
+        if (spawnInt == 1)
+        {
+            StartCoroutine(Spawn(spawnTime));
+        }
+        else if (spawnInt == 2)
+        {
+            StartCoroutine(Spawn2(spawnTime));
+        }
+        else if (spawnInt == 3)
+        {
+            StartCoroutine(Spawn3(spawnTime));
+        }
+        else
+        {
+            StartCoroutine(Spawn(spawnTime));
+        }
+       
     }
 
     // Update is called once per frame
@@ -31,8 +47,26 @@ public class CatDogSpawn : MonoBehaviour
     {
         if (canSpawn)
         {
-            StartCoroutine(Spawn(spawnTime));
-            canSpawn = false;
+            if (spawnInt == 1)
+            {
+                StartCoroutine(Spawn(spawnTime));
+                canSpawn = false;
+            }
+            else if (spawnInt == 2)
+            {
+                StartCoroutine(Spawn2(spawnTime));
+                canSpawn = false;
+            }
+            else if (spawnInt == 3)
+            {
+                StartCoroutine(Spawn3(spawnTime));
+                canSpawn = false;
+            }
+            else
+            {
+                StartCoroutine(Spawn(spawnTime));
+                canSpawn = false;
+            }
         }
 
     }
@@ -45,72 +79,72 @@ public class CatDogSpawn : MonoBehaviour
 
         if (catORdog == 0)
         {
-            //PhotonNetwork.Instantiate(catPrefab.name, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-            Instantiate(catPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(catPrefab.name, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
+            //Instantiate(catPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
         }
         else if (catORdog == 1)
         {
-            //PhotonNetwork.Instantiate(dogPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-            Instantiate(dogPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(dogPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+            //Instantiate(dogPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
         }
 
     }
 
     //spawn terbalik
-    //public IEnumerator Spawn(int sec)
-    //{
-    //    yield return new WaitForSeconds(sec);
+    public IEnumerator Spawn2(int sec)
+    {
+        yield return new WaitForSeconds(sec);
 
-    //    catORdog = Random.Range(0, 2);
+        catORdog = Random.Range(0, 2);
 
-    //    if (catORdog == 0)
-    //    {
-    //        //PhotonNetwork.Instantiate(catPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //        Instantiate(catPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //    }
-    //    else if (catORdog == 1)
-    //    {
-    //        //PhotonNetwork.Instantiate(dogPrefab.name, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //        Instantiate(dogPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //    }
+        if (catORdog == 0)
+        {
+            PhotonNetwork.Instantiate(catPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+            //Instantiate(catPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+        }
+        else if (catORdog == 1)
+        {
+            PhotonNetwork.Instantiate(dogPrefab.name, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
+            //Instantiate(dogPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
+        }
 
-    //}
+    }
 
     //spawn species randomly
-    //public IEnumerator Spawn(int sec)
-    //{
-    //    yield return new WaitForSeconds(sec);
+    public IEnumerator Spawn3(int sec)
+    {
+        yield return new WaitForSeconds(sec);
 
-    //    catORdog = Random.Range(0, 2);
-    //    rSpawn = Random.Range(0, 2);
+        catORdog = Random.Range(0, 2);
+        rSpawn = Random.Range(0, 2);
 
-    //    if (catORdog == 0)
-    //    {
-    //        if (rSpawn == 0)
-    //        {
-    //            //PhotonNetwork.Instantiate(catPrefab.name, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //            Instantiate(catPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //        }
-    //        else if (rSpawn == 1)
-    //        {
-    //            //PhotonNetwork.Instantiate(catPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //            Instantiate(catPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //        }
-    //    }
-    //    else if (catORdog == 1)
-    //    {
-    //        if (rSpawn == 0)
-    //        {
-    //            //PhotonNetwork.Instantiate(dogPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //            Instantiate(dogPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //        }
-    //        else if (rSpawn == 1)
-    //        {
-    //            //PhotonNetwork.Instantiate(dogPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //            Instantiate(dogPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-    //        }
+        if (catORdog == 0)
+        {
+            if (rSpawn == 0)
+            {
+                PhotonNetwork.Instantiate(catPrefab.name, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
+                //Instantiate(catPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
+            }
+            else if (rSpawn == 1)
+            {
+                PhotonNetwork.Instantiate(catPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+                //Instantiate(catPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+            }
+        }
+        else if (catORdog == 1)
+        {
+            if (rSpawn == 0)
+            {
+                PhotonNetwork.Instantiate(dogPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+                //Instantiate(dogPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+            }
+            else if (rSpawn == 1)
+            {
+                PhotonNetwork.Instantiate(dogPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
+                //Instantiate(dogPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
+            }
 
-    //    }
+        }
 
-    //}
+    }
 }

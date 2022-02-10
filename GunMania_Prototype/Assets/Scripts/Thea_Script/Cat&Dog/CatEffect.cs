@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class CatEffect : MonoBehaviour
 {
+    public GameObject partSystem;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class CatEffect : MonoBehaviour
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Player2")
         {
             GetComponent<SphereCollider>().enabled = true;
+            partSystem.SetActive(true);
         }
     }
 }
