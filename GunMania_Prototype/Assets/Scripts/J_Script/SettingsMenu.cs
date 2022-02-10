@@ -8,6 +8,9 @@ public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer mainMixer;
     public AudioMixer sfxMixer;
+
+    public GameObject settingMenu;
+
     public void SetMainVolume (float volume)
     {
         mainMixer.SetFloat("Volume", volume);
@@ -18,8 +21,10 @@ public class SettingsMenu : MonoBehaviour
         sfxMixer.SetFloat("Volume", volume);
     }
 
-    /*public void StartGame()
+    public void CloseSettingsMenu()
     {
-        SceneManager.LoadScene("sl_ServerLobby");
-    }*/
+        settingMenu.SetActive(false);
+
+    }
+
 }
