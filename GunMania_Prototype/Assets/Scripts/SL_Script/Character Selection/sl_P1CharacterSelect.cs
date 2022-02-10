@@ -128,23 +128,11 @@ public class sl_P1CharacterSelect : MonoBehaviour
                 CheckSelectedCharacter();
             }
 
-        }
-        else
-        {
-            for (int i = 0; i < buttonDisable.Length; i++)
-            {
-                buttonDisable[i].SetActive(false);
-            }
-            leaveButton.SetActive(false);
-        }
-
-        if (PhotonNetwork.IsMasterClient)
-        {
             if (blank == 0)
             {
                 statInfo[0].SetActive(false);
                 statInfo[1].SetActive(false);
-
+                ForIcon();
             }
             if (blank == 1)
             {
@@ -157,7 +145,17 @@ public class sl_P1CharacterSelect : MonoBehaviour
                 ForIcon();
             }
 
+
         }
+        else
+        {
+            for (int i = 0; i < buttonDisable.Length; i++)
+            {
+                buttonDisable[i].SetActive(false);
+            }
+            leaveButton.SetActive(false);
+        }
+
     }
 
     public void ForName()

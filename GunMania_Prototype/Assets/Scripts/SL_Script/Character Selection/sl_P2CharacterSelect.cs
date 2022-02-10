@@ -128,15 +128,11 @@ public class sl_P2CharacterSelect : MonoBehaviour
                 CheckSelectedCharacter();
             }
 
-        }
-
-        if (!PhotonNetwork.IsMasterClient)
-        {
             if (blank == 0)
             {
                 p2_statInfo[0].SetActive(false);
                 p2_statInfo[1].SetActive(false);
-
+                ForIcon2();
             }
             if (blank == 1)
             {
@@ -150,6 +146,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
             }
 
         }
+
     }
 
 
@@ -449,8 +446,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
         p2_indicator[0].SetActive(false);
         p2_indicator[1].SetActive(false);
-
-        view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
     }
 
     //RPC Area
