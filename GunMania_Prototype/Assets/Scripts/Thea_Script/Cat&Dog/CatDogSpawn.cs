@@ -22,7 +22,7 @@ public class CatDogSpawn : MonoBehaviour
     void Start()
     {
         canSpawn = false;
-        
+
         if (spawnInt == 1)
         {
             StartCoroutine(Spawn(spawnTime));
