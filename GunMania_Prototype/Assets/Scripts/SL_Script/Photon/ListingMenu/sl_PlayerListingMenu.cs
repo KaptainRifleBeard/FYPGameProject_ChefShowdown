@@ -166,9 +166,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             waitingText.text = sl_P2CharacterSelect.roomNickname2;
             p2IsIn = 1;
 
-            //blankIcon[0].SetActive(false);
-            //blankIcon[1].SetActive(false);
-
             for (int i = 0; i < thingsToDisable.Length; i++)
             {
                 thingsToDisable[i].SetActive(true);

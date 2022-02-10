@@ -136,7 +136,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
             nameText.text = PhotonNetwork.NickName;
             roomNickname2 = nameText.text;
-            //view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
+            view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
 
             if (p2_numConfirm1 == 1 || p2_numConfirm2 == 1)
             {

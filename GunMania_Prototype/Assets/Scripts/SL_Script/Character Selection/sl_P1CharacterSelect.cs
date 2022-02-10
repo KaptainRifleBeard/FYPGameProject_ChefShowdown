@@ -129,7 +129,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
             nameText.text = PhotonNetwork.NickName;
             roomNickname = nameText.text;
-            //view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
+            view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
 
 
             if (numConfirm1 == 1 || numConfirm2 == 1)
