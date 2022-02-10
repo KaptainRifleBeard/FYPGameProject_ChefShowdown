@@ -103,24 +103,15 @@ public class sl_P1CharacterSelect : MonoBehaviour
     }
 
 
+
+    /* Important notice -------
+            never put rpc in update, cuz rpc cannot sync between scene
+            better put it in function
+     
+     */
+
     void Update()
     {
-        // Create a temporary reference to the current scene.
-        //Scene currentScene = SceneManager.GetActiveScene();
-        //string sceneName = currentScene.name;
-
-        //if (sceneName == "sl_NewPlayerRoom")
-        //{
-        //    PhotonNetwork.IsMessageQueueRunning = true;
-
-           
-        //}
-        //else
-        //{
-        //    PhotonNetwork.IsMessageQueueRunning = false;
-        //}
-
-
         if (PhotonNetwork.IsMasterClient)
         {
             characterButton[0].SetActive(true);
@@ -129,7 +120,7 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
             nameText.text = PhotonNetwork.NickName;
             roomNickname = nameText.text;
-            view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
+            ForName();
 
 
             if (numConfirm1 == 1 || numConfirm2 == 1)
@@ -158,16 +149,26 @@ public class sl_P1CharacterSelect : MonoBehaviour
             if (blank == 1)
             {
                 blankIcon[0].SetActive(false);
-                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
-
+                ForIcon();
             }
             if (blank == 2)
             {
                 blankIcon[1].SetActive(false);
-                view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
+                ForIcon();
             }
 
         }
+    }
+
+    public void ForName()
+    {
+        view.RPC("SyncName_PlayerRoom", RpcTarget.All, nameText.text);
+    }
+
+    public void ForIcon()
+    {
+        view.RPC("SyncToPlayer2", RpcTarget.All, p1_firstCharacter, p1_secondCharacter, blank, numConfirm1, numConfirm2);
+
     }
 
     //Models

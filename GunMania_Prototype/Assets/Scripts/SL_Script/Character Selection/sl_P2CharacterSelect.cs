@@ -101,21 +101,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
     void Update()
     {
-        // Create a temporary reference to the current scene.
-        //Scene currentScene = SceneManager.GetActiveScene();
-        //string sceneName = currentScene.name;
-
-        //if(sceneName == "sl_NewPlayerRoom")
-        //{
-        //    PhotonNetwork.IsMessageQueueRunning = true;
-
-           
-        //}
-        //else
-        //{
-        //    PhotonNetwork.IsMessageQueueRunning = false;
-        //}
-
         if (PhotonNetwork.IsMasterClient)
         {
             for (int i = 0; i < buttonDisable.Length; i++)
@@ -136,7 +121,7 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
             nameText.text = PhotonNetwork.NickName;
             roomNickname2 = nameText.text;
-            view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
+            ForName2();
 
             if (p2_numConfirm1 == 1 || p2_numConfirm2 == 1)
             {
@@ -156,16 +141,29 @@ public class sl_P2CharacterSelect : MonoBehaviour
             if (blank == 1)
             {
                 blankIcon[0].SetActive(false);
-                view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
-
+                ForIcon2();
             }
             if (blank == 2)
             {
                 blankIcon[1].SetActive(false);
-                view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
+                ForIcon2();
             }
 
         }
+    }
+
+
+    public void ForName2()
+    {
+        view.RPC("SyncName_PlayerRoom2", RpcTarget.All, nameText.text, roomNickname2);
+
+    }
+
+
+    public void ForIcon2()
+    {
+        view.RPC("SyncToPlayer1", RpcTarget.All, p2_firstCharacter, p2_secondCharacter, blank, p2_numConfirm1, p2_numConfirm2);
+
     }
 
     //Models
