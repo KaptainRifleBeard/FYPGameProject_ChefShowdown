@@ -43,6 +43,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     public bool p2IsWen;
 
+    public bool toRoof;
 
     //new movement
     bool detectAndStop;
@@ -81,6 +82,8 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     void Start()
     {
+        toRoof = false;
+
         destination = transform.position;
         knockback = false;
         myAgent = GetComponent<NavMeshAgent>();
@@ -274,8 +277,42 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         }
         #endregion
 
+        int areaMask = myAgent.areaMask;
+
+        if(toRoof)
+        {
+            //myAgent.SetAreaCost(0, 10);
+
+            areaMask += 1 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+
+            myAgent.areaMask = areaMask;
+        }
+        else
+        {
+            //myAgent.SetAreaCost(0, 1);
+            areaMask -= 1 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+            myAgent.areaMask = areaMask;
+        }
+
+
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "ToRoofArea") //stair
+        {
+            toRoof = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "ToRoofArea") //stair
+        {
+            toRoof = false;
+        }
+    }
 
     //-----RPC Area-----
     #region

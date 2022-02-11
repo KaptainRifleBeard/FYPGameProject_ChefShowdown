@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class sl_testMovement : MonoBehaviour
 {
+    Rigidbody rb;
+
     public float speed;
     Vector3 destination;
 
+
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         destination = transform.position;
     }
 
     void Update()
     {
+        Vector3 m_Input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Input.GetMouseButton(1))
@@ -22,8 +28,11 @@ public class sl_testMovement : MonoBehaviour
             {
                 if (Vector3.Distance(transform.position, hit.point) > 1.0)
                 {
-                    destination = hit.point;
-                    Movement();
+
+                    rb.MovePosition(Vector3.MoveTowards(transform.position, hit.point, speed * Time.deltaTime));
+
+                    //destination = hit.point;
+                    //Movement();
                 }
             }
 
@@ -45,7 +54,9 @@ public class sl_testMovement : MonoBehaviour
 
             //get the unit vector which means the move direction, and multiply by the move distance.
             Vector3 move = (destination - transform.position).normalized * moveDis;
-            transform.Translate(move.x, 0, move.z);
+            rb.MovePosition(move * Time.deltaTime * speed);
+
+            //transform.Translate(move.x, 0, move.z);
 
         }
 
