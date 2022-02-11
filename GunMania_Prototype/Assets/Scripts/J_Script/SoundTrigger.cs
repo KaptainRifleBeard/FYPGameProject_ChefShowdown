@@ -8,7 +8,7 @@ public class SoundTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Player2")
         {
             stallsAudio.Play();
         }
@@ -16,10 +16,7 @@ public class SoundTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            stallsAudio.Stop();
-        }
+        stallsAudio.Stop();
     }
 
 

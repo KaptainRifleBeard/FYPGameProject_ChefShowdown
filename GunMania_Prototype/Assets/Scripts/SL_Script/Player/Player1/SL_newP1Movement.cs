@@ -694,22 +694,22 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     }
 
 
-    //public void DrawLine()
-    //{
-    //    if (myAgent.path.corners.Length < 2) return;
+    public void DrawLine()
+    {
+        if (myAgent.path.corners.Length < 2) return;
 
-    //    int i = 1;
-    //    while (i < myAgent.path.corners.Length)
-    //    {
-    //        lineRenderer.positionCount = myAgent.path.corners.Length;
-    //        point = myAgent.path.corners.ToList();
+        int i = 1;
+        while (i < myAgent.path.corners.Length)
+        {
+            lineRenderer.positionCount = myAgent.path.corners.Length;
+            point = myAgent.path.corners.ToList();
 
-    //        for (int j = 0; j < point.Count; j++)
-    //        {
-    //            lineRenderer.SetPosition(j, point[j]);
-    //        }
-    //        i++;
-    //    }
-    //}
+            for (int j = 0; j < point.Count; j++)
+            {
+                lineRenderer.SetPosition(j, point[j]);
+            }
+            i++;
+        }
+    }
 
 }
