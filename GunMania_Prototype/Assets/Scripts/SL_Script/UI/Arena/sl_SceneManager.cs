@@ -38,7 +38,6 @@ public class sl_SceneManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()  //to avoid left room too quickly - MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene("sl_ServerLobby");
-
         base.OnLeftRoom();
     }
 }

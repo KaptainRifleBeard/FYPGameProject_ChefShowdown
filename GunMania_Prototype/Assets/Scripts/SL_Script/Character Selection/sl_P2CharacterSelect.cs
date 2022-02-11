@@ -11,8 +11,6 @@ public class sl_P2CharacterSelect : MonoBehaviour
 
     [Space(10)]
     [Header("Buttons")]
-
-    public GameObject readyButton;
     public GameObject p2_confirmFirstCharacter;
     public GameObject p2_confirmSecondCharacter;
 

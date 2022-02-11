@@ -83,6 +83,17 @@ public class sl_RematchAndLeave : MonoBehaviour
             rematchNum = 4;
         }
 
+        //reset all 
+        sl_P1CharacterSelect.numConfirm1 = 0;
+        sl_P1CharacterSelect.numConfirm2 = 0;
+        sl_P1CharacterSelect.p1_firstCharacter = 0;
+        sl_P1CharacterSelect.p1_secondCharacter = 0;
+
+        sl_P2CharacterSelect.p2_numConfirm1 = 0;
+        sl_P2CharacterSelect.p2_numConfirm2 = 0;
+        sl_P2CharacterSelect.p2_firstCharacter = 0;
+        sl_P2CharacterSelect.p2_secondCharacter = 0;
+
         view.RPC("SyncRematch", RpcTarget.All, rematchNum, rematchCount);
     }
 

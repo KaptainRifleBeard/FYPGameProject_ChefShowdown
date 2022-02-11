@@ -145,6 +145,10 @@ public class sl_P1CharacterSelect : MonoBehaviour
                 ForIcon();
             }
 
+            if(sl_PlayerListingMenu.p2IsIn == 1)
+            {
+                ForIcon();
+            }
 
         }
         else

@@ -119,7 +119,7 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     {
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        if (PhotonNetwork.IsMasterClient /*&& playerCount == 2*/)  // room owner
+        if (PhotonNetwork.IsMasterClient && playerCount == 2)  // room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
             startGame = true;
@@ -158,6 +158,11 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             DisableP2Indicator();
 
             p2IsIn = 0;
+            sl_P2CharacterSelect.p2_numConfirm1 = 0;
+            sl_P2CharacterSelect.p2_numConfirm2 = 0;
+            sl_P2CharacterSelect.p2_firstCharacter = 0;
+            sl_P2CharacterSelect.p2_secondCharacter = 0;
+
         }
         else
         {

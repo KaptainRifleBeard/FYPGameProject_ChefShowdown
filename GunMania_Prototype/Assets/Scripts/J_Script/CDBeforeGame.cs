@@ -15,8 +15,6 @@ public class CDBeforeGame : MonoBehaviour
     {
         loadingScreen.SetActive(true);
         StartCoroutine(CDToStart());
-
-        
     }
 
     IEnumerator CDToStart()
