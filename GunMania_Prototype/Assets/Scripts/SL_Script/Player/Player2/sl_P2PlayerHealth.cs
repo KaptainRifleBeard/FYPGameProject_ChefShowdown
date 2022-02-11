@@ -36,6 +36,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public static bool getDamage2;
     public static bool player2Dead;
 
+    //AUDIO
+
+    public AudioSource hitAudio;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -87,6 +91,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         if (other.gameObject.tag == "Bullet") //dont put this in masterclient, or else ur view wont destroy bullet
         {
+            hitAudio.Play();
             Destroy(other.gameObject);
         }
 
