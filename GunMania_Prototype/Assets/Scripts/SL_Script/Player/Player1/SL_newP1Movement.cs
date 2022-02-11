@@ -277,22 +277,20 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         }
         #endregion
 
-        //int areaMask = myAgent.areaMask;
+        int areaMask = myAgent.areaMask;
 
-        //if(toRoof)
-        //{
-        //    //myAgent.SetAreaCost(0, 10);
-
-        //    areaMask += 1 << NavMesh.GetAreaFromName("Roof"); //turn off roof
-
-        //    myAgent.areaMask = areaMask;
-        //}
-        //else
-        //{
-        //    //myAgent.SetAreaCost(0, 1);
-        //    areaMask -= 1 << NavMesh.GetAreaFromName("Roof"); //turn off roof
-        //    myAgent.areaMask = areaMask;
-        //}
+        if (toRoof)
+        {
+            //myAgent.SetAreaCost(0, 10);
+            areaMask -= 2 << NavMesh.GetAreaFromName("Roof");
+            myAgent.areaMask = areaMask;
+        }
+        else
+        {
+            //myAgent.SetAreaCost(0, 1);
+            areaMask += 5 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+            myAgent.areaMask = areaMask;
+        }
 
 
     }
@@ -304,11 +302,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         {
             toRoof = true;
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "ToRoofArea") //stair
+        if (other.gameObject.tag == "OffRoof")
         {
             toRoof = false;
         }

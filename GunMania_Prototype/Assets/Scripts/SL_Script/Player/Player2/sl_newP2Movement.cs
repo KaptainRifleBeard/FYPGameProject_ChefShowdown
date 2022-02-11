@@ -26,6 +26,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
     string animName;
 
     bool throwing = false;
+    public bool toRoof;
 
     bool isrunning;
     bool stopping;
@@ -230,10 +231,37 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
                 GetAnimation();
             }
         }
-        
+
         #endregion
+
+        int areaMask = myAgent.areaMask;
+
+        if (toRoof)
+        {
+            //myAgent.SetAreaCost(0, 10);
+            areaMask -= 2 << NavMesh.GetAreaFromName("Roof");
+            myAgent.areaMask = areaMask;
+        }
+        else
+        {
+            //myAgent.SetAreaCost(0, 1);
+            areaMask += 5 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+            myAgent.areaMask = areaMask;
+        }
+
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "ToRoofArea") //stair
+        {
+            toRoof = true;
+        }
+        if (other.gameObject.tag == "OffRoof")
+        {
+            toRoof = false;
+        }
+    }
 
     public void GetAnimation()
     {

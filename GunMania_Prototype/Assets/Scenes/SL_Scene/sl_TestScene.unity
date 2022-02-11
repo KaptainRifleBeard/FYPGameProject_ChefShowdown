@@ -990,7 +990,7 @@ GameObject:
   - component: {fileID: 59660485}
   m_Layer: 0
   m_Name: TransparentStairs (7)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -1664,6 +1664,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 91107522}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &92504084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92504085}
+  - component: {fileID: 92504086}
+  m_Layer: 0
+  m_Name: RoofTrigger (1)
+  m_TagString: ToRoofArea
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &92504085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92504084}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.521744, y: 14.472471, z: -12.476173}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1220364785}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &92504086
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92504084}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.27, y: 20.25, z: 8.54}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &96079287
 GameObject:
   m_ObjectHideFlags: 0
@@ -4029,7 +4073,7 @@ GameObject:
   - component: {fileID: 179448745}
   m_Layer: 0
   m_Name: TransparentStairs (3)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -6652,7 +6696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &279245939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7786,7 +7830,7 @@ GameObject:
   - component: {fileID: 324037052}
   m_Layer: 0
   m_Name: TransparentStairs (4)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -9678,7 +9722,7 @@ GameObject:
   - component: {fileID: 367975840}
   m_Layer: 0
   m_Name: TransparentStairs (5)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -11733,12 +11777,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434814467}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 9, z: -72}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -88.47826, y: 14.472471, z: -7.4761734}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1220364785}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &439989707
 GameObject:
@@ -28717,7 +28761,7 @@ GameObject:
   - component: {fileID: 1085513740}
   m_Layer: 0
   m_Name: TransparentStairs (6)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -32930,6 +32974,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2c55940ab883bba47983cb5009a198e4, type: 3}
   m_PrefabInstance: {fileID: 1219185078}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1220364784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220364785}
+  m_Layer: 0
+  m_Name: OnRoof
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1220364785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220364784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 79.47826, y: -5.472471, z: -64.52383}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 434814469}
+  - {fileID: 92504085}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1227066465
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34325,7 +34401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1240511984
 Transform:
   m_ObjectHideFlags: 0
@@ -39291,6 +39367,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469121509}
   m_CullTransparentMesh: 1
+--- !u!1 &1470444512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470444513}
+  - component: {fileID: 1470444515}
+  - component: {fileID: 1470444514}
+  m_Layer: 0
+  m_Name: RoofTrigger (2)
+  m_TagString: OffRoof
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470444513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470444512}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 83.273026, y: 5.328246, z: -1.7465134}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1663621198}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1470444514
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470444512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20.8, y: 5, z: 14.1}
+  m_Center: {x: 11.21, y: 0, z: -4.81}
+--- !u!65 &1470444515
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470444512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.93, y: 5, z: 10.31}
+  m_Center: {x: -3.4, y: 0, z: -7.47}
 --- !u!1001 &1485749911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40021,7 +40155,7 @@ GameObject:
   - component: {fileID: 1529393070}
   m_Layer: 0
   m_Name: TransparentStairs (10)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -40466,7 +40600,7 @@ GameObject:
   - component: {fileID: 1542921222}
   m_Layer: 0
   m_Name: TransparentStairs (13)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -40860,6 +40994,64 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553197353}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1555755975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1555755976}
+  - component: {fileID: 1555755978}
+  - component: {fileID: 1555755977}
+  m_Layer: 0
+  m_Name: RoofTrigger (1)
+  m_TagString: OffRoof
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1555755976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555755975}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.7269711, y: 5.328246, z: -1.7465134}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1663621198}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1555755977
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555755975}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.27, y: 5, z: 15.06}
+  m_Center: {x: 11.8, y: 0, z: -4.81}
+--- !u!65 &1555755978
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555755975}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.93, y: 5, z: 10.31}
+  m_Center: {x: 1.2, y: 0, z: 0}
 --- !u!1 &1559858980
 GameObject:
   m_ObjectHideFlags: 0
@@ -44163,6 +44355,38 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6493816, y: 8.000004, z: 12.395279}
   m_Center: {x: -0.012804836, y: 7.6671314, z: 0.0000021457672}
+--- !u!1 &1663621197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1663621198}
+  m_Layer: 0
+  m_Name: OffRood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1663621198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663621197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.7269711, y: 1.6717539, z: -57.253487}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1555755976}
+  - {fileID: 1470444513}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1665137388
 GameObject:
   m_ObjectHideFlags: 0
@@ -47244,7 +47468,7 @@ GameObject:
   - component: {fileID: 1748598407}
   m_Layer: 0
   m_Name: TransparentStairs (2)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 40
@@ -48434,7 +48658,7 @@ GameObject:
   - component: {fileID: 1786308864}
   m_Layer: 0
   m_Name: TransparentStairs (12)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -48727,7 +48951,7 @@ GameObject:
   - component: {fileID: 1809846680}
   m_Layer: 0
   m_Name: TransparentStairs (11)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -48912,7 +49136,7 @@ GameObject:
   - component: {fileID: 1814320442}
   m_Layer: 0
   m_Name: TransparentStairs (9)
-  m_TagString: Untagged
+  m_TagString: ToRoofArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 3
   m_StaticEditorFlags: 8
@@ -50522,7 +50746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1894957863
 MonoBehaviour:
   m_ObjectHideFlags: 0
