@@ -43,6 +43,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     public GameObject[] theFoodToShow;
 
+    string audioName;
 
     void Start()
     {
@@ -209,6 +210,19 @@ public class sl_P2ShootBehavior : MonoBehaviour
                 maxRange.SetActive(false);
 
                 ShootBullet2();
+
+                //SFX
+                if (sl_newP2Movement.changep2Icon == 0) //brock
+                {
+                    audioName = "Brock_ThrowFood";
+                    SyncAudio();
+                }
+                if (sl_newP2Movement.changep2Icon == 2) //JIHO
+                {
+                    audioName = "Jiho_ThrowFood";
+                    SyncAudio();
+
+                }
             }
             else
             {
@@ -481,6 +495,18 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     }
 
+    [PunRPC]
+    public void P2Shoot_SFX(string n)
+    {
+        audioName = n;
+        FindObjectOfType<sl_AudioManager>().Play(n);
+
+    }
+
+    public void SyncAudio()
+    {
+        view.RPC("P2Shoot_SFX", RpcTarget.All, audioName);
+    }
 
     private IEnumerator MoveToFront()
     {

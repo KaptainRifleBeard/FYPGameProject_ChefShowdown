@@ -46,8 +46,10 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         CheckIcon_p2();
         UiSize_p2();
 
-        if (sl_PlayerHealth.currentHealth <= 0 /*|| sl_MatchCountdown.timeRemaining == 0*/)
+        if (sl_PlayerHealth.currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
         {
+            FindObjectOfType<sl_AudioManager>().Play("WinScreen");
+
             if (PhotonNetwork.IsMasterClient)
             {
                 Nickname();
@@ -92,6 +94,8 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
         if (sl_P2PlayerHealth.p2currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
         {
+            FindObjectOfType<sl_AudioManager>().Play("WinScreen");
+
             if (PhotonNetwork.IsMasterClient)
             {
                 Nickname();

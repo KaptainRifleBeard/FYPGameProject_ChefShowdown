@@ -36,9 +36,11 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public static bool getDamage2;
     public static bool player2Dead;
 
-    //AUDIO
 
-    public AudioSource hitAudio;
+    //AUDIO
+    string audioName;
+
+    //public AudioSource hitAudio;
 
     void Start()
     {
@@ -88,10 +90,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.tag == "Bullet") //dont put this in masterclient, or else ur view wont destroy bullet
         {
-            hitAudio.Play();
             Destroy(other.gameObject);
         }
 
@@ -99,6 +99,9 @@ public class sl_P2PlayerHealth : MonoBehaviour
         {
             if (other.gameObject.layer == 6)
             {
+                audioName = "HitSFX";
+                SyncAudio();
+
                 isDish = true; //for katsuki to check dish
             }
 
@@ -112,10 +115,21 @@ public class sl_P2PlayerHealth : MonoBehaviour
                 StartCoroutine(StopGetDamage());
             }
 
+            if (other.gameObject.tag == "Cat")
+            {
+                bulletDamage2 = 0.5f;
+                percentage = (bulletDamage2 * 50f) / 100f;
+
+                GetDamage(bulletDamage2, percentage);
+            }
+
 
             //****bullets
             if (other.gameObject.tag == "Bullet")
             {
+                audioName = "HitSFX";
+                SyncAudio();
+
                 isDish = false;
 
                 bulletDamage2 = 1.0f; //original
@@ -126,6 +140,9 @@ public class sl_P2PlayerHealth : MonoBehaviour
             //DISHES
             if (other.gameObject.tag == "Sinseollo")
             {
+                audioName = "HitSFX";
+                SyncAudio();
+
                 bulletDamage2 = 3f; 
                 percentage = (bulletDamage2 * 50f) / 100f;
                 GetDamage(bulletDamage2, percentage);
@@ -142,6 +159,9 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "BuddhaJumpsOvertheWall" || other.gameObject.tag == "FoxtailMillet" || other.gameObject.tag == "Mukozuke")
             {
+                audioName = "HitSFX";
+                SyncAudio();
+
                 bulletDamage2 = 2.0f; 
                 percentage = (bulletDamage2 * 50f) / 100f;
                 GetDamage(bulletDamage2, percentage);
@@ -150,6 +170,9 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "P2Hassun") //heal
             {
+                audioName = "HitSFX";
+                SyncAudio();
+
                 //rmb to add rpc to sync
                 bulletDamage2 = 0.0f;
 
@@ -164,6 +187,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "BirdNestSoup")
             {
+                audioName = "HitSFX";
+                SyncAudio();
+
+
                 bulletDamage2 = 2.0f;
                 percentage = (bulletDamage2 * 50f) / 100f;
 
@@ -192,14 +219,6 @@ public class sl_P2PlayerHealth : MonoBehaviour
             }
 
         }
-
-        if (other.gameObject.tag == "Cat")
-        {
-            bulletDamage2 = 0.5f;
-            percentage = (bulletDamage2 * 50f) / 100f;
-
-            GetDamage(bulletDamage2, percentage);
-        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -227,15 +246,24 @@ public class sl_P2PlayerHealth : MonoBehaviour
         //for my model
         if (sl_newP2Movement.changep2Icon == 1) //w
         {
+            audioName = "Wen_GetDamage";
+            SyncAudio();
+
             damage += 0.5f;
         }
 
         if (sl_newP2Movement.changep2Icon == 3 && !isDish)//k
         {
+            audioName = "Katsuki_GetDamage";
+            SyncAudio();
+
             damage -= 0; //if is food, get full damage
         }
         if (sl_newP2Movement.changep2Icon == 3 && isDish)//k
         {
+            audioName = "Katsuki_GetDamage";
+            SyncAudio();
+
             damage = damage - percent;
         }
 
@@ -249,6 +277,9 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         if (SL_newP1Movement.changeModelAnim == 2)//enemy jiho
         {
+            audioName = "Jiho_GetDamage";
+            SyncAudio();
+
             damage = damage - percent;
         }
 
@@ -290,6 +321,19 @@ public class sl_P2PlayerHealth : MonoBehaviour
         }
     }
 
+
+    [PunRPC]
+    public void P2Health_SFX(string n)
+    {
+        audioName = n;
+        FindObjectOfType<sl_AudioManager>().Play(n);
+
+    }
+
+    public void SyncAudio()
+    {
+        view.RPC("P2Health_SFX", RpcTarget.All, audioName);
+    }
 
 
     //public void SpawnBackPlayer()

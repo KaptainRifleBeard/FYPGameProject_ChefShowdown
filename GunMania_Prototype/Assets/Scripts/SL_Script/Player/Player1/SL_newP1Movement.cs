@@ -277,22 +277,22 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         }
         #endregion
 
-        int areaMask = myAgent.areaMask;
+        //int areaMask = myAgent.areaMask;
 
-        if(toRoof)
-        {
-            //myAgent.SetAreaCost(0, 10);
+        //if(toRoof)
+        //{
+        //    //myAgent.SetAreaCost(0, 10);
 
-            areaMask += 1 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+        //    areaMask += 1 << NavMesh.GetAreaFromName("Roof"); //turn off roof
 
-            myAgent.areaMask = areaMask;
-        }
-        else
-        {
-            //myAgent.SetAreaCost(0, 1);
-            areaMask -= 1 << NavMesh.GetAreaFromName("Roof"); //turn off roof
-            myAgent.areaMask = areaMask;
-        }
+        //    myAgent.areaMask = areaMask;
+        //}
+        //else
+        //{
+        //    //myAgent.SetAreaCost(0, 1);
+        //    areaMask -= 1 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+        //    myAgent.areaMask = areaMask;
+        //}
 
 
     }
