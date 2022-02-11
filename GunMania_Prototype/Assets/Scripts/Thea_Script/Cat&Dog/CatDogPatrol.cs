@@ -14,6 +14,8 @@ public class CatDogPatrol : MonoBehaviour
     private int destPoint = 0;
     private NavMeshAgent agent;
 
+    GameObject obj;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Spawn1")
@@ -39,11 +41,12 @@ public class CatDogPatrol : MonoBehaviour
 
         if (other.gameObject.tag == "Despawn")
         {
-            PhotonNetwork.Destroy(gameObject);
+            view.RPC("DestroyCatDog", RpcTarget.All);
+            //PhotonNetwork.Destroy(gameObject);
             CatDogSpawn.canSpawn = true;
         }
 
-        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Player2")
         {
             agent.speed = 35;
         }
@@ -161,4 +164,11 @@ public class CatDogPatrol : MonoBehaviour
 
         destPoint = (destPoint + 1) % waypoints1.Waypoint4.Count;
     }
+
+    [PunRPC]
+    public void DestroyCatDog()
+    {
+        Destroy(gameObject);
+    }
+
 }

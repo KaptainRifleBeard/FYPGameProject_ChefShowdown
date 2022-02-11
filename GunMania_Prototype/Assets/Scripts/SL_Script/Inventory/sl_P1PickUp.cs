@@ -25,20 +25,27 @@ public class sl_P1PickUp : MonoBehaviour
         isPickedDish = false;
     }
 
+    private void Update()
+    {
+        if(pickup)
+        {
+            StartCoroutine(WaitToPickAgain()); //prevent pick up too many at 1 location
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
             if (DishEffect.canPick)
             {
-                if (sl_ShootBehavior.bulletCount < 2)
+                if (sl_ShootBehavior.bulletCount < 2 && !pickup)
                 {
                     pickup = true;
                     prefabNum = Random.Range(0, 2);
 
                     view.RPC("AddFood", RpcTarget.All, prefabNum, pickup);
                     sl_ShootBehavior.bulletCount += 1;
-
 
                     if (gameObject.layer == LayerMask.NameToLayer("Food"))
                     {
@@ -149,4 +156,10 @@ public class sl_P1PickUp : MonoBehaviour
         Destroy(gameObject);
     }
 
+
+    IEnumerator WaitToPickAgain()
+    {
+        yield return new WaitForSeconds(0.2f);
+        pickup = false;
+    }
 }
