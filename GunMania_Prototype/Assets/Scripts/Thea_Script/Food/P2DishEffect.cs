@@ -46,7 +46,7 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "Tojangjochi")
         {
             //stun
-            view.RPC("Stun", RpcTarget.All, stunTime);
+            view.RPC("Stun", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
