@@ -11,7 +11,12 @@ public class sl_P1PickUp : MonoBehaviour
 
     public static bool isPicked;
     public static bool isPickedDish;
-   
+
+    public int prefabNum;
+    public GameObject[] foodPrefab;
+    int num;
+    bool pickup; //stop pick when is full
+
 
     void Start()
     {
@@ -20,29 +25,46 @@ public class sl_P1PickUp : MonoBehaviour
         isPickedDish = false;
     }
 
+    private void Update()
+    {
+        if(pickup)
+        {
+            StartCoroutine(WaitToPickAgain()); //prevent pick up too many at 1 location
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            if (sl_ShootBehavior.bulletCount < 2)
+            if (DishEffect.canPick)
             {
-                view.RPC("AddFood", RpcTarget.All);
-                sl_ShootBehavior.bulletCount += 1;
-
-                if (gameObject.layer == LayerMask.NameToLayer("Food"))
+                if (sl_ShootBehavior.bulletCount < 2 && !pickup)
                 {
-                    isPicked = true;
-                    AddNewItem();
-                    
+                    pickup = true;
+                    prefabNum = Random.Range(0, 2);
 
+                    view.RPC("AddFood", RpcTarget.All, prefabNum, pickup);
+                    sl_ShootBehavior.bulletCount += 1;
+
+                    if (gameObject.layer == LayerMask.NameToLayer("Food"))
+                    {
+                        isPicked = true;
+                        AddNewItem();
+                    }
+                    else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
+                    {
+                        isPickedDish = true;
+                        AddNewItem();
+
+                        view.RPC("DestroyDish", RpcTarget.All);
+
+                    }
                 }
-                else if (gameObject.layer == LayerMask.NameToLayer("Dish"))
+                else
                 {
-                    isPickedDish = true;
-                    AddNewItem();
-
-                    view.RPC("DestroyDish", RpcTarget.All);
-
+                    pickup = false;
+                    view.RPC("AddFood", RpcTarget.All, prefabNum, pickup);
                 }
             }
 
@@ -51,7 +73,6 @@ public class sl_P1PickUp : MonoBehaviour
 
     public void AddNewItem()
     {
-        
         //check is it contain in list?
         /*if (!playerInventory.itemList.Contains(thisItem))
         {
@@ -79,26 +100,66 @@ public class sl_P1PickUp : MonoBehaviour
         
     }
 
-    [PunRPC]
+    //[PunRPC]
     public void StartCountdown()
     {
-        gameObject.SetActive(true);
+        if (num == 1)
+        {
+            foodPrefab[0].SetActive(true);
+        }
+
+        if (num == 2)
+        {
+            foodPrefab[1].SetActive(true);
+        }
+
+        if (num == 3)
+        {
+            foodPrefab[2].SetActive(true);
+        }
+
         isPicked = false;
     }
 
 
     [PunRPC]
-    public void AddFood()
+    public void AddFood(int i, bool pick)
     {
-        gameObject.SetActive(false);
+        prefabNum = i;
+        pickup = pick;
 
-        Invoke("StartCountdown", 6);  //wait for 6 sec
+        if(pick)
+        {
+            gameObject.SetActive(false);
+            Invoke("StartCountdown", 3);  //wait for 6 sec
 
+            if (i == 0)
+            {
+                num = 1;
+            }
+
+            if (i == 1)
+            {
+                num = 2;
+            }
+
+            if (i == 2)
+            {
+                num = 3;
+            }
+        }
     }
 
     [PunRPC]
     public void DestroyDish()
     {
         Destroy(gameObject);
+    }
+
+
+    IEnumerator WaitToPickAgain()
+    {
+        yield return new WaitForSeconds(0.2f);
+        pickup = false;
     }
 }

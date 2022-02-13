@@ -6,12 +6,6 @@ using UnityEngine.UI;
 
 public class sl_SpawnPlayerManager : MonoBehaviour
 {
-    public static int playerNum_p1;
-    public static int playerTagNum_p1;
-
-    public static int playerNum_p2;
-    public static int playerTagNum_p2;
-
     public GameObject p1_mainRightClick;
     public GameObject p2_mainRightClick;
 
@@ -57,7 +51,8 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
 
     public static int p2Ready;
-    bool p2done;
+    public static bool p2done;
+
 
     /*
      Note: 
@@ -103,6 +98,7 @@ public class sl_SpawnPlayerManager : MonoBehaviour
 
     void Update()
     {
+
         if (PhotonNetwork.IsMasterClient)
         {
             //p1
@@ -514,4 +510,12 @@ public class sl_SpawnPlayerManager : MonoBehaviour
         }
     }
 
+    public void LeftRoom()
+    {
+        p2done = false;
+        count1 = 5;
+
+        p2count1 = 1;
+        p2count2 = 1;
+    }
 }

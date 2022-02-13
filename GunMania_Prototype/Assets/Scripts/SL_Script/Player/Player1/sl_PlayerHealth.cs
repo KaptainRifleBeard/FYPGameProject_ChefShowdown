@@ -29,26 +29,42 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     public Image[] hearts;
 
     float bulletDamage;
+    float percentage;
+    bool isDish;
+    float molotovTimer;
+
+    public static bool getDamage;
+    public static bool playerDead;
+
+    //AUDIO
+    string audioName;
+
+    //public AudioSource hitAudio;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
         currentHealth = maxHealth;
+
+        isDish = false;
+        getDamage = false;
+        playerDead = false;
     }
 
     public void Update()
     {
-
-        if (currentHealth == 0)
+        if (currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
         {
-            Destroy(gameObject);
+            playerDead = true;
+            StartCoroutine(PlayerDead());
         }
+
+
     }
 
     public void FixedUpdate()
     {
         healthText.text = currentHealth.ToString();
-
 
         for (int i = 0; i < hearts.Length; i++)
         {
@@ -68,7 +84,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
                 hearts[i].sprite = emptyHealth;
             }
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,12 +96,126 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
         if (PhotonNetwork.IsMasterClient) //make sure it run only once
         {
+            if (other.gameObject.layer == 6)
+            {
+                audioName = "HitSFX";
+                SyncAudio();
+                isDish = true; //for katsuki to check dish
+            }
+
+            if (other.gameObject.tag == "WaterSpray")
+            {
+                float waterDamage;
+                waterDamage = 1;
+                view.RPC("BulletDamage", RpcTarget.All, waterDamage);
+
+                getDamage = true;
+                StartCoroutine(StopGetDamage());
+            }
+
+
+            if (other.gameObject.tag == "Cat")
+            {
+                bulletDamage = 0.5f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+            }
+
+            //*****bullets
             if (other.gameObject.tag == "P2Bullet")
             {
-                bulletDamage = 1;
+                audioName = "HitSFX";
+                SyncAudio();
 
+                isDish = false;
+                bulletDamage = 1.0f; //original
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+            }
+
+            //DISHES
+            if (other.gameObject.tag == "P2Sinseollo")
+            {
+                audioName = "HitSFX";
+                SyncAudio();
+
+                bulletDamage = 3f; 
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+
+            }
+
+            //if (other.gameObject.tag == "P2BirdNestSoup") //stay in the range deal more dmg per second
+            //{
+            //    bulletDamage = 1.0f; 
+            //    percentage = (bulletDamage * 50f) / 100f;
+
+            //    GetDamage(bulletDamage, percentage);
+
+
+            //}
+
+            if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
+            {
+                audioName = "HitSFX";
+                SyncAudio();
+
+                bulletDamage = 2.0f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+
+            }
+
+            if (other.gameObject.tag == "Hassun") //heal
+            {
+                //rmb to add rpc to sync
+                bulletDamage = 0.0f;
+
+                currentHealth += 3.0f;
+                if (currentHealth >= 8.0f)
+                {
+                    currentHealth = 8.0f;
+                }
                 view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
-                //currentHealth -= 1;
+
+            }
+
+            if (other.gameObject.tag == "P2BirdNestSoup")
+            {
+                audioName = "HitSFX";
+                SyncAudio();
+
+
+                //hitAudio.Play();
+
+                bulletDamage = 2.0f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+            }
+
+            
+        }
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "P2BirdNestSoup")
+        {
+            molotovTimer += Time.deltaTime;
+
+            if (molotovTimer >= 1.0f)
+            {
+                bulletDamage = 1.0f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+                molotovTimer = 0;
 
             }
 
@@ -94,33 +223,119 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "P2BirdNestSoup")
+        {
+            molotovTimer = 0;
+        }
 
-    //IEnumerator Respawn()
-    //{
-    //    sl_InventoryManager.ClearAllInList();
-    //    yield return new WaitForSeconds(1.0f);
-    //    gameObject.transform.position = spawnPostionA.transform.position;
+    }
 
-    //    currentHealth = 16;
-    //}
+    public void GetDamage(float damage, float percent)
+    {
+        getDamage = true;
+        StartCoroutine(StopGetDamage());
+
+        /*
+                //0 - b, 1 - w, 2 - j, 3 - k
+        brock - extra 50% damage for all foods & dishes thrown, range -2
+        wen - take extra 0.5 dmg from everyone, speed + 20
+        jiho - deal less 50% damage when attacks, range+2
+        katsuki - dish take less 50% damage from everyone, speed-30
+
+        */
+
+        //for my model
+        if (SL_newP1Movement.changeModelAnim == 1) //w
+        {
+            audioName = "Wen_GetDamage";
+            SyncAudio();
+
+            damage += 0.5f;
+        }
+
+        if (SL_newP1Movement.changeModelAnim == 3 && !isDish)//k
+        {
+            audioName = "Katsuki_GetDamage";
+            SyncAudio();
+
+            damage -= 0; //if is food, get full damage
+        }
+        if (SL_newP1Movement.changeModelAnim == 3 && isDish)//k
+        {
+            audioName = "Katsuki_GetDamage";
+            SyncAudio();
+
+            damage = damage - percent;
+        }
+
+
+
+        //from enemy bullet
+        if (sl_newP2Movement.changep2Icon == 0) //enemy brock
+        {
+            damage = damage + percent;
+        }
+
+        if (sl_newP2Movement.changep2Icon == 2)//enemy jiho
+        {
+            audioName = "Jiho_GetDamage";
+            SyncAudio();
+
+
+            damage = damage - percent;
+        }
+        view.RPC("BulletDamage", RpcTarget.All, damage);
+
+    }
+
+    IEnumerator StopGetDamage()
+    {
+        yield return new WaitForSeconds(1.0f);
+        getDamage = false;
+    }
+
+    IEnumerator PlayerDead()
+    {
+        yield return new WaitForSeconds(3.0f);
+        //currentHealth = 0;
+
+        //sl_InventoryManager.ClearAllInList();
+        //PhotonNetwork.Destroy(gameObject);
+    }
+
 
     [PunRPC]
     public void BulletDamage(float damage)
     {
+        isDish = false; //everytime run this set to false
         if (currentHealth > 0)
         {
             //currentHealth -= 0.5f; //because it run 2 times, so i cut it half
             currentHealth -= damage;
 
-            if (currentHealth < 0)
+            if (currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
-                currentHealth = 0;
-                Destroy(gameObject);
+                playerDead = true;
             }
+
         }
 
     }
 
+    [PunRPC]
+    public void P1Health_SFX(string n)
+    {
+        audioName = n;
+        FindObjectOfType<sl_AudioManager>().Play(n);
+
+    }
+
+    public void SyncAudio()
+    {
+        view.RPC("P1Health_SFX", RpcTarget.All, audioName);
+    }
 
     //will fire when event is activated
     //public void OnEvent(EventData photonEvent)
@@ -160,5 +375,17 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     //    }
 
     //}
+
+
+
+    //IEnumerator Respawn()
+    //{
+    //    sl_InventoryManager.ClearAllInList();
+    //    yield return new WaitForSeconds(1.0f);
+    //    gameObject.transform.position = spawnPostionA.transform.position;
+
+    //    currentHealth = 16;
+    //}
+
 
 }

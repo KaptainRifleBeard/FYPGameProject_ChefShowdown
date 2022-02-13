@@ -9,8 +9,8 @@ public class sl_RoomCanvases : MonoBehaviour
 
 
 
-    [SerializeField] private sl_CurrentRoomCanvas currentRoomCanvas;
-    public sl_CurrentRoomCanvas CurrentRoomCanvas { get { return currentRoomCanvas; } }
+    //[SerializeField] private sl_CurrentRoomCanvas currentRoomCanvas;
+    //public sl_CurrentRoomCanvas CurrentRoomCanvas { get { return currentRoomCanvas; } }
 
 
     private void Awake()
@@ -21,7 +21,7 @@ public class sl_RoomCanvases : MonoBehaviour
     private void FirstInitialize()
     {
         CreateOrJoinCanvas.FirstInitialize(this);
-        CurrentRoomCanvas.FirstInitialize(this);
+        //CurrentRoomCanvas.FirstInitialize(this);
     }
 
 

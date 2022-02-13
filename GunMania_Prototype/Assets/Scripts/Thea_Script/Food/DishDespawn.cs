@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class DishDespawn : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class DishDespawn : MonoBehaviour
 
     private IEnumerator coroutine;
     private int secs = 10;
+    PhotonView view;
 
     // Start is called before the first frame update
     void Start()
     {
+        view = GetComponent<PhotonView>();
         canSpawn = false;
     }
 
@@ -26,6 +29,12 @@ public class DishDespawn : MonoBehaviour
     private IEnumerator Despawn(int secs)
     {
         yield return new WaitForSeconds(secs);
+        view.RPC("DishDestroy", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void DishDestroy()
+    {
         Destroy(gameObject);
         canSpawn = true;
     }

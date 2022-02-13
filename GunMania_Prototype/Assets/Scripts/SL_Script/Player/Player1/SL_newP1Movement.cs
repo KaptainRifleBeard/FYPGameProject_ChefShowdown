@@ -6,39 +6,55 @@ using Photon.Pun;
 using System.Linq;
 using UnityEngine.UI;
 
-public class SL_newP1Movement : MonoBehaviour
+public class SL_newP1Movement : MonoBehaviour, IPunObservable
 {
     bool startTheGame = false;
 
     private NavMeshAgent myAgent;
     PhotonView view;
 
-    public GameObject inventoryVisible;
-    public GameObject indicatorVisible;
+    //UI variables
 
-    public Animator anim;
+
+    //Animation Variables
+    [Header("Animation")]
+    public Animator myAnimator;
+    public Animator brock_Animator;
+    public Animator wen_Animator;
+    public Animator jiho_Animator;
+    public Animator katsuki_Animator;
+    string animName;
+
+    bool throwing = false;
+
     bool isrunning;
     bool stopping;
 
-    //Control model
+    //Character model variables
+    [Header("Model")]
     public GameObject[] BrockChoi;
     public GameObject[] OfficerWen;
     public GameObject[] AuntJiho;
     public GameObject[] MrKatsuki;
 
-    public static int changep1Icon = 0;
+    public GameObject wenTrail;
+
+    public static int changeModelAnim = 0;
 
     public bool p2IsWen;
 
+    public bool toRoof;
 
     //new movement
     bool detectAndStop;
     public float speed;
     Vector3 destination;
 
+    public bool knockback;
+    Vector3 direction;
+
     private LineRenderer lineRenderer;
     private List<Vector3> point;
-
 
     //to define which is main and tag character
     int mainCharacter;
@@ -46,6 +62,7 @@ public class SL_newP1Movement : MonoBehaviour
     int i = 0;
 
     //For UI
+    [Header("UI")]
     public List<Sprite> p1CharacterList = new List<Sprite>();
     public Sprite wenIcon;
     public Sprite brockIcon;
@@ -55,18 +72,37 @@ public class SL_newP1Movement : MonoBehaviour
     public Image mainUI;
     public Image tagUI;
 
+    public GameObject inventoryVisible;
+    public GameObject indicatorVisible;
+
+    public Text p1Name;
+    public static string p1CurrentName;
+
+    bool stopRotate;
+
     void Start()
     {
-        destination = transform.position;
+        toRoof = false;
 
+        destination = transform.position;
+        knockback = false;
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
-        anim = gameObject.GetComponent<Animator>();
+        myAnimator = gameObject.GetComponent<Animator>();
         lineRenderer = GetComponent<LineRenderer>();
 
         StartCoroutine(waitFoeSec());
         StartCoroutine(WhenGameStart());
 
+        inventoryVisible.SetActive(false);
+        indicatorVisible.SetActive(false);
+
+        if(view.IsMine)
+        {
+            p1Name.text = PhotonNetwork.NickName;
+            view.RPC("p1NickName", RpcTarget.All, p1Name.text);
+
+        }
 
     }
 
@@ -96,13 +132,10 @@ public class SL_newP1Movement : MonoBehaviour
                         if (Vector3.Distance(transform.position, hit.point) > 1.0)
                         {
                             myAgent.SetDestination(hit.point);
+
+                            //view.RPC("PlayerMove", RpcTarget.All, hit.point);
                             isrunning = true;
                         }
-                        //if (Vector3.Distance(transform.position, hit.point) > 1.0)
-                        //{
-                        //    destination = hit.point;
-                        //    Movement();
-                        //}
                     }
 
                 }
@@ -113,6 +146,7 @@ public class SL_newP1Movement : MonoBehaviour
                     myAgent.isStopped = true;
                     myAgent.ResetPath();
                 }
+
             }
             else
             {
@@ -123,150 +157,159 @@ public class SL_newP1Movement : MonoBehaviour
 
             //DrawLine();
 
-            //ROTATE player
-            if (gameObject.tag == "Player")
+            //stop when shoot
+            if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove)
             {
-                //Rotate player
+                myAgent.isStopped = true;
+                myAgent.ResetPath();
+            }
+
+
+            if (gameObject.tag == "Player" && view.IsMine && !stopRotate)
+            {
                 Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
                 float rayLength;
 
                 if (groundPlane.Raycast(ray, out rayLength))
                 {
                     Vector3 pointToLook = ray.GetPoint(rayLength);
-                    transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+                    view.RPC("PlayerRotate", RpcTarget.All, pointToLook);
+
                 }
 
             }
 
-            //stop when shoot
-            if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove || DishEffect.isForced)
-            {
-                myAgent.isStopped = true;
-                myAgent.ResetPath();
-                DishEffect.isForced = false;
-            }
 
-
-            #region
-            //ANIMATION
-            //if (!myAgent.pathPending)
-            //{
-            //    if (myAgent.remainingDistance <= myAgent.stoppingDistance)
-            //    {
-            //        isrunning = false;
-            //        stopping = true;
-            //    }
-            //    else
-            //    {
-            //        stopping = false;
-
-            //    }
-            //}
-
-            //if (isrunning && sl_ShootBehavior.p1Shoot == false && PhotonNetwork.IsMasterClient)
-            //{
-
-            //    anim.SetBool("isRunning", true);
-            //}
-            //else
-            //{
-            //    anim.SetBool("isRunning", false);
-            //}
-
-
-            //if (sl_ShootBehavior.bulletCount == 1 && !stopping && PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", false);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", true);
-            //    anim.SetBool("hold2food", false);
-            //}
-
-            //if (sl_ShootBehavior.bulletCount == 2 && !stopping && PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", false);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", true);
-            //}
-            //else if (sl_ShootBehavior.bulletCount == 0 && !stopping && PhotonNetwork.IsMasterClient)
-            //{
-            //    anim.SetBool("isRunning", true);
-
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", false);
-            //}
-
-            //if (stopping)
-            //{
-            //    anim.SetBool("stop", true);
-
-            //    anim.SetBool("isRunning", false);
-            //    //anim.SetBool("Throw", false);
-            //    anim.SetBool("hold1food", false);
-            //    anim.SetBool("hold2food", false);
-            //}
-            //else
-            //{
-            //    anim.SetBool("stop", false);
-
-            //}
-            #endregion
-
-
-            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player")
+            if (Input.GetKeyDown(KeyCode.W) && gameObject.tag == "Player" && view.IsMine)
             {
                 view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
             }
 
-
-            //edit spped when pass through off mesh link on roof
-            if (myAgent.isOnOffMeshLink)
+            if (sl_PlayerHealth.currentHealth > 4 && changeModelAnim == 1)
             {
-                OffMeshLinkData data = myAgent.currentOffMeshLinkData;
+                wenTrail.SetActive(true);
+                myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
+            }
+            else if (sl_PlayerHealth.currentHealth < 4 && changeModelAnim == 1)
+            {
+                wenTrail.SetActive(false);
+                myAgent.speed = 40; 
+            }
+            else if(changeModelAnim == 3)
+            {
+                myAgent.speed = 28;
+            }
+            else
+            {
+                myAgent.speed = 40;
+            }
 
-                //calculate the final point of the link
-                Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
+            //  Unused region -- offmesh link
+            #region
+            //edit spped when pass through off mesh link on roof
+            //if (myAgent.isOnOffMeshLink)
+            //{
+            //    OffMeshLinkData data = myAgent.currentOffMeshLinkData;
 
-                //Move the agent to the end point
-                myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+            //    //calculate the final point of the link
+            //    Vector3 endPos = data.endPos + Vector3.up * myAgent.baseOffset;
 
-                //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
-                if (myAgent.transform.position == endPos)
+            //    //Move the agent to the end point
+            //    myAgent.transform.position = Vector3.MoveTowards(myAgent.transform.position, endPos, myAgent.speed * Time.deltaTime);
+
+            //    //when the agent reach the end point you should tell it, and the agent will "exit" the link and work normally after that
+            //    if (myAgent.transform.position == endPos)
+            //    {
+            //        myAgent.CompleteOffMeshLink();
+            //    }
+            //}
+            #endregion
+        }
+
+
+        //ANIMATION PART
+        #region
+
+        if (PhotonNetwork.IsMasterClient && myAnimator != null)
+        {
+            if (!myAgent.pathPending)
+            {
+                if (myAgent.remainingDistance <= myAgent.stoppingDistance)
                 {
-                    myAgent.CompleteOffMeshLink();
+                    isrunning = false;
+                    stopping = true;
+                }
+                else
+                {
+                    stopping = false;
+
                 }
             }
+
+            //modal change start from here
+            if (changeModelAnim == 0)
+            {
+                myAnimator = brock_Animator;
+                GetAnimation();
+
+            }
+            if (changeModelAnim == 1)
+            {
+                myAnimator = wen_Animator;
+                GetAnimation();
+
+            }
+
+            if (changeModelAnim == 2)
+            {
+                myAnimator = jiho_Animator;
+                GetAnimation();
+
+            }
+
+            if (changeModelAnim == 3)
+            {
+                myAnimator = katsuki_Animator;
+                GetAnimation();
+               
+            }
+
         }
+        #endregion
 
-    }
+        int areaMask = myAgent.areaMask;
 
-    public void Movement()
-    {
-        //get the distance between the player and the destination pos
-        float dis = Vector3.Distance(transform.position, destination);
-        if (dis > 0)
+        if (toRoof)
         {
-            // decide the moveDis for this frame. 
-            //(Mathf.Clamp limits the first value, to make sure if the distance between the player and the destination pos is short than you set,
-            // it only need to move to the destination. So at that moment, the moveDis should set to the "dis".)
-            float moveDis = Mathf.Clamp(speed * Time.fixedDeltaTime, 0, dis);
-
-            //get the unit vector which means the move direction, and multiply by the move distance.
-            Vector3 move = (destination - transform.position).normalized * moveDis;
-            
-            transform.Translate(move.x, 0, move.z);
-            
-            
-
+            //myAgent.SetAreaCost(0, 10);
+            areaMask -= 2 << NavMesh.GetAreaFromName("Roof");
+            myAgent.areaMask = areaMask;
+        }
+        else
+        {
+            //myAgent.SetAreaCost(0, 1);
+            areaMask += 5 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+            myAgent.areaMask = areaMask;
         }
 
 
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "ToRoofArea") //stair
+        {
+            toRoof = true;
+        }
+        if (other.gameObject.tag == "OffRoof")
+        {
+            toRoof = false;
+        }
+    }
+
+    //-----RPC Area-----
+    #region
 
     //For Character model
     //0.brock, 1.wen, 2.jiho, 3.katsuki
@@ -274,7 +317,8 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void Brock()
     {
-        changep1Icon = 0;
+        changeModelAnim = 0;
+        //myAgent.speed = 40;
 
         for (int j = 0; j < BrockChoi.Length; j++)
         {
@@ -303,8 +347,8 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void Wen()
     {
-        changep1Icon = 1;
-
+        changeModelAnim = 1;
+        //myAgent.speed = 48;
 
         for (int j = 0; j < BrockChoi.Length; j++)
         {
@@ -334,7 +378,8 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void Jiho()
     {
-        changep1Icon = 2;
+        changeModelAnim = 2;
+        //myAgent.speed = 40;
 
         for (int i = 0; i < BrockChoi.Length; i++)
         {
@@ -363,7 +408,8 @@ public class SL_newP1Movement : MonoBehaviour
     [PunRPC]
     public void Katsuki()
     {
-        changep1Icon = 3;
+        changeModelAnim = 3;
+        //myAgent.speed = 28;
 
         for (int i = 0; i < BrockChoi.Length; i++)
         {
@@ -390,94 +436,6 @@ public class SL_newP1Movement : MonoBehaviour
     }
     #endregion
 
-    IEnumerator waitFoeSec()
-    {
-        //****i put default ui's [0] is brock. cuz p1 first pick always show empty
-        
-        yield return new WaitForSeconds(0.1f);
-
-        //Show model when in game
-        if (sl_SpawnPlayerManager.count1 == 1 || sl_SpawnPlayerManager.count1 == 0)//0 is default, 1 is choosen
-        {
-            view.RPC("Brock", RpcTarget.All);
-            mainCharacter = 1;
-            p1CharacterList[0] = brockIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count1 == 2)
-        {
-            view.RPC("Wen", RpcTarget.All);
-            mainCharacter = 2;
-            p1CharacterList[0] = wenIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count1 == 3)
-        {
-            view.RPC("Jiho", RpcTarget.All);
-            mainCharacter = 3;
-            p1CharacterList[0] = jihoIcon;
-
-
-        }
-        if (sl_SpawnPlayerManager.count1 == 4)
-        {
-            view.RPC("Katsuki", RpcTarget.All);
-            mainCharacter = 4;
-            p1CharacterList[0] = katsukiIcon;
-
-
-        }
-
-        //tag character
-        //define int for tag character, ****i put -1 because somehow the integer auto +1 when i switch scene, but default 0 no problem
-        if (sl_SpawnPlayerManager.count2 == 0 || sl_SpawnPlayerManager.count2 == 1)
-        {
-            tagCharacter = 1;
-            p1CharacterList[1] = brockIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count2 == 2)
-        {
-            tagCharacter = 2;
-            p1CharacterList[1] = wenIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count2 == 3)
-        {
-            tagCharacter = 3;
-            p1CharacterList[1] = jihoIcon;
-
-        }
-        if (sl_SpawnPlayerManager.count2 == 4)
-        {
-            tagCharacter = 4;
-            p1CharacterList[1] = katsukiIcon;
-
-        }
-
-    }
-
-    IEnumerator WhenGameStart()
-    {
-        yield return new WaitForSeconds(3f);
-        startTheGame = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "P2FoxtailMillet")
-        {
-            view.RPC("KnockbackBehavior", RpcTarget.All);
-        }
-    }
-
-    [PunRPC]
-    public void KnockbackBehavior()
-    {
-        myAgent.nextPosition = new Vector3(myAgent.transform.position.x, myAgent.transform.position.y, myAgent.transform.position.z - 2);
-        //myAgent.SetDestination(newPos);
-        //myAgent.nextPosition()
-    }
 
     //For UI SYNC
     #region
@@ -549,44 +507,209 @@ public class SL_newP1Movement : MonoBehaviour
     #endregion
 
 
+    //Player movement Control
+    #region
+    [PunRPC]
+    public void PlayerRotate(Vector3 look)
+    {
+        //Rotate player
+        transform.LookAt(new Vector3(look.x, transform.position.y, look.z));
 
-    //IEnumerator disableStop()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    detectAndStop = false;
-    //}
+    }
 
-    //public void DrawLine()
-    //{
-    //    if (myAgent.path.corners.Length < 2) return;
+    [PunRPC]
+    public void PlayerMove(Vector3 dest)
+    {
+        myAgent.SetDestination(dest);
+    }
+    #endregion
 
-    //    int i = 1;
-    //    while(i < myAgent.path.corners.Length)
-    //    {
-    //        lineRenderer.positionCount = myAgent.path.corners.Length;
-    //        point = myAgent.path.corners.ToList();
+    #endregion
 
-    //        for(int j = 0; j < point.Count; j++)
-    //        {
-    //            lineRenderer.SetPosition(j, point[j]);
-    //        }
-    //        i++;
-    //    }
-    //}
+    public void GetAnimation()
+    {
+        if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
+        {
+            myAnimator.SetFloat("Blend", 0.5f);
+        }
+        else
+        {
+            if (!throwing)
+            {
+                myAnimator.SetFloat("Blend", 0f);
+            }
+        }
+
+        if (Input.GetMouseButton(0) && sl_ShootBehavior.p1Shoot == true && stopping) //aim
+        {
+            myAnimator.SetFloat("Blend", 1f);
+            throwing = true;
+        }
+        if (Input.GetMouseButtonUp(0) && throwing && stopping) //throw
+        {
+            stopping = true;
+            isrunning = false;
+            myAnimator.SetFloat("Blend", 1.5f);
+            StartCoroutine(ThrowTime());
+        }
 
 
-    //public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        stream.SendNext(myAgent.transform.position);
-    //        stream.SendNext(myAgent.transform.rotation);
-    //    }
-    //    else if (stream.IsReading)
-    //    {
-    //        myAgent.transform.position = (Vector3)stream.ReceiveNext();
-    //        myAgent.transform.rotation = (Quaternion)stream.ReceiveNext();
+        if(sl_PlayerHealth.getDamage == true && sl_PlayerHealth.currentHealth > 0)
+        {
+            stopRotate = true;
+            myAgent.isStopped = true;
+            throwing = false;
 
-    //    }
-    //}
+            animName = "GetDmg";
+            myAnimator.SetBool(animName, true);
+
+            StartCoroutine(DamageTime());
+        }
+
+        if(sl_PlayerHealth.playerDead == true)
+        {
+            animName = "isPlayerDead";
+            myAnimator.SetBool(animName, true);
+
+            myAgent.isStopped = true;
+            throwing = false;
+            stopRotate = true;
+
+        }
+    }
+
+    [PunRPC]
+    public void p1NickName(string name)
+    {
+        p1Name.text = name;
+    }
+
+    IEnumerator ThrowTime()
+    {
+        yield return new WaitForSeconds(0.3f);
+        //myAnimator.SetFloat("Blend", 0f);
+        throwing = false;
+    }
+
+    IEnumerator DamageTime()
+    {
+        yield return new WaitForSeconds(1.0f);
+        myAnimator.SetBool("GetDmg", false);
+
+        myAgent.isStopped = false;
+        stopRotate = false;
+    }
+
+    IEnumerator waitFoeSec()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        //Show model when in game
+        if (sl_P1CharacterSelect.p1_firstCharacter == 0)
+        {
+            view.RPC("Brock", RpcTarget.All);
+            mainCharacter = 1;
+            p1CharacterList[0] = brockIcon;
+
+        }
+        if (sl_P1CharacterSelect.p1_firstCharacter == 1)
+        {
+            view.RPC("Wen", RpcTarget.All);
+            mainCharacter = 2;
+            p1CharacterList[0] = wenIcon;
+
+
+        }
+        if (sl_P1CharacterSelect.p1_firstCharacter == 2)
+        {
+            view.RPC("Jiho", RpcTarget.All);
+            mainCharacter = 3;
+            p1CharacterList[0] = jihoIcon;
+
+
+        }
+        if (sl_P1CharacterSelect.p1_firstCharacter == 3)
+        {
+            view.RPC("Katsuki", RpcTarget.All);
+            mainCharacter = 4;
+            p1CharacterList[0] = katsukiIcon;
+
+
+        }
+
+        //tag character
+        if (sl_P1CharacterSelect.p1_secondCharacter == 0)
+        {
+            tagCharacter = 1;
+            p1CharacterList[1] = brockIcon;
+
+        }
+        if (sl_P1CharacterSelect.p1_secondCharacter == 1)
+        {
+            tagCharacter = 2;
+            p1CharacterList[1] = wenIcon;
+
+        }
+        if (sl_P1CharacterSelect.p1_secondCharacter == 2)
+        {
+            tagCharacter = 3;
+            p1CharacterList[1] = jihoIcon;
+
+        }
+        if (sl_P1CharacterSelect.p1_secondCharacter == 3)
+        {
+            tagCharacter = 4;
+            p1CharacterList[1] = katsukiIcon;
+
+        }
+
+    }
+
+    IEnumerator WhenGameStart()
+    {
+        yield return new WaitForSeconds(4f); //add more 1sec for ui loading
+        startTheGame = true;
+
+        p1CurrentName = p1Name.text;
+
+    }
+
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(transform.position);
+        //    stream.SendNext(transform.rotation);
+
+        //}
+        //else if (stream.IsReading)
+        //{
+        //    transform.position = (Vector3)stream.ReceiveNext();
+        //    transform.rotation = (Quaternion)stream.ReceiveNext();
+
+        //    //float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+        //    //myAgent.transform.position += myAgent.velocity * lag;
+        //}
+    }
+
+
+    public void DrawLine()
+    {
+        if (myAgent.path.corners.Length < 2) return;
+
+        int i = 1;
+        while (i < myAgent.path.corners.Length)
+        {
+            lineRenderer.positionCount = myAgent.path.corners.Length;
+            point = myAgent.path.corners.ToList();
+
+            for (int j = 0; j < point.Count; j++)
+            {
+                lineRenderer.SetPosition(j, point[j]);
+            }
+            i++;
+        }
+    }
+
 }
