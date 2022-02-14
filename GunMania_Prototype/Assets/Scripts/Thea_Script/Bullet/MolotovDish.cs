@@ -8,6 +8,8 @@ public class MolotovDish : MonoBehaviour
     public bool isPlayer;
     private bool isHit;
 
+    public GameObject indicator;
+
     private void OnCollisionEnter(Collision collision)
     {
         if(isPlayer)
@@ -16,6 +18,7 @@ public class MolotovDish : MonoBehaviour
             {
                 GetComponent<MeshRenderer>().enabled = false;
                 GetComponent<SphereCollider>().enabled = true;
+                indicator.SetActive(true);
                 isHit = true;
             }
         }
@@ -25,6 +28,7 @@ public class MolotovDish : MonoBehaviour
             {
                 GetComponent<MeshRenderer>().enabled = false;
                 GetComponent<SphereCollider>().enabled = true;
+                indicator.SetActive(true);
                 isHit = true;
             }
         }
