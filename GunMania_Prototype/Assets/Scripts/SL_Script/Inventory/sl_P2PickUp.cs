@@ -118,23 +118,23 @@ public class sl_P2PickUp : MonoBehaviour
     //[PunRPC]
     public void StartCountdown2()
     {
-        //gameObject.SetActive(true);
         if (num == 1)
         {
             foodPrefab[0].SetActive(true);
+            isPicked = false;
         }
 
         if (num == 2)
         {
             foodPrefab[1].SetActive(true);
+            isPicked = false;
         }
 
         if (num == 3)
         {
             foodPrefab[2].SetActive(true);
+            isPicked = false;
         }
-
-        isPicked = false;
 
     }
 
@@ -145,26 +145,28 @@ public class sl_P2PickUp : MonoBehaviour
         prefabNum = i;
         pickup = pick;
 
-        if(pick)
+        if (pick && i == 0)
         {
+            num = 1;
+
             gameObject.SetActive(false);
-            Invoke("StartCountdown2", 3);  //wait for 6 sec
+            Invoke("StartCountdown2", 6);  //wait for 6 sec
+        }
 
-            if (i == 0)
-            {
-                num = 1;
-            }
+        if (pick && i == 1)
+        {
+            num = 2;
 
-            if (i == 1)
-            {
-                num = 2;
-            }
+            gameObject.SetActive(false);
+            Invoke("StartCountdown2", 6);  //wait for 6 sec
+        }
 
-            if (i == 2)
-            {
-                num = 3;
-            }
+        if (pick && i == 2)
+        {
+            num = 3;
 
+            gameObject.SetActive(false);
+            Invoke("StartCountdown2", 6);  //wait for 6 sec
         }
 
     }

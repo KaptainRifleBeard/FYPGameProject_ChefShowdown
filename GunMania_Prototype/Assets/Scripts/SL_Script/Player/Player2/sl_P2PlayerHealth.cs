@@ -59,7 +59,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
             player2Dead = true;
             StartCoroutine(Player2Dead());
         }
-        
+        if (sl_RematchAndLeave.rematchCount == 2)
+        {
+            player2Dead = false;
+        }
     }
 
 

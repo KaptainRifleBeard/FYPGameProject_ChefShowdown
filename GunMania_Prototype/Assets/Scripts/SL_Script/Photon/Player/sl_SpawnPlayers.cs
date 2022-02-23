@@ -16,19 +16,26 @@ public class sl_SpawnPlayers : MonoBehaviour
 
     void Start()
     {
-        PhotonNetwork.IsMessageQueueRunning = true;
+        //sl_PlayerHealth.currentHealth = 8;
+        //sl_P2PlayerHealth.p2currentHealth = 8;
+
+        //sl_InventoryManager.ClearAllInList();
+        //sl_p2InventoryManager.ClearAllInList();
+
 
         if (PhotonNetwork.IsMasterClient)
         {
             player1 = PhotonNetwork.Instantiate(p1.name, spawnPostionA.transform.position, Quaternion.identity);
             player1.gameObject.tag = "Player";
             player1.gameObject.layer = 7; //p1
+
         }
         else
         {
             player2 = PhotonNetwork.Instantiate(p2.name, spawnPostionB.transform.position, Quaternion.identity);
             player2.gameObject.tag = "Player2";
             player2.gameObject.layer = 8; //p2
+
         }
 
     }

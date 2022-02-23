@@ -190,7 +190,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     void UiSize_p1()
     {
         //for text
-        if (sl_PlayerHealth.currentHealth <= 0)
+        if (sl_PlayerHealth.currentHealth <= 0 || sl_PlayerHealth.currentHealth <= sl_P2PlayerHealth.p2currentHealth)
         {
             chamOrRunner1_text.text = "Runner-up";
             theUI_1.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
@@ -205,7 +205,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     void UiSize_p2()
     {
-        if (sl_P2PlayerHealth.p2currentHealth <= 0)
+        if (sl_P2PlayerHealth.p2currentHealth <= 0 || sl_P2PlayerHealth.p2currentHealth <= sl_PlayerHealth.currentHealth)
         {
             chamOrRunner2_text.text = "Runner-up";
             theUI_2.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);

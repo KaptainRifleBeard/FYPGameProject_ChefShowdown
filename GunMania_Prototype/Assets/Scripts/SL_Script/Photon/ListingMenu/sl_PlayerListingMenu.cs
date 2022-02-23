@@ -119,10 +119,11 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     {
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        if (PhotonNetwork.IsMasterClient && playerCount == 2)  // room owner
+        if (PhotonNetwork.IsMasterClient /*&& playerCount == 2*/)  // room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
             startGame = true;
+
         }
         else
         {
@@ -163,6 +164,7 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             sl_P2CharacterSelect.p2_firstCharacter = 0;
             sl_P2CharacterSelect.p2_secondCharacter = 0;
 
+
         }
         else
         {
@@ -174,10 +176,20 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
                 thingsToDisable[i].SetActive(true);
             }
 
-
-
         }
 
+        if(PhotonNetwork.IsMasterClient)
+        {
+            if(p2IsIn == 1)
+            {
+                PhotonNetwork.CurrentRoom.IsVisible = false;
+
+            }
+            else
+            {
+                PhotonNetwork.CurrentRoom.IsVisible = true;
+            }
+        }
 
     }
 

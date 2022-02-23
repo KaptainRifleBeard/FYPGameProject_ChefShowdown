@@ -125,6 +125,9 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                 inventoryVisible.SetActive(true);
                 indicatorVisible.SetActive(true);
 
+                //Hold to move
+                #region
+                /*
                 if (Input.GetMouseButton(1) && sl_ShootBehavior.p1Shoot == false)
                 {
                     if (Physics.Raycast(ray, out hit))
@@ -146,7 +149,23 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                     myAgent.isStopped = true;
                     myAgent.ResetPath();
                 }
+                */
+                #endregion
 
+                if (Input.GetMouseButtonDown(1) && sl_ShootBehavior.p1Shoot == false)
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (Vector3.Distance(transform.position, hit.point) > 1.0)
+                        {
+                            myAgent.SetDestination(hit.point);
+
+                            //view.RPC("PlayerMove", RpcTarget.All, hit.point);
+                            isrunning = true;
+                        }
+                    }
+
+                }
             }
             else
             {
@@ -277,25 +296,29 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         }
         #endregion
 
+
+        //Areamask for hold to move
+        #region
+        /*
         int areaMask = myAgent.areaMask;
 
         if (toRoof)
         {
-            //myAgent.SetAreaCost(0, 10);
             areaMask -= 2 << NavMesh.GetAreaFromName("Roof");
             myAgent.areaMask = areaMask;
         }
-        else
+
+
+        if (!toRoof)
         {
-            //myAgent.SetAreaCost(0, 1);
-            areaMask += 5 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+            areaMask += 2 << NavMesh.GetAreaFromName("Roof"); //turn off roof
             myAgent.areaMask = areaMask;
         }
-
-
+        */
+        #endregion
     }
 
-
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ToRoofArea") //stair
@@ -306,7 +329,9 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         {
             toRoof = false;
         }
+
     }
+    */
 
     //-----RPC Area-----
     #region
@@ -528,6 +553,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     public void GetAnimation()
     {
+        
         if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
         {
             myAnimator.SetFloat("Blend", 0.5f);
@@ -574,6 +600,11 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             myAgent.isStopped = true;
             throwing = false;
             stopRotate = true;
+
+        }
+        else
+        {
+            myAnimator.SetFloat("Blend", 0f);
 
         }
     }

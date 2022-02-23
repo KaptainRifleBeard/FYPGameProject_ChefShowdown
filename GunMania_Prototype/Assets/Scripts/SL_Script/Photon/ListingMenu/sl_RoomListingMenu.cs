@@ -54,6 +54,7 @@ public class sl_RoomListingMenu : MonoBehaviourPunCallbacks
             }
 
         }
+
     }
 
 }

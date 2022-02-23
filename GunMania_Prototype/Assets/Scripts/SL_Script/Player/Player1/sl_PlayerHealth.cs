@@ -59,6 +59,11 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             StartCoroutine(PlayerDead());
         }
 
+        if(sl_RematchAndLeave.rematchCount == 2)
+        {
+            playerDead = false;
+        }
+
 
     }
 

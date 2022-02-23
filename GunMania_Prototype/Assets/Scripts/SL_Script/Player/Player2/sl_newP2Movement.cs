@@ -103,6 +103,9 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
                 inventoryVisible.SetActive(true);
                 indicatorVisible.SetActive(true);
 
+                //Hold to move
+                #region
+                /*
                 if (Input.GetMouseButton(1))
                 {
                     if (Physics.Raycast(ray, out hit))
@@ -125,7 +128,25 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
                     myAgent.isStopped = true;
                     myAgent.ResetPath();
                 }
+                */
+                #endregion
 
+                if (Input.GetMouseButtonDown(1) && sl_P2ShootBehavior.p2Shoot == false)
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (Vector3.Distance(transform.position, hit.point) > 1.0)
+                        {
+                            myAgent.SetDestination(hit.point);
+
+                            //view.RPC("PlayerMove2", RpcTarget.All, hit.point);
+                            isrunning = true;
+
+                        }
+
+                    }
+
+                }
 
             }
             else
@@ -142,6 +163,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
                 myAgent.ResetPath();
             }
 
+            //rotate
             if (gameObject.tag == "Player2" && view.IsMine)
             {
                 Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -234,6 +256,9 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
         #endregion
 
+        //areamask for hold to move
+        #region
+        /*
         int areaMask = myAgent.areaMask;
 
         if (toRoof)
@@ -248,9 +273,12 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             areaMask += 5 << NavMesh.GetAreaFromName("Roof"); //turn off roof
             myAgent.areaMask = areaMask;
         }
+        */
+        #endregion
 
     }
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ToRoofArea") //stair
@@ -262,6 +290,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             toRoof = false;
         }
     }
+    */
 
     public void GetAnimation()
     {
@@ -311,6 +340,11 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             myAgent.isStopped = true;
             throwing = false;
             stopRotate = true;
+
+        }
+        else
+        {
+            myAnimator.SetFloat("Blend", 0f);
 
         }
     }
