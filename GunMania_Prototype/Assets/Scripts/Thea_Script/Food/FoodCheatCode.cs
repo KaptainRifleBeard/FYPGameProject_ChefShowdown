@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class FoodCheatCode : MonoBehaviour
 {
@@ -22,42 +23,42 @@ public class FoodCheatCode : MonoBehaviour
     {
         if (Input.GetKeyDown("1"))
         {
-            Instantiate(prefabs[0], playerPOS.position + offset, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefabs[0].name, playerPOS.position + offset, Quaternion.identity);
             
         }
         else if (Input.GetKeyDown("2"))
         {
-            Instantiate(prefabs[1], playerPOS.position + offset, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefabs[1].name, playerPOS.position + offset, Quaternion.identity);
             
         }
         else if (Input.GetKeyDown("3"))
         {
-            Instantiate(prefabs[2], playerPOS.position + offset, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefabs[2].name, playerPOS.position + offset, Quaternion.identity);
 
         }
         else if (Input.GetKeyDown("4"))
         {
-            Instantiate(prefabs[3], playerPOS.position + offset, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefabs[3].name, playerPOS.position + offset, Quaternion.identity);
 
         }
         else if (Input.GetKeyDown("5"))
         {
-            Instantiate(prefabs[4], playerPOS.position + offset, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefabs[4].name, playerPOS.position + offset, Quaternion.identity);
 
         }
         else if (Input.GetKeyDown("6"))
         {
-            Instantiate(prefabs[5], playerPOS.position + offset, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefabs[5].name, playerPOS.position + offset, Quaternion.identity);
 
         }
         else if (Input.GetKeyDown("7"))
         {
-            Instantiate(prefabs[6], playerPOS.position + offset, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefabs[6].name, playerPOS.position + offset, Quaternion.identity);
 
         }
         else if (Input.GetKeyDown("8"))
         {
-            Instantiate(prefabs[7], playerPOS.position + offset, Quaternion.identity);
+            PhotonNetwork.Instantiate(prefabs[7].name, playerPOS.position + offset, Quaternion.identity);
 
         }
     }
