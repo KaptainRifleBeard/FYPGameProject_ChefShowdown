@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class sl_p2BulletScript : MonoBehaviour
 {
+    public ParticleSystem particle;
+
+    private void Start()
+    {
+        particle.Play();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,10 +21,10 @@ public class sl_p2BulletScript : MonoBehaviour
 
         if (other.gameObject.tag == "Environment")
         {
-            gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            //gameObject.GetComponent<BoxCollider>().isTrigger = false;
 
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            //gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
             Destroy(gameObject, 1.0f);
         }

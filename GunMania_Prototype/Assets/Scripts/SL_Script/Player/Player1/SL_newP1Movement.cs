@@ -80,6 +80,9 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     bool stopRotate;
 
+    public ParticleSystem particle;
+
+
     void Start()
     {
         toRoof = false;
@@ -104,6 +107,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
         }
 
+
     }
 
     void Update()
@@ -127,45 +131,43 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
                 //Hold to move
                 #region
-                /*
-                if (Input.GetMouseButton(1) && sl_ShootBehavior.p1Shoot == false)
-                {
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        if (Vector3.Distance(transform.position, hit.point) > 1.0)
-                        {
-                            myAgent.SetDestination(hit.point);
+                //if (Input.GetMouseButton(1) && sl_ShootBehavior.p1Shoot == false)
+                //{
+                //    if (Physics.Raycast(ray, out hit))
+                //    {
+                //        if (Vector3.Distance(transform.position, hit.point) > 1.0)
+                //        {
+                //            myAgent.SetDestination(hit.point);
 
-                            //view.RPC("PlayerMove", RpcTarget.All, hit.point);
-                            isrunning = true;
-                        }
-                    }
+                //            view.RPC("PlayerMove", RpcTarget.All, hit.point);
+                //            isrunning = true;
+                //        }
+                //    }
 
-                }
+                //}
 
-                if (Input.GetMouseButtonUp(1))
-                {
-                    //detectAndStop = false;
-                    myAgent.isStopped = true;
-                    myAgent.ResetPath();
-                }
-                */
+                //if (Input.GetMouseButtonUp(1))
+                //{
+                //    detectAndStop = false;
+                //    myAgent.isStopped = true;
+                //    myAgent.ResetPath();
+                //}
+
                 #endregion
+
 
                 if (Input.GetMouseButtonDown(1) && sl_ShootBehavior.p1Shoot == false)
                 {
                     if (Physics.Raycast(ray, out hit))
                     {
-                        if (Vector3.Distance(transform.position, hit.point) > 1.0)
-                        {
-                            myAgent.SetDestination(hit.point);
+                        myAgent.SetDestination(hit.point);
+                        //view.RPC("PlayerMove", RpcTarget.All, hit.point);
 
-                            //view.RPC("PlayerMove", RpcTarget.All, hit.point);
-                            isrunning = true;
-                        }
+                        isrunning = true;
                     }
 
                 }
+
             }
             else
             {
@@ -179,8 +181,25 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             //stop when shoot
             if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove)
             {
+                stopping = true;
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
+
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
+
+            }
+
+            if (myAgent.isStopped)
+            {
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
             }
 
 
@@ -207,20 +226,44 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             if (sl_PlayerHealth.currentHealth > 4 && changeModelAnim == 1)
             {
                 wenTrail.SetActive(true);
+                if (particle.isPlaying == false)
+                {
+                    particle.Play();
+
+                }
+
                 myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
             }
             else if (sl_PlayerHealth.currentHealth < 4 && changeModelAnim == 1)
             {
                 wenTrail.SetActive(false);
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
+
                 myAgent.speed = 40; 
             }
             else if(changeModelAnim == 3)
             {
                 myAgent.speed = 28;
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
+
+
             }
             else
             {
                 myAgent.speed = 40;
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
             }
 
             //  Unused region -- offmesh link
@@ -264,6 +307,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
                 }
             }
+               
 
             //modal change start from here
             if (changeModelAnim == 0)
@@ -296,26 +340,25 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         }
         #endregion
 
-
         //Areamask for hold to move
-        #region
-        /*
-        int areaMask = myAgent.areaMask;
+            #region
+            /*
+            int areaMask = myAgent.areaMask;
 
-        if (toRoof)
-        {
-            areaMask -= 2 << NavMesh.GetAreaFromName("Roof");
-            myAgent.areaMask = areaMask;
-        }
+            if (toRoof)
+            {
+                areaMask -= 2 << NavMesh.GetAreaFromName("Roof");
+                myAgent.areaMask = areaMask;
+            }
 
 
-        if (!toRoof)
-        {
-            areaMask += 2 << NavMesh.GetAreaFromName("Roof"); //turn off roof
-            myAgent.areaMask = areaMask;
-        }
-        */
-        #endregion
+            if (!toRoof)
+            {
+                areaMask += 2 << NavMesh.GetAreaFromName("Roof"); //turn off roof
+                myAgent.areaMask = areaMask;
+            }
+            */
+            #endregion
     }
 
     /*
@@ -553,7 +596,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     public void GetAnimation()
     {
-        
         if (isrunning && sl_ShootBehavior.p1Shoot == false && !throwing) //run
         {
             myAnimator.SetFloat("Blend", 0.5f);
@@ -604,7 +646,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         }
         else
         {
-            myAnimator.SetFloat("Blend", 0f);
+            //myAnimator.SetFloat("Blend", 0f);
 
         }
     }
@@ -704,7 +746,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         p1CurrentName = p1Name.text;
 
     }
-
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

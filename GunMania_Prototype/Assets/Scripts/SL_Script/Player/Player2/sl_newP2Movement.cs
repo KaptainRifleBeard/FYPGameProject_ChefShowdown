@@ -63,6 +63,8 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
     bool stopRotate;
 
+    public ParticleSystem particle;
+
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -135,17 +137,11 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
                 {
                     if (Physics.Raycast(ray, out hit))
                     {
-                        if (Vector3.Distance(transform.position, hit.point) > 1.0)
-                        {
-                            myAgent.SetDestination(hit.point);
+                        myAgent.SetDestination(hit.point);
+                        //view.RPC("PlayerMove", RpcTarget.All, hit.point);
 
-                            //view.RPC("PlayerMove2", RpcTarget.All, hit.point);
-                            isrunning = true;
-
-                        }
-
+                        isrunning = true;
                     }
-
                 }
 
             }
@@ -161,6 +157,21 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
+
+            }
+
+            if(myAgent.isStopped)
+            {
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
             }
 
             //rotate
@@ -189,20 +200,41 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             if (sl_PlayerHealth.currentHealth > 4 && changep2Icon == 1)
             {
                 wenTrail.SetActive(true);
+                if (particle.isPlaying == false)
+                {
+                    particle.Play();
+
+                }
                 myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
             }
             else if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
             {
                 wenTrail.SetActive(false);
+                if(particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
+
                 myAgent.speed = 40;
             }
             else if (changep2Icon == 3)
             {
                 myAgent.speed = 28;
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
             }
             else
             {
                 myAgent.speed = 40;
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
             }
 
 
@@ -344,7 +376,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         }
         else
         {
-            myAnimator.SetFloat("Blend", 0f);
+            //myAnimator.SetFloat("Blend", 0f);
 
         }
     }
