@@ -171,7 +171,7 @@ public class DishEffect : MonoBehaviour
     public void aoe()
     {
         //sl_PlayerHealth.currentHealth -= 1;
-        StartCoroutine(DMGoverTime(1));
+        //StartCoroutine(DMGoverTime(1));
     }
 
     [PunRPC]
