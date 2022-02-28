@@ -36,6 +36,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     public static bool getDamage;
     public static bool playerDead;
 
+ 
+
     //AUDIO
     string audioName;
 
@@ -310,7 +312,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         //PhotonNetwork.Destroy(gameObject);
     }
 
-
+   
     [PunRPC]
     public void BulletDamage(float damage)
     {

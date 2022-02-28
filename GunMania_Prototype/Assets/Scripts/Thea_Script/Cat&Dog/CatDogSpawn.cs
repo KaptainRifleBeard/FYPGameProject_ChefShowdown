@@ -15,7 +15,6 @@ public class CatDogSpawn : MonoBehaviour
     public static bool catCanSpawn;
     public static bool dogCanSpawn;
 
-    public int spawnInt = 1;
     public int spawnTime = 20;
 
     int count;
@@ -31,29 +30,8 @@ public class CatDogSpawn : MonoBehaviour
             {
                 if (count < 1)
                 {
-                    if (spawnInt == 1)
-                    {
-                        StartCoroutine(Spawn(spawnTime));
-                        count++;
-                    }
-                    else if (spawnInt == 2)
-                    {
-                        StartCoroutine(Spawn2(spawnTime));
-                        count++;
-
-                    }
-                    else if (spawnInt == 3)
-                    {
-                        StartCoroutine(Spawn3(spawnTime));
-                        count++;
-
-                    }
-                    else
-                    {
-                        StartCoroutine(Spawn(spawnTime));
-                        count++;
-                    }
-
+                    StartCoroutine(Spawn(spawnTime));
+                    count++;
                 }
                 if (count == 1)
                 {
@@ -78,34 +56,8 @@ public class CatDogSpawn : MonoBehaviour
                 {
                     if (count < 1)
                     {
-                        if (spawnInt == 1)
-                        {
-                            StartCoroutine(Spawn(spawnTime));
-                            canSpawn = false;
-
-                            count++;
-                        }
-                        else if (spawnInt == 2)
-                        {
-                            StartCoroutine(Spawn2(spawnTime));
-                            canSpawn = false;
-
-                            count++;
-                        }
-                        else if (spawnInt == 3)
-                        {
-                            StartCoroutine(Spawn3(spawnTime));
-                            canSpawn = false;
-
-                            count++;
-                        }
-                        else
-                        {
-                            StartCoroutine(Spawn(spawnTime));
-                            canSpawn = false;
-
-                            count++;
-                        }
+                        StartCoroutine(Spawn(spawnTime));
+                        count++;
                     }
                     if (count == 1)
                     {
@@ -121,49 +73,8 @@ public class CatDogSpawn : MonoBehaviour
 
     }
 
-    public IEnumerator Spawn(int sec)
-    {
-        yield return new WaitForSeconds(sec);
-
-        catORdog = Random.Range(0, 2);
-
-        if (catORdog == 0)
-        {
-            PhotonNetwork.Instantiate(catPrefab.name, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-            //Instantiate(catPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-        }
-        else if (catORdog == 1)
-        {
-            PhotonNetwork.Instantiate(dogPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-            //Instantiate(dogPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-        }
-        count = 0;
-        spawn = false;
-    }
-
-    //spawn terbalik
-    public IEnumerator Spawn2(int sec)
-    {
-        yield return new WaitForSeconds(sec);
-
-        catORdog = Random.Range(0, 2);
-
-        if (catORdog == 0)
-        {
-            PhotonNetwork.Instantiate(catPrefab.name, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-            //Instantiate(catPrefab, dogSpawnPoints[Random.Range(0, dogSpawnPoints.Count)].transform.position, Quaternion.identity);
-        }
-        else if (catORdog == 1)
-        {
-            PhotonNetwork.Instantiate(dogPrefab.name, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-            //Instantiate(dogPrefab, catSpawnPoints[Random.Range(0, catSpawnPoints.Count)].transform.position, Quaternion.identity);
-        }
-        count = 0;
-        spawn = false;
-    }
-
     //spawn species randomly
-    public IEnumerator Spawn3(int sec)
+    public IEnumerator Spawn(int sec)
     {
         yield return new WaitForSeconds(sec);
 
