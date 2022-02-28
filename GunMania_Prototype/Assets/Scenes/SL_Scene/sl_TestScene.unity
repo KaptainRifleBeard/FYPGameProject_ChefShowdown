@@ -46716,8 +46716,8 @@ GameObject:
   - component: {fileID: 1699314600}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_TagString: FoodPickup
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -46729,7 +46729,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699314599}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 45.70776, y: -5.391062, z: 34.203026}
+  m_LocalPosition: {x: 44.42, y: -8.46, z: 42.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1873367288}
@@ -51641,7 +51641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1873367287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51655,12 +51655,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 3543711626040740149, guid: fb9287d0022897d46b02e1285358fe39, type: 3}
-  - {fileID: 2216557538061964674, guid: c16c8870e92cc5c40968fc08e5a037e1, type: 3}
-  - {fileID: 578753560885894732, guid: 3f0217f9182db544aac1cd192a8d795c, type: 3}
-  - {fileID: 248297383725738345, guid: 1d7e00cc423b32c419a99304cb9d7598, type: 3}
-  - {fileID: 2010859790010146716, guid: 4d78d94e399c26446b0746f1f5393b64, type: 3}
-  - {fileID: 1722905446872088060, guid: dcd9f3a8eae49214ea4fbf160fdc809f, type: 3}
+  - {fileID: 6362132374366640401, guid: 47aff0af6262eac4fa6aaedbdd26fef7, type: 3}
+  - {fileID: 7637848083129420641, guid: ba45b3d05230dc14e8902c3dee45ef70, type: 3}
+  - {fileID: 4310663550473178968, guid: b81294ed627a40b49a27517e13d21f56, type: 3}
+  - {fileID: 2766839648596956616, guid: 62be3695b615aa94ea8783b563df42bf, type: 3}
+  - {fileID: 7112229054023830398, guid: d5836ba635d22fb4b8438c07f12c3fba, type: 3}
+  - {fileID: 5622198826237640892, guid: 9a4573dc6eae9df40895eb8d26d206a2, type: 3}
+  - {fileID: 8122101078019937519, guid: e45cd25b4153d6f4abcf182fc527302b, type: 3}
+  - {fileID: 5211189050017612561, guid: 0e9a50ddff5a1b545bb90fefafdc306d, type: 3}
   playerPOS: {fileID: 1699314600}
 --- !u!4 &1873367288
 Transform:
@@ -56538,7 +56540,6 @@ MonoBehaviour:
   - {fileID: 764028235}
   catPrefab: {fileID: 3974794878519339298, guid: 6a7df6470292ca94d965a8d6af207e58, type: 3}
   dogPrefab: {fileID: 4416486478073418745, guid: 56a29897d0a88dd4fae47231fe1ae857, type: 3}
-  spawnInt: 3
   spawnTime: 20
 --- !u!1001 &2114835969
 PrefabInstance:
