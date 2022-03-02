@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 650898834024806033}
   - component: {fileID: 7893752649187767377}
   - component: {fileID: 3939065552447540474}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2540176797166760614}
   - component: {fileID: 4546355653060924709}
   - component: {fileID: 227204118571139386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 5879097867290768127}
   - component: {fileID: 1662785283427542457}
   - component: {fileID: 2416639023710440918}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bird Nest Soup
   m_TagString: Dish
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: b228f855161f25b47a9282c4a2d1d536, type: 2}
   playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
-  prefabNum: 0
+  prefabNum: 7
   foodPrefab:
   - {fileID: 6362132374366640401}
   - {fileID: 6362132374366640401}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: b228f855161f25b47a9282c4a2d1d536, type: 2}
   playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
-  prefabNum: 0
+  prefabNum: 7
   foodPrefab:
   - {fileID: 6362132374366640401}
   - {fileID: 6362132374366640401}
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 1417538471593718231}
   - component: {fileID: 1404915911256319732}
   - component: {fileID: 2657584119613084733}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 8828162761228792812}
   - component: {fileID: 3112281378357401787}
   - component: {fileID: 4075389678554659003}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,6 +525,10 @@ PrefabInstance:
     - target: {fileID: 7059179833472540794, guid: bb463e770c1141846a367e18390110e6, type: 3}
       propertyPath: m_Name
       value: MolotovDishSmokeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059179833472540794, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb463e770c1141846a367e18390110e6, type: 3}

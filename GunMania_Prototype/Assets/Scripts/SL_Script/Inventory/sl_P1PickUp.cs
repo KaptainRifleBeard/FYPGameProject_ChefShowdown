@@ -41,6 +41,7 @@ public class sl_P1PickUp : MonoBehaviour
             {
                 if (sl_ShootBehavior.bulletCount < 2 && !pickup)
                 {
+                    Debug.Log("touch");
                     pickup = true;
                     prefabNum = Random.Range(0, 2);
 

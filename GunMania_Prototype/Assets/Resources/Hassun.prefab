@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1813299619589606421}
   - component: {fileID: 6467044426937697536}
   - component: {fileID: 6930439577796378901}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hassun
   m_TagString: Dish
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 1ac12a65b11976e4a94d37fd0f71254e, type: 2}
   playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
-  prefabNum: 0
+  prefabNum: 5
   foodPrefab:
   - {fileID: 5622198826237640892}
   - {fileID: 5622198826237640892}
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 1ac12a65b11976e4a94d37fd0f71254e, type: 2}
   playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
-  prefabNum: 0
+  prefabNum: 5
   foodPrefab:
   - {fileID: 5622198826237640892}
   - {fileID: 5622198826237640892}
@@ -245,6 +245,10 @@ PrefabInstance:
     - target: {fileID: 7059179833472540794, guid: 298d93681d00a2747bf4ab3e9948a513, type: 3}
       propertyPath: m_Name
       value: HealingDishSmokeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059179833472540794, guid: 298d93681d00a2747bf4ab3e9948a513, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 298d93681d00a2747bf4ab3e9948a513, type: 3}

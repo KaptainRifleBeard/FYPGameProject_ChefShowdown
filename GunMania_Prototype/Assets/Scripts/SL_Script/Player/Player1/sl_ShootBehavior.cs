@@ -213,7 +213,8 @@ public class sl_ShootBehavior : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true)
         {
             //set in range then shoot
-            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && 
+            if (playerInventory.itemList[0] != null &&
+                Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && 
                 Vector3.Distance(targetObject.transform.position, shootPosition.position) < 40  
                 && gameObject.tag == "Player")  //make sure bullet wont collide with player
             {

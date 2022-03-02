@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1023364922758829611}
   - component: {fileID: 5085570106433351653}
   - component: {fileID: 7166883190256410910}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Foxtail_Millet_Cake
   m_TagString: Dish
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 199c3d988d2ee5a44acba2cd6b47b657, type: 2}
   playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
-  prefabNum: 0
+  prefabNum: 2
   foodPrefab:
   - {fileID: 7112229054023830398}
   - {fileID: 7112229054023830398}
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisItem: {fileID: 11400000, guid: 199c3d988d2ee5a44acba2cd6b47b657, type: 2}
   playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
-  prefabNum: 0
+  prefabNum: 2
   foodPrefab:
   - {fileID: 7112229054023830398}
   - {fileID: 7112229054023830398}
@@ -245,6 +245,10 @@ PrefabInstance:
     - target: {fileID: 7059179833472540794, guid: 10247bb52f269954aaec68ef83b7897a, type: 3}
       propertyPath: m_Name
       value: KnockBackSmokeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059179833472540794, guid: 10247bb52f269954aaec68ef83b7897a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10247bb52f269954aaec68ef83b7897a, type: 3}
