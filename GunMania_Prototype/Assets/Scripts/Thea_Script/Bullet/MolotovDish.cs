@@ -10,7 +10,7 @@ public class MolotovDish : MonoBehaviour
 
     public GameObject indicator;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if(isPlayer)
         {
