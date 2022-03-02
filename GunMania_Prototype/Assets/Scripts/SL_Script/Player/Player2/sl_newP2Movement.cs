@@ -165,14 +165,11 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
             }
 
-            if(myAgent.isStopped)
+            if (myAgent.velocity.magnitude < 0.15f)
             {
-                if (particle.isPlaying)
-                {
-                    particle.Stop();
-
-                }
+                particle.Stop();
             }
+
 
             //rotate
             if (gameObject.tag == "Player2" && view.IsMine)

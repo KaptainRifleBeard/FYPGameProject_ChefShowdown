@@ -231,11 +231,11 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         WinLoseCondition();
     }
 
-    IEnumerator ToExitScreen() //wait for animation
-    {
-        yield return new WaitForSeconds(3.0f);
-        //SceneManager.LoadScene("sl_BacktoMainMenu");
-    }
+    //IEnumerator ToExitScreen() //wait for animation
+    //{
+    //    yield return new WaitForSeconds(3.0f);
+    //    SceneManager.LoadScene("sl_BacktoMainMenu");
+    //}
 
 
 

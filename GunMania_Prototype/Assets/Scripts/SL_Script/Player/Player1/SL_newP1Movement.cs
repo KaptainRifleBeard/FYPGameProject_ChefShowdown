@@ -185,21 +185,11 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
 
-                if (particle.isPlaying)
-                {
-                    particle.Stop();
-
-                }
-
             }
 
-            if (myAgent.isStopped)
+            if (myAgent.velocity.magnitude < 0.15f)
             {
-                if (particle.isPlaying)
-                {
-                    particle.Stop();
-
-                }
+                particle.Stop();
             }
 
 
