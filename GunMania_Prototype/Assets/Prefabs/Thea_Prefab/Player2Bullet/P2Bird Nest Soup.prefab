@@ -438,6 +438,7 @@ GameObject:
   - component: {fileID: 2063944654531068157}
   - component: {fileID: 4931050953228476971}
   - component: {fileID: 8041744993727404174}
+  - component: {fileID: 416670639945299863}
   m_Layer: 0
   m_Name: P2Bird Nest Soup
   m_TagString: P2BirdNestSoup
@@ -560,6 +561,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   indicator: {fileID: 5658139119420891090}
+--- !u!114 &416670639945299863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6945941036628827509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195248a0922eb4b43ab43267eb46b666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 6562007383842079875}
 --- !u!1001 &4666360425378422740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -624,5 +638,10 @@ PrefabInstance:
 --- !u!4 &7279106317469858708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+  m_PrefabInstance: {fileID: 4666360425378422740}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6562007383842079875 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2004894477037787991, guid: bb463e770c1141846a367e18390110e6, type: 3}
   m_PrefabInstance: {fileID: 4666360425378422740}
   m_PrefabAsset: {fileID: 0}

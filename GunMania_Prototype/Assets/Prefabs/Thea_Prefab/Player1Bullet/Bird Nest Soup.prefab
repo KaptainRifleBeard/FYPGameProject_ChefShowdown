@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 4882055971770565157}
   - component: {fileID: 1948521553458716915}
   - component: {fileID: 3530279803258427990}
+  - component: {fileID: 1425546869062067135}
   m_Layer: 0
   m_Name: Bird Nest Soup
   m_TagString: BirdNestSoup
@@ -396,6 +397,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 1
   indicator: {fileID: 1288497048622161162}
+--- !u!114 &1425546869062067135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539881460047306669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12cbe97b1792cc34e8a0aca9e75251b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 321154439911327323}
 --- !u!1 &4764093509096701290
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,5 +638,10 @@ PrefabInstance:
 --- !u!4 &4206505062505527628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+  m_PrefabInstance: {fileID: 2280554952576113932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &321154439911327323 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2004894477037787991, guid: bb463e770c1141846a367e18390110e6, type: 3}
   m_PrefabInstance: {fileID: 2280554952576113932}
   m_PrefabAsset: {fileID: 0}
