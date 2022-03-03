@@ -373,7 +373,8 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         }
         else
         {
-            //myAnimator.SetFloat("Blend", 0f);
+            animName = "isPlayerDead";
+            myAnimator.SetBool(animName, false);
 
         }
     }

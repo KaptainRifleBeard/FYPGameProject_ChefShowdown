@@ -36,23 +36,23 @@ public class sl_P1vfx : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
-        {
-            Debug.Log("collide with bird");
-            GetDamage();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
+    //    {
+    //        Debug.Log("collide with bird");
+    //        GetDamage();
+    //    }
+    //}
 
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
-        {
-            GetDamage();
-        }
-    }
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
+    //    {
+    //        GetDamage();
+    //    }
+    //}
 
     public void GetDamage()
     {

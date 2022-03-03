@@ -644,12 +644,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         {
             animName = "isPlayerDead";
             myAnimator.SetBool(animName, false);
-
-            //myAnimator.SetFloat("Blend", 0f);
-
-            //myAgent.isStopped = false;
-            //throwing = true;
-            //stopRotate = false;
         }
     }
 

@@ -305,14 +305,16 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     IEnumerator PlayerDead()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
+        playerDead = false;
+
         //currentHealth = 0;
 
         //sl_InventoryManager.ClearAllInList();
         //PhotonNetwork.Destroy(gameObject);
     }
 
-   
+
     [PunRPC]
     public void BulletDamage(float damage)
     {
