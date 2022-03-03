@@ -100,7 +100,12 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         inventoryVisible.SetActive(false);
         indicatorVisible.SetActive(false);
 
-        if(view.IsMine)
+        //reset
+        sl_PlayerHealth.playerDead = false;
+        myAnimator.SetFloat("Blend", 0f);
+        GetAnimation();
+
+        if (view.IsMine)
         {
             p1Name.text = PhotonNetwork.NickName;
             view.RPC("p1NickName", RpcTarget.All, p1Name.text);
@@ -633,12 +638,26 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             throwing = false;
             stopRotate = true;
 
+            StartCoroutine(ResetDead());
         }
         else
         {
+            animName = "isPlayerDead";
+            myAnimator.SetBool(animName, false);
+
             //myAnimator.SetFloat("Blend", 0f);
 
+            //myAgent.isStopped = false;
+            //throwing = true;
+            //stopRotate = false;
         }
+    }
+
+    IEnumerator ResetDead()
+    {
+        yield return new WaitForSeconds(0.5f);
+        sl_PlayerHealth.playerDead = false;
+        GetAnimation();
     }
 
     [PunRPC]

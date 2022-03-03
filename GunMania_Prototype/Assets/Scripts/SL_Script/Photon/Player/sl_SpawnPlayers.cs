@@ -16,12 +16,8 @@ public class sl_SpawnPlayers : MonoBehaviour
 
     void Start()
     {
-        //sl_PlayerHealth.currentHealth = 8;
-        //sl_P2PlayerHealth.p2currentHealth = 8;
 
-        //sl_InventoryManager.ClearAllInList();
-        //sl_p2InventoryManager.ClearAllInList();
-
+        sl_P2PlayerHealth.player2Dead = false;
 
         if (PhotonNetwork.IsMasterClient)
         {

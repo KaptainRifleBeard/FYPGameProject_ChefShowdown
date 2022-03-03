@@ -191,7 +191,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
-            if (other.gameObject.tag == "P2BirdNestSoup")
+            if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
             {
                 audioName = "HitSFX";
                 SyncAudio();
@@ -212,7 +212,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "P2BirdNestSoup")
+        if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
         {
             molotovTimer += Time.deltaTime;
 
