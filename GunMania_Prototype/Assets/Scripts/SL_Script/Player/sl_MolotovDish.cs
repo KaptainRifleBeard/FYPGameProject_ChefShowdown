@@ -5,7 +5,6 @@ using UnityEngine;
 public class sl_MolotovDish : MonoBehaviour
 {
     public GameObject areaDamage;
-    Rigidbody rb;
     
     private void Start()
     {
@@ -14,7 +13,7 @@ public class sl_MolotovDish : MonoBehaviour
 
     private void Update()
     {
-        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.identity; //reset range rotation always face up
     }
 
     private void OnTriggerEnter(Collider other)
