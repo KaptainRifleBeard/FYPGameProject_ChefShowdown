@@ -34,6 +34,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     float molotovTimer;
 
     public static bool getDamage;
+    public static bool freezePlayer;
     public static bool playerDead;
 
  
@@ -51,6 +52,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         isDish = false;
         getDamage = false;
         playerDead = false;
+        freezePlayer = false;
     }
 
     public void Update()
@@ -155,15 +157,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
-            //if (other.gameObject.tag == "P2BirdNestSoup") //stay in the range deal more dmg per second
-            //{
-            //    bulletDamage = 1.0f; 
-            //    percentage = (bulletDamage * 50f) / 100f;
-
-            //    GetDamage(bulletDamage, percentage);
-
-
-            //}
 
             if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
             {
@@ -191,13 +184,25 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
-            if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
+            if (other.gameObject.tag == "P2Tojangjochi") //stun
             {
                 audioName = "HitSFX";
                 SyncAudio();
 
+                //rmb to add rpc to sync
+                bulletDamage = 0.0f;
+                percentage = 0f;
+                freezePlayer = true;
+                StartCoroutine(StopStun());
 
-                //hitAudio.Play();
+                GetDamage(bulletDamage, percentage);
+
+            }
+
+            if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
+            {
+                audioName = "HitSFX";
+                SyncAudio();
 
                 bulletDamage = 2.0f;
                 percentage = (bulletDamage * 50f) / 100f;
@@ -301,6 +306,12 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     {
         yield return new WaitForSeconds(1.0f);
         getDamage = false;
+    }
+
+    IEnumerator StopStun()
+    {
+        yield return new WaitForSeconds(6.0f);
+        freezePlayer = false;
     }
 
     IEnumerator PlayerDead()

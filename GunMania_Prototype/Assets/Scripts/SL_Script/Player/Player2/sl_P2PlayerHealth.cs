@@ -34,6 +34,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
 
     public static bool getDamage2;
+    public static bool freezePlayer2;
     public static bool player2Dead;
 
 
@@ -48,6 +49,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
         p2currentHealth = maxHealth;
 
         getDamage2 = false;
+        freezePlayer2 = false;
         player2Dead = false;
     }
 
@@ -151,15 +153,6 @@ public class sl_P2PlayerHealth : MonoBehaviour
                 GetDamage(bulletDamage2, percentage);
             }
 
-            //if (other.gameObject.tag == "BirdNestSoup") //stay in the range deal more dmg per second
-            //{
-            //    bulletDamage2 = 1.0f; 
-            //    percentage = (bulletDamage2 * 50f) / 100f;
-            //    GetDamage(bulletDamage2, percentage);
-
-
-            //}
-
             if (other.gameObject.tag == "BuddhaJumpsOvertheWall" || other.gameObject.tag == "FoxtailMillet" || other.gameObject.tag == "Mukozuke")
             {
                 audioName = "HitSFX";
@@ -185,6 +178,21 @@ public class sl_P2PlayerHealth : MonoBehaviour
                     p2currentHealth = 8.0f;
                 }
                 view.RPC("BulletDamage", RpcTarget.All, bulletDamage2);
+
+            }
+
+            if (other.gameObject.tag == "Tojangjochi") //stun
+            {
+                audioName = "HitSFX";
+                SyncAudio();
+
+                //rmb to add rpc to sync
+                bulletDamage2 = 0.0f;
+                percentage = 0f;
+                freezePlayer2 = true;
+                StartCoroutine(StopStun2());
+
+                GetDamage(bulletDamage2, percentage);
 
             }
 
@@ -296,6 +304,13 @@ public class sl_P2PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         getDamage2 = false;
     }
+
+    IEnumerator StopStun2()
+    {
+        yield return new WaitForSeconds(6.0f);
+        freezePlayer2 = false;
+    }
+
     IEnumerator Player2Dead()
     {
         yield return new WaitForSeconds(3.0f);

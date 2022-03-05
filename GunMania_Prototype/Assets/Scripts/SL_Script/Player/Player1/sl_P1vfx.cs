@@ -11,6 +11,8 @@ public class sl_P1vfx : MonoBehaviour
     public Renderer mat;
 
     public Color highlightColor;
+    public Color stunColor;
+
     public List<Color> defaultColor;
 
     void Start()
@@ -30,6 +32,10 @@ public class sl_P1vfx : MonoBehaviour
             if (sl_PlayerHealth.getDamage == true)
             {
                 GetDamage();
+            }
+            if (sl_PlayerHealth.freezePlayer == true)
+            {
+                GetStundDamage();
             }
         }
 
@@ -60,6 +66,11 @@ public class sl_P1vfx : MonoBehaviour
     }
 
 
+    public void GetStundDamage()
+    {
+        view.RPC("stunVFX", RpcTarget.All);
+    }
+
     [PunRPC]
     IEnumerator getDamageVFX()
     {
@@ -79,6 +90,23 @@ public class sl_P1vfx : MonoBehaviour
         }
     }
 
+    [PunRPC]
+    IEnumerator stunVFX()
+    {
+        for (int n = 0; n < 6; n++)
+        {
+            for (int i = 0; i < mat.materials.Length; i++)
+            {
+                mat.materials[i].color = stunColor;
+            }
+            yield return new WaitForSeconds(0.1f);
+            for (int i = 0; i < mat.materials.Length; i++)
+            {
+                mat.materials[i].color = defaultColor[i];
+            }
 
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 
 }

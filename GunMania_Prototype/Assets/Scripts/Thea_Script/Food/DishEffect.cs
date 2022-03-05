@@ -211,6 +211,9 @@ public class DishEffect : MonoBehaviour
             {
                 PhotonNetwork.Instantiate(dishPrefab[7].name, transform.position + offset, Quaternion.identity);
             }
+
+
+
             //from here is food (12 food)
             else if (playerInventory.itemList[0].itemHeldNum == 10)
             {
