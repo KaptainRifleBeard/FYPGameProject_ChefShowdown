@@ -36,7 +36,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     public static bool getDamage;
     public static bool playerDead;
 
- 
+    public ParticleSystem onhit;
 
     //AUDIO
     string audioName;
@@ -51,6 +51,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         isDish = false;
         getDamage = false;
         playerDead = false;
+        onhit.Stop();
     }
 
     public void Update()
@@ -105,6 +106,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         {
             if (other.gameObject.layer == 6)
             {
+                onhit.Play();
                 audioName = "HitSFX";
                 SyncAudio();
                 isDish = true; //for katsuki to check dish
@@ -132,6 +134,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             //*****bullets
             if (other.gameObject.tag == "P2Bullet")
             {
+                onhit.Play();
                 audioName = "HitSFX";
                 SyncAudio();
 
@@ -142,9 +145,11 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
                 GetDamage(bulletDamage, percentage);
             }
 
+
             //DISHES
             if (other.gameObject.tag == "P2Sinseollo")
             {
+                onhit.Play();
                 audioName = "HitSFX";
                 SyncAudio();
 
@@ -167,6 +172,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
             {
+                onhit.Play();
                 audioName = "HitSFX";
                 SyncAudio();
 
@@ -176,6 +182,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
                 GetDamage(bulletDamage, percentage);
 
             }
+
 
             if (other.gameObject.tag == "Hassun") //heal
             {
@@ -191,8 +198,10 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
+
             if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
             {
+                onhit.Play();
                 audioName = "HitSFX";
                 SyncAudio();
 
@@ -204,8 +213,10 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
                 GetDamage(bulletDamage, percentage);
             }
-
             
+
+
+
         }
 
     }

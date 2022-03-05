@@ -8,6 +8,8 @@ public class MolotovDish : MonoBehaviour
     public bool isPlayer;
     public GameObject indicator;
 
+    
+
     private void OnTriggerEnter(Collider collision)
     {
         //if (isPlayer)

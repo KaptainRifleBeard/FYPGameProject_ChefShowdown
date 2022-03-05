@@ -7,6 +7,7 @@ public class sl_MolotovDish : MonoBehaviour
     public GameObject areaDamage;
     Rigidbody rb;
     public bool isPlayer;
+    public GameObject onhit;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class sl_MolotovDish : MonoBehaviour
                 GetComponent<SphereCollider>().enabled = true;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 gameObject.GetComponent<Rigidbody>().isKinematic = true;
-
+                //onhit.SetActive(true);
                 Destroy(gameObject, 3.0f);
             }
         }
@@ -42,7 +43,7 @@ public class sl_MolotovDish : MonoBehaviour
                 GetComponent<SphereCollider>().enabled = true;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 gameObject.GetComponent<Rigidbody>().isKinematic = true;
-
+                //onhit.SetActive(true);
                 Destroy(gameObject, 3.0f);
             }
         }
