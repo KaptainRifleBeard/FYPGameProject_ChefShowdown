@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3541606356575367925}
   - component: {fileID: 6170524176941690933}
   - component: {fileID: 1046095162795493534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1976693669073483458}
   - component: {fileID: 520662036413813057}
   - component: {fileID: 4253955292196455774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 4804719011691280264}
   - component: {fileID: 1377870938124410079}
   - component: {fileID: 45199188198702303}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 5972105970582035810}
   - component: {fileID: 5814662986181115907}
   - component: {fileID: 7738471938682763815}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: MinRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 3135137041587123635}
   - component: {fileID: 3121388914498675344}
   - component: {fileID: 2076027009165873241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,9 +437,8 @@ GameObject:
   - component: {fileID: 3403950947846660573}
   - component: {fileID: 2063944654531068157}
   - component: {fileID: 4931050953228476971}
-  - component: {fileID: 8041744993727404174}
-  - component: {fileID: 416670639945299863}
-  m_Layer: 0
+  - component: {fileID: 7023096519106277249}
+  m_Layer: 6
   m_Name: P2Bird Nest Soup
   m_TagString: P2BirdNestSoup
   m_Icon: {fileID: 0}
@@ -547,7 +546,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 9.462715
   m_Center: {x: 0, y: -0.083618164, z: 0}
---- !u!114 &8041744993727404174
+--- !u!114 &7023096519106277249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -556,24 +555,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6945941036628827509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32fa429bbfc57bf4283bc76992d6751b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e2cd2d20c3fb7a41bff399d19224409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  areaDamage: {fileID: 5658139119420891090}
   isPlayer: 0
-  indicator: {fileID: 5658139119420891090}
---- !u!114 &416670639945299863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6945941036628827509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 195248a0922eb4b43ab43267eb46b666, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particle: {fileID: 6562007383842079875}
 --- !u!1001 &4666360425378422740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -630,6 +616,10 @@ PrefabInstance:
       value: MolotovDishSmokeEffect
       objectReference: {fileID: 0}
     - target: {fileID: 7059179833472540794, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059179833472540794, guid: bb463e770c1141846a367e18390110e6, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -638,10 +628,5 @@ PrefabInstance:
 --- !u!4 &7279106317469858708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
-  m_PrefabInstance: {fileID: 4666360425378422740}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &6562007383842079875 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2004894477037787991, guid: bb463e770c1141846a367e18390110e6, type: 3}
   m_PrefabInstance: {fileID: 4666360425378422740}
   m_PrefabAsset: {fileID: 0}

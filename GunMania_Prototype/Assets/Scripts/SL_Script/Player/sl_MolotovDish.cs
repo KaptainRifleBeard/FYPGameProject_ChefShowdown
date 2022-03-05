@@ -6,7 +6,8 @@ public class sl_MolotovDish : MonoBehaviour
 {
     public GameObject areaDamage;
     Rigidbody rb;
-    
+    public bool isPlayer;
+
     private void Start()
     {
         areaDamage.SetActive(false);
@@ -19,15 +20,31 @@ public class sl_MolotovDish : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Environment")
+        if (isPlayer)
         {
-            areaDamage.SetActive(true);
-            gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            if (other.gameObject.tag == "Environment" || other.gameObject.tag == "Player2")
+            {
+                areaDamage.SetActive(true);
+                gameObject.GetComponent<BoxCollider>().isTrigger = false;
+                GetComponent<SphereCollider>().enabled = true;
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                Destroy(gameObject, 3.0f);
+            }
+        }
+        else
+        {
+            if (other.gameObject.tag == "Environment" || other.gameObject.tag == "Player")
+            {
+                areaDamage.SetActive(true);
+                gameObject.GetComponent<BoxCollider>().isTrigger = false;
+                GetComponent<SphereCollider>().enabled = true;
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
-            Destroy(gameObject, 10.0f);
+                Destroy(gameObject, 3.0f);
+            }
         }
     }
 }

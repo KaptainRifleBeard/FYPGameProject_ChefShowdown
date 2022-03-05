@@ -183,7 +183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7920444463962506055
 Transform:
   m_ObjectHideFlags: 0
@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 3768165500734932247}
   - component: {fileID: 6522284561676191771}
   - component: {fileID: 4882055971770565157}
+  - component: {fileID: 2658596440272901379}
   - component: {fileID: 3953302653026300995}
   - component: {fileID: 8095596268766667525}
   - component: {fileID: -995858731905769375}
@@ -347,6 +348,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!135 &2658596440272901379
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539881460047306669}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 9.462715
+  m_Center: {x: 0, y: -0.083618164, z: 0}
 --- !u!114 &3953302653026300995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   areaDamage: {fileID: 1288497048622161162}
+  isPlayer: 1
 --- !u!1 &4764093509096701290
 GameObject:
   m_ObjectHideFlags: 0
