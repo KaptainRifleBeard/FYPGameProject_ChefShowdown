@@ -11,12 +11,22 @@ public class sl_P1vfx : MonoBehaviour
     public Renderer mat;
 
     public Color highlightColor;
-    public Color stunColor;
-
     public List<Color> defaultColor;
+
+    //for particle vfx
+    public ParticleSystem[] healVfx;
+    public ParticleSystem[] knockbackVfx;
+    public ParticleSystem[] explodeVfx;
+    public ParticleSystem[] dropVfx;
+    public ParticleSystem[] noPickVfx;
+    public ParticleSystem[] stunVfx;
+
+    int numEffect;
+    int timeDestroy;
 
     void Start()
     {
+        numEffect = 0; //no effect
         view = GetComponent<PhotonView>();
 
         for (int i = 0; i < mat.materials.Length; i++)
@@ -33,42 +43,17 @@ public class sl_P1vfx : MonoBehaviour
             {
                 GetDamage();
             }
-            if (sl_PlayerHealth.freezePlayer == true)
-            {
-                GetStundDamage();
-            }
+
+           
         }
 
 
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if(other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
-    //    {
-    //        Debug.Log("collide with bird");
-    //        GetDamage();
-    //    }
-    //}
-
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
-    //    {
-    //        GetDamage();
-    //    }
-    //}
 
     public void GetDamage()
     {
         view.RPC("getDamageVFX", RpcTarget.All);
-    }
-
-
-    public void GetStundDamage()
-    {
-        view.RPC("stunVFX", RpcTarget.All);
     }
 
     [PunRPC]
@@ -90,23 +75,6 @@ public class sl_P1vfx : MonoBehaviour
         }
     }
 
-    [PunRPC]
-    IEnumerator stunVFX()
-    {
-        for (int n = 0; n < 6; n++)
-        {
-            for (int i = 0; i < mat.materials.Length; i++)
-            {
-                mat.materials[i].color = stunColor;
-            }
-            yield return new WaitForSeconds(0.1f);
-            for (int i = 0; i < mat.materials.Length; i++)
-            {
-                mat.materials[i].color = defaultColor[i];
-            }
 
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
+   
 }

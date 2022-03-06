@@ -16,7 +16,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     [Space(10)]
     [Header("Health")]
-    private float maxHealth = 8;
+    private float maxHealth = 80;
     public static float currentHealth;
 
     public GameObject bulletScript;
@@ -34,10 +34,20 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     float molotovTimer;
 
     public static bool getDamage;
-    public static bool freezePlayer;
     public static bool playerDead;
 
- 
+    //dish vfx
+    [Space(10)]
+    [Header("Particle vfx")]
+    public ParticleSystem[] healVfx;
+    public ParticleSystem[] knockbackVfx;
+    public ParticleSystem[] explodeVfx;
+    public ParticleSystem[] dropVfx;
+    public ParticleSystem[] noPickVfx;
+    public ParticleSystem[] stunVfx;
+
+    int numVfx;
+    int timeDestroy;
 
     //AUDIO
     string audioName;
@@ -52,7 +62,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         isDish = false;
         getDamage = false;
         playerDead = false;
-        freezePlayer = false;
+
+        numVfx = 0; //no effect
     }
 
     public void Update()
@@ -145,8 +156,12 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             }
 
             //DISHES
-            if (other.gameObject.tag == "P2Sinseollo")
+            #region
+            if (other.gameObject.tag == "P2Sinseollo")//explode
             {
+                numVfx = 1;
+                GetVisualEffect();
+
                 audioName = "HitSFX";
                 SyncAudio();
 
@@ -157,9 +172,26 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
-
-            if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall" || other.gameObject.tag == "P2FoxtailMillet" || other.gameObject.tag == "P2Mukozuke")
+            if (other.gameObject.tag == "P2FoxtailMillet")//kb
             {
+                numVfx = 2;
+                GetVisualEffect();
+
+                audioName = "HitSFX";
+                SyncAudio();
+
+                bulletDamage = 2.0f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+
+            }
+
+            if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall")//no pick
+            {
+                numVfx = 3;
+                GetVisualEffect();
+
                 audioName = "HitSFX";
                 SyncAudio();
 
@@ -172,28 +204,42 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "Hassun") //heal
             {
-                //rmb to add rpc to sync
-                bulletDamage = 0.0f;
+                numVfx = 4;
+                GetVisualEffect();
 
-                currentHealth += 3.0f;
-                if (currentHealth >= 8.0f)
-                {
-                    currentHealth = 8.0f;
-                }
-                view.RPC("BulletDamage", RpcTarget.All, bulletDamage);
+                view.RPC("P1Heal", RpcTarget.All);
 
             }
 
             if (other.gameObject.tag == "P2Tojangjochi") //stun
             {
+                numVfx = 5;
+                GetVisualEffect();
+
                 audioName = "HitSFX";
                 SyncAudio();
 
                 //rmb to add rpc to sync
                 bulletDamage = 0.0f;
                 percentage = 0f;
-                freezePlayer = true;
-                StartCoroutine(StopStun());
+
+                GetDamage(bulletDamage, percentage);
+
+            }
+
+            if (other.gameObject.tag == "P2RawStinkyTofu") //drop
+            {
+                numVfx = 6;
+                GetVisualEffect();
+            }
+
+            if (other.gameObject.tag == "P2Mukozuke")
+            {
+                audioName = "HitSFX";
+                SyncAudio();
+
+                bulletDamage = 2.0f;
+                percentage = (bulletDamage * 50f) / 100f;
 
                 GetDamage(bulletDamage, percentage);
 
@@ -209,8 +255,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
                 GetDamage(bulletDamage, percentage);
             }
+            #endregion
 
-            
         }
 
     }
@@ -237,7 +283,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "P2BirdNestSoup")
+        if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
         {
             molotovTimer = 0;
         }
@@ -302,16 +348,181 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     }
 
+    public void GetVisualEffect()
+    {
+        if (numVfx == 1)//ex
+        {
+            timeDestroy = 1;
+            StartCoroutine(StopVfx(timeDestroy));
+            view.RPC("DishVisualEffect", RpcTarget.All, timeDestroy, numVfx);
+
+        }
+        if (numVfx == 2)//kb
+        {
+            timeDestroy = 1;
+            StartCoroutine(StopVfx(timeDestroy));
+
+            view.RPC("DishVisualEffect", RpcTarget.All, timeDestroy, numVfx);
+
+        }
+        if (numVfx == 3)//np
+        {
+            timeDestroy = 4;
+            StartCoroutine(StopVfx(timeDestroy));
+
+            view.RPC("DishVisualEffect", RpcTarget.All, timeDestroy, numVfx);
+
+        }
+        if (numVfx == 4)//heal
+        {
+            timeDestroy = 4;
+            StartCoroutine(StopVfx(timeDestroy));
+
+            view.RPC("DishVisualEffect", RpcTarget.All, timeDestroy, numVfx);
+
+        }
+        if (numVfx == 5)//stun
+        {
+            timeDestroy = 6;
+            StartCoroutine(StopVfx(timeDestroy));
+            view.RPC("DishVisualEffect", RpcTarget.All, timeDestroy, numVfx);
+
+        }
+        if (numVfx == 6)//drop
+        {
+            timeDestroy = 3;
+            StartCoroutine(StopVfx(timeDestroy));
+            view.RPC("DishVisualEffect", RpcTarget.All, timeDestroy, numVfx);
+
+        }
+    }
+
+    [PunRPC]
+    IEnumerator DishVisualEffect(int timeToDestroy, int n)
+    {
+        timeDestroy = timeToDestroy;
+        numVfx = n;
+
+        if (n == 1)//explode
+        {
+            for (int i = 0; i < explodeVfx.Length; i++)
+            {
+                explodeVfx[i].Play();
+            }
+
+            yield return new WaitForSeconds(timeToDestroy);
+
+            for (int i = 0; i < explodeVfx.Length; i++)
+            {
+                if (explodeVfx[i].isPlaying)
+                {
+                    explodeVfx[i].Stop();
+                }
+
+            }
+        }
+
+        if (n == 2)//kb
+        {
+            for (int i = 0; i < knockbackVfx.Length; i++)
+            {
+                knockbackVfx[i].Play();
+            }
+
+            yield return new WaitForSeconds(timeToDestroy);
+
+            for (int i = 0; i < knockbackVfx.Length; i++)
+            {
+                if (knockbackVfx[i].isPlaying)
+                {
+                    knockbackVfx[i].Stop();
+                }
+
+            }
+        }
+
+        if (n == 3)//nopick
+        {
+            for (int i = 0; i < noPickVfx.Length; i++)
+            {
+                noPickVfx[i].Play();
+            }
+
+            yield return new WaitForSeconds(timeToDestroy);
+
+            for (int i = 0; i < noPickVfx.Length; i++)
+            {
+                if (noPickVfx[i].isPlaying)
+                {
+                    noPickVfx[i].Stop();
+                }
+
+            }
+        }
+
+        if (n == 4)//heal
+        {
+            for (int i = 0; i < healVfx.Length; i++)
+            {
+                healVfx[i].Play();
+            }
+
+            yield return new WaitForSeconds(timeToDestroy);
+
+            for (int i = 0; i < healVfx.Length; i++)
+            {
+                if (healVfx[i].isPlaying)
+                {
+                    healVfx[i].Stop();
+                }
+
+            }
+        }
+
+        if (n == 5)//stun
+        {
+            for (int i = 0; i < stunVfx.Length; i++)
+            {
+                stunVfx[i].Play();
+            }
+
+            yield return new WaitForSeconds(timeToDestroy);
+
+            for (int i = 0; i < stunVfx.Length; i++)
+            {
+                if (stunVfx[i].isPlaying)
+                {
+                    stunVfx[i].Stop();
+                }
+
+            }
+        }
+
+        if (n == 6)//drop
+        {
+            for (int i = 0; i < dropVfx.Length; i++)
+            {
+                dropVfx[i].Play();
+            }
+
+            yield return new WaitForSeconds(timeToDestroy);
+
+            for (int i = 0; i < dropVfx.Length; i++)
+            {
+                if (dropVfx[i].isPlaying)
+                {
+                    dropVfx[i].Stop();
+                }
+
+            }
+        }
+
+    }
+
     IEnumerator StopGetDamage()
     {
         yield return new WaitForSeconds(1.0f);
         getDamage = false;
-    }
-
-    IEnumerator StopStun()
-    {
-        yield return new WaitForSeconds(6.0f);
-        freezePlayer = false;
     }
 
     IEnumerator PlayerDead()
@@ -325,6 +536,11 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         //PhotonNetwork.Destroy(gameObject);
     }
 
+    IEnumerator StopVfx(int time)
+    {
+        yield return new WaitForSeconds(time);
+        numVfx = 0;
+    }
 
     [PunRPC]
     public void BulletDamage(float damage)
@@ -349,6 +565,17 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     {
         audioName = n;
         FindObjectOfType<sl_AudioManager>().Play(n);
+
+    }
+
+    [PunRPC]
+    public void P1Heal()
+    {
+        currentHealth += 3.0f;
+        if (currentHealth >= 8.0f)
+        {
+            currentHealth = 8.0f;
+        }
 
     }
 
