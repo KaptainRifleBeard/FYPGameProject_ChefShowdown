@@ -8,26 +8,32 @@ public class MolotovDish : MonoBehaviour
     public bool isPlayer;
     public GameObject indicator;
 
+    
+
     private void OnTriggerEnter(Collider collision)
     {
-        //if(isPlayer)
+        //if (isPlayer)
         //{
         //    if (collision.gameObject.tag == "Environment" || collision.gameObject.tag == "Player2")
         //    {
         //        GetComponent<MeshRenderer>().enabled = false;
         //        GetComponent<SphereCollider>().enabled = true;
         //        indicator.SetActive(true);
-        //        isHit = true;
+
+        //        //indicator.SetActive(true);
+        //        //Destroy(gameObject, 3f);
         //    }
         //}
-        //else if(!isPlayer)
+        //else if (!isPlayer)
         //{
         //    if (collision.gameObject.tag == "Environment" || collision.gameObject.tag == "Player")
         //    {
         //        GetComponent<MeshRenderer>().enabled = false;
         //        GetComponent<SphereCollider>().enabled = true;
         //        indicator.SetActive(true);
-        //        isHit = true;
+
+        //        //indicator.SetActive(true);
+        //        //Destroy(gameObject, 3f);
         //    }
         //}
 
