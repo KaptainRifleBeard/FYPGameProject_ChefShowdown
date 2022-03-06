@@ -19,7 +19,7 @@ public class sl_RoomListingMenu : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        roomCanvas.CurrentRoomCanvas.Show();
+        //roomCanvas.CurrentRoomCanvas.Show();
         content.DestroyChildren();
         listings.Clear();
     }
@@ -28,7 +28,6 @@ public class sl_RoomListingMenu : MonoBehaviourPunCallbacks
     {
         foreach(RoomInfo info in roomList)
         {
-
             if (info.RemovedFromList)
             {
                 int i = listings.FindIndex(x => x.RoomInfo.Name == info.Name); //check the list have the same name
@@ -55,6 +54,7 @@ public class sl_RoomListingMenu : MonoBehaviourPunCallbacks
             }
 
         }
+
     }
 
 }

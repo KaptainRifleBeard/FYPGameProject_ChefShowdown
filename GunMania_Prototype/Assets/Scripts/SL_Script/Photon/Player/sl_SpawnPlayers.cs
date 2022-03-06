@@ -5,34 +5,35 @@ using Photon.Pun;
 
 public class sl_SpawnPlayers : MonoBehaviour
 {
-    public GameObject playerPrefabA;
-    public GameObject playerPrefabB;
-
     public GameObject spawnPostionA;
     public GameObject spawnPostionB;
 
-    void Start()
-    { 
-        
-        //reset list
-        sl_p2InventoryManager.ClearAllInList();
-        sl_InventoryManager.ClearAllInList();
+    public GameObject p1;
+    public GameObject p2;
 
+    GameObject player1;
+    GameObject player2;
+
+    void Start()
+    {
+
+        sl_P2PlayerHealth.player2Dead = false;
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Instantiate(playerPrefabA.name, spawnPostionA.transform.position, Quaternion.identity);
+            player1 = PhotonNetwork.Instantiate(p1.name, spawnPostionA.transform.position, Quaternion.identity);
+            player1.gameObject.tag = "Player";
+            player1.gameObject.layer = 7; //p1
 
         }
         else
         {
-            PhotonNetwork.Instantiate(playerPrefabB.name, spawnPostionB.transform.position, Quaternion.identity);
+            player2 = PhotonNetwork.Instantiate(p2.name, spawnPostionB.transform.position, Quaternion.identity);
+            player2.gameObject.tag = "Player2";
+            player2.gameObject.layer = 8; //p2
+
         }
+
     }
 
-
-    void Update()
-    {
-        
-    }
 }

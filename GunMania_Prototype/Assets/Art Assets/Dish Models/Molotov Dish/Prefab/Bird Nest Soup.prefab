@@ -9,9 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1308489259898421987}
+  - component: {fileID: 8998273156819029999}
+  - component: {fileID: 7015436890723200188}
+  - component: {fileID: 3113041381290397742}
+  - component: {fileID: 1206812225401336759}
+  - component: {fileID: 6213511081458427121}
+  - component: {fileID: 6962588581284138142}
   m_Layer: 0
   m_Name: Bird Nest Soup
-  m_TagString: Untagged
+  m_TagString: Dish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,9 +37,106 @@ Transform:
   - {fileID: 4299348086480040612}
   - {fileID: 7091252247415895022}
   - {fileID: 5946350975440744607}
+  - {fileID: 2018462088642363064}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8998273156819029999
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829412113988753497}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.652403, y: 1.309291, z: 2.0497131}
+  m_Center: {x: 0.17339043, y: 0.6045233, z: -0.00000024778896}
+--- !u!114 &7015436890723200188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829412113988753497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88675fcfa285f684c9732b7b11a0358f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisItem: {fileID: 11400000, guid: b228f855161f25b47a9282c4a2d1d536, type: 2}
+  playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
+  prefabNum: 0
+  foodPrefab: []
+--- !u!114 &3113041381290397742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829412113988753497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b60ee4f9be66e5a4eb1e5c5fd0ea297a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisItem: {fileID: 11400000, guid: b228f855161f25b47a9282c4a2d1d536, type: 2}
+  playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
+  prefabNum: 0
+  foodPrefab: []
+--- !u!114 &1206812225401336759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829412113988753497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 6213511081458427121}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &6213511081458427121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829412113988753497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &6962588581284138142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829412113988753497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91735502b0e89004c98e427efdbba130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2937635621302365482
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,3 +465,65 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &4162924913261697784
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1308489259898421987}
+    m_Modifications:
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7059179833472540794, guid: bb463e770c1141846a367e18390110e6, type: 3}
+      propertyPath: m_Name
+      value: MolotovDishSmokeEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb463e770c1141846a367e18390110e6, type: 3}
+--- !u!4 &2018462088642363064 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2722050715995907136, guid: bb463e770c1141846a367e18390110e6, type: 3}
+  m_PrefabInstance: {fileID: 4162924913261697784}
+  m_PrefabAsset: {fileID: 0}
