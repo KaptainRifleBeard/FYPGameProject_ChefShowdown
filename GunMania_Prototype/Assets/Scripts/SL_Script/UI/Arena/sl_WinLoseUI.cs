@@ -55,7 +55,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p1 lose
-                winScreen.SetActive(true);
+                StartCoroutine(WinScreenUI());
 
                 if (sl_RematchAndLeave.rematchCount == 2)
                 {
@@ -75,7 +75,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p2 win
-                winScreen.SetActive(true);
+                StartCoroutine(WinScreenUI());
 
                 if (sl_RematchAndLeave.rematchCount == 2)
                 {
@@ -101,7 +101,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p1 win
-                winScreen.SetActive(true);
+                StartCoroutine(WinScreenUI());
 
                 if (sl_RematchAndLeave.rematchCount == 2)
                 {
@@ -121,7 +121,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 Nickname();
 
                 //p2 lose
-                winScreen.SetActive(true);
+                StartCoroutine(WinScreenUI());
 
                 if (sl_RematchAndLeave.rematchCount == 2)
                 {
@@ -231,11 +231,13 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         WinLoseCondition();
     }
 
-    //IEnumerator ToExitScreen() //wait for animation
-    //{
-    //    yield return new WaitForSeconds(3.0f);
-    //    SceneManager.LoadScene("sl_BacktoMainMenu");
-    //}
+    IEnumerator WinScreenUI() //wait for animation
+    {
+        yield return new WaitForSeconds(3.0f);
+        winScreen.SetActive(true);
+
+        //SceneManager.LoadScene("sl_BacktoMainMenu");
+    }
 
 
 
