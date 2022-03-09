@@ -20,14 +20,13 @@ public class DroppedDishDespawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        coroutine = Despawn(secs);
-        StartCoroutine(coroutine);
+        view.RPC("DishDestroy", RpcTarget.All);
     }
 
     private IEnumerator Despawn(int secs)
     {
         yield return new WaitForSeconds(secs);
-        view.RPC("DishDestroy", RpcTarget.All);
+        
     }
 
     [PunRPC]

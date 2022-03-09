@@ -32,7 +32,7 @@ public class DishEffect : MonoBehaviour
         playerRidg = gameObject.GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
 
-        offset = new Vector3(0, 0, 5);
+        offset = new Vector3(0, 0, 10);
     }
 
     private void OnTriggerEnter(Collider other)
