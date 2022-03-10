@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 516076470326356231}
   - component: {fileID: 1981051563231415940}
   - component: {fileID: 2832427127815363227}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2482087647608906764}
   - component: {fileID: 7442130700036830472}
   - component: {fileID: 41433585958592602}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 9134507322447352641}
   - component: {fileID: 1010021220536718589}
   - component: {fileID: 235397381306355003}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 6839299632526436429}
   - component: {fileID: 1105905197183615770}
   - component: {fileID: 2082717841414824730}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 8373522921980839762}
   - component: {fileID: 5214936392472873816}
   - component: {fileID: 9219761304992276642}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 3703770551981772302}
   - component: {fileID: 836289649207191387}
   - component: {fileID: 6597056609576198055}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 3471369779556191292}
   - component: {fileID: -8798877779585274639}
   - component: {fileID: 1943293494409720070}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: T_TaroBowl
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -640,6 +640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 2542533098271067}
+  onhit: {fileID: 0}
 --- !u!1001 &6777948837203428651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -678,6 +679,14 @@ PrefabInstance:
     - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849765, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691880731791, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}

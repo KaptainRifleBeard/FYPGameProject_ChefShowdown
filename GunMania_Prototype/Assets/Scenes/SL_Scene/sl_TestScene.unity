@@ -33258,6 +33258,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
+  - name: StartGameSfx
+    clip: {fileID: 8300000, guid: 4d905b21799809c499f755586bd3f0ce, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   - name: WinScreen
     clip: {fileID: 8300000, guid: 587dfde6310c1b440b7c8f434da3ec1e, type: 3}
     volumn: 0.5
@@ -33270,14 +33276,26 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Brock_ThrowFood
-    clip: {fileID: 8300000, guid: 0d9c6c59b3c3ecc418c9d1811b7eb4ad, type: 3}
+  - name: PickUpSfx
+    clip: {fileID: 8300000, guid: 43a2c819b6b93134d9465d0ed510f97a, type: 3}
     volumn: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Brock_ThrowFood
+    clip: {fileID: 8300000, guid: 0d9c6c59b3c3ecc418c9d1811b7eb4ad, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   - name: Jiho_ThrowFood
-    clip: {fileID: 8300000, guid: 8aa2624fbc78e4d42ae6b112087d06f6, type: 3}
+    clip: {fileID: 8300000, guid: ecf9f01dbdecbdb47aaba7b43b57c562, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Brock_GetDamage
+    clip: {fileID: 8300000, guid: c6a14cd708aff054fb0ebdd2d255858d, type: 3}
     volumn: 0.5
     pitch: 1
     loop: 0
@@ -33289,13 +33307,85 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Jiho_GetDamage
-    clip: {fileID: 8300000, guid: 0329c0845bfbbf94aba428f374cc55f2, type: 3}
+    clip: {fileID: 8300000, guid: ec2b7be6030350c4bb07bf6af7cc0106, type: 3}
     volumn: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Katsuki_GetDamage
     clip: {fileID: 8300000, guid: b74a359601d9da041b9ddccdb6ff3ecc, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CatHit
+    clip: {fileID: 8300000, guid: de8f989367e702e44af4a338422957b6, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DogHit
+    clip: {fileID: 8300000, guid: 5b13070f46c75c64e8e9b4a6d5094ea4, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ExplodeSfx
+    clip: {fileID: 8300000, guid: b7f07a58aebde02499521441caab5af7, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HealSfx
+    clip: {fileID: 8300000, guid: 2aaaedbcd08f6af41af713a6031fcf61, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: KnockbackSfx
+    clip: {fileID: 8300000, guid: 8e5a05b5cc67502478f059ee995d674e, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MolotovSfx
+    clip: {fileID: 8300000, guid: b622d6f3b8484c846aee22c4a56504bd, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PullInSfx
+    clip: {fileID: 8300000, guid: cf29e8704199ad84494d6070967ea1ca, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: StunSfx
+    clip: {fileID: 8300000, guid: 5d12998f54c0cf64583bfa9097e1c2e3, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ChinaGuide
+    clip: {fileID: 8300000, guid: e65b91d077690dd42a14665774768521, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: JapanGuide
+    clip: {fileID: 8300000, guid: d8a82be787daaa84b8a84f8a1d0cb92e, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: KoreaGuide
+    clip: {fileID: 8300000, guid: a45f8baaa8eb1964a863c35f9eff7d51, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: TaiwanGuide
+    clip: {fileID: 8300000, guid: 4c1288afb59c8d44c9941b06861f01a9, type: 3}
     volumn: 0.5
     pitch: 1
     loop: 0
@@ -34739,9 +34829,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 5242b2543936e3643aa03f6890f0eecf, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 998e91b7ebe47cf4687ab461186fb963, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 00b3d8e3fa740cc4589a563f7c2fb7bf, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0

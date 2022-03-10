@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8298323719160598648}
   - component: {fileID: 8357213462437627739}
   - component: {fileID: 4928108299448939922}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Sphere.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1875297961904214595}
   - component: {fileID: 5455127585581267220}
   - component: {fileID: 6344230056424118548}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 8703213044896496737}
   - component: {fileID: 3136309707243229634}
   - component: {fileID: 3969375702725206274}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: T_Bubble Tea2
   m_TagString: P2Bullet
   m_Icon: {fileID: 0}
@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 5394746287604751680}
+  onhit: {fileID: 0}
 --- !u!1 &4767477343732933852
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +297,7 @@ GameObject:
   - component: {fileID: 7606016563041048382}
   - component: {fileID: 939480976116782590}
   - component: {fileID: 6210417644404878677}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +379,7 @@ GameObject:
   - component: {fileID: 8839629645959908907}
   - component: {fileID: 8559629760770044274}
   - component: {fileID: 4297262996019736150}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,6 +457,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3712250105095365124}
     m_Modifications:
+    - target: {fileID: 1244821845911724455, guid: 1c8198107218a20488f70aa893638d30, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -471,6 +476,10 @@ PrefabInstance:
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.00000006033701
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244821846227522701, guid: 1c8198107218a20488f70aa893638d30, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c8198107218a20488f70aa893638d30, type: 3}

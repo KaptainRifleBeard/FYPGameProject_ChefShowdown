@@ -32,6 +32,8 @@ public class CDBeforeGame : MonoBehaviour
             }
 
             CDDisplay.text = "START";
+            FindObjectOfType<sl_AudioManager>().Play("StartGameSfx");
+
             yield return new WaitForSeconds(1f);
             CDDisplay.gameObject.SetActive(false);
         }

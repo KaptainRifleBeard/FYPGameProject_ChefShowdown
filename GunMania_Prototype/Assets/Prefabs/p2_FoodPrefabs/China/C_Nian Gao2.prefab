@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7502673160110103714}
   - component: {fileID: 4264814156813451258}
   - component: {fileID: 3494586198180534028}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4953225291210524743}
   - component: {fileID: 7331759912761145237}
   - component: {fileID: 2692295332682492865}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: C_Nian Gao2
   m_TagString: P2Bullet
   m_Icon: {fileID: 0}
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 538000303065363472}
+  onhit: {fileID: 0}
 --- !u!1 &3933365410772972902
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ GameObject:
   - component: {fileID: 7809956324485997980}
   - component: {fileID: 6002372311845053979}
   - component: {fileID: 8082340569251151185}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,6 +291,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1711609197762582674}
     m_Modifications:
+    - target: {fileID: 1244821845911724455, guid: 1c8198107218a20488f70aa893638d30, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -337,6 +342,10 @@ PrefabInstance:
     - target: {fileID: 1244821846227522701, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_Name
       value: DustTrail2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244821846227522701, guid: 1c8198107218a20488f70aa893638d30, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c8198107218a20488f70aa893638d30, type: 3}
