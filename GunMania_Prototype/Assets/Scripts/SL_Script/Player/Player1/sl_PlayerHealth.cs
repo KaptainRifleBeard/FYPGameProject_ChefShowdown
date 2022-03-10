@@ -116,13 +116,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
         if (PhotonNetwork.IsMasterClient) //make sure it run only once
         {
-            if (other.gameObject.layer == 6)
-            {
-                audioName = "HitSFX";
-                SyncAudio();
-                isDish = true; //for katsuki to check dish
-            }
-
             if (other.gameObject.tag == "WaterSpray")
             {
                 float waterDamage;
@@ -136,6 +129,20 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "Cat")
             {
+                audioName = "CatHit";
+                SyncAudio();
+
+                bulletDamage = 0.5f;
+                percentage = (bulletDamage * 50f) / 100f;
+
+                GetDamage(bulletDamage, percentage);
+            }
+
+            if (other.gameObject.tag == "Dog")
+            {
+                audioName = "DogHit";
+                SyncAudio();
+
                 bulletDamage = 0.5f;
                 percentage = (bulletDamage * 50f) / 100f;
 
@@ -159,10 +166,12 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             #region
             if (other.gameObject.tag == "P2Sinseollo")//explode
             {
+                isDish = true; //for katsuki to check dish
+
                 numVfx = 1;
                 GetVisualEffect();
 
-                audioName = "HitSFX";
+                audioName = "ExplodeSfx";
                 SyncAudio();
 
                 bulletDamage = 3f; 
@@ -174,10 +183,12 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2FoxtailMillet")//kb
             {
+                isDish = true; //for katsuki to check dish
+
                 numVfx = 2;
                 GetVisualEffect();
 
-                audioName = "HitSFX";
+                audioName = "KnockbackSfx";
                 SyncAudio();
 
                 bulletDamage = 2.0f;
@@ -189,6 +200,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall")//no pick
             {
+                isDish = true; //for katsuki to check dish
+
                 numVfx = 3;
                 GetVisualEffect();
 
@@ -204,6 +217,11 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "Hassun") //heal
             {
+                isDish = true; //for katsuki to check dish
+
+                audioName = "HealSfx";
+                SyncAudio();
+
                 numVfx = 4;
                 GetVisualEffect();
 
@@ -213,10 +231,12 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2Tojangjochi") //stun
             {
+                isDish = true; //for katsuki to check dish
+
                 numVfx = 5;
                 GetVisualEffect();
 
-                audioName = "HitSFX";
+                audioName = "StunSfx";
                 SyncAudio();
 
                 //rmb to add rpc to sync
@@ -229,13 +249,20 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2RawStinkyTofu") //drop
             {
+                isDish = true; //for katsuki to check dish
+
+                audioName = "HitSFX";
+                SyncAudio();
+
                 numVfx = 6;
                 GetVisualEffect();
             }
 
-            if (other.gameObject.tag == "P2Mukozuke")
+            if (other.gameObject.tag == "P2Mukozuke") //pull in
             {
-                audioName = "HitSFX";
+                isDish = true; //for katsuki to check dish
+
+                audioName = "PullInSfx";
                 SyncAudio();
 
                 bulletDamage = 2.0f;
@@ -245,9 +272,11 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             }
 
-            if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
+            if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea")) //molotov
             {
-                audioName = "HitSFX";
+                isDish = true; //for katsuki to check dish
+
+                audioName = "MolotovSfx";
                 SyncAudio();
 
                 bulletDamage = 2.0f;
@@ -265,6 +294,9 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     {
         if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
         {
+            audioName = "MolotovSfx";
+            SyncAudio();
+
             molotovTimer += Time.deltaTime;
 
             if (molotovTimer >= 1.0f)
@@ -333,6 +365,9 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         //from enemy bullet
         if (sl_newP2Movement.changep2Icon == 0) //enemy brock
         {
+            audioName = "Brock_GetDamage";
+            SyncAudio();
+
             damage = damage + percent;
         }
 

@@ -48,8 +48,6 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
         if (sl_PlayerHealth.currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
         {
-            FindObjectOfType<sl_AudioManager>().Play("WinScreen");
-
             if (PhotonNetwork.IsMasterClient)
             {
                 Nickname();
@@ -94,7 +92,6 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
         if (sl_P2PlayerHealth.p2currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
         {
-            FindObjectOfType<sl_AudioManager>().Play("WinScreen");
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -235,6 +232,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(3.0f);
         winScreen.SetActive(true);
+        FindObjectOfType<sl_AudioManager>().Play("WinScreen");
 
         //SceneManager.LoadScene("sl_BacktoMainMenu");
     }

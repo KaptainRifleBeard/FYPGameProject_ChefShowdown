@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8491214564246166173}
   - component: {fileID: 8432289368939761086}
   - component: {fileID: 4799539504061808503}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2421134976856359570}
   - component: {fileID: 3351960097948805301}
   - component: {fileID: 4326489782150763304}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 521787818015565919}
   - component: {fileID: -6666662699723356365}
   - component: {fileID: 5046349476443768137}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: T_Pineapple Cake
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 1483808545739470195}
+  onhit: {fileID: 0}
 --- !u!1 &5437602704766299246
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +299,7 @@ GameObject:
   - component: {fileID: 5764627119787424971}
   - component: {fileID: 5296575231943602184}
   - component: {fileID: 8029176755875645637}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +381,7 @@ GameObject:
   - component: {fileID: 6944859606111687911}
   - component: {fileID: 2690055140162618851}
   - component: {fileID: 4791846722906558641}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +463,7 @@ GameObject:
   - component: {fileID: 7616758774456897510}
   - component: {fileID: 5276740436423225769}
   - component: {fileID: 2166858215841689519}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane.034
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +545,7 @@ GameObject:
   - component: {fileID: 663498369634755195}
   - component: {fileID: 5073523662861606472}
   - component: {fileID: 6060750851410380473}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,6 +654,14 @@ PrefabInstance:
     - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849765, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691880731791, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}

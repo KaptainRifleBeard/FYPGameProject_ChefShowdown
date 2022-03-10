@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4914498449815567542}
   - component: {fileID: 8198158684617205301}
   - component: {fileID: 5182250396735716908}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 5558923631774921643}
   - component: {fileID: 8217802279165653036}
   - component: {fileID: 5867618148362693478}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cylinder.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 2478471226788799702}
   - component: {fileID: 3276466512726871793}
   - component: {fileID: 4608891698603226476}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 5285276589536447125}
   - component: {fileID: 1902880329683069389}
   - component: {fileID: 1240893237052490043}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cylinder.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 6668422581072307633}
   - component: {fileID: -8981773730165147973}
   - component: {fileID: -5623405196390961003}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: C_Wonton
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -454,6 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 8476359012354099864}
+  onhit: {fileID: 0}
 --- !u!1 &4668461070236951300
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +466,7 @@ GameObject:
   - component: {fileID: 3088651606644472131}
   - component: {fileID: 331931214187649256}
   - component: {fileID: 3989341855299055797}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Circle.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +548,7 @@ GameObject:
   - component: {fileID: 6051928391333632655}
   - component: {fileID: 5367694822136649292}
   - component: {fileID: 7823184266191400577}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +630,7 @@ GameObject:
   - component: {fileID: 7178117785207632547}
   - component: {fileID: 2785524721021789095}
   - component: {fileID: 4718886378182473461}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -711,7 +712,7 @@ GameObject:
   - component: {fileID: 890650254077312014}
   - component: {fileID: 3742589129446108593}
   - component: {fileID: 2642700070040035939}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -793,7 +794,7 @@ GameObject:
   - component: {fileID: 8052942859861527689}
   - component: {fileID: 6377708360120335780}
   - component: {fileID: 789452508661702091}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,12 +905,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6780473691425849765, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849765, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6780473691880731760, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691880731791, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
