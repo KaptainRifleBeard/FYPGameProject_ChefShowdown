@@ -4,14 +4,40 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
+using TMPro;
 
 public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 {
+    PhotonView view;
+
     [SerializeField] private sl_PlayerListing playerListing;
     [SerializeField]private Transform content;
 
     public List<sl_PlayerListing> listings = new List<sl_PlayerListing>();
     private sl_RoomCanvases roomCanvas;
+
+
+    [Space(10)]
+    [Header("When P2 is waiting")]
+    public TextMeshProUGUI waitingText;
+    public TextMeshProUGUI p1NameText;
+
+    public GameObject[] blankIcon;
+
+    public GameObject[] thingsToDisable;
+    public GameObject[] disableP2Indicator;
+
+    public static int p2IsIn;
+    public static bool startGame;
+
+
+    private void Start()
+    {
+        view = GetComponent<PhotonView>();
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.IsMessageQueueRunning = true;
+
+    }
 
     public override void OnEnable()
     {
@@ -56,7 +82,7 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
     {
         int i = listings.FindIndex(x => x.Player == player);
 
-        if(i != -1)
+        if (i != -1)
         {
             listings[i].SetPlayerInfo(player);
         }
@@ -67,9 +93,10 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             {
                 listing.SetPlayerInfo(player);
                 listings.Add(listing);
+
             }
         }
-        
+
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -87,15 +114,71 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             listings.RemoveAt(i);
         }
     }
-
+    
     public void StartGame()
     {
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        if (PhotonNetwork.IsMasterClient/* && playerCount == 2*/)  // room owner
+        if (PhotonNetwork.IsMasterClient && playerCount == 2)  // room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
+            startGame = true;
         }
+        else
+        {
+            startGame = false;
+
+        }
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+
+    }
+
+    public void DisableP2Indicator()
+    {
+        for (int i = 0; i < disableP2Indicator.Length; i++)
+        {
+            disableP2Indicator[i].SetActive(false);
+        }
+
+    }
+
+    private void Update()
+    {
+        if (listings.Count == 1)
+        {
+            waitingText.text = "Waiting";
+
+            blankIcon[0].SetActive(true);
+            blankIcon[1].SetActive(true);
+
+            for (int i = 0; i < thingsToDisable.Length; i++)
+            {
+                thingsToDisable[i].SetActive(false);
+            }
+            DisableP2Indicator();
+
+            p2IsIn = 0;
+            sl_P2CharacterSelect.p2_numConfirm1 = 0;
+            sl_P2CharacterSelect.p2_numConfirm2 = 0;
+            sl_P2CharacterSelect.p2_firstCharacter = 0;
+            sl_P2CharacterSelect.p2_secondCharacter = 0;
+
+        }
+        else
+        {
+            waitingText.text = sl_P2CharacterSelect.roomNickname2;
+            p2IsIn = 1;
+
+            for (int i = 0; i < thingsToDisable.Length; i++)
+            {
+                thingsToDisable[i].SetActive(true);
+            }
+
+
+
+        }
+
+
     }
 
 }

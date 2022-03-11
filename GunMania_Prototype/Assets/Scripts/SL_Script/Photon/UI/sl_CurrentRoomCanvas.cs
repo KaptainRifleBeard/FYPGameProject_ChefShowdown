@@ -30,13 +30,18 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
 
     private void Update()
     {
-        //if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-        //{
-        //    startButton.SetActive(true);
-        //}
-        //else
-        //{
-        //    startButton.SetActive(false);
-        //}
+        //startButton.SetActive(true);
+
+        if (PhotonNetwork.IsMasterClient &&
+            sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1 &&
+            sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1)
+        {
+            startButton.SetActive(true);
+
+        }
+        else
+        {
+            startButton.SetActive(false);
+        }
     }
 }
