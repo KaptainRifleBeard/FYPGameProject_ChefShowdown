@@ -1485,15 +1485,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5099769813197912089}
-  - component: {fileID: 3353098472406125594}
-  - component: {fileID: 7008636799999188512}
-  - component: {fileID: 1554201456294867931}
   - component: {fileID: 3728367976549560269}
   - component: {fileID: 517959966491075094}
-  - component: {fileID: 2965329198468071088}
   m_Layer: 0
   m_Name: Cuttlefish Sashimi Plate
-  m_TagString: Dish
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1538,51 +1534,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3353098472406125594
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5588356962524570275}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.517239, y: 0.5616874, z: 1.5507059}
-  m_Center: {x: 0.8260512, y: 0.21915677, z: -2.3432903}
---- !u!114 &7008636799999188512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5588356962524570275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88675fcfa285f684c9732b7b11a0358f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: ec3931784f155474c8444ff530442f3c, type: 2}
-  playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
-  prefabNum: 0
-  foodPrefab: []
---- !u!114 &1554201456294867931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5588356962524570275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b60ee4f9be66e5a4eb1e5c5fd0ea297a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: ec3931784f155474c8444ff530442f3c, type: 2}
-  playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
-  prefabNum: 0
-  foodPrefab: []
 --- !u!114 &3728367976549560269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,18 +1573,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &2965329198468071088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5588356962524570275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484fb108108329046ad30c8c91d98df4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6105742843983728528
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,12 +36,7 @@ public class P2DishEffect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Sinseollo")
-        {
-            view.RPC("Explode2", RpcTarget.All);
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.tag == "Tojangjochi")
+        if (other.gameObject.tag == "Tojangjochi")
         {
             //stun
             view.RPC("Stun2", RpcTarget.All);
@@ -76,7 +71,6 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "RawStinkyTofu")
         {
             //drop food :')
-            //view.RPC("DropFood2", RpcTarget.All);
             DropFood();
 
             if (playerInventory.itemList[0] != null)
@@ -86,7 +80,6 @@ public class P2DishEffect : MonoBehaviour
                 sl_InventoryManager.RefreshItem();
 
             }
-
 
             Destroy(other.gameObject);
         }

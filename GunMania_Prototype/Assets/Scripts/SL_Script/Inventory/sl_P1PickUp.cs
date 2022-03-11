@@ -37,9 +37,9 @@ public class sl_P1PickUp : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            if (DishEffect.canPick)
+            if (DishEffect.canPick && !pickup)
             {
-                if (sl_ShootBehavior.bulletCount < 2 && !pickup)
+                if (sl_ShootBehavior.bulletCount < 2)
                 {
                     pickup = true;
                     prefabNum = Random.Range(0, 2);
@@ -176,7 +176,7 @@ public class sl_P1PickUp : MonoBehaviour
 
     IEnumerator WaitToPickAgain()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         pickup = false;
     }
 

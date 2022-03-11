@@ -110,6 +110,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet") //dont put this in masterclient, or else ur view wont destroy bullet
         {
+            getDamage2 = true;
             Destroy(other.gameObject);
         }
 
@@ -322,7 +323,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
             if (molotovTimer >= 1.0f)
             {
                 bulletDamage2 = 1.0f;
-                percentage = (bulletDamage2 * 50f) / 100f;
+                percentage = 0;
 
                 GetDamage(bulletDamage2, percentage);
                 molotovTimer = 0;

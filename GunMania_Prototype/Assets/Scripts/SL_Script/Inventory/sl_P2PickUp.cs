@@ -41,9 +41,9 @@ public class sl_P2PickUp : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player2"))
         {
-            if (P2DishEffect.p2canPick)
+            if (P2DishEffect.p2canPick && !pickup)
             {
-                if (sl_P2ShootBehavior.p2bulletCount < 2 && !pickup)
+                if (sl_P2ShootBehavior.p2bulletCount < 2)
                 {
                     audioName = "PickUpSfx";
                     SyncAudio();
@@ -191,7 +191,7 @@ public class sl_P2PickUp : MonoBehaviour
 
     IEnumerator WaitToPickAgain()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         pickup = false;
     }
 

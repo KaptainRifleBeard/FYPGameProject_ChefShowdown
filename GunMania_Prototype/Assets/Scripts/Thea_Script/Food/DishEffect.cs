@@ -37,13 +37,7 @@ public class DishEffect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.tag == "P2Sinseollo")
-        {
-            view.RPC("Explode", RpcTarget.All);
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.tag == "P2Tojangjochi")
+        if (other.gameObject.tag == "P2Tojangjochi")
         {
             //stun
             view.RPC("Stun", RpcTarget.All);
@@ -61,18 +55,10 @@ public class DishEffect : MonoBehaviour
 
             Destroy(other.gameObject); 
         }
-        else if (other.gameObject.tag == "P2BirdNestSoup")
-        {
-            //aoe
-            view.RPC("aoe", RpcTarget.All);
-
-            Destroy(other.gameObject);
-        }
         else if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall")
         {
             //silence
             view.RPC("Silence", RpcTarget.All);
-
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "P2FoxtailMillet")
@@ -88,7 +74,6 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2RawStinkyTofu")
         {
             //drop food :')
-            //view.RPC("DropFood", RpcTarget.All);
             DropFood();
 
             if (playerInventory.itemList[0] != null)

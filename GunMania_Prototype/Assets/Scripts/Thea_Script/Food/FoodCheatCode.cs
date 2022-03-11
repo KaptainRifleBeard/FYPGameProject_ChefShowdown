@@ -14,6 +14,11 @@ public class FoodCheatCode : MonoBehaviour
 
     public static bool startCheatCde;
     int count;
+    public string parentName;
+
+    GameObject obj;
+
+
     private void Start()
     {
         startCheatCde = false;
@@ -26,56 +31,72 @@ public class FoodCheatCode : MonoBehaviour
         {
             if (Input.GetKeyDown("1"))
             {
-                PhotonNetwork.Instantiate(prefabs[0].name, playerPOS.position, Quaternion.identity);
+                obj = PhotonNetwork.Instantiate(prefabs[0].name, playerPOS.position, Quaternion.identity);
+                obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+
                 //count++;
                 //StartCoroutine(reset());
 
             }
             else if (Input.GetKeyDown("2"))
             {
-                PhotonNetwork.Instantiate(prefabs[1].name, playerPOS.position, Quaternion.identity);
+                obj = PhotonNetwork.Instantiate(prefabs[1].name, playerPOS.position, Quaternion.identity);
+                obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+
                 //count++;
                 //StartCoroutine(reset());
 
             }
             else if (Input.GetKeyDown("3"))
             {
-                PhotonNetwork.Instantiate(prefabs[2].name, playerPOS.position, Quaternion.identity);
+                obj = PhotonNetwork.Instantiate(prefabs[2].name, playerPOS.position, Quaternion.identity);
+                obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+
                 //count++;
                 //StartCoroutine(reset());
 
             }
             else if (Input.GetKeyDown("4"))
             {
-                PhotonNetwork.Instantiate(prefabs[3].name, playerPOS.position, Quaternion.identity);
+                obj = PhotonNetwork.Instantiate(prefabs[3].name, playerPOS.position, Quaternion.identity);
+                obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+
                 //count++;
                 //StartCoroutine(reset());
 
             }
             else if (Input.GetKeyDown("5"))
             {
-                PhotonNetwork.Instantiate(prefabs[4].name, playerPOS.position, Quaternion.identity);
+                obj = PhotonNetwork.Instantiate(prefabs[4].name, playerPOS.position, Quaternion.identity);
+                obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+
                 //count++;
                 //StartCoroutine(reset());
 
             }
             else if (Input.GetKeyDown("6"))
             {
-                PhotonNetwork.Instantiate(prefabs[5].name, playerPOS.position, Quaternion.identity);
+                obj = PhotonNetwork.Instantiate(prefabs[5].name, playerPOS.position, Quaternion.identity);
+                obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+
                 //count++;
                 //StartCoroutine(reset());
 
             }
             else if (Input.GetKeyDown("7"))
             {
-                PhotonNetwork.Instantiate(prefabs[6].name, playerPOS.position, Quaternion.identity);
+                obj = PhotonNetwork.Instantiate(prefabs[6].name, playerPOS.position, Quaternion.identity);
+                obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+
                 //count++;
                 //StartCoroutine(reset());
 
             }
             else if (Input.GetKeyDown("8"))
             {
-                PhotonNetwork.Instantiate(prefabs[7].name, playerPOS.position, Quaternion.identity);
+                obj = PhotonNetwork.Instantiate(prefabs[7].name, playerPOS.position, Quaternion.identity);
+                obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+
                 //count++;
                 //StartCoroutine(reset());
             }

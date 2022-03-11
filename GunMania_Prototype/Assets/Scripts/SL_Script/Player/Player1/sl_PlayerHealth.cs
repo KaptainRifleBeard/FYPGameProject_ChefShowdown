@@ -110,6 +110,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     {
         if (other.gameObject.tag == "P2Bullet")//dont put this in masterclient, or else ur view wont destroy bullet
         {
+            getDamage = true;
+
             Destroy(other.gameObject);
 
         }
@@ -118,11 +120,12 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         {
             if (other.gameObject.tag == "WaterSpray")
             {
+                getDamage = true;
+
                 float waterDamage;
                 waterDamage = 1;
                 view.RPC("BulletDamage", RpcTarget.All, waterDamage);
 
-                getDamage = true;
                 StartCoroutine(StopGetDamage());
             }
 
@@ -320,7 +323,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             if (molotovTimer >= 1.0f)
             {
                 bulletDamage = 1.0f;
-                percentage = (bulletDamage * 50f) / 100f;
+                percentage = 0;
 
                 GetDamage(bulletDamage, percentage);
                 molotovTimer = 0;
