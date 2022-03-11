@@ -501,11 +501,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2725496866961505825}
-  - component: {fileID: 5592472510708435490}
   - component: {fileID: 5812246879817722357}
   - component: {fileID: 7216108615958471726}
   - component: {fileID: 8202439164352263199}
   - component: {fileID: 8306923544058993875}
+  - component: {fileID: 8945987060320015743}
   m_Layer: 0
   m_Name: 3. P2Cuttlefish Sashimi Plate
   m_TagString: P2Mukozuke
@@ -553,19 +553,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5592472510708435490
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3357776953512715419}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.517239, y: 0.5616874, z: 1.5507059}
-  m_Center: {x: 0.8260512, y: 0.21915677, z: -2.3432903}
 --- !u!114 &5812246879817722357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,6 +621,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 8242827696354568106}
+  onhit: {fileID: 0}
+--- !u!135 &8945987060320015743
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3357776953512715419}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5817289
+  m_Center: {x: 0.82256603, y: 0.19155645, z: -2.3212128}
 --- !u!1 &3928013431781214341
 GameObject:
   m_ObjectHideFlags: 0

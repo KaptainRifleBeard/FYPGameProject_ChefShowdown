@@ -100,16 +100,16 @@ public class P2DishEffect : MonoBehaviour
         }
     }
 
-    public IEnumerator StunDeactive(int time)
+    public IEnumerator StunDeactive()
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(6.0f);
 
         p2canMove = true;
     }
 
-    public IEnumerator SilenceDeactive(int time)
+    public IEnumerator SilenceDeactive()
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(4.0f);
         p2canPick = true;
     }
 
@@ -133,7 +133,7 @@ public class P2DishEffect : MonoBehaviour
     public void Stun()
     {
         p2canMove = false;
-        StartCoroutine(StunDeactive(6));
+        StartCoroutine(StunDeactive());
     }
 
     [PunRPC]
@@ -147,7 +147,7 @@ public class P2DishEffect : MonoBehaviour
     {
         //sl_P2PlayerHealth.p2currentHealth -= 1;
         p2canPick = false;
-        StartCoroutine(SilenceDeactive(4));
+        StartCoroutine(SilenceDeactive());
     }
 
     [PunRPC]
