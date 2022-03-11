@@ -12,8 +12,6 @@ public class P2DishEffect : MonoBehaviour
     //rigidbody drag 2
     public float knockbackSpeed;
     public float pullingSpeed;
-    public int stunTime;
-    public int silenceTime;
     public static bool p2canMove;
     public static bool p2canPick;
 
@@ -23,7 +21,8 @@ public class P2DishEffect : MonoBehaviour
     public List<GameObject> foodPrefab;
 
     Vector3 offset;
-
+    GameObject obj;
+    int syncnum;
 
     private void Start()
     {
@@ -37,26 +36,17 @@ public class P2DishEffect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.tag == "Sinseollo")
         {
-            view.RPC("Explode", RpcTarget.All);
+            view.RPC("Explode2", RpcTarget.All);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Tojangjochi")
         {
             //stun
-            view.RPC("Stun", RpcTarget.All);
+            view.RPC("Stun2", RpcTarget.All);
 
             Destroy(other.gameObject);
-        }
-        else if (other.gameObject.tag == "P2Hassun")
-        {
-            //sl_PlayerHealth.currentHealth += 3;
-            //if (sl_PlayerHealth.currentHealth >= 8)
-            //{
-            //    sl_PlayerHealth.currentHealth = 8;
-            //}
         }
         else if (other.gameObject.tag == "Mukozuke")
         {
@@ -64,17 +54,13 @@ public class P2DishEffect : MonoBehaviour
             Vector3 direction = (other.transform.position - transform.position).normalized;
             direction.y = 0;
 
-            view.RPC("Pull", RpcTarget.All, direction);
+            view.RPC("Pull2", RpcTarget.All, direction);
             Destroy(other.gameObject);
-        }
-        else if (other.gameObject.tag == "BirdNestSoup")
-        {
-            //aoe
         }
         else if (other.gameObject.tag == "BuddhaJumpsOvertheWall")
         {
             //silence
-            view.RPC("Silence", RpcTarget.All);
+            view.RPC("Silence2", RpcTarget.All);
 
             Destroy(other.gameObject);
         }
@@ -84,17 +70,23 @@ public class P2DishEffect : MonoBehaviour
             Vector3 direction = (transform.position - other.transform.position).normalized;
             direction.y = 0;
 
-            view.RPC("Push", RpcTarget.All, direction);
+            view.RPC("Push2", RpcTarget.All, direction);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "RawStinkyTofu")
         {
             //drop food :')
-            view.RPC("DropFood", RpcTarget.All);
+            //view.RPC("DropFood2", RpcTarget.All);
+            DropFood();
 
-            sl_P2ShootBehavior.p2bulletCount--;
-            playerInventory.itemList[0] = null;
-            sl_InventoryManager.RefreshItem();
+            if (playerInventory.itemList[0] != null)
+            {
+                sl_P2ShootBehavior.p2bulletCount--;
+                playerInventory.itemList[0] = null;
+                sl_InventoryManager.RefreshItem();
+
+            }
+
 
             Destroy(other.gameObject);
         }
@@ -114,129 +106,310 @@ public class P2DishEffect : MonoBehaviour
     }
 
     [PunRPC]
-    public void Pull(Vector3 dir)
+    public void Pull2(Vector3 dir)
     {
-        //sl_P2PlayerHealth.p2currentHealth -= 1;
-        
         playerRidg.AddForce(dir * pullingSpeed, ForceMode.Impulse);
     }
 
     [PunRPC]
-    public void Push(Vector3 dir)
+    public void Push2(Vector3 dir)
     {
-        //sl_P2PlayerHealth.p2currentHealth -= 1;
-
         playerRidg.AddForce(dir * knockbackSpeed, ForceMode.Impulse);
     }
 
     [PunRPC]
-    public void Stun()
+    public void Stun2()
     {
         p2canMove = false;
         StartCoroutine(StunDeactive());
     }
-
     [PunRPC]
-    public void Explode()
+    public void Silence2()
     {
-        //sl_P2PlayerHealth.p2currentHealth -= 1.5f;
-    }
-
-    [PunRPC]
-    public void Silence()
-    {
-        //sl_P2PlayerHealth.p2currentHealth -= 1;
         p2canPick = false;
         StartCoroutine(SilenceDeactive());
     }
-
-    [PunRPC]
     public void DropFood()
     {
         if (playerInventory.itemList[0] != null)
         {
             if (playerInventory.itemList[0].itemHeldNum == 1)
             {
-                Instantiate(dishPrefab[0], transform.position + offset, Quaternion.identity);
+                syncnum = 1;
+                view.RPC("SyncFood", RpcTarget.All, syncnum);
             }
             else if (playerInventory.itemList[0].itemHeldNum == 2)
             {
-                Instantiate(dishPrefab[1], transform.position + offset, Quaternion.identity);
+                syncnum = 2; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 3)
             {
-                Instantiate(dishPrefab[2], transform.position + offset, Quaternion.identity);
+                syncnum = 3; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 4)
             {
-                Instantiate(dishPrefab[3], transform.position + offset, Quaternion.identity);
+                syncnum = 4; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 5)
             {
-                Instantiate(dishPrefab[4], transform.position + offset, Quaternion.identity);
+                syncnum = 5; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 6)
             {
-                Instantiate(dishPrefab[5], transform.position + offset, Quaternion.identity);
+                syncnum = 6; view.RPC("SyncFood", RpcTarget.All, syncnum);
+
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 7)
             {
-                Instantiate(dishPrefab[6], transform.position + offset, Quaternion.identity);
+                syncnum = 7; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 8)
             {
-                Instantiate(dishPrefab[7], transform.position + offset, Quaternion.identity);
+                syncnum = 8; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
+
+
+
             //from here is food (12 food)
             else if (playerInventory.itemList[0].itemHeldNum == 10)
             {
-                Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+                syncnum = 10; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 11)
             {
-                Instantiate(foodPrefab[1], transform.position + offset, Quaternion.identity);
+                syncnum = 11; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 12)
             {
-                Instantiate(foodPrefab[2], transform.position + offset, Quaternion.identity);
+                syncnum = 12; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 13)
             {
-                Instantiate(foodPrefab[3], transform.position + offset, Quaternion.identity);
+                syncnum = 13; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 14)
             {
-                Instantiate(foodPrefab[4], transform.position + offset, Quaternion.identity);
+                syncnum = 14; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 15)
             {
-                Instantiate(foodPrefab[5], transform.position + offset, Quaternion.identity);
+                syncnum = 15; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 16)
             {
-                Instantiate(foodPrefab[6], transform.position + offset, Quaternion.identity);
+                syncnum = 16; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 17)
             {
-                Instantiate(foodPrefab[7], transform.position + offset, Quaternion.identity);
+                syncnum = 17; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 18)
             {
-                Instantiate(foodPrefab[8], transform.position + offset, Quaternion.identity);
+                syncnum = 18; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 19)
             {
-                Instantiate(foodPrefab[9], transform.position + offset, Quaternion.identity);
+                syncnum = 19; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 20)
             {
-                Instantiate(foodPrefab[10], transform.position + offset, Quaternion.identity);
+                syncnum = 20; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
             else if (playerInventory.itemList[0].itemHeldNum == 21)
             {
-                Instantiate(foodPrefab[11], transform.position + offset, Quaternion.identity);
+                syncnum = 21; view.RPC("SyncFood2", RpcTarget.All, syncnum);
+
             }
+        }
+    }
+
+
+    [PunRPC]
+    public void SyncFood2(int n)
+    {
+        syncnum = n;
+        if (n == 1)
+        {
+            obj = Instantiate(dishPrefab[0], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+        }
+        else if (n == 2)
+        {
+            obj = Instantiate(dishPrefab[1], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 3)
+        {
+            obj = Instantiate(dishPrefab[2], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+
+        }
+        else if (n == 4)
+        {
+            obj = Instantiate(dishPrefab[3], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+
+        }
+        else if (n == 5)
+        {
+            obj = Instantiate(dishPrefab[4], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+
+        }
+        else if (n == 6)
+        {
+            obj = Instantiate(dishPrefab[5], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+
+        }
+        else if (n == 7)
+        {
+            obj = Instantiate(dishPrefab[6], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+
+        }
+        else if (n == 8)
+        {
+            obj = Instantiate(dishPrefab[7], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+
+        }
+
+
+
+        //from here is food (12 food)
+        else if (n == 10)
+        {
+            obj = Instantiate(foodPrefab[0], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 11)
+        {
+            obj = Instantiate(foodPrefab[1], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 12)
+        {
+            obj = Instantiate(foodPrefab[2], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 13)
+        {
+            obj = Instantiate(foodPrefab[3], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 14)
+        {
+            obj = Instantiate(foodPrefab[4], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 15)
+        {
+            obj = Instantiate(foodPrefab[5], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 16)
+        {
+            obj = Instantiate(foodPrefab[6], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 17)
+        {
+            obj = Instantiate(foodPrefab[7], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 18)
+        {
+            obj = Instantiate(foodPrefab[8], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 19)
+        {
+            obj = Instantiate(foodPrefab[9], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 20)
+        {
+            obj = Instantiate(foodPrefab[10], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
+
+        }
+        else if (n == 21)
+        {
+            obj = Instantiate(foodPrefab[11], transform.position + offset, Quaternion.identity);
+            Destroy(obj, 3.0f);
+            StartCoroutine(MoveToFront());
 
         }
     }
+
+    private IEnumerator MoveToFront()
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[0] = playerInventory.itemList[1];
+        sl_p2InventoryManager.RefreshItem();
+
+        yield return new WaitForSeconds(0.1f);
+        playerInventory.itemList[1] = null;
+        sl_p2InventoryManager.RefreshItem();
+    }
+
 }

@@ -263,8 +263,6 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2RawStinkyTofu") //drop
             {
-                getDamage = true;
-
                 isDish = true; //for katsuki to check dish
 
                 audioName = "HitSFX";
