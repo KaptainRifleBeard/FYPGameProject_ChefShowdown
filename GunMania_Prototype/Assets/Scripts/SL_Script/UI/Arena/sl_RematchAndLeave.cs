@@ -44,7 +44,6 @@ public class sl_RematchAndLeave : MonoBehaviour
         rematchCount = 0;
 
         leaveMatch = false;
-        sl_MatchCountdown.timeRemaining = 300;
     }
 
 

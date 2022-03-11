@@ -16,8 +16,6 @@ public class sl_GuideScreen : MonoBehaviour
     public int dishNum;
 
     public GameObject buttonnext_dish;
-    public GameObject buttonnext_control;
-
     public GameObject button_dish;
     public GameObject button_control;
 
@@ -27,8 +25,6 @@ public class sl_GuideScreen : MonoBehaviour
 
         control.SetActive(true);
         dish.SetActive(false);
-
-        buttonnext_control.SetActive(true);
         buttonnext_dish.SetActive(false);
 
         button_control.SetActive(false);
@@ -57,7 +53,6 @@ public class sl_GuideScreen : MonoBehaviour
         control.SetActive(false);
 
         buttonnext_dish.SetActive(true);
-        buttonnext_control.SetActive(false);
 
         button_dish.SetActive(false);
         button_control.SetActive(true);
@@ -71,7 +66,6 @@ public class sl_GuideScreen : MonoBehaviour
         control.SetActive(true);
 
         buttonnext_dish.SetActive(false);
-        buttonnext_control.SetActive(true);
 
         button_dish.SetActive(true);
         button_control.SetActive(false);

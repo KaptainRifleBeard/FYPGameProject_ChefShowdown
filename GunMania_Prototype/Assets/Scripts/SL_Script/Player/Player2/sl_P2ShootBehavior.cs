@@ -20,7 +20,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
     GameObject targetObject;
 
     PhotonView view;
-    GameObject bullet;
+    GameObject bullet2;
     
 
     Vector3 directionShoot2;
@@ -267,8 +267,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
         {
             theFoodToShow[0].SetActive(true);
             //theFood.SetActive(true);
-            bullet = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
-            bullet.SetActive(false);
+            bullet2 = Instantiate(dishBullet[0], shootPosition.position, Quaternion.identity); //explode
+            bullet2.SetActive(false);
         }
 
         if (i == 2)
@@ -276,8 +276,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
             theFoodToShow[1].SetActive(true);
 
             //theFood.SetActive(true);
-            bullet = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
-            bullet.SetActive(false);
+            bullet2 = Instantiate(dishBullet[1], shootPosition.position, Quaternion.identity); //knockback
+            bullet2.SetActive(false);
         }
         if (i == 3)
         {
@@ -285,8 +285,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
             //theFood.SetActive(true);
 
-            bullet = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
-            bullet.SetActive(false);
+            bullet2 = Instantiate(dishBullet[2], shootPosition.position, Quaternion.identity); //pull
+            bullet2.SetActive(false);
 
         }
         if (i == 4)
@@ -295,8 +295,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
             //theFood.SetActive(true);
 
-            bullet = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
-            bullet.SetActive(false);
+            bullet2 = Instantiate(dishBullet[3], shootPosition.position, Quaternion.identity); //stun
+            bullet2.SetActive(false);
 
         }
         if (i == 5)
@@ -305,8 +305,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
             //theFood.SetActive(true);
 
-            bullet = Instantiate(dishBullet[4], shootPosition.position, Quaternion.identity); //stun
-            bullet.SetActive(false);
+            bullet2 = Instantiate(dishBullet[4], shootPosition.position, Quaternion.identity); //stun
+            bullet2.SetActive(false);
 
         }
         if (i == 6)
@@ -315,8 +315,24 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
             //theFood.SetActive(true);
 
-            bullet = Instantiate(dishBullet[5], shootPosition.position, Quaternion.identity); //stun
-            bullet.SetActive(false);
+            bullet2 = Instantiate(dishBullet[5], shootPosition.position, Quaternion.identity); //stun
+            bullet2.SetActive(false);
+
+        }
+        if (i == 7)
+        {
+            theFoodToShow[6].SetActive(true);
+
+            bullet2 = Instantiate(dishBullet[6], shootPosition.position, Quaternion.identity); //stun
+            bullet2.SetActive(false);
+
+        }
+        if (i == 8)
+        {
+            theFoodToShow[7].SetActive(true);
+
+            bullet2 = Instantiate(dishBullet[7], shootPosition.position, Quaternion.identity); //stun
+            bullet2.SetActive(false);
 
         }
         #endregion
@@ -326,123 +342,99 @@ public class sl_P2ShootBehavior : MonoBehaviour
         #region
         if (i == 10) //c_niangao
         {
-            theFoodToShow[6].SetActive(true);
+            theFoodToShow[8].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[0], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[0], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
 
         }
         if (i == 11)//c_spring roll
         {
-            theFoodToShow[7].SetActive(true);
+            theFoodToShow[9].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[1], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[1], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 12)//c_wonton
         {
-            theFoodToShow[8].SetActive(true);
+            theFoodToShow[10].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[2], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[2], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 13)//j_ichigo
         {
-            theFoodToShow[9].SetActive(true);
+            theFoodToShow[11].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[3], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[3], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 14)//j_ikanagi
         {
-            theFoodToShow[10].SetActive(true);
+            theFoodToShow[12].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[4], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[4], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 15)//j_sakura
         {
-            theFoodToShow[11].SetActive(true);
+            theFoodToShow[13].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[5], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[5], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 16)//k_bap burger
         {
-            theFoodToShow[12].SetActive(true);
+            theFoodToShow[14].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[6], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[6], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 17)//k_japchae
         {
-            theFoodToShow[13].SetActive(true);
+            theFoodToShow[15].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[7], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[7], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 18)//k_tteobokki
         {
-            theFoodToShow[14].SetActive(true);
+            theFoodToShow[16].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[8], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[8], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 19)//t_bubbletea
         {
-            theFoodToShow[15].SetActive(true);
+            theFoodToShow[17].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[9], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[9], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 20)//t_pineapple
         {
-            theFoodToShow[16].SetActive(true);
+            theFoodToShow[18].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[10], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[10], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         if (i == 21)//t_taro
         {
-            theFoodToShow[17].SetActive(true);
+            theFoodToShow[19].SetActive(true);
 
-            //theFood.SetActive(true);
-
-            bullet = Instantiate(foodBullet[11], shootPosition.position, Quaternion.identity);
-            bullet.SetActive(false);
+            bullet2 = Instantiate(foodBullet[11], shootPosition.position, Quaternion.identity);
+            bullet2.SetActive(false);
 
         }
         #endregion
@@ -475,21 +467,19 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            bullet.transform.SetParent(null);
+            bullet2.transform.SetParent(null);
 
             targetPosition2 = hit.point;
             directionShoot2 = targetPosition2 - shootPosition.position;
 
             view.RPC("BulletDirection2", RpcTarget.All, directionShoot2);
-
             p2bulletCount--;
 
-            StartCoroutine(stopAnim());
             Destroy(targetObject);
 
             //for item list ui
             playerInventory.itemList[0] = null;
-            sl_InventoryManager.RefreshItem();
+            sl_p2InventoryManager.RefreshItem();
             StartCoroutine(MoveToFront());
 
             //reset
@@ -499,6 +489,7 @@ public class sl_P2ShootBehavior : MonoBehaviour
             p2Shoot = false;
 
         }
+
     }
 
     [PunRPC]
@@ -510,11 +501,11 @@ public class sl_P2ShootBehavior : MonoBehaviour
             theFoodToShow[i].SetActive(false);
         }
 
-        bullet.SetActive(true);
+        bullet2.SetActive(true);
 
         float shootForce = 80.0f;
-        bullet.transform.forward = dir.normalized;
-        bullet.GetComponent<Rigidbody>().AddForce(dir.normalized * shootForce, ForceMode.Impulse); //shootforce
+        bullet2.transform.forward = dir.normalized;
+        bullet2.GetComponent<Rigidbody>().AddForce(dir.normalized * shootForce, ForceMode.Impulse); //shootforce
 
     }
 

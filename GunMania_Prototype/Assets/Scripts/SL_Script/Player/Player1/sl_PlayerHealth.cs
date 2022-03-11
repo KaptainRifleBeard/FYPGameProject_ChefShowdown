@@ -129,6 +129,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "Cat")
             {
+                getDamage = true;
+
                 audioName = "CatHit";
                 SyncAudio();
 
@@ -140,6 +142,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "Dog")
             {
+                getDamage = true;
+
                 audioName = "DogHit";
                 SyncAudio();
 
@@ -152,6 +156,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             //*****bullets
             if (other.gameObject.tag == "P2Bullet")
             {
+                getDamage = true;
+
                 audioName = "HitSFX";
                 SyncAudio();
 
@@ -166,6 +172,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             #region
             if (other.gameObject.tag == "P2Sinseollo")//explode
             {
+                getDamage = true;
+
                 isDish = true; //for katsuki to check dish
 
                 numVfx = 1;
@@ -183,6 +191,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2FoxtailMillet")//kb
             {
+                getDamage = true;
+
                 isDish = true; //for katsuki to check dish
 
                 numVfx = 2;
@@ -200,6 +210,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BuddhaJumpsOvertheWall")//no pick
             {
+                getDamage = true;
+
                 isDish = true; //for katsuki to check dish
 
                 numVfx = 3;
@@ -231,6 +243,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2Tojangjochi") //stun
             {
+                getDamage = true;
+
                 isDish = true; //for katsuki to check dish
 
                 numVfx = 5;
@@ -249,6 +263,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2RawStinkyTofu") //drop
             {
+                getDamage = true;
+
                 isDish = true; //for katsuki to check dish
 
                 audioName = "HitSFX";
@@ -260,6 +276,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2Mukozuke") //pull in
             {
+                getDamage = true;
+
                 isDish = true; //for katsuki to check dish
 
                 audioName = "PullInSfx";
@@ -274,6 +292,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (other.gameObject.tag == "P2BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea")) //molotov
             {
+                getDamage = true;
+
                 isDish = true; //for katsuki to check dish
 
                 audioName = "MolotovSfx";
@@ -387,7 +407,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     {
         if (numVfx == 1)//ex
         {
-            timeDestroy = 1;
+            timeDestroy = 3;
             StartCoroutine(StopVfx(timeDestroy));
             view.RPC("DishVisualEffect", RpcTarget.All, timeDestroy, numVfx);
 
