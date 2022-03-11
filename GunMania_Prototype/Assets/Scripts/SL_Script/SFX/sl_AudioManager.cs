@@ -2,11 +2,13 @@ using System;
 using UnityEngine.Audio;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class sl_AudioManager : MonoBehaviour
 {
     public sl_Sound[] sounds;
     public static sl_AudioManager instance;
+    string audioName;
 
     void Awake()
     {
@@ -38,7 +40,17 @@ public class sl_AudioManager : MonoBehaviour
     {
         sl_Sound s = Array.Find(sounds, sound => sound.name == name);
         s.source.Play();
+
     }
 
-  
+    void Start()
+    {
+        //Play("BGM");
+    }
+
+    private void Update()
+    {
+        
+    }
+
 }

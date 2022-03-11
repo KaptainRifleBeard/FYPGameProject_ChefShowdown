@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class FoodSpawn : MonoBehaviour
 {
-    [Header("Japan Dish Spawn Points (1 for JP, 2 for KR, 3 for CN, 4 for TW)")]
+    [Header("Japan Food Spawn Points (1 for JP, 2 for KR, 3 for CN, 4 for TW)")]
     public List<GameObject> foodSpawnPoint;
 
     [Header("Japan Dish Spawn Points (1 for JP, 2 for KR, 3 for CN, 4 for TW)")]

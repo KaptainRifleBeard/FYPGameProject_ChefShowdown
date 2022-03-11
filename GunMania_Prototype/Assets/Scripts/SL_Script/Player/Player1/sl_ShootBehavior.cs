@@ -53,101 +53,21 @@ public class sl_ShootBehavior : MonoBehaviour
         maxRange.SetActive(false);
         minRange.SetActive(false);
 
+        if(playerInventory.itemList[0] != null)
+        {
+            playerInventory.itemList[0] = null;
+            playerInventory.itemList[1] = null;
+
+        }
+
     }
 
     void Update()
     {
-        //define bullet types
-        #region
-        if (playerInventory.itemList[0] != null)
-        {
-            if (playerInventory.itemList[0].itemHeldNum == 1)
-            {
-                bulletNum = 1;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 2)
-            {
-                bulletNum = 2;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 3)
-            {
-                bulletNum = 3;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 4)
-            {
-                bulletNum = 4;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 5)
-            {
-                bulletNum = 5;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 6)
-            {
-                bulletNum = 6;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 7)
-            {
-                bulletNum = 7;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 8)
-            {
-                bulletNum = 8;
-            }
-            //from here is food (12 food)
-            else if (playerInventory.itemList[0].itemHeldNum == 10)  
-            {
-                bulletNum = 10;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 11)  
-            {
-                bulletNum = 11;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 12) 
-            {
-                bulletNum = 12;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 13) 
-            {
-                bulletNum = 13;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 14)  
-            {
-                bulletNum = 14;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 15)
-            {
-                bulletNum = 15;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 16)
-            {
-                bulletNum = 16;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 17)
-            {
-                bulletNum = 17;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 18)
-            {
-                bulletNum = 18;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 19)
-            {
-                bulletNum = 19;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 20)
-            {
-                bulletNum = 20;
-            }
-            else if (playerInventory.itemList[0].itemHeldNum == 21)
-            {
-                bulletNum = 21;
-            }
-
-        }
-        #endregion
+        DefineInventoryBulletType();
 
         //MAIN
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
@@ -213,7 +133,8 @@ public class sl_ShootBehavior : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true)
         {
             //set in range then shoot
-            if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && 
+            if (playerInventory.itemList[0] != null &&
+                Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && 
                 Vector3.Distance(targetObject.transform.position, shootPosition.position) < 40  
                 && gameObject.tag == "Player")  //make sure bullet wont collide with player
             {
@@ -243,6 +164,100 @@ public class sl_ShootBehavior : MonoBehaviour
         }
     }
 
+    public void DefineInventoryBulletType()
+    {
+        //define bullet types
+        #region
+        if (playerInventory.itemList[0] != null)
+        {
+            if (playerInventory.itemList[0].itemHeldNum == 1)
+            {
+                bulletNum = 1;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 2)
+            {
+                bulletNum = 2;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 3)
+            {
+                bulletNum = 3;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 4)
+            {
+                bulletNum = 4;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 5)
+            {
+                bulletNum = 5;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 6)
+            {
+                bulletNum = 6;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 7)
+            {
+                bulletNum = 7;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 8)
+            {
+                bulletNum = 8;
+            }
+            //from here is food (12 food)
+            else if (playerInventory.itemList[0].itemHeldNum == 10)
+            {
+                bulletNum = 10;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 11)
+            {
+                bulletNum = 11;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 12)
+            {
+                bulletNum = 12;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 13)
+            {
+                bulletNum = 13;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 14)
+            {
+                bulletNum = 14;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 15)
+            {
+                bulletNum = 15;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 16)
+            {
+                bulletNum = 16;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 17)
+            {
+                bulletNum = 17;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 18)
+            {
+                bulletNum = 18;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 19)
+            {
+                bulletNum = 19;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 20)
+            {
+                bulletNum = 20;
+            }
+            else if (playerInventory.itemList[0].itemHeldNum == 21)
+            {
+                bulletNum = 21;
+            }
+
+        }
+        #endregion
+
+    }
+
+    //show bullet type
     [PunRPC]
     public void BulletType(int i)
     {

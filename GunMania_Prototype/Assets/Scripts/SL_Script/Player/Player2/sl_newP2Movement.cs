@@ -63,6 +63,8 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
     bool stopRotate;
 
+    public ParticleSystem particle;
+
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
@@ -103,6 +105,9 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
                 inventoryVisible.SetActive(true);
                 indicatorVisible.SetActive(true);
 
+                //Hold to move
+                #region
+                /*
                 if (Input.GetMouseButton(1))
                 {
                     if (Physics.Raycast(ray, out hit))
@@ -125,7 +130,19 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
                     myAgent.isStopped = true;
                     myAgent.ResetPath();
                 }
+                */
+                #endregion
 
+                if (Input.GetMouseButtonDown(1) && sl_P2ShootBehavior.p2Shoot == false)
+                {
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        myAgent.SetDestination(hit.point);
+                        //view.RPC("PlayerMove", RpcTarget.All, hit.point);
+
+                        isrunning = true;
+                    }
+                }
 
             }
             else
@@ -140,8 +157,21 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
+
             }
 
+            if (myAgent.velocity.magnitude < 0.15f)
+            {
+                particle.Stop();
+            }
+
+
+            //rotate
             if (gameObject.tag == "Player2" && view.IsMine)
             {
                 Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -167,20 +197,41 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             if (sl_PlayerHealth.currentHealth > 4 && changep2Icon == 1)
             {
                 wenTrail.SetActive(true);
+                if (particle.isPlaying == false)
+                {
+                    particle.Play();
+
+                }
                 myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
             }
             else if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
             {
                 wenTrail.SetActive(false);
+                if(particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
+
                 myAgent.speed = 40;
             }
             else if (changep2Icon == 3)
             {
                 myAgent.speed = 28;
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
             }
             else
             {
                 myAgent.speed = 40;
+                if (particle.isPlaying)
+                {
+                    particle.Stop();
+
+                }
             }
 
 
@@ -234,6 +285,9 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
         #endregion
 
+        //areamask for hold to move
+        #region
+        /*
         int areaMask = myAgent.areaMask;
 
         if (toRoof)
@@ -248,9 +302,12 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             areaMask += 5 << NavMesh.GetAreaFromName("Roof"); //turn off roof
             myAgent.areaMask = areaMask;
         }
+        */
+        #endregion
 
     }
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ToRoofArea") //stair
@@ -262,6 +319,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             toRoof = false;
         }
     }
+    */
 
     public void GetAnimation()
     {
@@ -311,6 +369,12 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             myAgent.isStopped = true;
             throwing = false;
             stopRotate = true;
+
+        }
+        else
+        {
+            animName = "isPlayerDead";
+            myAnimator.SetBool(animName, false);
 
         }
     }

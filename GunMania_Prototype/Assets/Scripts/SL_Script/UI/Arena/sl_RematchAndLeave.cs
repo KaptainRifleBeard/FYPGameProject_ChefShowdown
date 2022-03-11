@@ -13,6 +13,7 @@ public class sl_RematchAndLeave : MonoBehaviour
 
     //these is for function
     public static int rematchCount;
+    public static bool leaveMatch;
 
     [Space(10)]
     [Header("P1")]
@@ -40,8 +41,10 @@ public class sl_RematchAndLeave : MonoBehaviour
         rematchButton.SetActive(true);
 
         rematchNum = 0;
-
         rematchCount = 0;
+
+        leaveMatch = false;
+        sl_MatchCountdown.timeRemaining = 300;
     }
 
 
@@ -73,6 +76,7 @@ public class sl_RematchAndLeave : MonoBehaviour
     public void LeaveMatch()
     {
         rematchCount = 0;
+        leaveMatch = true;
 
         if(PhotonNetwork.IsMasterClient)
         {

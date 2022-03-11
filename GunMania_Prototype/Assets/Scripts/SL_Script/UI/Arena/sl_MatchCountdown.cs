@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class sl_MatchCountdown : MonoBehaviour
 {
-    public static float timeRemaining = 300; //5*60 = 300, rmb reset this in RematchAndLeave
+    public static float timeRemaining = 300; //5*60 = 300, rmb reset this in RematchAndLeave's rematch and start()
 
     public bool timerIsRunning = false;
     public Text timeText;
