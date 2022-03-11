@@ -65,6 +65,8 @@ public class DishEffect : MonoBehaviour
             Vector3 direction = (other.transform.position - transform.position).normalized;
             direction.y = 0;
 
+            //Pull(direction);
+
             view.RPC("Pull", RpcTarget.All, direction);
 
             Destroy(other.gameObject); 
