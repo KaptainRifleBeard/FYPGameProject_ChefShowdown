@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 7494897322171278662}
   - component: {fileID: 7504008259117235874}
   m_Layer: 0
-  m_Name: 8
+  m_Name: 8. Raw Stinky Tofu _ Century Eggs Salad
   m_TagString: RawStinkyTofu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,6 +211,7 @@ Transform:
   - {fileID: 8730917748669368723}
   - {fileID: 4337788850284759727}
   - {fileID: 950045732847350295}
+  - {fileID: 8475480616710586037}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -294,8 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12cbe97b1792cc34e8a0aca9e75251b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 154971395509319096}
-  onhit: {fileID: 3640216450715911959}
+  particle: {fileID: 8475480617394457441}
 --- !u!1 &2233372583019928071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,10 +1268,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2722050715995907136, guid: 098cbffdf0dc71641a176225a4207f03, type: 3}
   m_PrefabInstance: {fileID: 1870191549742526191}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &154971395509319096 stripped
+--- !u!1001 &3136722310861422353
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1598724299231378050}
+    m_Modifications:
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691880731790, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691880731790, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691880731790, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691880731790, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+--- !u!4 &8475480616710586037 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+  m_PrefabInstance: {fileID: 3136722310861422353}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8475480617394457441 stripped
 ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2004894477037787991, guid: 098cbffdf0dc71641a176225a4207f03, type: 3}
-  m_PrefabInstance: {fileID: 1870191549742526191}
+  m_CorrespondingSourceObject: {fileID: 6780473691880731760, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+  m_PrefabInstance: {fileID: 3136722310861422353}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6188575755214922829
 PrefabInstance:
@@ -1310,11 +1368,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a09d41aa869cb6d4cac9e0990d24c397, type: 3}
---- !u!1 &3640216450715911959 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7450811198672118618, guid: a09d41aa869cb6d4cac9e0990d24c397, type: 3}
-  m_PrefabInstance: {fileID: 6188575755214922829}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &950045732847350295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6398772101986375258, guid: a09d41aa869cb6d4cac9e0990d24c397, type: 3}

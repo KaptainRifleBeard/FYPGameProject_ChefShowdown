@@ -17,7 +17,11 @@ public class sl_p2BulletScript : MonoBehaviour
         {
             //gameObject.SetActive(false);  // note: cuz when collide with game object distance too close, it destroy immediately then my shoot behavior will have error
             //onhit.SetActive(true);
-            Destroy(gameObject);
+
+            if(gameObject.tag != "P2BuddhaJumpsOvertheWall")
+            {
+                Destroy(gameObject);
+            }
         }
 
         if (other.gameObject.tag == "Environment")
@@ -29,5 +33,6 @@ public class sl_p2BulletScript : MonoBehaviour
             //onhit.SetActive(true);
             Destroy(gameObject, 1.0f);
         }
+
     }
 }

@@ -5,10 +5,12 @@ using UnityEngine;
 public class sl_MolotovDish : MonoBehaviour
 {
     public GameObject areaDamage;
-    
+    public ParticleSystem particle;
+
     private void Start()
     {
         areaDamage.SetActive(false);
+        particle.Play();
     }
 
     private void Update()
@@ -20,6 +22,10 @@ public class sl_MolotovDish : MonoBehaviour
     {
         if (other.gameObject.tag == "Environment")
         {
+            if(particle.isPlaying)
+            {
+                particle.Stop();
+            }
             areaDamage.SetActive(true);
             gameObject.GetComponent<BoxCollider>().isTrigger = false;
 

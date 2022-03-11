@@ -373,12 +373,6 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             StartCoroutine(ResetDead());
 
         }
-        else
-        {
-            animName = "isPlayerDead";
-            myAnimator.SetBool(animName, false);
-
-        }
     }
 
 
