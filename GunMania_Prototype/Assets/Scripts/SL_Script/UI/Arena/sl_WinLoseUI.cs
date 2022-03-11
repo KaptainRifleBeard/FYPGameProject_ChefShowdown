@@ -321,15 +321,10 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     IEnumerator WinScreenUI() //wait for animation
     {
         gameOverText.SetActive(true);
-        audioName = "WinScreen";
-        FindObjectOfType<sl_AudioManager>().Play(audioName);
-
         yield return new WaitForSeconds(3.0f);
         winScreen.SetActive(true);
 
     }
-
-
 
 }
 

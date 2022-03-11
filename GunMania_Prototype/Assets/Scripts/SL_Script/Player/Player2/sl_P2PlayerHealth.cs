@@ -609,6 +609,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (p2currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
+                FindObjectOfType<sl_AudioManager>().Play("WinScreen");
+
                 player2Dead = true;
 
             }

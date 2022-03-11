@@ -609,6 +609,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
             if (currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
+                FindObjectOfType<sl_AudioManager>().Play("WinScreen");
+
                 playerDead = true;
             }
 
