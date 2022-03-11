@@ -108,15 +108,15 @@ public class DishEffect : MonoBehaviour
         }
     }
 
-    public IEnumerator StunDeactive(int time)
+    public IEnumerator StunDeactive()
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(6.0f);
         canMove = true;
     }
 
-    public IEnumerator SilenceDeactive(int time)
+    public IEnumerator SilenceDeactive()
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(4.0f);
         canPick = true;
     }
 
@@ -150,7 +150,7 @@ public class DishEffect : MonoBehaviour
     public void Stun()
     {
         canMove = false;
-        StartCoroutine(StunDeactive(6));
+        StartCoroutine(StunDeactive());
     }
 
     [PunRPC]
@@ -164,7 +164,7 @@ public class DishEffect : MonoBehaviour
     {
         //sl_PlayerHealth.currentHealth -= 1;
         canPick = false;
-        StartCoroutine(SilenceDeactive(4));
+        StartCoroutine(SilenceDeactive());
     }
 
     [PunRPC]
