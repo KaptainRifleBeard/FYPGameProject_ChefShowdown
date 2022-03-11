@@ -6,7 +6,6 @@ using Photon.Pun;
 public class sl_BulletScript : MonoBehaviour
 {
     public ParticleSystem particle;
-    public GameObject onhit;
 
     private void Start()
     {

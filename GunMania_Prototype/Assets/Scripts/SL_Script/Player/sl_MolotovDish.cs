@@ -26,7 +26,7 @@ public class sl_MolotovDish : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
-            Destroy(gameObject, 10.0f);
+            Destroy(gameObject, 6.0f);
         }
     }
 }

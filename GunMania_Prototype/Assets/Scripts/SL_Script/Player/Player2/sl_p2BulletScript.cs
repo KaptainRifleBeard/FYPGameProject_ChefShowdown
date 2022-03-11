@@ -5,7 +5,6 @@ using UnityEngine;
 public class sl_p2BulletScript : MonoBehaviour
 {
     public ParticleSystem particle;
-    public GameObject onhit;
 
     private void Start()
     {

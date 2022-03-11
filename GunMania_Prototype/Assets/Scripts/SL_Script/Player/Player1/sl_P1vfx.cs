@@ -13,20 +13,8 @@ public class sl_P1vfx : MonoBehaviour
     public Color highlightColor;
     public List<Color> defaultColor;
 
-    //for particle vfx
-    public ParticleSystem[] healVfx;
-    public ParticleSystem[] knockbackVfx;
-    public ParticleSystem[] explodeVfx;
-    public ParticleSystem[] dropVfx;
-    public ParticleSystem[] noPickVfx;
-    public ParticleSystem[] stunVfx;
-
-    int numEffect;
-    int timeDestroy;
-
     void Start()
     {
-        numEffect = 0; //no effect
         view = GetComponent<PhotonView>();
 
         for (int i = 0; i < mat.materials.Length; i++)

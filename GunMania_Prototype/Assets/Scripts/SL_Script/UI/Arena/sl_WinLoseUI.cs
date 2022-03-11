@@ -6,11 +6,13 @@ using Photon.Pun;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 
 public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 {
     public static readonly byte RestartEventCode = 1;
+    public GameObject gameOverText;
+
     public Text player1Nickname;
     public Text player2Nickname;
     public Text chamOrRunner1_text;
@@ -25,9 +27,12 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     public Image player1CurrentIcon;
     public Image player2CurrentIcon;
 
+    string audioName;
+
     void Start()
     {
         winScreen.SetActive(false);
+        gameOverText.SetActive(false);
     }
 
 
@@ -46,7 +51,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
         CheckIcon_p2();
         UiSize_p2();
 
-        if (sl_PlayerHealth.currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
+        if (sl_PlayerHealth.currentHealth <= 0)
         {
             if (PhotonNetwork.IsMasterClient)
             {
@@ -90,7 +95,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
             }
         }
 
-        if (sl_P2PlayerHealth.p2currentHealth <= 0 || sl_MatchCountdown.timeRemaining == 0)
+        if (sl_P2PlayerHealth.p2currentHealth <= 0)
         {
 
             if (PhotonNetwork.IsMasterClient)
@@ -135,6 +140,50 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
             }
         }
 
+        if (sl_MatchCountdown.timeRemaining == 0)
+        {
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Nickname();
+
+                //p1 win
+                StartCoroutine(WinScreenUI());
+
+                if (sl_RematchAndLeave.rematchCount == 2)
+                {
+                    winScreen.SetActive(false);
+
+                    sl_InventoryManager.ClearAllInList();
+                    sl_p2InventoryManager.ClearAllInList();
+
+                    sl_ShootBehavior.bulletCount = 0;
+                    sl_P2ShootBehavior.p2bulletCount = 0;
+
+                    sl_RematchAndLeave.rematchCount = 0;
+                }
+            }
+            else
+            {
+                Nickname();
+
+                //p2 lose
+                StartCoroutine(WinScreenUI());
+
+                if (sl_RematchAndLeave.rematchCount == 2)
+                {
+                    winScreen.SetActive(false);
+
+                    sl_InventoryManager.ClearAllInList();
+                    sl_p2InventoryManager.ClearAllInList();
+
+                    sl_ShootBehavior.bulletCount = 0;
+                    sl_P2ShootBehavior.p2bulletCount = 0;
+
+                    sl_RematchAndLeave.rematchCount = 0;
+                }
+            }
+        }
     }
 
 
@@ -230,11 +279,13 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     IEnumerator WinScreenUI() //wait for animation
     {
+        gameOverText.SetActive(true);
+        audioName = "WinScreen";
+        FindObjectOfType<sl_AudioManager>().Play(audioName);
+
         yield return new WaitForSeconds(3.0f);
         winScreen.SetActive(true);
-        FindObjectOfType<sl_AudioManager>().Play("WinScreen");
 
-        //SceneManager.LoadScene("sl_BacktoMainMenu");
     }
 
 

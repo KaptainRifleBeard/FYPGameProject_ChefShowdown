@@ -649,7 +649,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     IEnumerator ResetDead()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(4.0f);
         sl_PlayerHealth.playerDead = false;
         GetAnimation();
     }
