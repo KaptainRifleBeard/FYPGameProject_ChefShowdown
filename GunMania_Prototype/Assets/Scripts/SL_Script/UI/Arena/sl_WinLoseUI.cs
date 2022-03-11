@@ -29,6 +29,10 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     string audioName;
 
+    public GameObject[] champic;
+    public GameObject[] champic2;
+
+
     void Start()
     {
         winScreen.SetActive(false);
@@ -236,31 +240,68 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
     void UiSize_p1()
     {
         //for text
-        if (sl_PlayerHealth.currentHealth <= 0 || sl_PlayerHealth.currentHealth <= sl_P2PlayerHealth.p2currentHealth)
+        if(sl_PlayerHealth.currentHealth == sl_P2PlayerHealth.p2currentHealth)
         {
-            chamOrRunner1_text.text = "Runner-up";
+            champic[0].SetActive(false);
+            champic[1].SetActive(false);
+            champic[2].SetActive(true);
+
             theUI_1.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         }
         else
         {
-            chamOrRunner1_text.text = "Fling Champion";
-            theUI_1.transform.localScale = new Vector3(1f, 1f, 1f);
+            if (sl_PlayerHealth.currentHealth <= 0 || sl_PlayerHealth.currentHealth <= sl_P2PlayerHealth.p2currentHealth)
+            {
+                //chamOrRunner1_text.text = "Runner-up";
+                champic[0].SetActive(false);
+                champic[1].SetActive(true);
+                champic[2].SetActive(false);
+
+                theUI_1.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            }
+            else
+            {
+                champic[0].SetActive(true);
+                champic[1].SetActive(false);
+                champic[2].SetActive(false);
+                //chamOrRunner1_text.text = "Fling Champion";
+                theUI_1.transform.localScale = new Vector3(1f, 1f, 1f);
+            }
         }
+       
 
     }
 
     void UiSize_p2()
     {
-        if (sl_P2PlayerHealth.p2currentHealth <= 0 || sl_P2PlayerHealth.p2currentHealth <= sl_PlayerHealth.currentHealth)
+        if (sl_P2PlayerHealth.p2currentHealth == sl_PlayerHealth.currentHealth)
         {
-            chamOrRunner2_text.text = "Runner-up";
-            theUI_2.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            champic2[0].SetActive(false);
+            champic2[1].SetActive(false);
+            champic2[2].SetActive(true);
+
+            theUI_2.transform.localScale = new Vector3(1f, 1f, 1f);
         }
         else
         {
-            chamOrRunner2_text.text = "Fling Champion";
-            theUI_2.transform.localScale = new Vector3(1f, 1f, 1f);
+            if (sl_P2PlayerHealth.p2currentHealth <= 0 || sl_P2PlayerHealth.p2currentHealth <= sl_PlayerHealth.currentHealth)
+            {
+                //chamOrRunner2_text.text = "Runner-up";
+                champic2[0].SetActive(false);
+                champic2[1].SetActive(true);
+                champic2[2].SetActive(false);
+                theUI_2.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            }
+            else
+            {
+                champic2[0].SetActive(true);
+                champic2[1].SetActive(false);
+                champic2[2].SetActive(false);
+                //chamOrRunner2_text.text = "Fling Champion";
+                theUI_2.transform.localScale = new Vector3(1f, 1f, 1f);
+            }
         }
+      
     }
 
     void Nickname()

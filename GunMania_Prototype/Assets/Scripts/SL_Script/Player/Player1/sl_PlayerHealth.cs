@@ -16,7 +16,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
     [Space(10)]
     [Header("Health")]
-    private float maxHealth = 80;
+    private float maxHealth = 8;
     public static float currentHealth;
 
     public GameObject bulletScript;
