@@ -46,12 +46,12 @@ public class DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "P2Mukozuke")
         {
             //pull
-            Vector3 direction = (other.transform.position - transform.position).normalized;
-            direction.y = 0;
+            //Vector3 direction = (other.transform.position - transform.position).normalized;
+            //direction.y = 0;
 
-            //Pull(direction);
+            //Pull(other.transform);
 
-            view.RPC("Pull", RpcTarget.All, direction);
+            view.RPC("Pull", RpcTarget.All, other.transform);
 
             Destroy(other.gameObject); 
         }
@@ -109,9 +109,10 @@ public class DishEffect : MonoBehaviour
     }
 
     [PunRPC]
-    public void Pull(Vector3 dir)
-    {        
-        playerRidg.AddForce(dir * pullingSpeed, ForceMode.Impulse);
+    public void Pull(Transform other)
+    {
+        transform.LookAt(other);
+        playerRidg.AddForce(transform.forward * pullingSpeed, ForceMode.Impulse);
     }
 
     [PunRPC]
