@@ -46,6 +46,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     public ParticleSystem[] noPickVfx;
     public ParticleSystem[] stunVfx;
 
+    public GameObject newNoPickVfx;
+
     int numVfx;
     int timeDestroy;
 
@@ -62,6 +64,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         isDish = false;
         getDamage = false;
         playerDead = false;
+        newNoPickVfx.SetActive(false);
 
         numVfx = 0; //no effect
     }
@@ -499,21 +502,22 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
 
         if (n == 3)//nopick
         {
-            for (int i = 0; i < noPickVfx.Length; i++)
-            {
-                noPickVfx[i].Play();
-            }
+            newNoPickVfx.SetActive(true);
+            //for (int i = 0; i < noPickVfx.Length; i++)
+            //{
+            //    noPickVfx[i].Play();
+            //}
 
-            yield return new WaitForSeconds(timeToDestroy);
+            //yield return new WaitForSeconds(timeToDestroy);
 
-            for (int i = 0; i < noPickVfx.Length; i++)
-            {
-                if (noPickVfx[i].isPlaying)
-                {
-                    noPickVfx[i].Stop();
-                }
+            //for (int i = 0; i < noPickVfx.Length; i++)
+            //{
+            //    if (noPickVfx[i].isPlaying)
+            //    {
+            //        noPickVfx[i].Stop();
+            //    }
 
-            }
+            //}
         }
 
         if (n == 4)//heal
@@ -595,6 +599,8 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
     IEnumerator StopVfx(int time)
     {
         yield return new WaitForSeconds(time);
+        newNoPickVfx.SetActive(false);
+
         numVfx = 0;
     }
 

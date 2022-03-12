@@ -42,6 +42,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public ParticleSystem[] noPickVfx;
     public ParticleSystem[] stunVfx;
 
+    public GameObject newNoPickVfx;
+
+
+
     int numVfx;
     int timeDestroy;
 
@@ -62,6 +66,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         getDamage2 = false;
         player2Dead = false;
+        newNoPickVfx.SetActive(false);
 
         numVfx = 0; //no effect
     }
@@ -500,21 +505,23 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         if (n == 3)//nopick
         {
-            for (int i = 0; i < noPickVfx.Length; i++)
-            {
-                noPickVfx[i].Play();
-            }
+            newNoPickVfx.SetActive(true);
 
-            yield return new WaitForSeconds(timeToDestroy);
+            //for (int i = 0; i < noPickVfx.Length; i++)
+            //{
+            //    noPickVfx[i].Play();
+            //}
 
-            for (int i = 0; i < noPickVfx.Length; i++)
-            {
-                if (noPickVfx[i].isPlaying)
-                {
-                    noPickVfx[i].Stop();
-                }
+            //yield return new WaitForSeconds(timeToDestroy);
 
-            }
+            //for (int i = 0; i < noPickVfx.Length; i++)
+            //{
+            //    if (noPickVfx[i].isPlaying)
+            //    {
+            //        noPickVfx[i].Stop();
+            //    }
+
+            //}
         }
 
         if (n == 4)//heal
@@ -579,6 +586,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
     IEnumerator StopVfx(int time)
     {
         yield return new WaitForSeconds(time);
+        newNoPickVfx.SetActive(false);
+
         numVfx = 0;
     }
 

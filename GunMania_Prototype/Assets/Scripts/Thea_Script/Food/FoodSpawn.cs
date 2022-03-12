@@ -58,6 +58,9 @@ public class FoodSpawn : MonoBehaviour
     public string dishParentName;
     GameObject obj;
 
+    int respawnNum;
+    int spawnNum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -239,37 +242,27 @@ public class FoodSpawn : MonoBehaviour
 
         if (dishIndex == 0)
         {
-            //Japan dish spawn
-            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
-            dishParentName = "JapanDishSpawn";
-
-            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+            //japan
+            spawnNum = 1;
+            view.RPC("SyncDishPosition", RpcTarget.All, spawnNum);
         }
         else if (dishIndex == 1)
         {
             //Korea dish
-            obj = PhotonNetwork.Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)].name, dishSpawnPoint[1].transform.position, Quaternion.identity);
-            dishParentName = "KoreaDishSpawn";
-
-            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
-
+            spawnNum = 2;
+            view.RPC("SyncDishPosition", RpcTarget.All, spawnNum);
         }
         else if (dishIndex == 2)
         {
             //China dish
-            obj = PhotonNetwork.Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)].name, dishSpawnPoint[2].transform.position, Quaternion.identity);
-            dishParentName = "ChinaDishSpawn";
-
-            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
-
+            spawnNum = 3;
+            view.RPC("SyncDishPosition", RpcTarget.All, spawnNum);
         }
         else if (dishIndex == 3)
         {
             //Taiwan dish
-            obj = PhotonNetwork.Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)].name, dishSpawnPoint[3].transform.position, Quaternion.identity);
-            dishParentName = "TaiwanDishSpawn";
-
-            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+            spawnNum = 4;
+            view.RPC("SyncDishPosition", RpcTarget.All, spawnNum);
         }
 
         Debug.Log("dish spawn");
@@ -286,10 +279,8 @@ public class FoodSpawn : MonoBehaviour
         if (dishIndex == 0)
         {
             //Japan dish spawn
-            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
-            dishParentName = "JapanDishSpawn";
-
-            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+            respawnNum = 1;
+            view.RPC("SyncRespawnPosition", RpcTarget.All, respawnNum);
 
             DishDespawn.canSpawn = false;
             spawn = false;
@@ -298,10 +289,8 @@ public class FoodSpawn : MonoBehaviour
         else if (dishIndex == 1)
         {
             //Korea dish
-            obj = PhotonNetwork .Instantiate(KRdishPrefabs[Random.Range(0, KRdishPrefabs.Count)].name, dishSpawnPoint[1].transform.position, Quaternion.identity);
-            dishParentName = "KoreaDishSpawn";
-
-            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+            respawnNum = 2;
+            view.RPC("SyncRespawnPosition", RpcTarget.All, respawnNum);
 
             DishDespawn.canSpawn = false;
             spawn = false;
@@ -311,23 +300,19 @@ public class FoodSpawn : MonoBehaviour
         else if (dishIndex == 2)
         {
             //China dish
-            obj = PhotonNetwork.Instantiate(CNdishPrefabs[Random.Range(0, CNdishPrefabs.Count)].name, dishSpawnPoint[2].transform.position, Quaternion.identity);
-            dishParentName = "ChinaDishSpawn";
-
-            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+            respawnNum = 3;
+            view.RPC("SyncRespawnPosition", RpcTarget.All, respawnNum);
 
             DishDespawn.canSpawn = false;
             spawn = false;
             count = 0;
 
         }
-        else if (dishIndex == 3)
+        else if (dishIndex == 4)
         {
             //Taiwan dish
-            obj = PhotonNetwork .Instantiate(TWdishPrefabs[Random.Range(0, TWdishPrefabs.Count)].name, dishSpawnPoint[3].transform.position, Quaternion.identity);
-            dishParentName = "TaiwanDishSpawn";
-
-            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+            respawnNum = 1;
+            view.RPC("SyncRespawnPosition", RpcTarget.All, respawnNum);
 
             DishDespawn.canSpawn = false;
             spawn = false;
@@ -338,5 +323,75 @@ public class FoodSpawn : MonoBehaviour
     }
 
     #endregion
+    [PunRPC]
+    public void SyncDishPosition(int i)
+    {
+        spawnNum = i;
+
+        if(i == 1)
+        {
+            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
+            dishParentName = "JapanDishSpawn";
+
+            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+        }
+        if (i == 2)
+        {
+            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, KRdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
+            dishParentName = "KoreaDishSpawn";
+
+            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+        }
+        if (i == 3)
+        {
+            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, CNdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
+            dishParentName = "ChinaDishSpawn";
+
+            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+        }
+        if (i == 4)
+        {
+            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, TWdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
+            dishParentName = "TaiwanDishSpawn";
+
+            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+        }
+    }
+
+    [PunRPC]
+    public void SyncRespawnPosition(int i)
+    {
+        respawnNum = i;
+
+        if(i == 1)
+        {
+            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, JPdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
+            dishParentName = "JapanDishSpawn";
+
+            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+
+        }
+        if (i == 2)
+        {
+            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, KRdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
+            dishParentName = "KoreaDishSpawn";
+
+            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+        }
+        if (i == 3)
+        {
+            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, CNdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
+            dishParentName = "ChinaDishSpawn";
+
+            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+        }
+        if (i == 4)
+        {
+            obj = PhotonNetwork.Instantiate(JPdishPrefabs[Random.Range(0, TWdishPrefabs.Count)].name, dishSpawnPoint[0].transform.position, Quaternion.identity);
+            dishParentName = "TaiwanDishSpawn";
+
+            obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
+        }
+    }
 
 }
