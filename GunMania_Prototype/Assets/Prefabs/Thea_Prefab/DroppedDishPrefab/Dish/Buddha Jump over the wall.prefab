@@ -91,15 +91,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 492768356470478736}
-  - component: {fileID: 4851562375285472894}
-  - component: {fileID: 4755082401638928714}
-  - component: {fileID: 6215550920638855926}
   - component: {fileID: 5629153936066263909}
   - component: {fileID: 6282155536031131901}
-  - component: {fileID: 5749951901112573194}
   m_Layer: 0
   m_Name: Buddha Jump over the wall
-  m_TagString: Dish
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,51 +139,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4851562375285472894
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981075091406818602}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.7572515, y: 1.4102498, z: 2.2116644}
-  m_Center: {x: 0.6630763, y: 0.6821576, z: 0.14788043}
---- !u!114 &4755082401638928714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981075091406818602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88675fcfa285f684c9732b7b11a0358f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: 3c723b653c2099444a87294a8e82c24e, type: 2}
-  playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
-  prefabNum: 0
-  foodPrefab: []
---- !u!114 &6215550920638855926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981075091406818602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b60ee4f9be66e5a4eb1e5c5fd0ea297a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: 3c723b653c2099444a87294a8e82c24e, type: 2}
-  playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
-  prefabNum: 0
-  foodPrefab: []
 --- !u!114 &5629153936066263909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,18 +178,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &5749951901112573194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981075091406818602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484fb108108329046ad30c8c91d98df4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1817913903590362348
 GameObject:
   m_ObjectHideFlags: 0

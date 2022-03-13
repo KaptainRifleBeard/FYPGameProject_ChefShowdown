@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class sl_MatchCountdown : MonoBehaviour
 {
-    public static float timeRemaining = 300; //5*60 = 300, rmb reset this in RematchAndLeave's rematch and start()
+    public static float timeRemaining = 301; //5*60+1 = 301, rmb reset this in RematchAndLeave's rematch and start()
 
     public bool timerIsRunning = false;
     public Text timeText;
@@ -57,6 +57,7 @@ public class sl_MatchCountdown : MonoBehaviour
         {
             timeRemaining = 0;
             timerIsRunning = false;
+            FindObjectOfType<sl_AudioManager>().Play("WinScreen");
 
             view.RPC("DisplayTime", RpcTarget.All, timeRemaining);
         }

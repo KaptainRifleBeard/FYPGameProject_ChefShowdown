@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3727367327375914638}
   - component: {fileID: 7900363753382886561}
   - component: {fileID: 3473014126804910933}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cube.031
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1887618272604206984}
   - component: {fileID: 5201396863441486603}
   - component: {fileID: 1108440159083863558}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 2770452000812268360}
   - component: {fileID: 3472353875717134652}
   - component: {fileID: 1854270672076396454}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 1680746308214196620}
   - component: {fileID: 2806264126403915024}
   - component: {fileID: 2940497158433885674}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: BezierCurve.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 4478581664221791565}
   - component: {fileID: 4172147609759137614}
   - component: {fileID: 7517711348495123363}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,13 +424,13 @@ GameObject:
   - component: {fileID: 9037390164016770546}
   - component: {fileID: 3055313111136799466}
   - component: {fileID: -7680765958526185640}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: K_Japchae2
   m_TagString: P2Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9061967706937689746
 Transform:
   m_ObjectHideFlags: 0
@@ -539,6 +539,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9061967706937689746}
     m_Modifications:
+    - target: {fileID: 1244821845911724455, guid: 1c8198107218a20488f70aa893638d30, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -554,6 +558,10 @@ PrefabInstance:
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.16761646
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244821846227522701, guid: 1c8198107218a20488f70aa893638d30, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c8198107218a20488f70aa893638d30, type: 3}

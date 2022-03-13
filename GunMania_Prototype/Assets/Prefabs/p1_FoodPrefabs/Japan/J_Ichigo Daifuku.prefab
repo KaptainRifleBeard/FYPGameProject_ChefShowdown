@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3742159832173867049}
   - component: {fileID: 5337754134615951031}
   - component: {fileID: 4545696565434800744}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,13 +96,13 @@ GameObject:
   - component: {fileID: -5338894739505692558}
   - component: {fileID: 1439472556827026500}
   - component: {fileID: -2807320396690727769}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: J_Ichigo Daifuku
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &549285327844961100
 Transform:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ Transform:
   - {fileID: 7964330236415031111}
   - {fileID: 6642660943743555222}
   - {fileID: 6743581963947957878}
-  - {fileID: 1210092494372137910}
+  - {fileID: 3255695661512322528}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12cbe97b1792cc34e8a0aca9e75251b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 1210092494890835554}
+  particle: {fileID: 3255695660921886772}
 --- !u!1 &2073830388146151638
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 7964330236415031111}
   - component: {fileID: 8476535826777467788}
   - component: {fileID: 8412945928156456409}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 6642660943743555222}
   - component: {fileID: 5363119711637697762}
   - component: {fileID: 7198536572358408824}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 5674693516109745310}
   - component: {fileID: 3013899210926154615}
   - component: {fileID: 8539078023523593066}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cube.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 6743581963947957878}
   - component: {fileID: 4112436466309160118}
   - component: {fileID: 7076331649621287965}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &5679611234827840018
+--- !u!1001 &8302272739384306756
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -542,18 +542,6 @@ PrefabInstance:
     - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 6.57758
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 6.57758
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 6.57758
       objectReference: {fileID: 0}
     - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -568,26 +556,46 @@ PrefabInstance:
       value: 0.20445538
       objectReference: {fileID: 0}
     - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
+      propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6780473691425849765, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6780473691880731790, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.116009876
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849765, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Name
+      value: FoodDustTrail
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
---- !u!4 &1210092494372137910 stripped
+--- !u!4 &3255695661512322528 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
-  m_PrefabInstance: {fileID: 5679611234827840018}
+  m_PrefabInstance: {fileID: 8302272739384306756}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1210092494890835554 stripped
+--- !u!198 &3255695660921886772 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6780473691880731760, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
-  m_PrefabInstance: {fileID: 5679611234827840018}
+  m_PrefabInstance: {fileID: 8302272739384306756}
   m_PrefabAsset: {fileID: 0}

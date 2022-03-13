@@ -370,11 +370,7 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             throwing = false;
             stopRotate = true;
 
-        }
-        else
-        {
-            animName = "isPlayerDead";
-            myAnimator.SetBool(animName, false);
+            StartCoroutine(ResetDead());
 
         }
     }
@@ -386,7 +382,12 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
         p2Name.text = name;
     }
 
-
+    IEnumerator ResetDead()
+    {
+        yield return new WaitForSeconds(4.0f);
+        sl_PlayerHealth.playerDead = false;
+        GetAnimation();
+    }
     IEnumerator ThrowTime()
     {
         yield return new WaitForSeconds(0.3f);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 993789751347291388}
   - component: {fileID: 6663148963822784427}
   - component: {fileID: 5748836761546403755}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 7270307849663555271}
   - component: {fileID: 7220970397315838436}
   - component: {fileID: 6028326966135145261}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,13 +178,13 @@ GameObject:
   - component: {fileID: 7999735630562314974}
   - component: {fileID: -4878900315887392899}
   - component: {fileID: -987088380258227743}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: T_Bubble Tea
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2614423978365129915
 Transform:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 9097619556098548097}
   - component: {fileID: 1929079908131644225}
   - component: {fileID: 4747663710019394538}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 7881421775208839316}
   - component: {fileID: 6991041165347080141}
   - component: {fileID: 3201552329824655593}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,6 +487,14 @@ PrefabInstance:
     - target: {fileID: 6780473691425849764, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691425849765, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780473691880731791, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53d9a686e9876144db689b23ca72ecea, type: 3}

@@ -21,22 +21,18 @@ public class CatDogPatrol : MonoBehaviour
         if(other.gameObject.tag == "Spawn1")
         {
             index = 1;
-            Debug.Log(index);
         }
         else if(other.gameObject.tag == "Spawn2")
         {
             index = 2;
-            Debug.Log(index);
         }
         else if (other.gameObject.tag == "Spawn3")
         {
             index = 3;
-            Debug.Log(index);
         }
         else if (other.gameObject.tag == "Spawn4")
         {
             index = 4;
-            Debug.Log(index);
         }
 
         if (other.gameObject.tag == "Despawn")

@@ -2633,15 +2633,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2420470908258381202}
-  - component: {fileID: 5989555306698052895}
-  - component: {fileID: 620491253460976622}
-  - component: {fileID: 2446003704633672986}
   - component: {fileID: 1256876255285258971}
   - component: {fileID: 4716661072759429244}
-  - component: {fileID: 1107362615879558362}
   m_Layer: 0
   m_Name: Sinsello
-  m_TagString: Dish
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2739,51 +2735,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5989555306698052895
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3088604969748150056}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 6.21036, y: 3.059019, z: 6.5642157}
-  m_Center: {x: 0.009920812, y: 1.4139872, z: -0.003433587}
---- !u!114 &620491253460976622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3088604969748150056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88675fcfa285f684c9732b7b11a0358f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: 7e67102f856a5ae45a7e5608e904eb41, type: 2}
-  playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
-  prefabNum: 0
-  foodPrefab: []
---- !u!114 &2446003704633672986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3088604969748150056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b60ee4f9be66e5a4eb1e5c5fd0ea297a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: 7e67102f856a5ae45a7e5608e904eb41, type: 2}
-  playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
-  prefabNum: 0
-  foodPrefab: []
 --- !u!114 &1256876255285258971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2823,18 +2774,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &1107362615879558362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3088604969748150056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484fb108108329046ad30c8c91d98df4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3121309275731699050
 GameObject:
   m_ObjectHideFlags: 0

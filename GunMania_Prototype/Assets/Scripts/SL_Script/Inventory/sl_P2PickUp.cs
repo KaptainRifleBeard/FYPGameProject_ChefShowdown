@@ -18,6 +18,7 @@ public class sl_P2PickUp : MonoBehaviour
 
     int num;
     bool pickup; //stop pick when is full
+    string audioName;
 
     void Start()
     {
@@ -40,10 +41,13 @@ public class sl_P2PickUp : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player2"))
         {
-            if (P2DishEffect.p2canPick)
+            if (P2DishEffect.p2canPick && !pickup)
             {
-                if (sl_P2ShootBehavior.p2bulletCount < 2 && !pickup)
+                if (sl_P2ShootBehavior.p2bulletCount < 2)
                 {
+                    audioName = "PickUpSfx";
+                    SyncAudio();
+
                     pickup = true;
                     prefabNum = Random.Range(0, 2);
 
@@ -171,6 +175,13 @@ public class sl_P2PickUp : MonoBehaviour
 
     }
 
+    [PunRPC]
+    public void P2PickSfx(string n)
+    {
+        audioName = n;
+        FindObjectOfType<sl_AudioManager>().Play(n);
+
+    }
 
     [PunRPC]
     public void DestroyDish2()
@@ -180,7 +191,12 @@ public class sl_P2PickUp : MonoBehaviour
 
     IEnumerator WaitToPickAgain()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         pickup = false;
+    }
+
+    public void SyncAudio()
+    {
+        view.RPC("P2PickSfx", RpcTarget.All, audioName);
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3366061953811501359}
   - component: {fileID: 1359295696862993701}
   - component: {fileID: 2697991760345495263}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Sphere.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 317521362939067952}
   - component: {fileID: 6186516326308468071}
   - component: {fileID: 5072550643504264551}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,13 +189,13 @@ GameObject:
   - component: {fileID: 7687316174914132545}
   - component: {fileID: 6874189028021500556}
   - component: {fileID: -5611426763460011313}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: T_TaroBowl2
   m_TagString: P2Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3308709478623972983
 Transform:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 7630349602680150131}
   - component: {fileID: 5843706636865286438}
   - component: {fileID: 76395375636285914}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cube.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 8714527574287135345}
   - component: {fileID: 4451209314842927989}
   - component: {fileID: 6490019771196847655}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cube.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 6749600514072870778}
   - component: {fileID: 4754682858482833657}
   - component: {fileID: 9064849190365646054}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 2613872546848425276}
   - component: {fileID: 6090641077018329728}
   - component: {fileID: 6468947606943079238}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Sphere.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,6 +647,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3308709478623972983}
     m_Modifications:
+    - target: {fileID: 1244821845911724455, guid: 1c8198107218a20488f70aa893638d30, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -662,6 +666,10 @@ PrefabInstance:
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.7688287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244821846227522701, guid: 1c8198107218a20488f70aa893638d30, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c8198107218a20488f70aa893638d30, type: 3}

@@ -11,15 +11,11 @@ GameObject:
   - component: {fileID: 4846053205506371097}
   - component: {fileID: 8426085516379070908}
   - component: {fileID: 5984034222447678838}
-  - component: {fileID: 2612314312222376957}
-  - component: {fileID: 2626365527681125033}
-  - component: {fileID: 4590476822774386785}
   - component: {fileID: 2244834912049297418}
   - component: {fileID: 6895835339468845343}
-  - component: {fileID: 8547833133109550475}
   m_Layer: 0
   m_Name: Hassun
-  m_TagString: Dish
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,51 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2612314312222376957
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191369557933683875}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 7.372936, y: 3.6880004, z: 14.288365}
-  m_Center: {x: -0.033815935, y: 1.8446566, z: -0.6000745}
---- !u!114 &2626365527681125033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191369557933683875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88675fcfa285f684c9732b7b11a0358f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: 1ac12a65b11976e4a94d37fd0f71254e, type: 2}
-  playerInventory: {fileID: 11400000, guid: 2f7518d2adcbda94cbf3601bd2c80ba5, type: 2}
-  prefabNum: 0
-  foodPrefab: []
---- !u!114 &4590476822774386785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191369557933683875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b60ee4f9be66e5a4eb1e5c5fd0ea297a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisItem: {fileID: 11400000, guid: 1ac12a65b11976e4a94d37fd0f71254e, type: 2}
-  playerInventory: {fileID: 11400000, guid: 7027085bd329ba940959d4671fc0021f, type: 2}
-  prefabNum: 0
-  foodPrefab: []
 --- !u!114 &2244834912049297418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,18 +124,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &8547833133109550475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191369557933683875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 484fb108108329046ad30c8c91d98df4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &287487135165737610
 PrefabInstance:
   m_ObjectHideFlags: 0

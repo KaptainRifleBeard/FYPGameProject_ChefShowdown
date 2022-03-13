@@ -42,6 +42,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
     public ParticleSystem[] noPickVfx;
     public ParticleSystem[] stunVfx;
 
+    public GameObject newNoPickVfx;
+
+
+
     int numVfx;
     int timeDestroy;
 
@@ -62,6 +66,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         getDamage2 = false;
         player2Dead = false;
+        newNoPickVfx.SetActive(false);
 
         numVfx = 0; //no effect
     }
@@ -110,18 +115,12 @@ public class sl_P2PlayerHealth : MonoBehaviour
     {
         if (other.gameObject.tag == "Bullet") //dont put this in masterclient, or else ur view wont destroy bullet
         {
+            getDamage2 = true;
             Destroy(other.gameObject);
         }
 
         if (!PhotonNetwork.IsMasterClient)
         {
-            if (other.gameObject.layer == 6)
-            {
-                audioName = "HitSFX";
-                SyncAudio();
-
-                isDish = true; //for katsuki to check dish
-            }
 
             if (other.gameObject.tag == "WaterSpray")
             {
@@ -135,6 +134,24 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "Cat")
             {
+                getDamage2 = true;
+
+                audioName = "CatHit";
+                SyncAudio();
+
+                bulletDamage2 = 0.5f;
+                percentage = (bulletDamage2 * 50f) / 100f;
+
+                GetDamage(bulletDamage2, percentage);
+            }
+
+            if (other.gameObject.tag == "Dog")
+            {
+                getDamage2 = true;
+
+                audioName = "DogHit";
+                SyncAudio();
+
                 bulletDamage2 = 0.5f;
                 percentage = (bulletDamage2 * 50f) / 100f;
 
@@ -142,9 +159,12 @@ public class sl_P2PlayerHealth : MonoBehaviour
             }
 
 
+
             //****bullets
             if (other.gameObject.tag == "Bullet")
             {
+                getDamage2 = true;
+
                 audioName = "HitSFX";
                 SyncAudio();
 
@@ -159,10 +179,14 @@ public class sl_P2PlayerHealth : MonoBehaviour
             #region
             if (other.gameObject.tag == "Sinseollo")//explode
             {
+                getDamage2 = true;
+
+                isDish = true; //for katsuki to check dish
+
                 numVfx = 1;
                 GetVisualEffect();
 
-                audioName = "HitSFX";
+                audioName = "ExplodeSfx";
                 SyncAudio();
 
                 bulletDamage2 = 3f;
@@ -174,10 +198,14 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "FoxtailMillet")//kb
             {
+                getDamage2 = true;
+
+                isDish = true; //for katsuki to check dish
+
                 numVfx = 2;
                 GetVisualEffect();
 
-                audioName = "HitSFX";
+                audioName = "KnockbackSfx";
                 SyncAudio();
 
                 bulletDamage2 = 2.0f;
@@ -189,6 +217,10 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "BuddhaJumpsOvertheWall")//no pick
             {
+                getDamage2 = true;
+
+                isDish = true; //for katsuki to check dish
+
                 numVfx = 3;
                 GetVisualEffect();
 
@@ -204,6 +236,11 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "P2Hassun") //heal
             {
+                isDish = true; //for katsuki to check dish
+
+                audioName = "HealSfx";
+                SyncAudio();
+
                 numVfx = 4;
                 GetVisualEffect();
 
@@ -213,10 +250,14 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "Tojangjochi") //stun
             {
+                getDamage2 = true;
+
+                isDish = true; //for katsuki to check dish
+
                 numVfx = 5;
                 GetVisualEffect();
 
-                audioName = "HitSFX";
+                audioName = "StunSfx";
                 SyncAudio();
 
                 //rmb to add rpc to sync
@@ -229,13 +270,24 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "RawStinkyTofu") //drop
             {
+                getDamage2 = true;
+
+                isDish = true; //for katsuki to check dish
+
+                audioName = "HitSFX";
+                SyncAudio();
+
                 numVfx = 6;
                 GetVisualEffect();
             }
 
-            if (other.gameObject.tag == "Mukozuke")
+            if (other.gameObject.tag == "Mukozuke") //pull in
             {
-                audioName = "HitSFX";
+                getDamage2 = true;
+
+                isDish = true; //for katsuki to check dish
+
+                audioName = "PullInSfx";
                 SyncAudio();
 
                 bulletDamage2 = 2.0f;
@@ -247,7 +299,11 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (other.gameObject.tag == "BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
             {
-                audioName = "HitSFX";
+                getDamage2 = true;
+
+                isDish = true; //for katsuki to check dish
+
+                audioName = "MolotovSfx";
                 SyncAudio();
 
                 bulletDamage2 = 2.0f;
@@ -264,12 +320,15 @@ public class sl_P2PlayerHealth : MonoBehaviour
     {
         if (other.gameObject.tag == "BirdNestSoup" || other.gameObject.layer == LayerMask.NameToLayer("DamageArea"))
         {
+            audioName = "MolotovSfx";
+            SyncAudio();
+
             molotovTimer += Time.deltaTime;
 
             if (molotovTimer >= 1.0f)
             {
                 bulletDamage2 = 1.0f;
-                percentage = (bulletDamage2 * 50f) / 100f;
+                percentage = 0;
 
                 GetDamage(bulletDamage2, percentage);
                 molotovTimer = 0;
@@ -332,6 +391,9 @@ public class sl_P2PlayerHealth : MonoBehaviour
         //from enemy bullet
         if (SL_newP1Movement.changeModelAnim == 0) //enemy brock
         {
+            audioName = "Brock_GetDamage";
+            SyncAudio();
+
             damage = damage + percent;
         }
 
@@ -352,7 +414,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
     {
         if (numVfx == 1)//ex
         {
-            timeDestroy = 1;
+            timeDestroy = 3;
             StartCoroutine(StopVfx(timeDestroy));
             view.RPC("DishVisualEffect2", RpcTarget.All, timeDestroy, numVfx);
 
@@ -443,21 +505,23 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
         if (n == 3)//nopick
         {
-            for (int i = 0; i < noPickVfx.Length; i++)
-            {
-                noPickVfx[i].Play();
-            }
+            newNoPickVfx.SetActive(true);
 
-            yield return new WaitForSeconds(timeToDestroy);
+            //for (int i = 0; i < noPickVfx.Length; i++)
+            //{
+            //    noPickVfx[i].Play();
+            //}
 
-            for (int i = 0; i < noPickVfx.Length; i++)
-            {
-                if (noPickVfx[i].isPlaying)
-                {
-                    noPickVfx[i].Stop();
-                }
+            //yield return new WaitForSeconds(timeToDestroy);
 
-            }
+            //for (int i = 0; i < noPickVfx.Length; i++)
+            //{
+            //    if (noPickVfx[i].isPlaying)
+            //    {
+            //        noPickVfx[i].Stop();
+            //    }
+
+            //}
         }
 
         if (n == 4)//heal
@@ -522,6 +586,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
     IEnumerator StopVfx(int time)
     {
         yield return new WaitForSeconds(time);
+        newNoPickVfx.SetActive(false);
+
         numVfx = 0;
     }
 
@@ -552,6 +618,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
             if (p2currentHealth < 0 && view.IsMine && PhotonNetwork.IsConnected == true)
             {
+                FindObjectOfType<sl_AudioManager>().Play("WinScreen");
+
                 player2Dead = true;
 
             }

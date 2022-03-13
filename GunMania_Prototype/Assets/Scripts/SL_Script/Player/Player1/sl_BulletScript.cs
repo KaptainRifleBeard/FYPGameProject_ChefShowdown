@@ -6,11 +6,15 @@ using Photon.Pun;
 public class sl_BulletScript : MonoBehaviour
 {
     public ParticleSystem particle;
-    public GameObject onhit;
 
     private void Start()
     {
         particle.Play();
+    }
+
+    private void Update()
+    {
+        transform.rotation = Quaternion.identity;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -19,7 +23,11 @@ public class sl_BulletScript : MonoBehaviour
         {
             //gameObject.SetActive(false);  // note: cuz when collide with game object distance too close, it destroy immediately then my shoot behavior will have error
             //onhit.SetActive(true);
-            Destroy(gameObject);
+            if (gameObject.tag != "BuddhaJumpsOvertheWall")
+            {
+                Destroy(gameObject);
+
+            }
         }
 
         if (other.gameObject.tag == "Environment")

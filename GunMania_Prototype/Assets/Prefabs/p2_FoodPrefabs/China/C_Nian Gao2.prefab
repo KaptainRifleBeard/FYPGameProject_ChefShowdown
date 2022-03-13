@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7502673160110103714}
   - component: {fileID: 4264814156813451258}
   - component: {fileID: 3494586198180534028}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,13 +96,13 @@ GameObject:
   - component: {fileID: 4953225291210524743}
   - component: {fileID: 7331759912761145237}
   - component: {fileID: 2692295332682492865}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: C_Nian Gao2
   m_TagString: P2Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1711609197762582674
 Transform:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ Transform:
   m_Children:
   - {fileID: 7502673160110103714}
   - {fileID: 7809956324485997980}
-  - {fileID: 538000303555609028}
+  - {fileID: 6780533265316188404}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195248a0922eb4b43ab43267eb46b666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 538000303065363472}
+  particle: {fileID: 6780533264694863136}
 --- !u!1 &3933365410772972902
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 7809956324485997980}
   - component: {fileID: 6002372311845053979}
   - component: {fileID: 8082340569251151185}
-  m_Layer: 3
+  m_Layer: 13
   m_Name: Cylinder.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &1599097496086615368
+--- !u!1001 &5719349201199793272
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -312,15 +312,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -336,17 +336,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1244821846227522701, guid: 1c8198107218a20488f70aa893638d30, type: 3}
       propertyPath: m_Name
-      value: DustTrail2
+      value: FoodDustTrail2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c8198107218a20488f70aa893638d30, type: 3}
---- !u!4 &538000303555609028 stripped
+--- !u!4 &6780533265316188404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1244821846227522700, guid: 1c8198107218a20488f70aa893638d30, type: 3}
-  m_PrefabInstance: {fileID: 1599097496086615368}
+  m_PrefabInstance: {fileID: 5719349201199793272}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &538000303065363472 stripped
+--- !u!198 &6780533264694863136 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1244821845911724376, guid: 1c8198107218a20488f70aa893638d30, type: 3}
-  m_PrefabInstance: {fileID: 1599097496086615368}
+  m_PrefabInstance: {fileID: 5719349201199793272}
   m_PrefabAsset: {fileID: 0}

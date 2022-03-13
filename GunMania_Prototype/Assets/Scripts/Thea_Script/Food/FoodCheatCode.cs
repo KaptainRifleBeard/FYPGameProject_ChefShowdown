@@ -14,8 +14,16 @@ public class FoodCheatCode : MonoBehaviour
 
     public static bool startCheatCde;
     int count;
+    public string parentName;
+
+    GameObject obj;
+    PhotonView view;
+
+    int prefabNum;
+
     private void Start()
     {
+        view = GetComponent<PhotonView>();
         startCheatCde = false;
     }
 
@@ -26,66 +34,102 @@ public class FoodCheatCode : MonoBehaviour
         {
             if (Input.GetKeyDown("1"))
             {
-                PhotonNetwork.Instantiate(prefabs[0].name, playerPOS.position, Quaternion.identity);
-                //count++;
-                //StartCoroutine(reset());
+                prefabNum = 1;
+                view.RPC("CheckSyncDishPosition", RpcTarget.All, prefabNum);
 
             }
             else if (Input.GetKeyDown("2"))
             {
-                PhotonNetwork.Instantiate(prefabs[1].name, playerPOS.position, Quaternion.identity);
-                //count++;
-                //StartCoroutine(reset());
+                prefabNum = 2;
+                view.RPC("CheckSyncDishPosition", RpcTarget.All, prefabNum);
 
             }
             else if (Input.GetKeyDown("3"))
             {
-                PhotonNetwork.Instantiate(prefabs[2].name, playerPOS.position, Quaternion.identity);
-                //count++;
-                //StartCoroutine(reset());
+                prefabNum = 3;
+                view.RPC("CheckSyncDishPosition", RpcTarget.All, prefabNum);
 
             }
             else if (Input.GetKeyDown("4"))
             {
-                PhotonNetwork.Instantiate(prefabs[3].name, playerPOS.position, Quaternion.identity);
-                //count++;
-                //StartCoroutine(reset());
+                prefabNum = 4;
+                view.RPC("CheckSyncDishPosition", RpcTarget.All, prefabNum);
 
             }
             else if (Input.GetKeyDown("5"))
             {
-                PhotonNetwork.Instantiate(prefabs[4].name, playerPOS.position, Quaternion.identity);
-                //count++;
-                //StartCoroutine(reset());
+                prefabNum = 5;
+                view.RPC("CheckSyncDishPosition", RpcTarget.All, prefabNum);
 
             }
             else if (Input.GetKeyDown("6"))
             {
-                PhotonNetwork.Instantiate(prefabs[5].name, playerPOS.position, Quaternion.identity);
-                //count++;
-                //StartCoroutine(reset());
+                prefabNum = 6;
+                view.RPC("CheckSyncDishPosition", RpcTarget.All, prefabNum);
 
             }
             else if (Input.GetKeyDown("7"))
             {
-                PhotonNetwork.Instantiate(prefabs[6].name, playerPOS.position, Quaternion.identity);
-                //count++;
-                //StartCoroutine(reset());
+                prefabNum = 7;
+                view.RPC("CheckSyncDishPosition", RpcTarget.All, prefabNum);
 
             }
             else if (Input.GetKeyDown("8"))
             {
-                PhotonNetwork.Instantiate(prefabs[7].name, playerPOS.position, Quaternion.identity);
-                //count++;
-                //StartCoroutine(reset());
+                prefabNum = 8;
+                view.RPC("CheckSyncDishPosition", RpcTarget.All, prefabNum);
+
             }
         }
         
     }
 
-    IEnumerator reset()
+    [PunRPC]
+    public void CheckSyncDishPosition(int i)
     {
-        yield return new WaitForSeconds(0.5f);
-        count = 0;
+        prefabNum = i;
+
+        if(i == 1)
+        {
+            obj = PhotonNetwork.Instantiate(prefabs[0].name, playerPOS.position, Quaternion.identity);
+            obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+        }
+        if (i == 2)
+        {
+            obj = PhotonNetwork.Instantiate(prefabs[1].name, playerPOS.position, Quaternion.identity);
+            obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+        }
+        if (i == 3)
+        {
+            obj = PhotonNetwork.Instantiate(prefabs[2].name, playerPOS.position, Quaternion.identity);
+            obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+        }
+        if (i == 4)
+        {
+            obj = PhotonNetwork.Instantiate(prefabs[3].name, playerPOS.position, Quaternion.identity);
+            obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+        }
+        if (i == 5)
+        {
+            obj = PhotonNetwork.Instantiate(prefabs[4].name, playerPOS.position, Quaternion.identity);
+            obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+        }
+        if (i == 6)
+        {
+            obj = PhotonNetwork.Instantiate(prefabs[5].name, playerPOS.position, Quaternion.identity);
+            obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+        }
+        if (i == 7)
+        {
+            obj = PhotonNetwork.Instantiate(prefabs[6].name, playerPOS.position, Quaternion.identity);
+            obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+        }
+        if (i == 8)
+        {
+            obj = PhotonNetwork.Instantiate(prefabs[7].name, playerPOS.position, Quaternion.identity);
+            obj.transform.SetParent(GameObject.Find(parentName).transform, false);
+        }
+
     }
+
 }
