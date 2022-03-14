@@ -506,6 +506,8 @@ public class sl_P2PlayerHealth : MonoBehaviour
         if (n == 3)//nopick
         {
             newNoPickVfx.SetActive(true);
+            yield return new WaitForSeconds(timeToDestroy);
+            newNoPickVfx.SetActive(false);
 
             //for (int i = 0; i < noPickVfx.Length; i++)
             //{

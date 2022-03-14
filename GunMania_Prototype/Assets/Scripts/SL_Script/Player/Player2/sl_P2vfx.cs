@@ -25,7 +25,7 @@ public class sl_P2vfx : MonoBehaviour
 
     void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
         {
             if (sl_P2PlayerHealth.getDamage2 == true)
             {

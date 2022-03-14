@@ -49,145 +49,149 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     void WinLoseCondition()
     {
-        CheckIcon_p1();
-        UiSize_p1();
-
-        CheckIcon_p2();
-        UiSize_p2();
-
-        if (sl_PlayerHealth.currentHealth <= 0)
+        if (PhotonNetwork.PlayerList.Length >= 2)
         {
-            if (PhotonNetwork.IsMasterClient)
+            CheckIcon_p1();
+            UiSize_p1();
+
+            CheckIcon_p2();
+            UiSize_p2();
+
+            if (sl_PlayerHealth.currentHealth <= 0)
             {
-                Nickname();
-
-                //p1 lose
-                StartCoroutine(WinScreenUI());
-
-                if (sl_RematchAndLeave.rematchCount == 2)
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    winScreen.SetActive(false);
+                    Nickname();
 
-                    sl_InventoryManager.ClearAllInList();
-                    sl_p2InventoryManager.ClearAllInList();
+                    //p1 lose
+                    StartCoroutine(WinScreenUI());
 
-                    sl_ShootBehavior.bulletCount = 0;
-                    sl_P2ShootBehavior.p2bulletCount = 0;
+                    if (sl_RematchAndLeave.rematchCount == 2)
+                    {
+                        winScreen.SetActive(false);
 
-                    sl_RematchAndLeave.rematchCount = 0;
+                        sl_InventoryManager.ClearAllInList();
+                        sl_p2InventoryManager.ClearAllInList();
+
+                        sl_ShootBehavior.bulletCount = 0;
+                        sl_P2ShootBehavior.p2bulletCount = 0;
+
+                        sl_RematchAndLeave.rematchCount = 0;
+                    }
+                }
+                else
+                {
+                    Nickname();
+
+                    //p2 win
+                    StartCoroutine(WinScreenUI());
+
+                    if (sl_RematchAndLeave.rematchCount == 2)
+                    {
+                        winScreen.SetActive(false);
+
+                        sl_InventoryManager.ClearAllInList();
+                        sl_p2InventoryManager.ClearAllInList();
+
+                        sl_ShootBehavior.bulletCount = 0;
+                        sl_P2ShootBehavior.p2bulletCount = 0;
+
+                        sl_RematchAndLeave.rematchCount = 0;
+                    }
                 }
             }
-            else
+
+            if (sl_P2PlayerHealth.p2currentHealth <= 0)
             {
-                Nickname();
 
-                //p2 win
-                StartCoroutine(WinScreenUI());
-
-                if (sl_RematchAndLeave.rematchCount == 2)
+                if (PhotonNetwork.IsMasterClient)
                 {
-                    winScreen.SetActive(false);
+                    Nickname();
 
-                    sl_InventoryManager.ClearAllInList();
-                    sl_p2InventoryManager.ClearAllInList();
+                    //p1 win
+                    StartCoroutine(WinScreenUI());
 
-                    sl_ShootBehavior.bulletCount = 0;
-                    sl_P2ShootBehavior.p2bulletCount = 0;
+                    if (sl_RematchAndLeave.rematchCount == 2)
+                    {
+                        winScreen.SetActive(false);
 
-                    sl_RematchAndLeave.rematchCount = 0;
+                        sl_InventoryManager.ClearAllInList();
+                        sl_p2InventoryManager.ClearAllInList();
+
+                        sl_ShootBehavior.bulletCount = 0;
+                        sl_P2ShootBehavior.p2bulletCount = 0;
+
+                        sl_RematchAndLeave.rematchCount = 0;
+                    }
+                }
+                else
+                {
+                    Nickname();
+
+                    //p2 lose
+                    StartCoroutine(WinScreenUI());
+
+                    if (sl_RematchAndLeave.rematchCount == 2)
+                    {
+                        winScreen.SetActive(false);
+
+                        sl_InventoryManager.ClearAllInList();
+                        sl_p2InventoryManager.ClearAllInList();
+
+                        sl_ShootBehavior.bulletCount = 0;
+                        sl_P2ShootBehavior.p2bulletCount = 0;
+
+                        sl_RematchAndLeave.rematchCount = 0;
+                    }
+                }
+            }
+
+            if (sl_MatchCountdown.timeRemaining == 0)
+            {
+
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    Nickname();
+
+                    //p1 win
+                    StartCoroutine(WinScreenUI());
+
+                    if (sl_RematchAndLeave.rematchCount == 2)
+                    {
+                        winScreen.SetActive(false);
+
+                        sl_InventoryManager.ClearAllInList();
+                        sl_p2InventoryManager.ClearAllInList();
+
+                        sl_ShootBehavior.bulletCount = 0;
+                        sl_P2ShootBehavior.p2bulletCount = 0;
+
+                        sl_RematchAndLeave.rematchCount = 0;
+                    }
+                }
+                else
+                {
+                    Nickname();
+
+                    //p2 lose
+                    StartCoroutine(WinScreenUI());
+
+                    if (sl_RematchAndLeave.rematchCount == 2)
+                    {
+                        winScreen.SetActive(false);
+
+                        sl_InventoryManager.ClearAllInList();
+                        sl_p2InventoryManager.ClearAllInList();
+
+                        sl_ShootBehavior.bulletCount = 0;
+                        sl_P2ShootBehavior.p2bulletCount = 0;
+
+                        sl_RematchAndLeave.rematchCount = 0;
+                    }
                 }
             }
         }
-
-        if (sl_P2PlayerHealth.p2currentHealth <= 0)
-        {
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-                Nickname();
-
-                //p1 win
-                StartCoroutine(WinScreenUI());
-
-                if (sl_RematchAndLeave.rematchCount == 2)
-                {
-                    winScreen.SetActive(false);
-
-                    sl_InventoryManager.ClearAllInList();
-                    sl_p2InventoryManager.ClearAllInList();
-
-                    sl_ShootBehavior.bulletCount = 0;
-                    sl_P2ShootBehavior.p2bulletCount = 0;
-
-                    sl_RematchAndLeave.rematchCount = 0;
-                }
-            }
-            else
-            {
-                Nickname();
-
-                //p2 lose
-                StartCoroutine(WinScreenUI());
-
-                if (sl_RematchAndLeave.rematchCount == 2)
-                {
-                    winScreen.SetActive(false);
-
-                    sl_InventoryManager.ClearAllInList();
-                    sl_p2InventoryManager.ClearAllInList();
-
-                    sl_ShootBehavior.bulletCount = 0;
-                    sl_P2ShootBehavior.p2bulletCount = 0;
-
-                    sl_RematchAndLeave.rematchCount = 0;
-                }
-            }
-        }
-
-        if (sl_MatchCountdown.timeRemaining == 0)
-        {
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-                Nickname();
-
-                //p1 win
-                StartCoroutine(WinScreenUI());
-
-                if (sl_RematchAndLeave.rematchCount == 2)
-                {
-                    winScreen.SetActive(false);
-
-                    sl_InventoryManager.ClearAllInList();
-                    sl_p2InventoryManager.ClearAllInList();
-
-                    sl_ShootBehavior.bulletCount = 0;
-                    sl_P2ShootBehavior.p2bulletCount = 0;
-
-                    sl_RematchAndLeave.rematchCount = 0;
-                }
-            }
-            else
-            {
-                Nickname();
-
-                //p2 lose
-                StartCoroutine(WinScreenUI());
-
-                if (sl_RematchAndLeave.rematchCount == 2)
-                {
-                    winScreen.SetActive(false);
-
-                    sl_InventoryManager.ClearAllInList();
-                    sl_p2InventoryManager.ClearAllInList();
-
-                    sl_ShootBehavior.bulletCount = 0;
-                    sl_P2ShootBehavior.p2bulletCount = 0;
-
-                    sl_RematchAndLeave.rematchCount = 0;
-                }
-            }
-        }
+           
     }
 
 
@@ -314,7 +318,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
 
     IEnumerator WaitStartGame()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(10.0f);
         WinLoseCondition();
     }
 
