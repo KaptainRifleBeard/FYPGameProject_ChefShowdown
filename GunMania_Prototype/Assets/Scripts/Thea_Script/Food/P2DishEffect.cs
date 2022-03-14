@@ -46,10 +46,10 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "Mukozuke")
         {
             //pull
-            Vector3 direction = (other.transform.position - transform.position).normalized;
-            direction.y = 0;
+            //Vector3 direction = (other.transform.position - transform.position).normalized;
+            //direction.y = 0;
 
-            view.RPC("Pull2", RpcTarget.All, direction);
+            view.RPC("Pull2", RpcTarget.All, other.transform);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "BuddhaJumpsOvertheWall")
@@ -99,9 +99,10 @@ public class P2DishEffect : MonoBehaviour
     }
 
     [PunRPC]
-    public void Pull2(Vector3 dir)
+    public void Pull2(Transform other)
     {
-        playerRidg.AddForce(dir * pullingSpeed, ForceMode.Impulse);
+        transform.LookAt(other);
+        playerRidg.AddForce(transform.forward * pullingSpeed, ForceMode.Impulse);
     }
 
     [PunRPC]
