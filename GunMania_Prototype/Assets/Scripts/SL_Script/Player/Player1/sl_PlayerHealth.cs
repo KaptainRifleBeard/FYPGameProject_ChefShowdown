@@ -434,7 +434,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
         }
         if (numVfx == 4)//heal
         {
-            timeDestroy = 4;
+            timeDestroy = 2;
             StartCoroutine(StopVfx(timeDestroy));
 
             view.RPC("DishVisualEffect", RpcTarget.All, timeDestroy, numVfx);
