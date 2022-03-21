@@ -122,8 +122,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient && playerCount == 2)  // room owner
         {
             PhotonNetwork.LoadLevel("sl_TestScene");
-            //PhotonNetwork.LoadLevel("TestScene");
-
             startGame = true;
 
         }

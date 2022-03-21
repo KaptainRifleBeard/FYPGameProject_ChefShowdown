@@ -1279,7 +1279,7 @@ MonoBehaviour:
   dishNum: 0
   buttonnext_dish: {fileID: 1728818603}
   button_dish: {fileID: 1053813508}
-  button_control: {fileID: 0}
+  button_control: {fileID: 1879067027}
 --- !u!4 &310247245
 Transform:
   m_ObjectHideFlags: 0
@@ -3298,7 +3298,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 310247244}
         m_TargetAssemblyTypeName: sl_GuideScreen, Assembly-CSharp
         m_MethodName: OpenDishGuide
         m_Mode: 1
@@ -3984,7 +3984,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 310247244}
         m_TargetAssemblyTypeName: sl_GuideScreen, Assembly-CSharp
         m_MethodName: NextButton_dish
         m_Mode: 1
@@ -6603,9 +6603,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 310247244}
         m_TargetAssemblyTypeName: sl_GuideScreen, Assembly-CSharp
-        m_MethodName: NextButton
+        m_MethodName: NextButton_dish
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7113,7 +7113,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 310247244}
         m_TargetAssemblyTypeName: sl_GuideScreen, Assembly-CSharp
         m_MethodName: ExitGuideScreen
         m_Mode: 1
@@ -7246,7 +7246,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 310247244}
         m_TargetAssemblyTypeName: sl_GuideScreen, Assembly-CSharp
         m_MethodName: OpenControlGuide
         m_Mode: 1
