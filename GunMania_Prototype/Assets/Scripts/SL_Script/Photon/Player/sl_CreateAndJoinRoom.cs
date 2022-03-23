@@ -60,7 +60,6 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log("Room Created");
-        //PhotonNetwork.LoadLevel("sl_PlayerRoom");
         PhotonNetwork.LoadLevel("sl_NewPlayerRoom");
 
     }
@@ -93,6 +92,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public void ShowCreateRoom()
     {
+        Debug.Log("check");
         canvasCreateRoom.transform.position = createRoomPos.transform.position;
 
         StartCoroutine(OpenCreateRoomInput());

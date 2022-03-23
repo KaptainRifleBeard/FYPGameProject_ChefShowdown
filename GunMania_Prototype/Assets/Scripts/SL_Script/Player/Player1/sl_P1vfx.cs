@@ -25,14 +25,9 @@ public class sl_P1vfx : MonoBehaviour
 
     void Update()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (sl_PlayerHealth.getDamage == true)
         {
-            if (sl_PlayerHealth.getDamage == true)
-            {
-                GetDamage();
-            }
-
-           
+            GetDamage();
         }
 
 
@@ -61,6 +56,7 @@ public class sl_P1vfx : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
+        sl_PlayerHealth.getDamage = false;
     }
 
 

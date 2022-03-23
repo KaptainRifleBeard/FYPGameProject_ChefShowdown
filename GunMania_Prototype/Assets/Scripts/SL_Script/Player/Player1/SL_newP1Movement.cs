@@ -192,11 +192,21 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
             }
 
-            if (myAgent.velocity.magnitude < 0.15f)
+            if (myAgent.velocity.magnitude < 0.1f)
             {
-                particle.Stop();
-            }
+                if(particle.isPlaying)
+                {
+                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
+                }
+            }
+            else
+            {
+                if(particle.isStopped)
+                {
+                    particle.Play();
+                }
+            }
 
             if (gameObject.tag == "Player" && view.IsMine && !stopRotate)
             {
@@ -234,7 +244,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                 wenTrail.SetActive(false);
                 if (particle.isPlaying)
                 {
-                    particle.Stop();
+                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
                 }
 
@@ -245,7 +255,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                 myAgent.speed = 28;
                 if (particle.isPlaying)
                 {
-                    particle.Stop();
+                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
                 }
 
@@ -256,7 +266,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                 myAgent.speed = 40;
                 if (particle.isPlaying)
                 {
-                    particle.Stop();
+                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
                 }
             }

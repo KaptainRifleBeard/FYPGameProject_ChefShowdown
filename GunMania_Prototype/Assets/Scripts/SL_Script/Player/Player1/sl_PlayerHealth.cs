@@ -116,6 +116,7 @@ public class sl_PlayerHealth : MonoBehaviour/*, IOnEventCallback*/
             getDamage = true;
 
             Destroy(other.gameObject);
+            StartCoroutine(StopGetDamage());
 
         }
 

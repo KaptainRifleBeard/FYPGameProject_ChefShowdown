@@ -25,15 +25,12 @@ public class sl_P2vfx : MonoBehaviour
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient)
+        if (sl_P2PlayerHealth.getDamage2 == true)
         {
-            if (sl_P2PlayerHealth.getDamage2 == true)
-            {
-                GetDamage2();
-            }
+            Debug.Log("P2 VFX");
+            GetDamage2();
         }
-
-
+        
     }
 
     public void GetDamage2()
@@ -59,6 +56,7 @@ public class sl_P2vfx : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
+        sl_P2PlayerHealth.getDamage2 = false;
     }
 
 

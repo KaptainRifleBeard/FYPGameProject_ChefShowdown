@@ -117,6 +117,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
         {
             getDamage2 = true;
             Destroy(other.gameObject);
+            StartCoroutine(StopGetDamage());
         }
 
         if (!PhotonNetwork.IsMasterClient)
@@ -595,7 +596,7 @@ public class sl_P2PlayerHealth : MonoBehaviour
 
     IEnumerator StopGetDamage()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         getDamage2 = false;
     }
 
