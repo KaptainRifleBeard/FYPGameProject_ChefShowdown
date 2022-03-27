@@ -157,19 +157,8 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             {
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
-                if (particle.isPlaying)
-                {
-                    particle.Stop();
-
-                }
-
+                wenTrail.SetActive(false);
             }
-
-            if (myAgent.velocity.magnitude < 0.15f)
-            {
-                particle.Stop();
-            }
-
 
             //rotate
             if (gameObject.tag == "Player2" && view.IsMine)
@@ -193,47 +182,33 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
 
             }
 
-
-            if (sl_PlayerHealth.currentHealth > 4 && changep2Icon == 1)
-            {
-                wenTrail.SetActive(true);
-                if (particle.isPlaying == false)
-                {
-                    particle.Play();
-
-                }
-                myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
-            }
-            else if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
+            if (myAgent.velocity.magnitude < 0.1f)
             {
                 wenTrail.SetActive(false);
-                if(particle.isPlaying)
-                {
-                    particle.Stop();
-
-                }
-
-                myAgent.speed = 40;
-            }
-            else if (changep2Icon == 3)
-            {
-                myAgent.speed = 28;
-                if (particle.isPlaying)
-                {
-                    particle.Stop();
-
-                }
             }
             else
             {
-                myAgent.speed = 40;
-                if (particle.isPlaying)
+                if (sl_P2PlayerHealth.p2currentHealth > 4 && changep2Icon == 1)
                 {
-                    particle.Stop();
-
+                    wenTrail.SetActive(true);
+                    particle.Play();
+                    myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
                 }
-            }
+                else if (sl_P2PlayerHealth.p2currentHealth < 4 && changep2Icon == 1)
+                {
+                    wenTrail.SetActive(false);
+                    myAgent.speed = 40;
+                }
+                else if (changep2Icon == 3)
+                {
+                    myAgent.speed = 28;
+                }
+                else
+                {
+                    myAgent.speed = 40;
+                }
 
+            }
 
 
         }

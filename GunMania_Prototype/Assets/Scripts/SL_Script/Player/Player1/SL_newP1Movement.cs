@@ -186,6 +186,8 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             //stop when shoot
             if (sl_ShootBehavior.p1Shoot == true || !DishEffect.canMove)
             {
+                wenTrail.SetActive(false);
+
                 stopping = true;
                 myAgent.isStopped = true;
                 myAgent.ResetPath();
@@ -194,18 +196,30 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
             if (myAgent.velocity.magnitude < 0.1f)
             {
-                if(particle.isPlaying)
-                {
-                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-
-                }
+                wenTrail.SetActive(false);
             }
             else
             {
-                if(particle.isStopped)
+                if (sl_PlayerHealth.currentHealth > 4 && changeModelAnim == 1)
                 {
+                    wenTrail.SetActive(true);
                     particle.Play();
+                    myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
                 }
+                else if (sl_PlayerHealth.currentHealth < 4 && changeModelAnim == 1)
+                {
+                    wenTrail.SetActive(false);
+                    myAgent.speed = 40;
+                }
+                else if (changeModelAnim == 3)
+                {
+                    myAgent.speed = 28;
+                }
+                else
+                {
+                    myAgent.speed = 40;
+                }
+
             }
 
             if (gameObject.tag == "Player" && view.IsMine && !stopRotate)
@@ -228,48 +242,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                 view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
             }
 
-            if (sl_PlayerHealth.currentHealth > 4 && changeModelAnim == 1)
-            {
-                wenTrail.SetActive(true);
-                if (particle.isPlaying == false)
-                {
-                    particle.Play();
-
-                }
-
-                myAgent.speed = 48; //stat: wen increase 20% speed when more than half heart, original = 40
-            }
-            else if (sl_PlayerHealth.currentHealth < 4 && changeModelAnim == 1)
-            {
-                wenTrail.SetActive(false);
-                if (particle.isPlaying)
-                {
-                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-
-                }
-
-                myAgent.speed = 40; 
-            }
-            else if(changeModelAnim == 3)
-            {
-                myAgent.speed = 28;
-                if (particle.isPlaying)
-                {
-                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-
-                }
-
-
-            }
-            else
-            {
-                myAgent.speed = 40;
-                if (particle.isPlaying)
-                {
-                    particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-
-                }
-            }
+           
 
             //  Unused region -- offmesh link
             #region
