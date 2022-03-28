@@ -2,24 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sl_WaterSprayCollider : MonoBehaviour
+public class sl_DishSpawnTimer : MonoBehaviour
 {
-    public Transform colliderPos;
-    public GameObject col;
+    public GameObject[] colliderPos;
 
     public float spawnTime;
     public float spawnDelay;
 
-
     void Start()
     {
         InvokeRepeating("SpawnCollider", spawnTime, spawnDelay);
-
     }
 
-    public void SpawnCollider()
+    public void SpawnTimer()
     {
-        Instantiate(col, colliderPos.position, Quaternion.identity);
 
     }
 }
