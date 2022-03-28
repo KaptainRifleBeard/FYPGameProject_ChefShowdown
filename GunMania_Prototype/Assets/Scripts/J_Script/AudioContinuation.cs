@@ -20,7 +20,7 @@ public class AudioContinuation : MonoBehaviour
 
         if(sceneName != "sl_TestScene")
         {
-            audio.volume = 0.5f;
+            audio.volume = 0.2f;
         }
         else
         {
