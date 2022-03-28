@@ -19,6 +19,10 @@ public class sl_GuideScreen : MonoBehaviour
     public GameObject button_dish;
     public GameObject button_control;
 
+    string audioName;
+    public AudioSource[] audio;
+    int sfxNum;
+
     void Start()
     {
         guideScreen.SetActive(false);
@@ -34,7 +38,30 @@ public class sl_GuideScreen : MonoBehaviour
 
     void Update()
     {
-        
+       
+    }
+
+    public void PlaySound()
+    {
+        if (dishNum == 0 || dishNum == 1)
+        {
+            audio[0].Play();
+        }
+        if (dishNum == 2 || dishNum == 3)
+        {
+            audio[1].Play();
+
+        }
+        if (dishNum == 4 || dishNum == 5)
+        {
+            audio[2].Play();
+
+        }
+        if (dishNum == 6 || dishNum == 7)
+        {
+            audio[3].Play();
+
+        }
     }
 
     public void ExitGuideScreen()
@@ -49,6 +76,8 @@ public class sl_GuideScreen : MonoBehaviour
 
     public void OpenDishGuide()
     {
+        PlaySound();
+
         dish.SetActive(true);
         control.SetActive(false);
 
@@ -85,6 +114,9 @@ public class sl_GuideScreen : MonoBehaviour
         dishNum = (dishNum + 1) % dishes.Length;
         dishes[dishNum].SetActive(true);
 
+        audio[sfxNum].Stop();
+        sfxNum = (sfxNum + 1) % audio.Length;
+        audio[sfxNum].Play();
     }
 
     public void PrevButton()

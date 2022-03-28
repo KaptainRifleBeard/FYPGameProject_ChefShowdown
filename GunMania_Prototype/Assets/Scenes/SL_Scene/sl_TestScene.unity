@@ -9547,10 +9547,10 @@ RectTransform:
   m_Children:
   - {fileID: 938091302}
   - {fileID: 1748780606}
+  - {fileID: 700396955}
   - {fileID: 1709741462}
   - {fileID: 4101356504828678565}
   - {fileID: 1244616084}
-  - {fileID: 700396955}
   m_Father: {fileID: 2101155648}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10131,7 +10131,7 @@ Transform:
   m_LocalPosition: {x: 0.5882263, y: 11.870003, z: -426.68472}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1198165589}
+  - {fileID: 1969773673}
   - {fileID: 1519089239}
   - {fileID: 1368568273}
   m_Father: {fileID: 0}
@@ -19829,7 +19829,7 @@ RectTransform:
   - {fileID: 926183114}
   - {fileID: 1337343430}
   m_Father: {fileID: 365088850}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -34541,182 +34541,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 47.574245}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1198165588
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1198165589}
-  - component: {fileID: 1198165590}
-  m_Layer: 0
-  m_Name: sl_AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1198165589
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198165588}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5882263, y: -1.3700027, z: 1.9266071}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 376309544}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1198165590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198165588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 479d6627b0ed454489923e902d5f1a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: StartGameSfx
-    clip: {fileID: 8300000, guid: 4d905b21799809c499f755586bd3f0ce, type: 3}
-    volumn: 0.4
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: WinScreen
-    clip: {fileID: 8300000, guid: 587dfde6310c1b440b7c8f434da3ec1e, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: HitSFX
-    clip: {fileID: 8300000, guid: 7f56b58bcf7c40645a9346237555e8fa, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: PickUpSfx
-    clip: {fileID: 8300000, guid: 43a2c819b6b93134d9465d0ed510f97a, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Brock_ThrowFood
-    clip: {fileID: 8300000, guid: 0d9c6c59b3c3ecc418c9d1811b7eb4ad, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Jiho_ThrowFood
-    clip: {fileID: 8300000, guid: ecf9f01dbdecbdb47aaba7b43b57c562, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Brock_GetDamage
-    clip: {fileID: 8300000, guid: c6a14cd708aff054fb0ebdd2d255858d, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Wen_GetDamage
-    clip: {fileID: 8300000, guid: 64a19ed5d4ac6274584d5b861d0c3380, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Jiho_GetDamage
-    clip: {fileID: 8300000, guid: ec2b7be6030350c4bb07bf6af7cc0106, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Katsuki_GetDamage
-    clip: {fileID: 8300000, guid: b74a359601d9da041b9ddccdb6ff3ecc, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: CatHit
-    clip: {fileID: 8300000, guid: de8f989367e702e44af4a338422957b6, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: DogHit
-    clip: {fileID: 8300000, guid: 5b13070f46c75c64e8e9b4a6d5094ea4, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: ExplodeSfx
-    clip: {fileID: 8300000, guid: b7f07a58aebde02499521441caab5af7, type: 3}
-    volumn: 0.2
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: HealSfx
-    clip: {fileID: 8300000, guid: 2aaaedbcd08f6af41af713a6031fcf61, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: KnockbackSfx
-    clip: {fileID: 8300000, guid: 8e5a05b5cc67502478f059ee995d674e, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: MolotovSfx
-    clip: {fileID: 8300000, guid: b622d6f3b8484c846aee22c4a56504bd, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: PullInSfx
-    clip: {fileID: 8300000, guid: cf29e8704199ad84494d6070967ea1ca, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: StunSfx
-    clip: {fileID: 8300000, guid: 5d12998f54c0cf64583bfa9097e1c2e3, type: 3}
-    volumn: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: ChinaGuide
-    clip: {fileID: 8300000, guid: e65b91d077690dd42a14665774768521, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: JapanGuide
-    clip: {fileID: 8300000, guid: d8a82be787daaa84b8a84f8a1d0cb92e, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: KoreaGuide
-    clip: {fileID: 8300000, guid: a45f8baaa8eb1964a863c35f9eff7d51, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: TaiwanGuide
-    clip: {fileID: 8300000, guid: 4c1288afb59c8d44c9941b06861f01a9, type: 3}
-    volumn: 0.5
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
 --- !u!1001 &1204451554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37367,7 +37191,7 @@ RectTransform:
   - {fileID: 1752240789}
   - {fileID: 955653207}
   m_Father: {fileID: 365088850}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -51526,7 +51350,7 @@ RectTransform:
   m_LocalScale: {x: 0.71687, y: 0.71687, z: 0.71687}
   m_Children: []
   m_Father: {fileID: 365088850}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -59812,6 +59636,182 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f7599ed57d34b3a46bbc4934ffa75593, type: 3}
   m_PrefabInstance: {fileID: 1965083406}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1969773672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1969773673}
+  - component: {fileID: 1969773674}
+  m_Layer: 0
+  m_Name: sl_AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1969773673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969773672}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5882263, y: -1.3700027, z: 1.9266052}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 376309544}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1969773674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969773672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479d6627b0ed454489923e902d5f1a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: StartGameSfx
+    clip: {fileID: 8300000, guid: 4d905b21799809c499f755586bd3f0ce, type: 3}
+    volumn: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WinScreen
+    clip: {fileID: 8300000, guid: 587dfde6310c1b440b7c8f434da3ec1e, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HitSFX
+    clip: {fileID: 8300000, guid: 7f56b58bcf7c40645a9346237555e8fa, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PickUpSfx
+    clip: {fileID: 8300000, guid: 43a2c819b6b93134d9465d0ed510f97a, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Brock_ThrowFood
+    clip: {fileID: 8300000, guid: 0d9c6c59b3c3ecc418c9d1811b7eb4ad, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Jiho_ThrowFood
+    clip: {fileID: 8300000, guid: ecf9f01dbdecbdb47aaba7b43b57c562, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Brock_GetDamage
+    clip: {fileID: 8300000, guid: c6a14cd708aff054fb0ebdd2d255858d, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Wen_GetDamage
+    clip: {fileID: 8300000, guid: 64a19ed5d4ac6274584d5b861d0c3380, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Jiho_GetDamage
+    clip: {fileID: 8300000, guid: ec2b7be6030350c4bb07bf6af7cc0106, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Katsuki_GetDamage
+    clip: {fileID: 8300000, guid: b74a359601d9da041b9ddccdb6ff3ecc, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CatHit
+    clip: {fileID: 8300000, guid: de8f989367e702e44af4a338422957b6, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DogHit
+    clip: {fileID: 8300000, guid: 5b13070f46c75c64e8e9b4a6d5094ea4, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ExplodeSfx
+    clip: {fileID: 8300000, guid: b7f07a58aebde02499521441caab5af7, type: 3}
+    volumn: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HealSfx
+    clip: {fileID: 8300000, guid: 2aaaedbcd08f6af41af713a6031fcf61, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: KnockbackSfx
+    clip: {fileID: 8300000, guid: 8e5a05b5cc67502478f059ee995d674e, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MolotovSfx
+    clip: {fileID: 8300000, guid: b622d6f3b8484c846aee22c4a56504bd, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PullInSfx
+    clip: {fileID: 8300000, guid: cf29e8704199ad84494d6070967ea1ca, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: StunSfx
+    clip: {fileID: 8300000, guid: 5d12998f54c0cf64583bfa9097e1c2e3, type: 3}
+    volumn: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ChinaGuide
+    clip: {fileID: 8300000, guid: e65b91d077690dd42a14665774768521, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: JapanGuide
+    clip: {fileID: 8300000, guid: d8a82be787daaa84b8a84f8a1d0cb92e, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: KoreaGuide
+    clip: {fileID: 8300000, guid: a45f8baaa8eb1964a863c35f9eff7d51, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: TaiwanGuide
+    clip: {fileID: 8300000, guid: 4c1288afb59c8d44c9941b06861f01a9, type: 3}
+    volumn: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!1001 &1975924553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71445,7 +71445,7 @@ RectTransform:
   - {fileID: 890335268}
   - {fileID: 1241119594}
   m_Father: {fileID: 365088850}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
