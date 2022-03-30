@@ -78,7 +78,7 @@ public class FoodSpawn : MonoBehaviour
 
     //Dish
     #region
-    public void dishSpawnUpdate()
+    public void dishSpawnUpdate() //for first time spawn
     {
         int layerMask = 1 << 6;
 
@@ -266,6 +266,7 @@ public class FoodSpawn : MonoBehaviour
             obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
         }
     }
+
     [PunRPC]
     public void SyncDishPosition(int i)
     {
