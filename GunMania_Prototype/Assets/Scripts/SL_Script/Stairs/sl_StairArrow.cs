@@ -27,7 +27,6 @@ public class sl_StairArrow : MonoBehaviour
 
     public void OnTriggerExit(Collider collision)
     {
-        Debug.Log("Exit");
         StopAllCoroutines();
         for (int i = 0; i < upStairs.Length; i++)
         {

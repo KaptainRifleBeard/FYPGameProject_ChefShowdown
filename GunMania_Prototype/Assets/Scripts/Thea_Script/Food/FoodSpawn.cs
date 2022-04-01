@@ -46,7 +46,6 @@ public class FoodSpawn : MonoBehaviour
     void Start()
     {
         view = GetComponent<PhotonView>();
-        //StartCoroutine(UI_DishSpawn());
         DishTimerSpawn();
 
         for (int i = 0; i < displayTimer.Length; i++)
@@ -64,13 +63,10 @@ public class FoodSpawn : MonoBehaviour
                 DishTimerSpawn();
                 dishSpawnUpdate();
 
-                if (DishDespawn.canSpawn == true)
-                {
-                    StartCoroutine(DishRespawn(dishrespawnSec));
-                    DishDespawn.canSpawn = false;
-                    count++;
-                }
-                
+                StartCoroutine(DishRespawn(dishrespawnSec));
+                DishDespawn.canSpawn = false;
+                count++;
+
             }
             if (count == 1)
             {
@@ -118,28 +114,28 @@ public class FoodSpawn : MonoBehaviour
             //japan
             spawnNum = 1;
             view.RPC("SyncDishPosition", RpcTarget.All, spawnNum);
-            DishDespawn.canSpawn = false;
+            //DishDespawn.canSpawn = false;
         }
         else if (dishIndex == 1)
         {
             //Korea dish
             spawnNum = 2;
             view.RPC("SyncDishPosition", RpcTarget.All, spawnNum);
-            DishDespawn.canSpawn = false;
+            //DishDespawn.canSpawn = false;
         }
         else if (dishIndex == 2)
         {
             //China dish
             spawnNum = 3;
             view.RPC("SyncDishPosition", RpcTarget.All, spawnNum);
-            DishDespawn.canSpawn = false;
+            //DishDespawn.canSpawn = false;
         }
         else if (dishIndex == 3)
         {
             //Taiwan dish
             spawnNum = 4;
             view.RPC("SyncDishPosition", RpcTarget.All, spawnNum);
-            DishDespawn.canSpawn = false;
+            //DishDespawn.canSpawn = false;
         }
 
         Debug.Log("dish spawn");
