@@ -114,25 +114,21 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             listings.RemoveAt(i);
         }
     }
-    
-    //public void StartGame()
-    //{
-    //    int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-    //    if (PhotonNetwork.IsMasterClient && playerCount == 2)  // room owner
-    //    {
-    //        PhotonNetwork.LoadLevel("sl_TestScene");
-    //        startGame = true;
+    public void StartGame() //NOW ONLY FOR TESTING PURPOSE
+    {
+        if (PhotonNetwork.IsMasterClient)  // room owner
+        {
+            PhotonNetwork.LoadLevel("sl_TestScene");
+            startGame = true;
 
-    //    }
-    //    else
-    //    {
-    //        startGame = false;
+        }
+        else
+        {
+            startGame = false;
 
-    //    }
-    //    PhotonNetwork.CurrentRoom.IsOpen = false;
-
-    //}
+        }
+    }
 
     public void DisableP2Indicator()
     {
@@ -193,20 +189,20 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
 
         //To start game
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1 &&
-                sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1)
-            {
-                startGame = true;
-                SceneManager.LoadScene("sl_TestScene");
-                PhotonNetwork.CurrentRoom.IsOpen = false;
-            }
-            else
-            {
-                startGame = false;
-            }
-        }
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    if (sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1 &&
+        //        sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1)
+        //    {
+        //        startGame = true;
+        //        SceneManager.LoadScene("sl_TestScene");
+        //        PhotonNetwork.CurrentRoom.IsOpen = false;
+        //    }
+        //    else
+        //    {
+        //        startGame = false;
+        //    }
+        //}
             
     }
 
