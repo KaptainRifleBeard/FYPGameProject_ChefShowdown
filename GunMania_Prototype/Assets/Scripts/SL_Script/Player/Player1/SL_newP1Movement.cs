@@ -166,8 +166,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                     if (Physics.Raycast(ray, out hit))
                     {
                         myAgent.SetDestination(hit.point);
-                        //view.RPC("PlayerMove", RpcTarget.All, hit.point);
-
                         isrunning = true;
                     }
 
@@ -194,6 +192,8 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
             }
 
+            //particle system
+            #region
             if (myAgent.velocity.magnitude < 0.1f)
             {
                 wenTrail.SetActive(false);
@@ -221,6 +221,7 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
                 }
 
             }
+            #endregion
 
             if (gameObject.tag == "Player" && view.IsMine && !stopRotate)
             {
@@ -241,8 +242,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             {
                 view.RPC("SyncCharacterUIAndModel", RpcTarget.All);
             }
-
-           
 
             //  Unused region -- offmesh link
             #region
@@ -568,6 +567,8 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
     {
         myAgent.SetDestination(dest);
     }
+
+
     #endregion
 
     #endregion

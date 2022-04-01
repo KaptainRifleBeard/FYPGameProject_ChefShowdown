@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.AI;
 
 public class DishEffect : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class DishEffect : MonoBehaviour
     GameObject obj;
     int syncnum;
 
+    private NavMeshAgent myAgent;
 
     private void Start()
     {
@@ -31,8 +33,7 @@ public class DishEffect : MonoBehaviour
         canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
-
-        offset = new Vector3(0, 0, 10);
+        myAgent = GetComponent<NavMeshAgent>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,13 +46,7 @@ public class DishEffect : MonoBehaviour
         }
         else if (other.gameObject.tag == "P2Mukozuke")
         {
-            //pull
-            //Vector3 direction = (other.transform.position - transform.position).normalized;
-            //direction.y = 0;
-
-            //Pull(other.transform);
-
-            view.RPC("Pull", RpcTarget.All, other.transform);
+            StartCoroutine(StopMoveToward());
 
             Destroy(other.gameObject); 
         }
@@ -86,33 +81,16 @@ public class DishEffect : MonoBehaviour
         }
     }
 
-    public IEnumerator StunDeactive()
-    {
-        yield return new WaitForSeconds(6.0f);
-        canMove = true;
-    }
-
-    public IEnumerator SilenceDeactive()
-    {
-        yield return new WaitForSeconds(4.0f);
-        canPick = true;
-    }
-
-    public IEnumerator DMGoverTime(int time)
-    {
-        yield return new WaitForSeconds(time);
-        //sl_PlayerHealth.currentHealth -= 1.5f;
-        yield return new WaitForSeconds(time);
-        //sl_PlayerHealth.currentHealth -= 1.5f;
-        yield return new WaitForSeconds(time);
-        //sl_PlayerHealth.currentHealth -= 1.5f;
-    }
-
+    //RPC area
+    #region
     [PunRPC]
-    public void Pull(Transform other)
+    public void Pull()
     {
-        transform.LookAt(other);
-        playerRidg.AddForce(transform.forward * pullingSpeed, ForceMode.Impulse);
+        //transform.LookAt(other);
+        //playerRidg.AddForce(transform.forward * pullingSpeed, ForceMode.Impulse);
+
+        //GameObject p2 = GameObject.FindGameObjectWithTag("Player2");
+        //myAgent.SetDestination(p2.transform.position);
     }
 
     [PunRPC]
@@ -135,7 +113,6 @@ public class DishEffect : MonoBehaviour
         StartCoroutine(SilenceDeactive());
     }
 
-    //[PunRPC]
     public void DropFood()
     {
         if (playerInventory.itemList[0] != null)
@@ -407,6 +384,21 @@ public class DishEffect : MonoBehaviour
 
         }
     }
+    #endregion
+
+    //ienumerator area
+    #region
+    public IEnumerator StunDeactive()
+    {
+        yield return new WaitForSeconds(6.0f);
+        canMove = true;
+    }
+
+    public IEnumerator SilenceDeactive()
+    {
+        yield return new WaitForSeconds(4.0f);
+        canPick = true;
+    }
 
     private IEnumerator MoveToFront()
     {
@@ -419,4 +411,14 @@ public class DishEffect : MonoBehaviour
         sl_InventoryManager.RefreshItem();
     }
 
+    private IEnumerator StopMoveToward()
+    {
+        GameObject p2 = GameObject.FindGameObjectWithTag("Player2");
+        myAgent.SetDestination(p2.transform.position);
+
+        yield return new WaitForSeconds(2.0f);
+        myAgent.ResetPath();
+
+    }
+    #endregion
 }

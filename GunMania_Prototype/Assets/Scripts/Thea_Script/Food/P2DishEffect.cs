@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.AI;
 
 public class P2DishEffect : MonoBehaviour
 {
@@ -24,12 +25,15 @@ public class P2DishEffect : MonoBehaviour
     GameObject obj;
     int syncnum;
 
+    private NavMeshAgent myAgent;
+
     private void Start()
     {
         p2canMove = true;
         p2canPick = true;
         playerRidg = gameObject.GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
+        myAgent = GetComponent<NavMeshAgent>();
 
         offset = new Vector3(0, 0, 5);
     }
@@ -46,10 +50,8 @@ public class P2DishEffect : MonoBehaviour
         else if (other.gameObject.tag == "Mukozuke")
         {
             //pull
-            //Vector3 direction = (other.transform.position - transform.position).normalized;
-            //direction.y = 0;
+            StartCoroutine(StopMoveToward());
 
-            view.RPC("Pull2", RpcTarget.All, other.transform);
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "BuddhaJumpsOvertheWall")
@@ -85,24 +87,14 @@ public class P2DishEffect : MonoBehaviour
         }
     }
 
-    public IEnumerator StunDeactive()
-    {
-        yield return new WaitForSeconds(6.0f);
 
-        p2canMove = true;
-    }
-
-    public IEnumerator SilenceDeactive()
-    {
-        yield return new WaitForSeconds(4.0f);
-        p2canPick = true;
-    }
-
+    //RPC area
+    #region
     [PunRPC]
     public void Pull2(Transform other)
     {
-        transform.LookAt(other);
-        playerRidg.AddForce(transform.forward * pullingSpeed, ForceMode.Impulse);
+        //transform.LookAt(other);
+        //playerRidg.AddForce(transform.forward * pullingSpeed, ForceMode.Impulse);
     }
 
     [PunRPC]
@@ -394,6 +386,22 @@ public class P2DishEffect : MonoBehaviour
 
         }
     }
+    #endregion
+
+    //ienumerator area
+    #region
+    public IEnumerator StunDeactive()
+    {
+        yield return new WaitForSeconds(6.0f);
+
+        p2canMove = true;
+    }
+
+    public IEnumerator SilenceDeactive()
+    {
+        yield return new WaitForSeconds(4.0f);
+        p2canPick = true;
+    }
 
     private IEnumerator MoveToFront()
     {
@@ -406,4 +414,15 @@ public class P2DishEffect : MonoBehaviour
         sl_p2InventoryManager.RefreshItem();
     }
 
+    private IEnumerator StopMoveToward()
+    {
+        GameObject p1 = GameObject.FindGameObjectWithTag("Player");
+        myAgent.SetDestination(p1.transform.position);
+
+        yield return new WaitForSeconds(2.0f);
+        myAgent.ResetPath();
+
+    }
+
+    #endregion
 }
