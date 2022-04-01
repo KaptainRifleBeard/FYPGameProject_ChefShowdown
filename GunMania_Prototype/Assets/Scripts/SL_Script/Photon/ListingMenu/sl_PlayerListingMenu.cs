@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 using System;
@@ -36,7 +37,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
         view = GetComponent<PhotonView>();
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.IsMessageQueueRunning = true;
-
     }
 
     public override void OnEnable()
@@ -115,24 +115,24 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
         }
     }
     
-    public void StartGame()
-    {
-        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+    //public void StartGame()
+    //{
+    //    int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
 
-        if (PhotonNetwork.IsMasterClient /*&& playerCount == 2*/)  // room owner
-        {
-            PhotonNetwork.LoadLevel("sl_TestScene");
-            startGame = true;
+    //    if (PhotonNetwork.IsMasterClient && playerCount == 2)  // room owner
+    //    {
+    //        PhotonNetwork.LoadLevel("sl_TestScene");
+    //        startGame = true;
 
-        }
-        else
-        {
-            startGame = false;
+    //    }
+    //    else
+    //    {
+    //        startGame = false;
 
-        }
-        PhotonNetwork.CurrentRoom.IsOpen = false;
+    //    }
+    //    PhotonNetwork.CurrentRoom.IsOpen = false;
 
-    }
+    //}
 
     public void DisableP2Indicator()
     {
@@ -191,6 +191,23 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             }
         }
 
+
+        //To start game
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1 &&
+                sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1)
+            {
+                startGame = true;
+                SceneManager.LoadScene("sl_TestScene");
+                PhotonNetwork.CurrentRoom.IsOpen = false;
+            }
+            else
+            {
+                startGame = false;
+            }
+        }
+            
     }
 
 }
