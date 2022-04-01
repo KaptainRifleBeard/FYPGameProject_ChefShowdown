@@ -56,7 +56,7 @@ public class sl_DishSpawnManager : MonoBehaviour
                 if (count < 1)
                 {
                     int randomNum = Random.Range(0, dishSpawnPosition.Length);
-                    view.RPC("SyncRandomNumber", RpcTarget.All, randomNum);
+                    view.RPC("SyncRandomNumber", RpcTarget.All, randomNum); //to sync rand num then spawn the correct dish
 
                     StartCoroutine(DishSpawn(dishRespawnTime));
                     count++;
@@ -73,8 +73,8 @@ public class sl_DishSpawnManager : MonoBehaviour
             }
         }
        
-        Debug.Log("spawn " + spawn);
-        Debug.Log("count " + count);
+        //Debug.Log("spawn " + spawn);
+        //Debug.Log("count " + count);
 
     }
 
@@ -82,7 +82,7 @@ public class sl_DishSpawnManager : MonoBehaviour
     public void SyncRandomNumber(int i)
     {
         dishIndex = i;
-        rand.text = i.ToString();
+        rand.text = i.ToString(); //check dish num
 
     }
 
