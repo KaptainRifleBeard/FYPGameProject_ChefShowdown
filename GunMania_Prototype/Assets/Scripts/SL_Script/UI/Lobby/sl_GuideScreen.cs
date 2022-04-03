@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class sl_GuideScreen : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class sl_GuideScreen : MonoBehaviour
 
     void Start()
     {
-        guideScreen.SetActive(false);
+        //guideScreen.SetActive(false);
 
         control.SetActive(true);
         dish.SetActive(false);
@@ -64,14 +65,24 @@ public class sl_GuideScreen : MonoBehaviour
         }
     }
 
-    public void ExitGuideScreen()
+    public void ToGuideScreen()
     {
-        guideScreen.SetActive(false);
+        SceneManager.LoadScene("GuideScreen");
     }
 
-    public void OpenGuideScreen()
+    public void ToSLGuideScreen()
     {
-        guideScreen.SetActive(true);
+        SceneManager.LoadScene("sl_GuideScreen");
+    }
+
+    public void BackToServerLobby()
+    {
+        SceneManager.LoadScene("sl_ServerLobby");
+    }
+
+    public void BackToSetNameMenu()
+    {
+        SceneManager.LoadScene("sl_SetNameMenu");
     }
 
     public void OpenDishGuide()
