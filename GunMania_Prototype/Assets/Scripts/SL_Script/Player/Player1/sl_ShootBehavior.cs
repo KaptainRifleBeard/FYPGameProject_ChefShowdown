@@ -114,7 +114,7 @@ public class sl_ShootBehavior : MonoBehaviour
                     minRange.SetActive(true);
                 }
             }
-            if (SL_newP1Movement.changeModelAnim == 2) //jiho increase 2 range
+            else if (SL_newP1Movement.changeModelAnim == 2) //jiho increase 2 range
             {
                 if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 45)
                 {
@@ -127,8 +127,20 @@ public class sl_ShootBehavior : MonoBehaviour
                     minRange.SetActive(true);
                 }
             }
+            else
+            {
+                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 40)
+                {
+                    maxRange.SetActive(true);
+                    minRange.SetActive(false);
+                }
+                else
+                {
+                    maxRange.SetActive(false);
+                    minRange.SetActive(true);
+                }
+            }
         }
-
 
         if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true)
         {

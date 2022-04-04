@@ -111,9 +111,22 @@ public class sl_P2ShootBehavior : MonoBehaviour
                     minRange.SetActive(true);
                 }
             }
-            if (sl_newP2Movement.changep2Icon == 2) //jiho increase 2 range
+            else if (sl_newP2Movement.changep2Icon == 2) //jiho increase 2 range
             {
                 if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 45)
+                {
+                    maxRange.SetActive(true);
+                    minRange.SetActive(false);
+                }
+                else
+                {
+                    maxRange.SetActive(false);
+                    minRange.SetActive(true);
+                }
+            }
+            else
+            {
+                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 40)
                 {
                     maxRange.SetActive(true);
                     minRange.SetActive(false);
