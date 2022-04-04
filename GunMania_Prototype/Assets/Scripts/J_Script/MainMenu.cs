@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
     {
         openNicknameUI.SetActive(false);
         creditScreen.SetActive(false);
+        settingsMenu.SetActive(false);
     }
 
     public void StartGame()

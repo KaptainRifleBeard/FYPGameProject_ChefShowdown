@@ -9,6 +9,6 @@ public class BtnFx : MonoBehaviour
 
     public void ClickSound()
     {
-        btnFx.PlayOneShot(clickFx);
+        //btnFx.PlayOneShot(clickFx);
     }
 }
