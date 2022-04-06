@@ -18,22 +18,21 @@ public class sl_SceneManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.LoadLevel(0);
 
         PhotonNetwork.LeaveRoom(true);
-
-        //StartCoroutine(DisconnectAndLoad());
+        StartCoroutine(DisconnectAndLoad());
 
     }
 
-    //IEnumerator DisconnectAndLoad()
-    //{
-    //    PhotonNetwork.Disconnect(); //disconnect local player from master client
-    //    while (PhotonNetwork.IsConnected)
-    //    {
-    //        yield return null;
-    //    }
+    IEnumerator DisconnectAndLoad()
+    {
+        PhotonNetwork.Disconnect(); //disconnect local player from master client
+        while (PhotonNetwork.IsConnected)
+        {
+            yield return null;
+        }
 
-    //    SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
 
-    //}
+    }
 
     public override void OnLeftRoom()  //to avoid left room too quickly - MonoBehaviourPunCallbacks
     {

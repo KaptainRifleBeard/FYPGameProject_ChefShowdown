@@ -30,6 +30,6 @@ public class sl_CurrentRoomCanvas : MonoBehaviour
 
     private void Update()
     {
-        startButton.SetActive(true);
+        //startButton.SetActive(true);
     }
 }
