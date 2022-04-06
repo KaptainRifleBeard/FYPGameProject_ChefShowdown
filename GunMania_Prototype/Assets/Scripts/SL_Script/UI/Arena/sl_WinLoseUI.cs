@@ -250,7 +250,7 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
             champic[1].SetActive(false);
             champic[2].SetActive(true);
 
-            theUI_1.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            theUI_1.transform.localScale = new Vector3(1f, 1f, 1f);
         }
         else
         {
@@ -261,14 +261,16 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 champic[1].SetActive(true);
                 champic[2].SetActive(false);
 
-                theUI_1.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                theUI_1.transform.localScale = new Vector3(0.85f, 0.85f, 0.85f);
             }
             else
             {
+                //chamOrRunner1_text.text = "Fling Champion";
+
                 champic[0].SetActive(true);
                 champic[1].SetActive(false);
                 champic[2].SetActive(false);
-                //chamOrRunner1_text.text = "Fling Champion";
+
                 theUI_1.transform.localScale = new Vector3(1f, 1f, 1f);
             }
         }
@@ -294,14 +296,17 @@ public class sl_WinLoseUI : MonoBehaviourPunCallbacks
                 champic2[0].SetActive(false);
                 champic2[1].SetActive(true);
                 champic2[2].SetActive(false);
-                theUI_2.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+
+                theUI_2.transform.localScale = new Vector3(0.85f, 0.85f, 0.85f);
             }
             else
             {
+                //chamOrRunner2_text.text = "Fling Champion";
+
                 champic2[0].SetActive(true);
                 champic2[1].SetActive(false);
                 champic2[2].SetActive(false);
-                //chamOrRunner2_text.text = "Fling Champion";
+
                 theUI_2.transform.localScale = new Vector3(1f, 1f, 1f);
             }
         }

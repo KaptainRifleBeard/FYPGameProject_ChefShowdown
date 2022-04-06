@@ -189,20 +189,20 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
 
         //To start game
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1 &&
-                sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1)
-            {
-                startGame = true;
-                SceneManager.LoadScene("sl_TestScene");
-                PhotonNetwork.CurrentRoom.IsOpen = false;
-            }
-            else
-            {
-                startGame = false;
-            }
-        }
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    if (sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1 &&
+        //        sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1)
+        //    {
+        //        startGame = true;
+        //        SceneManager.LoadScene("sl_TestScene");
+        //        PhotonNetwork.CurrentRoom.IsOpen = false;
+        //    }
+        //    else
+        //    {
+        //        startGame = false;
+        //    }
+        //}
 
     }
 
