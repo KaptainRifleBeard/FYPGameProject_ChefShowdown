@@ -13,7 +13,7 @@ public class CDBeforeGame : MonoBehaviour
 
     private void Start()
     {
-        //loadingScreen.SetActive(true);
+        loadingScreen.SetActive(true);
         StartCoroutine(CDToStart());
     }
 

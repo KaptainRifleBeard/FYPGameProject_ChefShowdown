@@ -26,6 +26,7 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public Animator roomListAnim;
     public Animator createRoomAnim;
+    public Animator lobbyAnim;
 
     private void Start()
     {
@@ -71,12 +72,14 @@ public class sl_CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public void ShowLobby()
     {
-        lobby.SetActive(true);
+        //lobby.SetActive(true);
+        lobbyAnim.SetBool("OpenLobby", true);
     }
 
     public void HideLobby()
     {
-        lobby.SetActive(false);
+        //lobby.SetActive(false);
+        lobbyAnim.SetBool("OpenLobby", false);
     }
 
 
