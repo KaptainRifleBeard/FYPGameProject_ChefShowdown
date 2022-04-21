@@ -83,6 +83,13 @@ public class sl_newP2Movement : MonoBehaviour, IPunObservable
             view.RPC("p2NickName", RpcTarget.All, p2Name.text);
 
         }
+
+        //reset
+        sl_P2PlayerHealth.player2Dead = false;
+        sl_p2InventoryManager.ClearAllInList();
+
+        myAnimator.SetFloat("Blend", 0f);
+        GetAnimation();
     }
 
 

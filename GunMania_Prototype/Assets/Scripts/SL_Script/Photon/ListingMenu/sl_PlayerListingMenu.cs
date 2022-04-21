@@ -174,6 +174,7 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
 
         }
 
+
         if(PhotonNetwork.IsMasterClient)
         {
             if(p2IsIn == 1)
@@ -187,12 +188,12 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
             }
         }
 
-
-        //To start game
         if (PhotonNetwork.IsMasterClient)
         {
+
+            //To start game
             if (sl_P1CharacterSelect.numConfirm1 == 1 && sl_P1CharacterSelect.numConfirm2 == 1 &&
-                sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1)
+             sl_P2CharacterSelect.p2_numConfirm1 == 1 && sl_P2CharacterSelect.p2_numConfirm2 == 1)
             {
                 startGame = true;
                 SceneManager.LoadScene("sl_TestScene");
@@ -203,7 +204,6 @@ public class sl_PlayerListingMenu : MonoBehaviourPunCallbacks
                 startGame = false;
             }
         }
-
     }
 
 }

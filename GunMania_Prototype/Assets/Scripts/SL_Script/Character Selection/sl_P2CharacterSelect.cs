@@ -93,7 +93,8 @@ public class sl_P2CharacterSelect : MonoBehaviour
         tick.SetActive(false);
 
         blank = 0;
-
+        p2_numConfirm1 = 0;
+        p2_numConfirm2 = 0;
     }
 
 

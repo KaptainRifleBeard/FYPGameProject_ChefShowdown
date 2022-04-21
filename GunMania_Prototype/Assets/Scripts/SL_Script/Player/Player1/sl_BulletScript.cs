@@ -25,7 +25,12 @@ public class sl_BulletScript : MonoBehaviour
             //onhit.SetActive(true);
             if (gameObject.tag != "BuddhaJumpsOvertheWall")
             {
+                gameObject.SetActive(false);
                 Destroy(gameObject);
+            }
+            else
+            {
+                gameObject.SetActive(true);
 
             }
         }

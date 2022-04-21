@@ -16,7 +16,7 @@ public class sl_SpawnPlayers : MonoBehaviour
 
     void Start()
     {
-
+        sl_PlayerHealth.playerDead = false;
         sl_P2PlayerHealth.player2Dead = false;
 
         if (PhotonNetwork.IsMasterClient)

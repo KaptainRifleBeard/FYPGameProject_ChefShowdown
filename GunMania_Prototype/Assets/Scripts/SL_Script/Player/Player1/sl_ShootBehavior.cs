@@ -47,6 +47,9 @@ public class sl_ShootBehavior : MonoBehaviour
 
     void Start()
     {
+        bulletCount = 0;
+        p1Shoot = false;
+        
         view = GetComponent<PhotonView>();
         targetObject = targetIndicatorPrefab;
 
@@ -70,110 +73,126 @@ public class sl_ShootBehavior : MonoBehaviour
          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (sl_PlayerHealth.getDamage == false)
         {
-            if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine && bulletCount > 0)
+            if (Physics.Raycast(ray, out hit))
             {
-                p1Shoot = true;  //stop movement when shoot
-
-                //make sure only spawn 1
-                if (count < 1 && spawn == false)
+                if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine && bulletCount > 0 && playerInventory.itemList[0] != null)
                 {
-                    spawn = true;
+                    p1Shoot = true;  //stop movement when shoot
 
-                    view.RPC("BulletType", RpcTarget.All, bulletNum);
-                    targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
+                    //make sure only spawn 1
+                    if (count < 1 && spawn == false)
+                    {
+                        if(sl_PlayerHealth.getDamage == false)
+                        {
+                            spawn = true;
 
-                    count++;
+                            view.RPC("BulletType", RpcTarget.All, bulletNum);
+                            targetObject = Instantiate(targetIndicatorPrefab, Vector3.zero, Quaternion.identity);
 
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
+                            count++;
+                        }
+                        
 
-            }
-        }
+                    }
+                    if (count == 1)
+                    {
+                        spawn = false;
+                    }
 
-        if (Input.GetMouseButton(0) && view.IsMine && p1Shoot == true) //indicator follow mouse
-        {
-            minRange.SetActive(true);
-            targetObject.transform.position = hit.point;
-
-            //****original shoot range = 40
-            if(SL_newP1Movement.changeModelAnim == 0) //brock less 2 range
-            {
-                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 35)
-                {
-                    maxRange.SetActive(true);
-                    minRange.SetActive(false);
                 }
                 else
                 {
-                    maxRange.SetActive(false);
-                    minRange.SetActive(true);
+                    StartCoroutine(MoveToFront());
                 }
             }
-            else if (SL_newP1Movement.changeModelAnim == 2) //jiho increase 2 range
+
+            if (Input.GetMouseButton(0) && view.IsMine && p1Shoot == true && playerInventory.itemList[0] != null) //indicator follow mouse
             {
-                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 45)
+                minRange.SetActive(true);
+                targetObject.transform.position = hit.point;
+
+                //****original shoot range = 40
+                if (SL_newP1Movement.changeModelAnim == 0) //brock less 2 range
                 {
-                    maxRange.SetActive(true);
-                    minRange.SetActive(false);
+                    if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 35)
+                    {
+                        maxRange.SetActive(true);
+                        minRange.SetActive(false);
+                    }
+                    else
+                    {
+                        maxRange.SetActive(false);
+                        minRange.SetActive(true);
+                    }
+                }
+                else if (SL_newP1Movement.changeModelAnim == 2) //jiho increase 2 range
+                {
+                    if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 45)
+                    {
+                        maxRange.SetActive(true);
+                        minRange.SetActive(false);
+                    }
+                    else
+                    {
+                        maxRange.SetActive(false);
+                        minRange.SetActive(true);
+                    }
                 }
                 else
                 {
+                    if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 40)
+                    {
+                        maxRange.SetActive(true);
+                        minRange.SetActive(false);
+                    }
+                    else
+                    {
+                        maxRange.SetActive(false);
+                        minRange.SetActive(true);
+                    }
+                }
+            }
+
+            if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true && playerInventory.itemList[0] != null)
+            {
+                //set in range then shoot
+                if (playerInventory.itemList[0] != null &&
+                    Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 &&
+                    Vector3.Distance(targetObject.transform.position, shootPosition.position) < 40
+                    && gameObject.tag == "Player")  //make sure bullet wont collide with player
+                {
+                    minRange.SetActive(false);
                     maxRange.SetActive(false);
-                    minRange.SetActive(true);
+
+                    ShootBullet();
+
+
+                    //SFX
+                    if (SL_newP1Movement.changeModelAnim == 0) //brock
+                    {
+                        audioName = "Brock_ThrowFood";
+                        SyncAudio();
+                    }
+                    if (SL_newP1Movement.changeModelAnim == 2) //JIHO
+                    {
+                        audioName = "Jiho_ThrowFood";
+                        SyncAudio();
+
+                    }
+                }
+                else
+                {
+                    view.RPC("CancelShoot", RpcTarget.All);
                 }
             }
             else
             {
-                if (Vector3.Distance(targetObject.transform.position, shootPosition.position) > 40)
-                {
-                    maxRange.SetActive(true);
-                    minRange.SetActive(false);
-                }
-                else
-                {
-                    maxRange.SetActive(false);
-                    minRange.SetActive(true);
-                }
+                StartCoroutine(MoveToFront());
             }
         }
-
-        if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true)
-        {
-            //set in range then shoot
-            if (playerInventory.itemList[0] != null &&
-                Vector3.Distance(targetObject.transform.position, shootPosition.position) > 5 && 
-                Vector3.Distance(targetObject.transform.position, shootPosition.position) < 40  
-                && gameObject.tag == "Player")  //make sure bullet wont collide with player
-            {
-                minRange.SetActive(false);
-                maxRange.SetActive(false);
-
-                ShootBullet();
-
-
-                //SFX
-                if (SL_newP1Movement.changeModelAnim == 0) //brock
-                {
-                    audioName = "Brock_ThrowFood";
-                    SyncAudio();
-                }
-                if (SL_newP1Movement.changeModelAnim == 2) //JIHO
-                {
-                    audioName = "Jiho_ThrowFood";
-                    SyncAudio();
-
-                }
-            }
-            else
-            {
-                view.RPC("CancelShoot", RpcTarget.All);
-            }
-        }
+            
     }
 
     public void DefineInventoryBulletType()
@@ -447,6 +466,8 @@ public class sl_ShootBehavior : MonoBehaviour
     [PunRPC]
     public void CancelShoot()
     {
+        sl_InventoryManager.RefreshItem();
+
         for(int i = 0; i < theFoodToShow.Length; i++)
         {
             theFoodToShow[i].SetActive(false);

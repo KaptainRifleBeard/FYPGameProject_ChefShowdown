@@ -43,14 +43,11 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     public bool p2IsWen;
 
-    public bool toRoof;
-
     //new movement
     bool detectAndStop;
     public float speed;
     Vector3 destination;
 
-    public bool knockback;
     Vector3 direction;
 
     private LineRenderer lineRenderer;
@@ -85,10 +82,8 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
 
     void Start()
     {
-        toRoof = false;
-
         destination = transform.position;
-        knockback = false;
+
         myAgent = GetComponent<NavMeshAgent>();
         view = GetComponent<PhotonView>();
         myAnimator = gameObject.GetComponent<Animator>();
@@ -100,10 +95,6 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
         inventoryVisible.SetActive(false);
         indicatorVisible.SetActive(false);
 
-        //reset
-        sl_PlayerHealth.playerDead = false;
-        myAnimator.SetFloat("Blend", 0f);
-        GetAnimation();
 
         if (view.IsMine)
         {
@@ -111,6 +102,14 @@ public class SL_newP1Movement : MonoBehaviour, IPunObservable
             view.RPC("p1NickName", RpcTarget.All, p1Name.text);
 
         }
+
+
+        //reset
+        sl_PlayerHealth.playerDead = false;
+        sl_InventoryManager.ClearAllInList();
+
+        myAnimator.SetFloat("Blend", 0f);
+        GetAnimation();
 
 
     }

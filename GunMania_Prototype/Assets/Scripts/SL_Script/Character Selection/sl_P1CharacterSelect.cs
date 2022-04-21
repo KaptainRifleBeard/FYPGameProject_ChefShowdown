@@ -99,7 +99,8 @@ public class sl_P1CharacterSelect : MonoBehaviour
 
         blank = 0;
 
-
+        numConfirm1 = 0;
+        numConfirm2 = 0;
     }
 
 

@@ -47,6 +47,9 @@ public class sl_P2ShootBehavior : MonoBehaviour
 
     void Start()
     {
+        p2bulletCount = 0;
+        p2Shoot = false;
+
         view = GetComponent<PhotonView>();
         targetObject = targetIndicatorPrefab;
 
@@ -457,6 +460,8 @@ public class sl_P2ShootBehavior : MonoBehaviour
     [PunRPC]
     public void CancelShoot2()
     {
+        sl_p2InventoryManager.RefreshItem();
+
         //theFood.SetActive(false);
         for (int i = 0; i < theFoodToShow.Length; i++)
         {

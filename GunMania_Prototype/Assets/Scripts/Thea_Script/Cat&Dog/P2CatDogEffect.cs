@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class CatDogEffect : MonoBehaviour
+public class P2CatDogEffect : MonoBehaviour
 {
     PhotonView view;
     public sl_Inventory playerInventory;
@@ -20,9 +20,9 @@ public class CatDogEffect : MonoBehaviour
         {
             if (playerInventory.itemList[0] != null)
             {
-                sl_ShootBehavior.bulletCount--;
+                sl_P2ShootBehavior.p2bulletCount--;
                 playerInventory.itemList[0] = null;
-                sl_InventoryManager.RefreshItem();
+                sl_p2InventoryManager.RefreshItem();
                 StartCoroutine(MoveToFront());
 
             }
@@ -33,11 +33,11 @@ public class CatDogEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         playerInventory.itemList[0] = playerInventory.itemList[1];
-        sl_InventoryManager.RefreshItem();
+        sl_p2InventoryManager.RefreshItem();
 
         yield return new WaitForSeconds(0.1f);
         playerInventory.itemList[1] = null;
-        sl_InventoryManager.RefreshItem();
+        sl_p2InventoryManager.RefreshItem();
 
     }
 }
