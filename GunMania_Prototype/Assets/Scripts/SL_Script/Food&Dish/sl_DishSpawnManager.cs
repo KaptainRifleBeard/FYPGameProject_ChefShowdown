@@ -53,6 +53,7 @@ public class sl_DishSpawnManager : MonoBehaviour
         {
             if (count < 1 && spawn == false)
             {
+                randDish = Random.Range(0, 1);
                 dishIndex = Random.Range(0, dishSpawnPosition.Length);
                 view.RPC("SyncRandomNumber", RpcTarget.All, dishIndex); //to sync rand num then spawn the correct dish
 
@@ -244,7 +245,6 @@ public class sl_DishSpawnManager : MonoBehaviour
 
         if(spawn)
         {
-            randDish = Random.Range(0, 1);
 
             view.RPC("SL_SyncDishPosition", RpcTarget.All, spawnNum, randDish);
             spawn = false;
