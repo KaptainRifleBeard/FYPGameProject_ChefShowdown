@@ -31,13 +31,13 @@ public class sl_DishSpawnManager : MonoBehaviour
     int count;
     bool spawn;
 
+    int randDish; //for dish to check which one to spawn
+
     public Text rand;
 
     void Start()
     {
         view = GetComponent<PhotonView>();
-        view.RPC("DishTimerSpawn", RpcTarget.All);
-
         spawn = false;
         count = 0;
 
@@ -49,32 +49,22 @@ public class sl_DishSpawnManager : MonoBehaviour
 
     void Update()
     {
-        if(PhotonNetwork.IsMasterClient) //make sure it wont run in both build, only for masterclient
+        if (PhotonNetwork.IsMasterClient) //make sure it wont run in both build, only for masterclient
         {
             if (count < 1 && spawn == false)
             {
-                if (count < 1)
-                {
-                    int randomNum = Random.Range(0, dishSpawnPosition.Length);
-                    view.RPC("SyncRandomNumber", RpcTarget.All, randomNum); //to sync rand num then spawn the correct dish
+                dishIndex = Random.Range(0, dishSpawnPosition.Length);
+                view.RPC("SyncRandomNumber", RpcTarget.All, dishIndex); //to sync rand num then spawn the correct dish
 
-                    StartCoroutine(DishSpawn(dishRespawnTime));
-                    count++;
-
-                }
-                if (count == 1)
-                {
-                    spawn = false;
-                }
-                else
-                {
-                    spawn = true;
-                }
+                StartCoroutine(DishSpawn(dishRespawnTime));
+                count++;
+                spawn = true;
+               
             }
         }
-       
-        //Debug.Log("spawn " + spawn);
-        //Debug.Log("count " + count);
+
+        Debug.Log("spawn " + spawn);
+        Debug.Log("count " + count);
 
     }
 
@@ -82,63 +72,60 @@ public class sl_DishSpawnManager : MonoBehaviour
     public void SyncRandomNumber(int i)
     {
         dishIndex = i;
-        rand.text = i.ToString(); //check dish num
-
+        rand.text = i.ToString(); //check dish position
     }
 
     //Dish spawn
     #region
-    public IEnumerator DishSpawn(int dishsecs)
+    public IEnumerator DishSpawn(int dishsecs) //spawn timer
     {
         yield return new WaitForSeconds(dishsecs);
-
-        if (PhotonNetwork.IsMasterClient)
+        if (dishIndex == 0)
         {
-            if (dishIndex == 0)
-            {
-                //japan
-                spawn = true;
-                spawnNum = 1;
-
-                view.RPC("DishTimerSpawn", RpcTarget.All);
-            }
-            else if (dishIndex == 1)
-            {
-                //Korea dish
-                spawn = true;
-                spawnNum = 2;
-
-                view.RPC("DishTimerSpawn", RpcTarget.All);
-            }
-            else if (dishIndex == 2)
-            {
-                //China dish
-                spawn = true;
-                spawnNum = 3;
-
-                view.RPC("DishTimerSpawn", RpcTarget.All);
-            }
-            else if (dishIndex == 3)
-            {
-                //Taiwan dish
-                spawn = true;
-                spawnNum = 4;
-
-                view.RPC("DishTimerSpawn", RpcTarget.All);
-
-            }
-            Debug.Log("dish timer spawn");
+            //japan
+            spawnNum = 1;
+            view.RPC("DishTimerSpawn", RpcTarget.All, spawnNum);
+        }
+        else if (dishIndex == 1)
+        {
+            //Korea dish
+            spawnNum = 2;
+            view.RPC("DishTimerSpawn", RpcTarget.All, spawnNum);
+        }
+        else if (dishIndex == 2)
+        {
+            //China dish
+            spawnNum = 3;
+            view.RPC("DishTimerSpawn", RpcTarget.All, spawnNum);
+        }
+        else if (dishIndex == 3)
+        {
+            //Taiwan dish
+            spawnNum = 4;
+            view.RPC("DishTimerSpawn", RpcTarget.All, spawnNum);
 
         }
-
+        Debug.Log("dish timer spawn");
     }
 
     [PunRPC]
-    public void SL_SyncDishPosition(int i)
+    public void SL_SyncDishPosition(int i, int num)
     {
+        dishIndex = i;
+        randDish = num;
+
         if (i == 1) //j
         {
-            obj = PhotonNetwork.Instantiate(japanDish[Random.Range(0, japanDish.Length)].name, dishSpawnPosition[0].transform.position, Quaternion.identity);
+            if(num == 0)
+            {
+                obj = PhotonNetwork.Instantiate(japanDish[0].name, dishSpawnPosition[0].transform.position, Quaternion.identity);
+
+            }
+            else
+            {
+                obj = PhotonNetwork.Instantiate(japanDish[1].name, dishSpawnPosition[0].transform.position, Quaternion.identity);
+
+            }
             dishParentName = "JapanDishSpawn";
 
             obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
@@ -150,7 +137,16 @@ public class sl_DishSpawnManager : MonoBehaviour
 
         if (i == 2)//k
         {
-            obj = PhotonNetwork.Instantiate(koreaDish[Random.Range(0, koreaDish.Length)].name, dishSpawnPosition[1].transform.position, Quaternion.identity);
+            if (num == 0)
+            {
+                obj = PhotonNetwork.Instantiate(koreaDish[0].name, dishSpawnPosition[1].transform.position, Quaternion.identity);
+
+            }
+            else
+            {
+                obj = PhotonNetwork.Instantiate(koreaDish[1].name, dishSpawnPosition[1].transform.position, Quaternion.identity);
+
+            }
             dishParentName = "KoreaDishSpawn";
 
             obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
@@ -161,7 +157,16 @@ public class sl_DishSpawnManager : MonoBehaviour
 
         if (i == 3)//c
         {
-            obj = PhotonNetwork.Instantiate(chinaDish[Random.Range(0, chinaDish.Length)].name, dishSpawnPosition[2].transform.position, Quaternion.identity);
+            if (num == 0)
+            {
+                obj = PhotonNetwork.Instantiate(chinaDish[0].name, dishSpawnPosition[2].transform.position, Quaternion.identity);
+
+            }
+            else
+            {
+                obj = PhotonNetwork.Instantiate(chinaDish[1].name, dishSpawnPosition[2].transform.position, Quaternion.identity);
+
+            }
             dishParentName = "ChinaDishSpawn";
 
             obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
@@ -172,7 +177,16 @@ public class sl_DishSpawnManager : MonoBehaviour
 
         if (i == 4)//t
         {
-            obj = PhotonNetwork.Instantiate(taiwanDish[Random.Range(0, taiwanDish.Length)].name, dishSpawnPosition[3].transform.position, Quaternion.identity);
+            if (num == 0)
+            {
+                obj = PhotonNetwork.Instantiate(taiwanDish[0].name, dishSpawnPosition[3].transform.position, Quaternion.identity);
+
+            }
+            else
+            {
+                obj = PhotonNetwork.Instantiate(taiwanDish[1].name, dishSpawnPosition[3].transform.position, Quaternion.identity);
+
+            }
             dishParentName = "TaiwanDishSpawn";
 
             obj.transform.SetParent(GameObject.Find(dishParentName).transform, false);
@@ -189,33 +203,35 @@ public class sl_DishSpawnManager : MonoBehaviour
     #region
 
     [PunRPC]
-    public void DishTimerSpawn()
+    public void DishTimerSpawn(int i)
     {
-        if (spawnNum == 1)
+        spawnNum = i;
+
+        if (i == 1)
         {
-            Debug.Log("JapanDishSpawn 1");
+            //Debug.Log("JapanDishSpawn 1");
 
             displayTimer[0].SetActive(true);
             StartCoroutine(StopTimer());
         }
-        if (spawnNum == 2)
+        if (i == 2)
         {
-            Debug.Log("KoreaDishSpawn 2");
+            //Debug.Log("KoreaDishSpawn 2");
 
             displayTimer[1].SetActive(true);
             StartCoroutine(StopTimer());
         }
-        if (spawnNum == 3)
+        if (i == 3)
         {
-            Debug.Log("ChinaDishSpawn 3");
+            //Debug.Log("ChinaDishSpawn 3");
 
             displayTimer[2].SetActive(true);
             StartCoroutine(StopTimer());
 
         }
-        if (spawnNum == 4)
+        if (i == 4)
         {
-            Debug.Log("TaiwanDishSpawn 4");
+            //Debug.Log("TaiwanDishSpawn 4");
 
             displayTimer[3].SetActive(true);
             StartCoroutine(StopTimer());
@@ -228,7 +244,9 @@ public class sl_DishSpawnManager : MonoBehaviour
 
         if(spawn)
         {
-            view.RPC("SL_SyncDishPosition", RpcTarget.All, spawnNum);
+            randDish = Random.Range(0, 1);
+
+            view.RPC("SL_SyncDishPosition", RpcTarget.All, spawnNum, randDish);
             spawn = false;
             count = 0;
         }
