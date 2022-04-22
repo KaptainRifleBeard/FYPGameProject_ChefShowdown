@@ -77,7 +77,7 @@ public class sl_ShootBehavior : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine && bulletCount > 0 && playerInventory.itemList[0] != null)
+                if (Input.GetMouseButtonDown(0) && p1Shoot == false && view.IsMine && bulletCount > 0)
                 {
                     p1Shoot = true;  //stop movement when shoot
 
@@ -102,13 +102,9 @@ public class sl_ShootBehavior : MonoBehaviour
                     }
 
                 }
-                else
-                {
-                    StartCoroutine(MoveToFront());
-                }
             }
 
-            if (Input.GetMouseButton(0) && view.IsMine && p1Shoot == true && playerInventory.itemList[0] != null) //indicator follow mouse
+            if (Input.GetMouseButton(0) && view.IsMine && p1Shoot == true) //indicator follow mouse
             {
                 minRange.SetActive(true);
                 targetObject.transform.position = hit.point;
@@ -155,7 +151,7 @@ public class sl_ShootBehavior : MonoBehaviour
                 }
             }
 
-            if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true && playerInventory.itemList[0] != null)
+            if (Input.GetMouseButtonUp(0) && bulletCount > 0 && p1Shoot == true)
             {
                 //set in range then shoot
                 if (playerInventory.itemList[0] != null &&
@@ -186,10 +182,6 @@ public class sl_ShootBehavior : MonoBehaviour
                 {
                     view.RPC("CancelShoot", RpcTarget.All);
                 }
-            }
-            else
-            {
-                StartCoroutine(MoveToFront());
             }
         }
             
